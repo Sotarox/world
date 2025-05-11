@@ -1,4 +1,5 @@
 export interface Country {
+    dbid: number;
     id: string;
     capital: string;
     currency_code: string;

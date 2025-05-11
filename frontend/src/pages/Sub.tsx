@@ -1,39 +1,38 @@
 import { useState, useEffect } from 'react';
-import countries from "../data/Countries"
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import api from '../api/axios';
-import {type Country} from '../model/Country'
+import {type Country} from '../model/Country';
 
 function Sub() {
-  const [countries2, setCountries2] = useState<Country[]>([]);
-  const country = countries[0];
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    ...theme.applyStyles('dark', {
-      backgroundColor: '#1A2027',
-    }),
-  }));
-  
+  const [countries, setCountries] = useState<Country[]>([]);
+
   useEffect(() => {
-    api.get("countries")
+    api.get<Country[]>("countries")
         .then((res) => {
-            console.log(res);
-            setCountries2([]);
-            console.log(countries2);
+            setCountries(res.data);
         })
         .catch((error) => console.log(error));
   }, []);
 
+  const Item = styled(Paper)(({ theme }) => ({
+     backgroundColor: '#fff',
+     ...theme.typography.body2,
+     padding: theme.spacing(1),
+     textAlign: 'center',
+     ...theme.applyStyles('dark', {
+       backgroundColor: '#1A2027',
+     }),
+  }));
+
   return (
     <>
-      <h1>{country.country_name}</h1>
-      
+      {countries[0]?.country_name && (
+        <h2>{countries[0].country_name}</h2>
+      )}
+      <h1>ID: {countries[0]?.id ?? "N/A"}</h1>
       <Grid container spacing={2}>
         <Grid size={{ xs: 12 }}>
           <Paper>12</Paper>
