@@ -1,10 +1,14 @@
+import { useState, useEffect } from 'react';
 import countries from "../data/Countries"
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import api from '../api/axios';
+import {type Country} from '../model/Country'
 
 function Sub() {
+  const [countries2, setCountries2] = useState<Country[]>([]);
   const country = countries[0];
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -16,6 +20,15 @@ function Sub() {
     }),
   }));
   
+  useEffect(() => {
+    api.get("countries")
+        .then((res) => {
+            console.log(res);
+            setCountries2([]);
+            console.log(countries2);
+        })
+        .catch((error) => console.log(error));
+  }, []);
 
   return (
     <>
