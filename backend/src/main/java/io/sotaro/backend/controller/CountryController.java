@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/countries")
+@RequestMapping("/api")
 public class CountryController {
     private final CountryService countryService;
 
@@ -17,7 +17,7 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @GetMapping
+    @GetMapping("/countries")
     public List<CountryDto> getAllCountries() {
         return countryService.getAllCountries();
     }
