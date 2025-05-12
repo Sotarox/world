@@ -1,7 +1,6 @@
 package io.sotaro.backend.controller;
 
 import io.sotaro.backend.model.AirportDto;
-import io.sotaro.backend.model.CountryDto;
 import io.sotaro.backend.service.AirportService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
