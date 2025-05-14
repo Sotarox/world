@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import Button from '@mui/material/Button'
-import { styled } from '@mui/material/styles';
 import api from '../api/axios';
 import {type Country} from '../model/Country';
+import AirportList from './AirportList'
 
 function Sub() {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -17,10 +16,11 @@ function Sub() {
 
   return (
     <>
-      {countries[0]?.country_name && (
-        <h2>{countries[0].country_name}</h2>
+      <h1>Country ID: {countries[1]?.id ?? "N/A"}</h1>
+      <h1>Country name: {countries[1]?.country_name ?? "N/A"}</h1>
+      {countries[1]?.country_name && (
+        <AirportList countryIso2={countries[1]?.country_iso2}/>
       )}
-      <h1>ID: {countries[0]?.id ?? "N/A"}</h1>
     </>
   )
 }
