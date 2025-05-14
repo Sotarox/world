@@ -21,7 +21,7 @@ function AirportList(props:AirportListProps) {
 
   return (
     <>
-      <h2>Airports</h2>
+      <h2>The number of airports: {airports.length}</h2>
       <h3>countryIso2: {countryIso2 ? countryIso2 : "N/A"}</h3>
       {
         airports.length > 0 ?
