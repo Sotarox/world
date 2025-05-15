@@ -1,22 +1,15 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import { Item } from '../components/Item'
 
 interface AirportInfoCardProps {
   title: string|null;
   value: string|null;
 }
 
-function AirportInfoCard(props:AirportInfoProps) {
+function AirportInfoCard(props:AirportInfoCardProps) {
   const { title, value } = props;
-  const Item = styled(Paper)(({ theme }) => ({
-       backgroundColor: '#fff',
-       padding: theme.spacing(1),
-       ...theme.applyStyles('dark', {
-         backgroundColor: '#1A2027',
-       }),
-    }));
-
   return (
       <Item>
         <Typography variant="h6" style={{ fontWeight: 50 }}>

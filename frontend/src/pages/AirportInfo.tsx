@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import {type Airport} from '../model/Airport';
 import AirportInfoCard from './AirportInfoCard';
+import { Item } from '../components/Item';
 
 interface AirportInfoProps {
   airport: Airport|null;
@@ -12,13 +13,6 @@ interface AirportInfoProps {
 
 function AirportInfo(props:AirportInfoProps) {
   const { airport } = props;
-  const Item = styled(Paper)(({ theme }) => ({
-         backgroundColor: '#fff',
-         padding: theme.spacing(1),
-         ...theme.applyStyles('dark', {
-           backgroundColor: '#1A2027',
-         }),
-      }));
 
   if (airport !== null) {
     return (

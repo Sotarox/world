@@ -5,16 +5,19 @@ import AirportInfo from './AirportInfo'
 
 interface AirportListProps {
   countryIso2: string|null;
+  onLoad: (size:number) => void;
 }
 
 function AirportList(props:AirportListProps) {
-  const { countryIso2 } = props;
+  const { countryIso2, onLoad } = props;
   const [airports, setAirports] = useState<Airport[]>([]);
 
   useEffect(() => {
     api.get<Airport[]>("airports/" + countryIso2)
         .then((res) => {
             setAirports(res.data);
+            console.log(res.data);
+            onLoad(res.data.length);
         })
         .catch((error) => console.log(error));
   }, [countryIso2]);
@@ -22,11 +25,10 @@ function AirportList(props:AirportListProps) {
   return (
     <>
       <h2>The number of airports: {airports.length}</h2>
-      <h3>countryIso2: {countryIso2 ? countryIso2 : "N/A"}</h3>
       {
         airports.length > 0 ?
           airports.map((airport) => (
-            <AirportInfo airport={airport}/>
+            <AirportInfo key={airport.dbid} airport={airport}/>
           ))
         : (<></>)
       }
