@@ -29,7 +29,7 @@ public class AirportService {
 
     private AirportDto convertToDto(AirportEntity entity) {
         return new AirportDto(
-            entity.getDbid(),
+            entity.getDbId(),
             entity.getId(),
             entity.getGmt(),
             entity.getAirportId(),

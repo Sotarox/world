@@ -2,7 +2,7 @@ package io.sotaro.backend.model;
 
 
 public record AirportDto(
-        Long dbid,
+        Long dbId,
         String id,
         String gmt,
         String airportId,
