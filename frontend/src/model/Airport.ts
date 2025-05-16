@@ -1,5 +1,5 @@
 export interface Airport {
-    dbid: number;
+    dbId: number;
     id: string;
     gmt: string;
     airportId: string;

@@ -10,18 +10,45 @@ public class CountryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dbid;
+    @Column(name = "dbid")
+    private Long dbId;
+
+    @Column(name = "id")
     private String id;
+
+    @Column(name = "capital")
     private String capital;
-    private String currency_code;
-    private String fips_code;
-    private String country_iso2;
-    private String country_iso3;
+
+    @Column(name = "currency_code")
+    private String currencyCode;
+
+    @Column(name = "fips_code")
+    private String fipsCode;
+
+    @Column(name = "country_iso2")
+    private String countryIso2;
+
+    @Column(name = "country_iso3")
+    private String countryIso3;
+
+    @Column(name = "continent")
     private String continent;
-    private String country_id;
-    private String country_name;
-    private String currency_name;
-    private String country_iso_numeric;
-    private String phone_prefix;
+
+    @Column(name = "country_id")
+    private String countryId;
+
+    @Column(name = "country_name")
+    private String countryName;
+
+    @Column(name = "currency_name")
+    private String currencyName;
+
+    @Column(name = "country_iso_numeric")
+    private String countryIsoNumeric;
+
+    @Column(name = "phone_prefix")
+    private String phonePrefix;
+
+    @Column(name = "population")
     private String population;
 }
