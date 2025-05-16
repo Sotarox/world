@@ -1,6 +1,4 @@
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 import { Item } from '../components/Item'
 
 interface AirportInfoCardProps {

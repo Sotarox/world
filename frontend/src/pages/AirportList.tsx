@@ -28,7 +28,7 @@ function AirportList(props:AirportListProps) {
       {
         airports.length > 0 ?
           airports.map((airport) => (
-            <AirportInfo key={airport.dbid} airport={airport}/>
+            <AirportInfo key={airport.dbId} airport={airport}/>
           ))
         : (<></>)
       }

@@ -1,26 +1,16 @@
-import { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
-import api from '../api/axios';
 import {type Country} from '../model/Country';
-import AirportList from './AirportList';
 import PublicIcon from '@mui/icons-material/Public';
 import Box from '@mui/material/Box';
 import { Item } from '../components/Item';
 
-function Country() {
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [sizeAirports, setSizeAirports] = useState(0);
+interface CountryInfoProps {
+  country: Country;
+  sizeAirports: number;
+}
+function CountryInfo(props: CountryInfoProps) {
+  const { country, sizeAirports } = props;
 
-  useEffect(() => {
-    api.get<Country[]>("countries")
-        .then((res) => {
-            setCountries(res.data);
-        })
-        .catch((error) => console.log(error));
-  }, []);
-
-  if (countries.length > 0) {
-    const country = countries[1];
     return (
         <>
           <Item>
@@ -37,12 +27,8 @@ function Country() {
             <Typography variant="h5">Population: {country.population}</Typography>
             <Typography variant="h5">The number of airports: {sizeAirports}</Typography>
           </Item>
-          <AirportList countryIso2={country.countryIso2} onLoad={(size:number)=>setSizeAirports(size)}/>
         </>
-      )
-  } else {
-    return <p>Country couldn't be loaded.</p>
-  }
+    )
 }
 
-export default Country
+export default CountryInfo;

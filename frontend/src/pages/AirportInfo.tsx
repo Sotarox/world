@@ -1,8 +1,6 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 import {type Airport} from '../model/Airport';
 import AirportInfoCard from './AirportInfoCard';
 import { Item } from '../components/Item';
@@ -11,7 +9,7 @@ interface AirportInfoProps {
   airport: Airport|null;
 }
 
-function AirportInfo(props:AirportInfoProps) {
+function AirportInfo(props: AirportInfoProps) {
   const { airport } = props;
 
   if (airport !== null) {
