@@ -23,19 +23,19 @@ public class CountryService {
     }
 
     private CountryDto convertToDto(CountryEntity countryEntity) {
-        return new CountryDto(countryEntity.getDbid(),
+        return new CountryDto(countryEntity.getDbId(),
                 countryEntity.getId(),
                 countryEntity.getCapital(),
-                countryEntity.getCurrency_code(),
-                countryEntity.getFips_code(),
-                countryEntity.getCountry_iso2(),
-                countryEntity.getCountry_iso3(),
+                countryEntity.getCurrencyCode(),
+                countryEntity.getFipsCode(),
+                countryEntity.getCountryIso2(),
+                countryEntity.getCountryIso3(),
                 countryEntity.getContinent(),
-                countryEntity.getCountry_id(),
-                countryEntity.getCountry_name(),
-                countryEntity.getCurrency_name(),
-                countryEntity.getCountry_iso_numeric(),
-                countryEntity.getPhone_prefix(),
+                countryEntity.getCountryId(),
+                countryEntity.getCountryName(),
+                countryEntity.getCurrencyName(),
+                countryEntity.getCountryIsoNumeric(),
+                countryEntity.getPhonePrefix(),
                 countryEntity.getPopulation());
     }
 }

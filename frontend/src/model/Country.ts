@@ -1,16 +1,16 @@
 export interface Country {
-    dbid: number;
+    dbId: number;
     id: string;
     capital: string;
-    currency_code: string;
-    fips_code: string;
-    country_iso2: string;
-    country_iso3: string;
+    currencyCode: string;
+    fipsCode: string;
+    countryIso2: string;
+    countryIso3: string;
     continent: string;
-    country_id: string;
-    country_name: string;
-    currency_name: string;
-    country_iso_numeric: string;
-    phone_prefix: string;
+    countryId: string;
+    countryName: string;
+    currencyName: string;
+    countryIsoNumeric: string;
+    phonePrefix: string;
     population: string;
 }

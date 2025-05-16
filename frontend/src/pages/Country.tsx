@@ -26,20 +26,18 @@ function Country() {
           <Item>
             <Box sx={{ display:"flex" }}>
               <PublicIcon sx={{ fontSize: 60 }}/>
-              <Typography variant="h2">{country.country_name}</Typography>
+              <Typography variant="h2">{country.countryName}</Typography>
             </Box>
             <Typography variant="h5">Capital: {country.capital}</Typography>
             <Typography variant="h5">Continent: {country.continent}</Typography>
-            <Typography variant="h5">Country ISO2: {country.country_iso2}</Typography>
-            <Typography variant="h5">Country ISO3: {country.country_iso3}</Typography>
-            <Typography variant="h5">Currency: {country.currency_name}</Typography>
-            <Typography variant="h5">Currency Code: {country.currency_code}</Typography>
+            <Typography variant="h5">Country ISO2: {country.countryIso2}</Typography>
+            <Typography variant="h5">Country ISO3: {country.countryIso3}</Typography>
+            <Typography variant="h5">Currency: {country.currencyName}</Typography>
+            <Typography variant="h5">Currency Code: {country.currencyCode}</Typography>
             <Typography variant="h5">Population: {country.population}</Typography>
             <Typography variant="h5">The number of airports: {sizeAirports}</Typography>
           </Item>
-          {country.country_name && (
-            <AirportList countryIso2={country.country_iso2} onLoad={(size:number)=>setSizeAirports(size)}/>
-          )}
+          <AirportList countryIso2={country.countryIso2} onLoad={(size:number)=>setSizeAirports(size)}/>
         </>
       )
   } else {
