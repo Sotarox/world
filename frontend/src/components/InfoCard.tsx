@@ -1,12 +1,12 @@
 import Typography from '@mui/material/Typography';
 import { Item } from '../components/Item'
 
-interface AirportInfoCardProps {
+interface InfoCardProps {
   title: string|null;
   value: string|null;
 }
 
-function AirportInfoCard(props:AirportInfoCardProps) {
+function InfoCard(props:InfoCardProps) {
   const { title, value } = props;
   return (
       <Item>
@@ -20,4 +20,4 @@ function AirportInfoCard(props:AirportInfoCardProps) {
   )
 }
 
-export default AirportInfoCard
+export default InfoCard

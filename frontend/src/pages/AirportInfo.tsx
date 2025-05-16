@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography';
 import {type Airport} from '../model/Airport';
-import AirportInfoCard from './AirportInfoCard';
+import InfoCard from '../components/InfoCard';
 import { Item } from '../components/Item';
 
 interface AirportInfoProps {
@@ -24,16 +24,16 @@ function AirportInfo(props: AirportInfoProps) {
                 </Item>
               </Grid>
               <Grid size={{ xs: 6, md: 3 }}>
-                <AirportInfoCard title="IATA Code" value={airport.iataCode}/>
+                <InfoCard title="IATA Code" value={airport.iataCode}/>
               </Grid>
               <Grid size={{ xs: 6, md: 3 }}>
-                <AirportInfoCard title="City IATA Code" value={airport.cityIataCode}/>
+                <InfoCard title="City IATA Code" value={airport.cityIataCode}/>
               </Grid>
               <Grid size={{ xs: 6, md: 3 }}>
-                <AirportInfoCard title="Longitude" value={airport.longitude}/>
+                <InfoCard title="Longitude" value={airport.longitude}/>
               </Grid>
               <Grid size={{ xs: 6, md: 3 }}>
-                <AirportInfoCard title="Latitude" value={airport.latitude}/>
+                <InfoCard title="Latitude" value={airport.latitude}/>
               </Grid>
           </Grid>
         </Box>
