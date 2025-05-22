@@ -14,7 +14,7 @@ function CountryInfo(props: CountryInfoProps) {
   const { country, sizeAirports } = props;
 
     return (
-        <>
+        <Box sx={{mt:2}}>
           <Item sx={{ mb:2 }}>
             <Box sx={{ display:"flex" }}>
               <PublicIcon sx={{ fontSize: 60 }}/>
@@ -47,7 +47,7 @@ function CountryInfo(props: CountryInfoProps) {
               <InfoCard title="The number of airports" value={sizeAirports}/>
             </Grid>
           </Grid>
-        </>
+        </Box>
     )
 }
 

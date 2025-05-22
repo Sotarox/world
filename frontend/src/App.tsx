@@ -1,11 +1,12 @@
-import './App.css'
-import CountryLoad from './pages/CountryLoad';
+import SearchAppBar from './components/SearchAppBar';
+import Contents from './pages/Contents';
 
 function App() {
 
   return (
     <>
-      <CountryLoad/>
+      <SearchAppBar/>
+      <Contents/>
     </>
   )
 }
