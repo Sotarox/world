@@ -50,10 +50,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function HeaderBar() {
   return (
     <>
-      <AppBar position="sticky">
+      <AppBar position="sticky" sx={{display:{ xs: 'none', sm: 'block'}}}>
         <Toolbar>
           <IconButton
             size="large"

@@ -1,12 +1,14 @@
-import SearchAppBar from './components/SearchAppBar';
+import BottomBar from './components/BottomBar';
+import HeaderBar from './components/HeaderBar';
 import Contents from './pages/Contents';
 
 function App() {
 
   return (
     <>
-      <SearchAppBar/>
+      <HeaderBar/>
       <Contents/>
+      <BottomBar/>
     </>
   )
 }
