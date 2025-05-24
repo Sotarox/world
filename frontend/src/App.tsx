@@ -1,11 +1,14 @@
-import './App.css'
-import CountryLoad from './pages/CountryLoad';
+import BottomBar from './components/BottomBar';
+import HeaderBar from './components/HeaderBar';
+import Contents from './pages/Contents';
 
 function App() {
 
   return (
     <>
-      <CountryLoad/>
+      <HeaderBar/>
+      <Contents/>
+      <BottomBar/>
     </>
   )
 }

@@ -17,7 +17,8 @@ function CountryLoad() {
   }, []);
 
   if (countries.length > 0) {
-    const country = countries[1];
+    const country = countries[2];
+    
     return (
         <>
           <CountryInfo country={country} sizeAirports={sizeAirports}/>
