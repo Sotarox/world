@@ -16,11 +16,9 @@ function CountryInfo(props: CountryInfoProps) {
 
     return (
         <Box sx={{mt:2}}>
-          <Item sx={{ mb:2 }}>
-            <Box sx={{ display:"flex" }}>
-              <span className={smallIso2} style={{height:"60px", width: "60px"}}></span>
-              <Typography variant="h2">{country.countryName}</Typography>
-            </Box>
+          <Item sx={{ mb:2, display:"flex", justifyContent:"center", alignItems: "center", gap: 1.5 }}>
+            <span className={smallIso2} style={{height:"72px", width: "72px", flexShrink: "0"}}></span>
+            <Typography variant="h2" sx={{ maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis" }}>{country.countryName}</Typography>
           </Item>
           <Grid container spacing={1}>
             <Grid size={{ xs: 6, md: 3 }}>
