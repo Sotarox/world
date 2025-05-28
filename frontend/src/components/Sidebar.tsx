@@ -11,10 +11,11 @@ import { countryIso2NameMap } from '../model/CountryIso2NameMap';
 interface SidebarProps {
     isOpen: boolean;
     setIsOpen: () => void;
+    setSelectedCountry: (countryIso2:string) => void;
 }
 
 function Sidebar(props: SidebarProps) {
-    const { isOpen, setIsOpen } = props;
+    const { isOpen, setIsOpen, setSelectedCountry } = props;
 
     const list = () => (
         <Box
@@ -27,9 +28,9 @@ function Sidebar(props: SidebarProps) {
                 .sort((a, b) => (a.countryName < b.countryName ? -1 : 1))
                 .map((obj) => (
                     <ListItem key={obj.countryIso2} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton onClick={() => setSelectedCountry(obj.countryIso2)}>
                             <ListItemIcon>
-                                <InboxIcon />
+                                <InboxIcon/>
                             </ListItemIcon>
                             <ListItemText primary={obj.countryName} />
                         </ListItemButton>

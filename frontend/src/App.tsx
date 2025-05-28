@@ -6,12 +6,17 @@ import Sidebar from './components/Sidebar';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+  const [selectedCountry, setSelectedCountry] = React.useState("");
 
   return (
     <>
       <HeaderBar toggleDrawer={()=>setIsSidebarOpen(!isSidebarOpen)}/>
-        <Sidebar isOpen={isSidebarOpen} setIsOpen={() => setIsSidebarOpen(!isSidebarOpen)}/>
-        <Contents/>
+        <Sidebar
+          isOpen={isSidebarOpen} 
+          setIsOpen={() => setIsSidebarOpen(!isSidebarOpen)}
+          setSelectedCountry={(countryIso2) => setSelectedCountry(countryIso2)}
+        />
+        <Contents selectedCountry={selectedCountry}/>
       <BottomBar/>
     </>
   )
