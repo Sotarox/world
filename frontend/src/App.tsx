@@ -37,12 +37,12 @@ function App() {
 
   return (
     <>
-      <HeaderBar/>
+      <HeaderBar toggleDrawer={()=>setState(!state)}/>
         <SwipeableDrawer
               anchor={"left"}
-              open={true}
-              onClose={()=>setState(false)}
-              onOpen={()=>setState(false)}
+              open={state}
+              onClose={()=>{}} // NOP
+              onOpen={()=>{}}  // NOP
               slotProps={{
                 // TODO: Set Height of HeaderBar and BottomBar programatically
                 paper: { sx: {mt: {xs: '0px', sm: '64px'}, 
