@@ -52,7 +52,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function HeaderBar() {
   return (
     <>
-      <AppBar position="sticky" sx={{display:{ xs: 'none', sm: 'block'}}}>
+      <AppBar position="sticky" 
+      sx={{display:{ xs: 'none', sm: 'block'}, 
+            zIndex: (theme) => theme.zIndex.drawer +1 }}>
         <Toolbar>
           <IconButton
             size="large"

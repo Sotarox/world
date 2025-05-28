@@ -54,7 +54,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function BottomBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ top: 'auto', bottom: 0, height: "80px", display: { xs: 'block', sm: 'none'} }}>
+      <AppBar 
+        position="fixed" 
+        sx={{ top: 'auto', bottom: 0, height: "80px", 
+          display: { xs: 'block', sm: 'none'},
+          zIndex: (theme) => theme.zIndex.drawer +1 }}
+      >
         <Toolbar>
           <IconButton
             size="large"
