@@ -5,7 +5,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { countryIso2NameMap } from '../model/CountryIso2NameMap';
 
 interface SidebarProps {
@@ -30,7 +29,7 @@ function Sidebar(props: SidebarProps) {
                     <ListItem key={obj.countryIso2} disablePadding>
                         <ListItemButton onClick={() => setSelectedCountry(obj.countryIso2)}>
                             <ListItemIcon>
-                                <InboxIcon/>
+                                <span className={`fi fi-${obj.countryIso2.toLowerCase()}`} style={{height:"24px", width: "24px", flexShrink: "0"}}></span>
                             </ListItemIcon>
                             <ListItemText primary={obj.countryName} />
                         </ListItemButton>
