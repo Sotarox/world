@@ -18,7 +18,7 @@ function Sidebar(props: SidebarProps) {
 
     const list = () => (
         <Box
-            sx={{ width: 250 }}
+            sx={{ width: {xs: '250px', sm: '300px'} }}
             role="presentation"
             onClick={setIsOpen}
         >
@@ -46,11 +46,10 @@ function Sidebar(props: SidebarProps) {
             onClose={() => {setIsOpen()}}
             onOpen={() => { }}  // NOP
             slotProps={{
-                // TODO: Set Height of HeaderBar and BottomBar programatically
                 paper: {
                     sx: {
-                        mt: { xs: '0px', sm: '64px' },
-                        mb: { xs: '80px', sm: '0px' },
+                        mt: { xs: '0px', sm: 'var(--header-bar-height)' },
+                        mb: { xs: 'var(--bottom-bar-height)', sm: '0px' },
                         bottom: 0,
                         height: 'auto'
                     },
