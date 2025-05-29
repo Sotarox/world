@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
@@ -13,7 +14,7 @@ interface SidebarProps {
     setSelectedCountry: (countryIso2:string) => void;
 }
 
-function Sidebar(props: SidebarProps) {
+const Sidebar = React.memo((props: SidebarProps) => {
     const { isOpen, setIsOpen, setSelectedCountry } = props;
 
     const list = () => (
@@ -59,6 +60,5 @@ function Sidebar(props: SidebarProps) {
             {list()}
         </SwipeableDrawer>
     )
-}
-
-export default Sidebar
+})
+export default Sidebar;
