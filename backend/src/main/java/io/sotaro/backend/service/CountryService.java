@@ -6,6 +6,7 @@ import io.sotaro.backend.repository.CountryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,6 +21,12 @@ public class CountryService {
         return countryRepository.findAll().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    public CountryDto getCountryByIso2(String countryIso2) {
+        Optional<CountryEntity> optionalEntity = countryRepository.findByCountryIso2(countryIso2);
+        CountryEntity entity = optionalEntity.orElseThrow();
+        return convertToDto(entity);
     }
 
     private CountryDto convertToDto(CountryEntity countryEntity) {

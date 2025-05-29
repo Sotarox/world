@@ -25,7 +25,7 @@ public class CountryEntity {
     @Column(name = "fips_code")
     private String fipsCode;
 
-    @Column(name = "country_iso2")
+    @Column(name = "country_iso2", unique = true)
     private String countryIso2;
 
     @Column(name = "country_iso3")
