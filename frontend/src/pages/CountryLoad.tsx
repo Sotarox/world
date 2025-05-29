@@ -9,28 +9,26 @@ interface CountryLoadProps {
 }
 function CountryLoad(props: CountryLoadProps) {
   const {selectedCountry} = props;
-  const [countries, setCountries] = useState<Country[]>([]);
+  const [country, setCountry] = useState<Country | undefined>();
   const [sizeAirports, setSizeAirports] = useState(0);
 
   useEffect(() => {
-    api.get<Country[]>("countries")
+    if (selectedCountry) {
+      api.get<Country>(`countries/${selectedCountry}`)
         .then((res) => {
-            setCountries(res.data);
+            setCountry(res.data);
         })
         .catch((error) => console.log(error));
-  }, []);
+    }
+  }, [selectedCountry]);
 
-  if (countries.length > 0) {
-    const country: Country|undefined = countries.find((c) => c.countryIso2 === selectedCountry);
-    
-    if (typeof country !== "undefined") { 
+  if (country) {
       return (
         <>
           <CountryInfo country={country} sizeAirports={sizeAirports}/>
           <AirportList countryIso2={country.countryIso2} onLoad={(size:number)=>setSizeAirports(size)}/>
         </>
       )
-    } else return <>country is undefined</>
   } else {
     return <p>Country couldn't be loaded.</p>
   }
