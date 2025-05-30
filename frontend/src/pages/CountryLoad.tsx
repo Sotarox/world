@@ -4,22 +4,26 @@ import {type Country} from '../model/Country';
 import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
 
-function CountryLoad() {
-  const [countries, setCountries] = useState<Country[]>([]);
+interface CountryLoadProps {
+  selectedCountry: string;
+}
+function CountryLoad(props: CountryLoadProps) {
+  const {selectedCountry} = props;
+  const [country, setCountry] = useState<Country | undefined>();
   const [sizeAirports, setSizeAirports] = useState(0);
 
   useEffect(() => {
-    api.get<Country[]>("countries")
+    if (selectedCountry) {
+      api.get<Country>(`countries/${selectedCountry}`)
         .then((res) => {
-            setCountries(res.data);
+            setCountry(res.data);
         })
         .catch((error) => console.log(error));
-  }, []);
+    }
+  }, [selectedCountry]);
 
-  if (countries.length > 0) {
-    const country = countries[2];
-    
-    return (
+  if (country) {
+      return (
         <>
           <CountryInfo country={country} sizeAirports={sizeAirports}/>
           <AirportList countryIso2={country.countryIso2} onLoad={(size:number)=>setSizeAirports(size)}/>

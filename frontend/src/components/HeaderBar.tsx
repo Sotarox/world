@@ -49,16 +49,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function HeaderBar() {
+interface HeaderBarProps {
+  toggleDrawer: () => void;
+}
+
+export default function HeaderBar(props: HeaderBarProps) {
+  const { toggleDrawer } = props;
   return (
     <>
-      <AppBar position="sticky" sx={{display:{ xs: 'none', sm: 'block'}}}>
+      <AppBar position="sticky" 
+      sx={{display:{ xs: 'none', sm: 'block'}, 
+            zIndex: (theme) => theme.zIndex.drawer +1 }}>
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
+            onClick={toggleDrawer}
             sx={{ mr: 2 }}
           >
             <MenuIcon />

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
 import api from '../api/axios';
 import {type Airport} from '../model/Airport';
 import AirportInfo from './AirportInfo'
@@ -23,8 +24,7 @@ function AirportList(props:AirportListProps) {
   }, [countryIso2]);
 
   return (
-    <>
-      <h2>The number of airports: {airports.length}</h2>
+    <Box sx={{mt:4}}>
       {
         airports.length > 0 ?
           airports.map((airport) => (
@@ -32,7 +32,7 @@ function AirportList(props:AirportListProps) {
           ))
         : (<></>)
       }
-    </>
+    </Box>
   )
 }
 
