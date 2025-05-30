@@ -22,7 +22,7 @@ function App() {
           setSelectedCountry={setSelectedCountryWrapper}
         />
         <Contents selectedCountry={selectedCountry}/>
-      <BottomBar/>
+      <BottomBar toggleDrawer={toggleIsSidebarOpen}/>
     </>
   )
 }

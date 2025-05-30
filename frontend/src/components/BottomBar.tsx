@@ -51,7 +51,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function BottomBar() {
+interface BottomBarProps {
+  toggleDrawer: () => void;
+}
+
+export default function BottomBar(props: BottomBarProps) {
+  const { toggleDrawer } = props;
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar 
@@ -66,6 +71,7 @@ export default function BottomBar() {
             edge="start"
             color="inherit"
             aria-label="menu"
+            onClick={toggleDrawer}
             sx={{ mr: 2 }}
           >
             <MenuIcon />
