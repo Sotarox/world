@@ -6,6 +6,7 @@ import { Item } from '../components/Item';
 import InfoCard from '../components/InfoCard';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { continentCodeToName } from '../utils/utils';
+import { CircleFlag } from 'react-circle-flags'
 
 interface CountryInfoProps {
   country: Country;
@@ -13,12 +14,11 @@ interface CountryInfoProps {
 }
 function CountryInfo(props: CountryInfoProps) {
   const { country, sizeAirports } = props;
-  const smallIso2 = `fi fi-${country.countryIso2.toLowerCase()}`;
 
     return (
         <Box sx={{mt:2}}>
           <Item sx={{ mb:2, display:"flex", justifyContent:"center", alignItems: "center", gap: 1.5 }}>
-            <span className={smallIso2} style={{height:"72px", width: "72px", flexShrink: "0"}}></span>
+            <CircleFlag countryCode={country.countryIso2.toLowerCase()} height="50"/>
             <Typography variant="h2" sx={{ maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis" }}>{country.countryName}</Typography>
           </Item>
           <Grid container spacing={1}>
