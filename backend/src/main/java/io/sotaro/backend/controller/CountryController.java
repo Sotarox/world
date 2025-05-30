@@ -2,6 +2,7 @@ package io.sotaro.backend.controller;
 
 import io.sotaro.backend.model.CountryDto;
 import io.sotaro.backend.service.CountryService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +20,13 @@ public class CountryController {
     }
 
     @GetMapping("/countries")
-    public List<CountryDto> getAllCountries() {
-        return countryService.getAllCountries();
+    public ResponseEntity<List<CountryDto>> getAllCountries() {
+
+        return ResponseEntity.ok(countryService.getAllCountries());
     }
 
     @GetMapping("/countries/{countryIso2}")
-    public CountryDto getCountryByCountryIso2(@PathVariable String countryIso2) {
-        return countryService.getCountryByIso2(countryIso2);
+    public ResponseEntity<CountryDto> getCountryByCountryIso2(@PathVariable String countryIso2) {
+        return ResponseEntity.ok(countryService.getCountryByIso2(countryIso2));
     }
 }
