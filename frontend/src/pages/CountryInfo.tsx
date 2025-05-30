@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import { Item } from '../components/Item';
 import InfoCard from '../components/InfoCard';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { continentCodeToName } from '../utils/utils';
 
 interface CountryInfoProps {
   country: Country;
@@ -25,7 +26,7 @@ function CountryInfo(props: CountryInfoProps) {
               <InfoCard title="Capital" value={country.capital}/>
             </Grid>
             <Grid size={{ xs: 6, md: 3 }}>
-              <InfoCard title="Continent" value={country.continent}/>
+              <InfoCard title="Continent" value={continentCodeToName(country.continent)}/>
             </Grid>
             <Grid size={{ xs: 6, md: 3 }}>
               <InfoCard title="Country ISO2" value={country.countryIso2}/>
