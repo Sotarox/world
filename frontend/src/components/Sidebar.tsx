@@ -40,9 +40,14 @@ const Sidebar = React.memo((props: SidebarProps) => {
         </Box>
     );
 
+    const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
     return (
         <SwipeableDrawer
             anchor={"left"}
+            disableBackdropTransition={!iOS} 
+            disableDiscovery={iOS}
+            disableSwipeToOpen={false}
             open={isOpen}
             onClose={() => {setIsOpen()}}
             onOpen={() => { }}  // NOP
