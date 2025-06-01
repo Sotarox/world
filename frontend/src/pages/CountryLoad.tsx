@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import api from '../api/axios';
 import {type Country} from '../model/Country';
 import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
+import { CurrentIso2Context } from '../App';
 
 interface CountryLoadProps {
   selectedCountry: string;
@@ -11,16 +12,17 @@ function CountryLoad(props: CountryLoadProps) {
   const {selectedCountry} = props;
   const [country, setCountry] = useState<Country | undefined>();
   const [sizeAirports, setSizeAirports] = useState(0);
+  const { currentIso2 } = useContext(CurrentIso2Context);
 
   useEffect(() => {
-    if (selectedCountry) {
-      api.get<Country>(`countries/${selectedCountry}`)
+    if (currentIso2 !== "N/A") {
+      api.get<Country>(`countries/${currentIso2}`)
         .then((res) => {
             setCountry(res.data);
         })
         .catch((error) => console.log(error));
     }
-  }, [selectedCountry]);
+  }, [currentIso2]);
 
   if (country) {
       return (

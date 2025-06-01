@@ -7,6 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { countryIso2NameMap } from '../model/CountryIso2NameMap';
+import { CurrentIso2Context } from '../App';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -16,6 +17,7 @@ interface SidebarProps {
 
 const Sidebar = React.memo((props: SidebarProps) => {
     const { isOpen, setIsOpen, setSelectedCountry } = props;
+    const { setCurrentIso2 } = React.useContext(CurrentIso2Context);
 
     const list = () => (
         <Box
@@ -28,7 +30,10 @@ const Sidebar = React.memo((props: SidebarProps) => {
                 .sort((a, b) => (a.countryName < b.countryName ? -1 : 1))
                 .map((obj) => (
                     <ListItem key={obj.countryIso2} disablePadding>
-                        <ListItemButton onClick={() => setSelectedCountry(obj.countryIso2)}>
+                        <ListItemButton onClick={() => {
+                            setSelectedCountry(obj.countryIso2);
+                            setCurrentIso2(obj.countryIso2);
+                        }}>
                             <ListItemIcon>
                                 <span className={`fi fi-${obj.countryIso2.toLowerCase()}`} style={{height:"24px", width: "24px", flexShrink: "0"}}></span>
                             </ListItemIcon>
