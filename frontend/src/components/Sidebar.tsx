@@ -12,11 +12,10 @@ import { CurrentIso2Context } from '../App';
 interface SidebarProps {
     isOpen: boolean;
     setIsOpen: () => void;
-    setSelectedCountry: (countryIso2:string) => void;
 }
 
 const Sidebar = React.memo((props: SidebarProps) => {
-    const { isOpen, setIsOpen, setSelectedCountry } = props;
+    const { isOpen, setIsOpen } = props;
     const { setCurrentIso2 } = React.useContext(CurrentIso2Context);
 
     const list = () => (
@@ -30,10 +29,7 @@ const Sidebar = React.memo((props: SidebarProps) => {
                 .sort((a, b) => (a.countryName < b.countryName ? -1 : 1))
                 .map((obj) => (
                     <ListItem key={obj.countryIso2} disablePadding>
-                        <ListItemButton onClick={() => {
-                            setSelectedCountry(obj.countryIso2);
-                            setCurrentIso2(obj.countryIso2);
-                        }}>
+                        <ListItemButton onClick={() => setCurrentIso2(obj.countryIso2)}>
                             <ListItemIcon>
                                 <span className={`fi fi-${obj.countryIso2.toLowerCase()}`} style={{height:"24px", width: "24px", flexShrink: "0"}}></span>
                             </ListItemIcon>

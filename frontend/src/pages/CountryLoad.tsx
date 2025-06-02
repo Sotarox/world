@@ -5,11 +5,7 @@ import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
 import { CurrentIso2Context } from '../App';
 
-interface CountryLoadProps {
-  selectedCountry: string;
-}
-function CountryLoad(props: CountryLoadProps) {
-  const {selectedCountry} = props;
+function CountryLoad() {
   const [country, setCountry] = useState<Country | undefined>();
   const [sizeAirports, setSizeAirports] = useState(0);
   const { currentIso2 } = useContext(CurrentIso2Context);

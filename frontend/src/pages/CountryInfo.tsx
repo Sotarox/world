@@ -1,4 +1,3 @@
-import {useContext} from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid'
 import {type Country} from '../model/Country';
@@ -8,7 +7,6 @@ import InfoCard from '../components/InfoCard';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { continentCodeToName } from '../utils/utils';
 import { CircleFlag } from 'react-circle-flags'
-import { CurrentIso2Context } from '../App';
 
 interface CountryInfoProps {
   country: Country;
@@ -16,7 +14,6 @@ interface CountryInfoProps {
 }
 function CountryInfo(props: CountryInfoProps) {
   const { country, sizeAirports } = props;
-  const { currentIso2 } = useContext(CurrentIso2Context);
 
     return (
         <Box sx={{mt:2}}>

@@ -15,12 +15,8 @@ const CurrentIso2Context = React.createContext<CurrentIso2ContentType>({
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-  const [selectedCountry, setSelectedCountry] = React.useState("");
   const toggleIsSidebarOpen = React.useCallback(
     () => setIsSidebarOpen(!isSidebarOpen), [isSidebarOpen]);
-  const setSelectedCountryWrapper = React.useCallback(
-    (countryIso2: string) => setSelectedCountry(countryIso2), []
-  )
   
   const [currentIso2, setCurrentIso2] = React.useState("");
 
@@ -36,9 +32,8 @@ function App() {
         <Sidebar
           isOpen={isSidebarOpen}
           setIsOpen={toggleIsSidebarOpen}
-          setSelectedCountry={setSelectedCountryWrapper}
         />
-        <Contents selectedCountry={selectedCountry} />
+        <Contents />
         <BottomBar toggleDrawer={toggleIsSidebarOpen} />
       </CurrentIso2Context.Provider>
     </>
