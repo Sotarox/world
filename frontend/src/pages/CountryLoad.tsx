@@ -3,7 +3,7 @@ import api from '../api/axios';
 import {type Country} from '../model/Country';
 import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
-import { CurrentIso2Context } from '../App';
+import { CurrentIso2Context } from '../contexts/CurrentIso2Context';
 
 function CountryLoad() {
   const [country, setCountry] = useState<Country | undefined>();

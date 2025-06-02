@@ -7,7 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { countryIso2NameMap } from '../model/CountryIso2NameMap';
-import { SetCurrentIso2Context } from '../App';
+import { SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
 
 interface SidebarProps {
     isOpen: boolean;
