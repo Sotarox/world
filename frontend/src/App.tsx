@@ -4,6 +4,7 @@ import HeaderBar from './components/HeaderBar';
 import Contents from './pages/Contents';
 import Sidebar from './components/Sidebar';
 import { CurrentIso2ContextProvider } from './contexts/CurrentIso2Context';
+import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -13,13 +14,15 @@ function App() {
   return (
     <>
       <CurrentIso2ContextProvider>
-        <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
-        <Sidebar
-          isOpen={isSidebarOpen}
-          setIsOpen={toggleIsSidebarOpen}
-        />
-        <Contents />
-        <BottomBar toggleDrawer={toggleIsSidebarOpen} />
+        <CurrentTopicContextProvider>
+          <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
+          <Sidebar
+            isOpen={isSidebarOpen}
+            setIsOpen={toggleIsSidebarOpen}
+          />
+          <Contents />
+          <BottomBar toggleDrawer={toggleIsSidebarOpen} />
+        </CurrentTopicContextProvider>
       </CurrentIso2ContextProvider>
     </>
   )

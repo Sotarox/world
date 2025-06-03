@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid'
 import {type Country} from '../model/Country';
@@ -7,6 +8,7 @@ import InfoCard from '../components/InfoCard';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { continentCodeToName } from '../utils/utils';
 import { CircleFlag } from 'react-circle-flags'
+import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 
 interface CountryInfoProps {
   country: Country;
@@ -14,6 +16,7 @@ interface CountryInfoProps {
 }
 function CountryInfo(props: CountryInfoProps) {
   const { country, sizeAirports } = props;
+  const { setCurrentTopic } = useContext(CurrentTopicContext);
 
     return (
         <Box sx={{mt:2}}>
@@ -38,7 +41,7 @@ function CountryInfo(props: CountryInfoProps) {
               <InfoCard title="Currency" value={country.currencyName}/>
             </Grid>
             <Grid size={{ xs: 6, md: 3 }}>
-              <InfoCard title="Population" value={country.population}/>
+              <InfoCard title="Population" value={country.population} onClick={() => setCurrentTopic("population")}/>
             </Grid>
             <Grid size={{ xs: 6, md: 3 }}>
               <InfoCard title="Phone prefix" value={country.phonePrefix}/>
