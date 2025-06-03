@@ -13,6 +13,9 @@ function PopulationInfo(props: PopulationInfoProps) {
     return (
         <Box sx={{ mb: 3 }}>
           <Grid container spacing={1}>
+              <Grid size={{ xs:12 }}>
+                <InfoCard title="Population Inforamtion" value=""/>
+              </Grid>
               <Grid size={{ xs: 6, md: 3 }}>
                 <InfoCard title="World rank:" value="N/A"/>
               </Grid>
