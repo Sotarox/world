@@ -15,7 +15,7 @@ function CountryLoad() {
   const { currentTopic } = useContext(CurrentTopicContext);
 
   useEffect(() => {
-    if (currentIso2 !== "N/A") {
+    if (currentIso2 !== "") {
       api.get<Country>(`countries/${currentIso2}`)
         .then((res) => {
           setCountry(res.data);
