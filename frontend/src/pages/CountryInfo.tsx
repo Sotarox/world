@@ -47,7 +47,7 @@ function CountryInfo(props: CountryInfoProps) {
               <InfoCard title="Phone prefix" value={country.phonePrefix}/>
             </Grid>
             <Grid size={{ xs: 6, md: 3 }}>
-              <InfoCard title="The number of airports" value={sizeAirports.toString()}/>
+              <InfoCard title="The number of airports" value={sizeAirports.toString()} onClick={() => setCurrentTopic("airports")}/>
             </Grid>
           </Grid>
         </Box>
