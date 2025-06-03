@@ -5,9 +5,9 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import ListIcon from '@mui/icons-material/List';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -74,7 +74,7 @@ export default function BottomBar(props: BottomBarProps) {
             onClick={toggleDrawer}
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <ListIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             World

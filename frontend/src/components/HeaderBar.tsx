@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import ListIcon from '@mui/icons-material/List';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -69,7 +70,7 @@ export default function HeaderBar(props: HeaderBarProps) {
             onClick={toggleDrawer}
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <ListIcon />
           </IconButton>
           <Typography
             variant="h6"
