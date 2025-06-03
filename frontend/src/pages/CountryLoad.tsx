@@ -4,6 +4,7 @@ import api from '../api/axios';
 import { type Country } from '../model/Country';
 import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
+import PopulationInfo from './PopulationInfo';
 import { CurrentIso2Context } from '../contexts/CurrentIso2Context';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 
@@ -24,13 +25,13 @@ function CountryLoad() {
   }, [currentIso2]);
 
   if (country) {
-    const topic = currentTopic === "airports" ? <AirportList countryIso2={country.countryIso2} onLoad={(size: number) => setSizeAirports(size)} />
-      : <></>;
     return (
       <>
         <CountryInfo country={country} sizeAirports={sizeAirports} />
         <Divider sx={{ mt: 2, mb: 2 }} />
-        {topic}
+        <AirportList countryIso2={country.countryIso2} isVisible={currentTopic === "airports"}
+          onLoad={(size: number) => setSizeAirports(size)} />
+        <PopulationInfo isVisible={currentTopic === "population"} />
       </>
     )
   } else {
