@@ -25,23 +25,23 @@ function CountryInfo(props: CountryInfoProps) {
         <CircleFlag countryCode={country.countryIso2.toLowerCase()} height="50" />
         <Typography variant="h2" sx={{ maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis" }}>{country.countryName}</Typography>
       </Item>
-      <Grid container spacing={1}>
-        <Grid size={{ xs: 6, md: 3 }}>
+      <Grid container spacing={0.125}>
+        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Capital" value={country.capital} />
         </Grid>
-        <Grid size={{ xs: 6, md: 3 }}>
+        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Continent" value={continentCodeToName(country.continent)} />
         </Grid>
-        <Grid size={{ xs: 6, md: 3 }}>
+        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Country ISO2" value={country.countryIso2} />
         </Grid>
-        <Grid size={{ xs: 6, md: 3 }}>
+        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Country ISO3" value={country.countryIso3} />
         </Grid>
-        <Grid size={{ xs: 6, md: 3 }}>
+        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Currency" value={country.currencyName} />
         </Grid>
-        <Grid size={{ xs: 6, md: 3 }}>
+        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Phone prefix" value={country.phonePrefix} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ display: "flex" }}>

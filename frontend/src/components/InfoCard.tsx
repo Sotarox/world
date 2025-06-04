@@ -4,13 +4,12 @@ import { Item } from '../components/Item';
 interface InfoCardProps {
   title: string | null;
   value: string | null;
-  onClick?: () => void;
 }
 
 function InfoCard(props: InfoCardProps) {
-  const { title, value, onClick } = props;
+  const { title, value } = props;
   return (
-    <Item onClick={() => onClick && onClick()}>
+    <Item>
       <Typography variant="h6" style={{ fontWeight: 50 }}>
         {title}
       </Typography>
