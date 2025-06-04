@@ -9,6 +9,8 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { continentCodeToName } from '../utils/utils';
 import { CircleFlag } from 'react-circle-flags'
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
+import { Button } from '@mui/material';
+import ClickbarInfoCard from '../components/ClickbarInfoCard';
 
 interface CountryInfoProps {
   country: Country;
@@ -43,8 +45,10 @@ function CountryInfo(props: CountryInfoProps) {
             <Grid size={{ xs: 6, md: 3 }}>
               <InfoCard title="Phone prefix" value={country.phonePrefix}/>
             </Grid>
-            <Grid size={{ xs: 6, md: 3 }}>
-              <InfoCard title="Population" value={country.population} onClick={() => setCurrentTopic("population")}/>
+            <Grid size={{ xs: 6, md: 3 }} sx={{display: "flex"}}>
+              <Button sx={{alignItems:'start', padding: 1, flexGrow: 1, textAlign: 'left', textTransform: 'none'} }>
+                <ClickbarInfoCard title="Population" value={country.population} onClick={() => setCurrentTopic("population")}/>
+              </Button>
             </Grid>
             <Grid size={{ xs: 6, md: 3 }}>
               <InfoCard title="The number of airports" value={sizeAirports.toString()} onClick={() => setCurrentTopic("airports")}/>
