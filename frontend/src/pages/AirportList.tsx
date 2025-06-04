@@ -7,10 +7,11 @@ import AirportInfo from './AirportInfo'
 interface AirportListProps {
   countryIso2: string|null;
   onLoad: (size:number) => void;
+  isVisible: boolean;
 }
 
 function AirportList(props:AirportListProps) {
-  const { countryIso2, onLoad } = props;
+  const { countryIso2, isVisible, onLoad } = props;
   const [airports, setAirports] = useState<Airport[]>([]);
 
   useEffect(() => {
@@ -21,19 +22,19 @@ function AirportList(props:AirportListProps) {
             onLoad(res.data.length);
         })
         .catch((error) => console.log(error));
-  }, [countryIso2]);
+  }, [countryIso2, onLoad]);
 
-  return (
-    <Box sx={{mt:4}}>
-      {
-        airports.length > 0 ?
+  if (isVisible && airports.length > 0) {
+    return (
+      <Box sx={{mt:4}}>
+        {
           airports.map((airport) => (
             <AirportInfo key={airport.dbId} airport={airport}/>
           ))
-        : (<></>)
-      }
-    </Box>
-  )
+        }
+      </Box>
+    )
+  } else return <></>;
 }
 
 export default AirportList;
