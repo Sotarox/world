@@ -1,9 +1,12 @@
 export const convertContinentCodeToName = (continentCode: string) => {
+    console.log("convertContinentCodeToName", continentCode);
     switch (continentCode) {
         case "AF":
             return "Africa";
         case "AN":
             return "Antarctica";
+        case "AS":
+            return "Asia";
         case "EU":
             return "Europe";
         case "NA":
