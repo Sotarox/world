@@ -34,4 +34,9 @@ public class CountryController {
     public ResponseEntity<List<PopulationRankDto>> getAllPopulationRank(){
         return ResponseEntity.ok(countryService.getAllPopulationRanks());
     }
+
+    @GetMapping("/countries/rank/population/{countryIso2}")
+    public ResponseEntity<PopulationRankDto> getPopulationRank(@PathVariable String countryIso2){
+        return ResponseEntity.ok(countryService.getPopulationRankByCountryIso2(countryIso2));
+    }
 }

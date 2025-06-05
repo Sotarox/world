@@ -12,22 +12,4 @@ import java.util.Optional;
 @Repository
 public interface CountryRepository extends JpaRepository<CountryEntity, Long> {
     Optional<CountryEntity> findByCountryIso2(String countryIso2);
-
-    @Query(
-            value = """
-                    SELECT
-                        dbid, country_iso2, country_name, continent, population,
-                        RANK() OVER (
-                            ORDER BY
-                                  CASE
-                                      WHEN population IS NULL THEN 1
-                                      ELSE 0
-                                  END,
-                                  population DESC
-                        ) AS rank
-                    FROM
-                        Countries;
-                    """,
-            nativeQuery = true)
-    List<PopulationRankEntity> findPopulationRank();
 }

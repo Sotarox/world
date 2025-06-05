@@ -5,6 +5,7 @@ import io.sotaro.backend.model.CountryEntity;
 import io.sotaro.backend.model.PopulationRankDto;
 import io.sotaro.backend.model.PopulationRankEntity;
 import io.sotaro.backend.repository.CountryRepository;
+import io.sotaro.backend.repository.PopulationRankRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class CountryService {
     private final CountryRepository countryRepository;
+    private final PopulationRankRepository populationRankRepository;
 
-    public CountryService(CountryRepository countryRepository) {
+    public CountryService(CountryRepository countryRepository, PopulationRankRepository populationRankRepository) {
         this.countryRepository = countryRepository;
+        this.populationRankRepository = populationRankRepository;
     }
 
     public List<CountryDto> getAllCountries() {
@@ -32,9 +35,16 @@ public class CountryService {
     }
 
     public List<PopulationRankDto> getAllPopulationRanks() {
-        return countryRepository.findPopulationRank().stream()
+        return populationRankRepository.findPopulationRank().stream()
                 .map(this::convertToPopulationRankDto)
                 .collect(Collectors.toList());
+    }
+
+    public PopulationRankDto getPopulationRankByCountryIso2(String countryIso2) {
+        Optional<PopulationRankEntity> optionalEntity =
+                populationRankRepository.findPopulationRankByCountryIso2(countryIso2);
+        PopulationRankEntity entity = optionalEntity.orElseThrow();
+        return convertToPopulationRankDto(entity);
     }
 
     private CountryDto convertToDto(CountryEntity countryEntity) {
