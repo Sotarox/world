@@ -2,6 +2,8 @@ package io.sotaro.backend.service;
 
 import io.sotaro.backend.model.CountryDto;
 import io.sotaro.backend.model.CountryEntity;
+import io.sotaro.backend.model.PopulationRankDto;
+import io.sotaro.backend.model.PopulationRankEntity;
 import io.sotaro.backend.repository.CountryRepository;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,12 @@ public class CountryService {
         return convertToDto(entity);
     }
 
+    public List<PopulationRankDto> getAllPopulationRanks() {
+        return countryRepository.findPopulationRank().stream()
+                .map(this::convertToPopulationRankDto)
+                .collect(Collectors.toList());
+    }
+
     private CountryDto convertToDto(CountryEntity countryEntity) {
         return new CountryDto(countryEntity.getDbId(),
                 countryEntity.getId(),
@@ -44,5 +52,15 @@ public class CountryService {
                 countryEntity.getCountryIsoNumeric(),
                 countryEntity.getPhonePrefix(),
                 countryEntity.getPopulation());
+    }
+
+    private PopulationRankDto convertToPopulationRankDto(PopulationRankEntity entity) {
+        return new PopulationRankDto(
+                entity.getDbId(),
+                entity.getCountryIso2(),
+                entity.getContinent(),
+                entity.getCountryName(),
+                entity.getPopulation(),
+                entity.getRank());
     }
 }

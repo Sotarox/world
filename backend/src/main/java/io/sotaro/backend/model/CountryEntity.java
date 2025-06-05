@@ -49,6 +49,6 @@ public class CountryEntity {
     @Column(name = "phone_prefix")
     private String phonePrefix;
 
-    @Column(name = "population")
+    @Column(name = "population", nullable = true)
     private int population;
 }
