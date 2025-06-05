@@ -12,5 +12,5 @@ export interface Country {
     currencyName: string;
     countryIsoNumeric: string;
     phonePrefix: string;
-    population: string;
+    population: number;
 }

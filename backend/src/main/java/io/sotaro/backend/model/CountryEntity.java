@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "countries")
+@Table(name = "Countries")
 public class CountryEntity {
 
     @Id
@@ -50,5 +50,5 @@ public class CountryEntity {
     private String phonePrefix;
 
     @Column(name = "population")
-    private String population;
+    private int population;
 }
