@@ -1,4 +1,4 @@
-export const continentCodeToName = (continentCode: string) => {
+export const convertContinentCodeToName = (continentCode: string) => {
     switch (continentCode) {
         case "AF":
             return "Africa";
@@ -15,4 +15,8 @@ export const continentCodeToName = (continentCode: string) => {
         default:
             return "N/A";
     }
+}
+
+export const formatNumberWithComma = (num: string) => {
+    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

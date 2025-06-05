@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { Item } from '../components/Item';
 import InfoCard from '../components/InfoCard';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { continentCodeToName } from '../utils/utils';
+import { convertContinentCodeToName, formatNumberWithComma } from '../utils/utils';
 import { CircleFlag } from 'react-circle-flags'
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 import ClickbarInfoCard from '../components/ClickbarInfoCard';
@@ -30,7 +30,7 @@ function CountryInfo(props: CountryInfoProps) {
           <InfoCard title="Capital" value={country.capital} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Continent" value={continentCodeToName(country.continent)} />
+          <InfoCard title="Continent" value={convertContinentCodeToName(country.continent)} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Country ISO2" value={country.countryIso2} />
@@ -45,7 +45,7 @@ function CountryInfo(props: CountryInfoProps) {
           <InfoCard title="Phone prefix" value={country.phonePrefix} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ display: "flex" }}>
-          <ClickbarInfoCard title="Population" value={country.population} 
+          <ClickbarInfoCard title="Population" value={formatNumberWithComma(country.population)} 
             isSelected={currentTopic === "population"} onClick={() => setCurrentTopic("population")} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ display: "flex" }}>
