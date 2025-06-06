@@ -5,6 +5,7 @@ public record PopulationRankDto(Long dbId,
                                 String continent,
                                 String countryName,
                                 Integer population,
+                                Integer countCountries,
                                 Integer rank
 ) {
 }

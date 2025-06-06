@@ -71,6 +71,7 @@ public class CountryService {
                 entity.getContinent(),
                 entity.getCountryName(),
                 entity.getPopulation(),
+                entity.getCountCountries(),
                 entity.getRank());
     }
 }

@@ -25,6 +25,9 @@ public class PopulationRankEntity {
     @Column(name = "population", nullable = true)
     private Integer population;
 
+    @Column(name = "count_countries")
+    private Integer countCountries;
+
     @Column(name = "rank")
     private Integer rank;
 }

@@ -15,6 +15,7 @@ public interface PopulationRankRepository extends JpaRepository<PopulationRankEn
             value = """
                     SELECT
                         dbid, country_iso2, country_name, continent, population,
+                        COUNT(*) over () AS count_countries,
                         RANK() OVER (
                             ORDER BY
                                   CASE
@@ -35,6 +36,7 @@ public interface PopulationRankRepository extends JpaRepository<PopulationRankEn
                          FROM
                             (
                                 SELECT dbid, country_iso2, country_name, continent, population,
+                                COUNT(*) over () AS count_countries,
                                 RANK() OVER (
                                     ORDER BY
                                         CASE
