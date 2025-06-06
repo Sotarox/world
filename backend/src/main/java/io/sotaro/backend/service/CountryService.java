@@ -47,6 +47,13 @@ public class CountryService {
         return convertToPopulationRankDto(entity);
     }
 
+    public PopulationRankDto getPopulationRankByCountryIso2AndContinentCode(String continentCode, String countryIso2) {
+        Optional<PopulationRankEntity> optionalEntity =
+                populationRankRepository.findPopulationRankByCountryIso2AndContinentCode(continentCode, countryIso2);
+        PopulationRankEntity entity = optionalEntity.orElseThrow();
+        return convertToPopulationRankDto(entity);
+    }
+
     private CountryDto convertToDto(CountryEntity countryEntity) {
         return new CountryDto(countryEntity.getDbId(),
                 countryEntity.getId(),

@@ -52,4 +52,32 @@ public interface PopulationRankRepository extends JpaRepository<PopulationRankEn
                     """
             , nativeQuery = true)
     Optional<PopulationRankEntity> findPopulationRankByCountryIso2(@Param("countryIso2") String countryIso2);
+
+    @Query(
+            value = """
+                    SELECT *
+                         FROM
+                            (
+                                SELECT dbid, country_iso2, country_name, continent, population,
+                                COUNT(*) over () AS count_countries,
+                                RANK() OVER (
+                                    ORDER BY
+                                        CASE
+                                            WHEN population IS NULL THEN 1
+                                            ELSE 0
+                                        END,
+                                        population DESC
+                                ) AS rank
+                                FROM Countries
+                                WHERE
+                                    continent = :continentCode
+                            ) rank_result
+                    WHERE
+                        country_iso2 = :countryIso2;
+                    """
+            , nativeQuery = true)
+    Optional<PopulationRankEntity> findPopulationRankByCountryIso2AndContinentCode(
+            @Param("continentCode") String continentCode,
+            @Param("countryIso2") String countryIso2
+    );
 }
