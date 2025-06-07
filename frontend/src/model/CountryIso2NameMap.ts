@@ -756,3 +756,8 @@ export const countryIso2NameMap = [
         countryIso2: "ZW", countryName: "Zimbabwe"
     },
 ]
+
+export const randomCountryIso2 = () => {
+    const i = Math.floor(Math.random() * countryIso2NameMap.length)
+    return countryIso2NameMap[i].countryIso2;
+}
