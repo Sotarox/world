@@ -1,6 +1,7 @@
 package io.sotaro.backend.repository;
 
 import io.sotaro.backend.model.PopulationRankEntity;
+import io.sotaro.backend.model.PopulationRankProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,7 +29,7 @@ public interface PopulationRankRepository extends JpaRepository<PopulationRankEn
                         Countries;
                     """,
             nativeQuery = true)
-    List<PopulationRankEntity> findPopulationRank();
+    List<PopulationRankProjection> findPopulationRank();
 
     @Query(
             value = """
@@ -51,7 +52,7 @@ public interface PopulationRankRepository extends JpaRepository<PopulationRankEn
                         country_iso2 = :countryIso2;
                     """
             , nativeQuery = true)
-    Optional<PopulationRankEntity> findPopulationRankByCountryIso2(@Param("countryIso2") String countryIso2);
+    Optional<PopulationRankProjection> findPopulationRankByCountryIso2(@Param("countryIso2") String countryIso2);
 
     @Query(
             value = """
@@ -76,7 +77,7 @@ public interface PopulationRankRepository extends JpaRepository<PopulationRankEn
                         country_iso2 = :countryIso2;
                     """
             , nativeQuery = true)
-    Optional<PopulationRankEntity> findPopulationRankByCountryIso2AndContinentCode(
+    Optional<PopulationRankProjection> findPopulationRankByCountryIso2AndContinentCode(
             @Param("continentCode") String continentCode,
             @Param("countryIso2") String countryIso2
     );

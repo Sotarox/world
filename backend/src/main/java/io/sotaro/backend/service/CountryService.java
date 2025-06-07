@@ -1,9 +1,6 @@
 package io.sotaro.backend.service;
 
-import io.sotaro.backend.model.CountryDto;
-import io.sotaro.backend.model.CountryEntity;
-import io.sotaro.backend.model.PopulationRankDto;
-import io.sotaro.backend.model.PopulationRankEntity;
+import io.sotaro.backend.model.*;
 import io.sotaro.backend.repository.CountryRepository;
 import io.sotaro.backend.repository.PopulationRankRepository;
 import org.springframework.stereotype.Service;
@@ -41,16 +38,16 @@ public class CountryService {
     }
 
     public PopulationRankDto getPopulationRankByCountryIso2(String countryIso2) {
-        Optional<PopulationRankEntity> optionalEntity =
+        Optional<PopulationRankProjection> optionalEntity =
                 populationRankRepository.findPopulationRankByCountryIso2(countryIso2);
-        PopulationRankEntity entity = optionalEntity.orElseThrow();
+        PopulationRankProjection entity = optionalEntity.orElseThrow();
         return convertToPopulationRankDto(entity);
     }
 
     public PopulationRankDto getPopulationRankByCountryIso2AndContinentCode(String continentCode, String countryIso2) {
-        Optional<PopulationRankEntity> optionalEntity =
+        Optional<PopulationRankProjection> optionalEntity =
                 populationRankRepository.findPopulationRankByCountryIso2AndContinentCode(continentCode, countryIso2);
-        PopulationRankEntity entity = optionalEntity.orElseThrow();
+        PopulationRankProjection entity = optionalEntity.orElseThrow();
         return convertToPopulationRankDto(entity);
     }
 
@@ -71,7 +68,7 @@ public class CountryService {
                 countryEntity.getPopulation());
     }
 
-    private PopulationRankDto convertToPopulationRankDto(PopulationRankEntity entity) {
+    private PopulationRankDto convertToPopulationRankDto(PopulationRankProjection entity) {
         return new PopulationRankDto(
                 entity.getDbId(),
                 entity.getCountryIso2(),
