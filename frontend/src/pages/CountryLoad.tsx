@@ -31,7 +31,8 @@ function CountryLoad() {
         <Divider sx={{ mt: 2, mb: 2 }} />
         <AirportList countryIso2={country.countryIso2} isVisible={currentTopic === "airports"}
           onLoad={(size: number) => setSizeAirports(size)} />
-        <PopulationInfo isVisible={currentTopic === "population"} />
+        <PopulationInfo countryIso2={currentIso2} continentCode={country.continent}
+          isVisible={currentTopic === "population"} />
       </>
     )
   } else {
