@@ -2,7 +2,6 @@ package io.sotaro.backend.service;
 
 import io.sotaro.backend.model.*;
 import io.sotaro.backend.repository.CountryRepository;
-import io.sotaro.backend.repository.PopulationRankRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +11,8 @@ import java.util.stream.Collectors;
 @Service
 public class CountryService {
     private final CountryRepository countryRepository;
-    private final PopulationRankRepository populationRankRepository;
-
-    public CountryService(CountryRepository countryRepository, PopulationRankRepository populationRankRepository) {
+    public CountryService(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
-        this.populationRankRepository = populationRankRepository;
     }
 
     public List<CountryDto> getAllCountries() {
@@ -29,26 +25,6 @@ public class CountryService {
         Optional<CountryEntity> optionalEntity = countryRepository.findByCountryIso2(countryIso2);
         CountryEntity entity = optionalEntity.orElseThrow();
         return convertToDto(entity);
-    }
-
-    public List<PopulationRankDto> getAllPopulationRanks() {
-        return populationRankRepository.findPopulationRank().stream()
-                .map(this::convertToPopulationRankDto)
-                .collect(Collectors.toList());
-    }
-
-    public PopulationRankDto getPopulationRankByCountryIso2(String countryIso2) {
-        Optional<PopulationRankProjection> optionalEntity =
-                populationRankRepository.findPopulationRankByCountryIso2(countryIso2);
-        PopulationRankProjection entity = optionalEntity.orElseThrow();
-        return convertToPopulationRankDto(entity);
-    }
-
-    public PopulationRankDto getPopulationRankByCountryIso2AndContinentCode(String continentCode, String countryIso2) {
-        Optional<PopulationRankProjection> optionalEntity =
-                populationRankRepository.findPopulationRankByCountryIso2AndContinentCode(continentCode, countryIso2);
-        PopulationRankProjection entity = optionalEntity.orElseThrow();
-        return convertToPopulationRankDto(entity);
     }
 
     private CountryDto convertToDto(CountryEntity countryEntity) {
@@ -66,16 +42,5 @@ public class CountryService {
                 countryEntity.getCountryIsoNumeric(),
                 countryEntity.getPhonePrefix(),
                 countryEntity.getPopulation());
-    }
-
-    private PopulationRankDto convertToPopulationRankDto(PopulationRankProjection entity) {
-        return new PopulationRankDto(
-                entity.getDbId(),
-                entity.getCountryIso2(),
-                entity.getContinent(),
-                entity.getCountryName(),
-                entity.getPopulation(),
-                entity.getCountCountries(),
-                entity.getRank());
     }
 }
