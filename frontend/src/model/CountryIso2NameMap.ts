@@ -781,3 +781,8 @@ export const previousCountryIso2 = (currentIso2: string) => {
     const previousIndex = (currentIndex - 1 + countryIso2NameMap.length) % countryIso2NameMap.length;
     return countryIso2NameMap[previousIndex].countryIso2;
 }
+
+export const countryIso2ToName = (countryIso2: string) => {
+    const country = countryIso2NameMap.find(obj => obj.countryIso2 === countryIso2);
+    return country ? country.countryName : "Unknown Country";
+}

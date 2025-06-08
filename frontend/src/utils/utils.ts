@@ -1,5 +1,4 @@
 export const convertContinentCodeToName = (continentCode: string) => {
-    console.log("convertContinentCodeToName", continentCode);
     switch (continentCode) {
         case "AF":
             return "Africa";
