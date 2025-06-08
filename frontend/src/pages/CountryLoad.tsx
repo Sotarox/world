@@ -7,7 +7,7 @@ import CountryInfo from './CountryInfo';
 import PopulationInfo from './PopulationInfo';
 import { CurrentIso2Context, SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
-import { Box, Divider, Tooltip } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { countryIso2ToName, previousCountryIso2, nextCountryIso2 } from '../model/CountryIso2NameMap';
 import { CircleFlag } from 'react-circle-flags';
@@ -34,19 +34,17 @@ function CountryLoad() {
     return (
       <>
         <CountryInfo country={country} sizeAirports={sizeAirports} />
-        <Box sx={{ display: "flex", width: "100%", justifyContent: "center"}}>
-          <Tooltip title={countryIso2ToName(previousCountryIso2(currentIso2))}>
-            <IconButton onClick={() => setCurrentIso2(previousCountryIso2(currentIso2))}>
-              <CircleFlag countryCode={previousCountryIso2(currentIso2).toLowerCase()} height="20" title="" />
-              <ArrowLeft />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title={countryIso2ToName(nextCountryIso2(currentIso2))}>
-          <IconButton onClick={() => setCurrentIso2(nextCountryIso2(currentIso2))}>
-            <ArrowRight/>
-            <CircleFlag countryCode={nextCountryIso2(currentIso2).toLowerCase()} height="20" title="" />
+        <Box sx={{ display: "flex", width: "100%", justifyContent: "center" }}>
+          <IconButton onClick={() => setCurrentIso2(previousCountryIso2(currentIso2))}>
+            <CircleFlag countryCode={previousCountryIso2(currentIso2).toLowerCase()} height="20"
+              title={countryIso2ToName(previousCountryIso2(currentIso2))} />
+            <ArrowLeft />
           </IconButton>
-          </Tooltip>
+          <IconButton onClick={() => setCurrentIso2(nextCountryIso2(currentIso2))}>
+            <ArrowRight />
+            <CircleFlag countryCode={nextCountryIso2(currentIso2).toLowerCase()} height="20"
+              title={countryIso2ToName(nextCountryIso2(currentIso2))} />
+          </IconButton>
         </Box>
         <Divider sx={{ mt: 2, mb: 2 }} />
         <AirportList countryIso2={country.countryIso2} isVisible={currentTopic === "airports"}
