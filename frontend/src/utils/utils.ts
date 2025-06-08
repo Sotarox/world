@@ -1,5 +1,4 @@
 export const convertContinentCodeToName = (continentCode: string) => {
-    console.log("convertContinentCodeToName", continentCode);
     switch (continentCode) {
         case "AF":
             return "Africa";
@@ -20,6 +19,8 @@ export const convertContinentCodeToName = (continentCode: string) => {
     }
 }
 
-export const formatNumberWithComma = (num: string) => {
-    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+// Format a number with commas as thousands separators e.g. 1234567 -> 1,234,567
+export const formatNumberWithComma = (num: number) => {
+    const numStr = num.toString();
+    return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

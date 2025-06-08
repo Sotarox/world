@@ -756,3 +756,33 @@ export const countryIso2NameMap = [
         countryIso2: "ZW", countryName: "Zimbabwe"
     },
 ]
+
+export const randomCountryIso2 = () => {
+    const i = Math.floor(Math.random() * countryIso2NameMap.length)
+    return countryIso2NameMap[i].countryIso2;
+}
+
+export const nextCountryIso2 = (currentIso2: string) => {
+    const currentIndex = countryIso2NameMap.findIndex(obj => obj.countryIso2 === currentIso2);
+    // currentIso2 not found in the map
+    if (currentIndex === -1) {
+        return randomCountryIso2();
+    }
+    const nextIndex = (currentIndex + 1) % countryIso2NameMap.length;
+    return countryIso2NameMap[nextIndex].countryIso2;
+}
+
+export const previousCountryIso2 = (currentIso2: string) => {
+    const currentIndex = countryIso2NameMap.findIndex(obj => obj.countryIso2 === currentIso2);
+    // currentIso2 not found in the map
+    if (currentIndex === -1) {
+        return randomCountryIso2();
+    }
+    const previousIndex = (currentIndex - 1 + countryIso2NameMap.length) % countryIso2NameMap.length;
+    return countryIso2NameMap[previousIndex].countryIso2;
+}
+
+export const countryIso2ToName = (countryIso2: string) => {
+    const country = countryIso2NameMap.find(obj => obj.countryIso2 === countryIso2);
+    return country ? country.countryName : "Unknown Country";
+}

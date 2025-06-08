@@ -13,6 +13,6 @@ public record CountryDto(Long dbId,
                          String currencyName,
                          String countryIsoNumeric,
                          String phonePrefix,
-                         String population
+                         int population
 ) {
 }
