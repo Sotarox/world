@@ -1,6 +1,7 @@
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { Button, Paper } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 const Item = styled(Paper)(({ theme }) => ({
               backgroundColor: '#fff',
@@ -20,7 +21,8 @@ interface ClickbarInfoCardProps {
 
 function ClickbarInfoCard(props: ClickbarInfoCardProps) {
   const { isSelected, title, value, onClick } = props;
-  const borderProperties = isSelected ? 'solid 10px gray': '0px';
+  const theme = useTheme();
+  const borderProperties = isSelected ? `solid 10px ${theme.palette.secondary.main}`: '0px';
   return (
     <Button onClick={() => onClick && onClick()} 
       sx={{alignItems:'start', padding: 1, flexGrow: 1, textAlign: 'left', textTransform: 'none'}}>
