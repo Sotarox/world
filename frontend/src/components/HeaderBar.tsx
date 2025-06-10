@@ -1,8 +1,9 @@
+import { useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import {Button, IconButton, Toolbar, Typography} from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
+import { SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
+import { useTheme } from '@mui/material/styles';
 
 interface HeaderBarProps {
   toggleDrawer: () => void;
@@ -10,6 +11,9 @@ interface HeaderBarProps {
 
 export default function HeaderBar(props: HeaderBarProps) {
   const { toggleDrawer } = props;
+  const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
+  const theme = useTheme();
+
   return (
     <>
       <AppBar position="sticky" 
@@ -22,18 +26,21 @@ export default function HeaderBar(props: HeaderBarProps) {
             color="inherit"
             aria-label="open drawer"
             onClick={toggleDrawer}
-            sx={{ mr: 2 }}
           >
             <ListIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            World
+          <Button variant='outlined' 
+            sx={{ color: theme.palette.primary.contrastText }}
+            onClick={() => setCurrentIso2('')}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            >
+              World
           </Typography>
+          </Button>
         </Toolbar>
       </AppBar>
     </>

@@ -1,9 +1,9 @@
+import { useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import {Box, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
+import { SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
+import { useTheme } from '@mui/material/styles';
 
 interface BottomBarProps {
   toggleDrawer: () => void;
@@ -11,6 +11,9 @@ interface BottomBarProps {
 
 export default function BottomBar(props: BottomBarProps) {
   const { toggleDrawer } = props;
+  const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
+  const theme = useTheme();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar 
@@ -26,13 +29,16 @@ export default function BottomBar(props: BottomBarProps) {
             color="inherit"
             aria-label="menu"
             onClick={toggleDrawer}
-            sx={{ mr: 2 }}
           >
             <ListIcon />
           </IconButton>
+          <Button variant='outlined' 
+            sx={{ color: theme.palette.primary.contrastText }}
+            onClick={() => setCurrentIso2('')}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             World
           </Typography>
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
