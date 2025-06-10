@@ -2,7 +2,7 @@ import CountryLoad from './CountryLoad';
 import Box from '@mui/material/Box';
 import { useContext } from 'react';
 import { CurrentIso2Context } from '../contexts/CurrentIso2Context';
-import { Typography } from '@mui/material';
+import TopPage from '../pages/TopPage';
 
 function Contents() {
   const { currentIso2 } = useContext(CurrentIso2Context);
@@ -14,9 +14,7 @@ function Contents() {
     )
   } else {
     return ( 
-      <Typography variant='body1'>
-        Country is not selected. Select a country from sidebar.
-      </Typography>
+      <TopPage />
     )  
   }
 }
