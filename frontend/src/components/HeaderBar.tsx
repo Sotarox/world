@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
-import {Button, IconButton, Toolbar, Typography} from '@mui/material';
+import {Box, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
 import { SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
 import { useTheme } from '@mui/material/styles';
@@ -17,8 +17,8 @@ export default function HeaderBar(props: HeaderBarProps) {
   return (
     <>
       <AppBar position="sticky" 
-      sx={{display:{ xs: 'none', sm: 'block'}, 
-            zIndex: (theme) => theme.zIndex.drawer +1 }}>
+        sx={{display:{ xs: 'none', sm: 'block'}, 
+          zIndex: (theme) => theme.zIndex.drawer +1 }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -41,6 +41,8 @@ export default function HeaderBar(props: HeaderBarProps) {
               World
           </Typography>
           </Button>
+          <Box sx={{flexGrow: '1'}}/>
+          <Button color="inherit">About</Button>
         </Toolbar>
       </AppBar>
     </>

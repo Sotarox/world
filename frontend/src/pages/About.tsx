@@ -3,6 +3,9 @@ import { Paper, Typography } from "@mui/material";
 function About() {
   return (
     <Paper sx={{ p: 2, m: 2}}>
+      <Typography variant='body1' sx={{ whiteSpace: 'pre-line' }}>
+        The main purpose to build this web service is to learn various web technologies upon practical coding.
+      </Typography>
       <Typography variant='h4'>Technologies</Typography>
       <Typography variant='body1' sx={{ whiteSpace: 'pre-line' }}>
         {`

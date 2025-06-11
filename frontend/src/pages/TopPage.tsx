@@ -3,16 +3,16 @@ import { Paper, Typography } from "@mui/material";
 function TopPage() {
   return (
     <Paper sx={{ p: 2, m: 2}}>
-      <Typography variant='h2'>Welcome to the World</Typography>
+      <Typography variant='h2'>Welcome</Typography>
       <Typography variant='body1' sx={{ whiteSpace: 'pre-line' }}>
         {`
-          World is a simple web service which offers various data about our countries.
-          
-          Current version is alpha and only 'population' and 'airports' data are displayed at each country page.
+          “World” is a simple web service that offers various data about countries.
 
-          The main purpose to build this web service is to learn various web technologies upon practical coding.
+          The current version is in alpha, which means only limited information is available.
 
-          At the other hand I also try enriching data and features, so that this web service can be informational for somebody.
+          The goal is to create a lightweight information system where users can quickly gather key data.
+
+          UX theme: “Look & feel from shopping sites for informative content”.
         `}
       </Typography>
     </Paper>
