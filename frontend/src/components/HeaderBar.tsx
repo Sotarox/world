@@ -4,6 +4,7 @@ import {Box, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
 import { SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
 import { useTheme } from '@mui/material/styles';
+import AboutButton from './AboutButton';
 
 interface HeaderBarProps {
   toggleDrawer: () => void;
@@ -42,7 +43,7 @@ export default function HeaderBar(props: HeaderBarProps) {
           </Typography>
           </Button>
           <Box sx={{flexGrow: '1'}}/>
-          <Button color="inherit">About</Button>
+          <AboutButton />
         </Toolbar>
       </AppBar>
     </>
