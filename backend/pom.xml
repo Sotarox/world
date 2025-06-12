@@ -12,7 +12,7 @@
 	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>backend</name>
-	<description>Project for displaying airports</description>
+	<description>Project for displaying countries</description>
 	<url/>
 	<properties>
 		<java.version>21</java.version>
