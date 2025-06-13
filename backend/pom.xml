@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>io.sotaro</groupId>
 	<artifactId>backend</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>backend</name>
 	<description>Project for displaying countries</description>
 	<url/>

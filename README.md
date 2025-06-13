@@ -1,11 +1,18 @@
 # World App
+🌍 *World* is a simple web service that offers various data about countries.  
+👓 The goal is to create a lightweight information system where users can quickly gather key data.  
+💎 UX theme: “Look & feel from shopping sites for informative content”.
+
+## Technologies
+Spring Boot, React, TypeScript, Material UI, PostgresSQL, Docker, Amazon Lightsail, nginx, Ubuntu
 
 ## Prerequisites
 - Java 21
 - node.js v20.11.0
 - Docker 
   - Engine: 28.1.1
-  - Docker Desktop 4.41.2 (Mac OS)
+  - Docker Desktop 4.41.2
+Development machine is Apple M1 Pro. Other than macOS, the app behavior is not checked. 
 
 ## First time set up
 - cd to `backend` folder

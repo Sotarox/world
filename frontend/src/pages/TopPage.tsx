@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@mui/material";
+import { Link, Paper, Typography } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 
 function TopPage() {
@@ -18,6 +18,8 @@ function TopPage() {
           💎 UX theme: “Look & feel from shopping sites for informative content”.
         `}
       </Typography>
+      <br/>
+      <Link href="https://github.com/Sotarox/world">Source Code (GitHub)</Link>
     </Paper>
   );
 }
