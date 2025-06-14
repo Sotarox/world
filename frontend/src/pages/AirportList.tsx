@@ -18,11 +18,11 @@ function AirportList(props:AirportListProps) {
     api.get<Airport[]>("airports/" + countryIso2)
         .then((res) => {
             setAirports(res.data);
-            console.log(res.data);
             onLoad(res.data.length);
         })
         .catch((error) => console.log(error));
-  }, [countryIso2, onLoad]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isVisible && airports.length > 0) {
     return (
