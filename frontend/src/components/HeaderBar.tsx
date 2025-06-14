@@ -31,7 +31,7 @@ export default function HeaderBar(props: HeaderBarProps) {
             <ListIcon />
           </IconButton>
           <Button variant='outlined' 
-            sx={{ color: theme.palette.primary.contrastText }}
+            sx={{ color: theme.palette.primary.contrastText, border: '0px'}}
             onClick={() => setCurrentIso2('')}>
             <Typography
               variant="h6"
