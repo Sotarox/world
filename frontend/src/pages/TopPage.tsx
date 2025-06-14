@@ -19,7 +19,7 @@ function TopPage() {
         `}
       </Typography>
       <br/>
-      <Link href="https://github.com/Sotarox/world">Source Code (GitHub)</Link>
+      <Link href="https://github.com/Sotarox/world" target="_blank" rel="noopener">Source Code (GitHub)</Link>
     </Paper>
   );
 }
