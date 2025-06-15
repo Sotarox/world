@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useCallback, useContext, useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import api from '../api/axios';
 import { type Country } from '../model/Country';
@@ -19,6 +19,7 @@ function CountryLoad() {
   const { currentIso2 } = useContext(CurrentIso2Context);
   const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
   const { currentTopic } = useContext(CurrentTopicContext);
+  const onLoadAirpots = useCallback((size:number) => {setSizeAirports(size)}, []);
 
   useEffect(() => {
     if (currentIso2 !== "") {
@@ -48,7 +49,7 @@ function CountryLoad() {
         </Box>
         <Divider sx={{ mt: 2, mb: 2 }} />
         <AirportList countryIso2={country.countryIso2} isVisible={currentTopic === "airports"}
-          onLoad={(size: number) => setSizeAirports(size)} />
+          onLoad={onLoadAirpots} />
         <PopulationInfo countryIso2={currentIso2} continentCode={country.continent}
           isVisible={currentTopic === "population"} />
       </>
