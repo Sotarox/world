@@ -21,8 +21,7 @@ function AirportList(props:AirportListProps) {
             onLoad(res.data.length);
         })
         .catch((error) => console.log(error));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [countryIso2, onLoad]);
 
   if (isVisible && airports.length > 0) {
     return (
