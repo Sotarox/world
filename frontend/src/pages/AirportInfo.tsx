@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import {type Airport} from '../model/Airport';
 import InfoCard from '../components/InfoCard';
 import { Item } from '../components/Item';
+import { formatCoordinate } from '../utils/utils';
 
 interface AirportInfoProps {
   airport: Airport|null;
@@ -24,16 +25,13 @@ function AirportInfo(props: AirportInfoProps) {
                 </Item>
               </Grid>
               <Grid size={{ xs: 6, md: 3 }}>
+                <InfoCard title="Coordinate" value={formatCoordinate([Number(airport.latitude), Number(airport.longitude)])}/>
+              </Grid>
+              <Grid size={{ xs: 6, md: 3 }}>
                 <InfoCard title="IATA Code" value={airport.iataCode}/>
               </Grid>
               <Grid size={{ xs: 6, md: 3 }}>
                 <InfoCard title="City IATA Code" value={airport.cityIataCode}/>
-              </Grid>
-              <Grid size={{ xs: 6, md: 3 }}>
-                <InfoCard title="Longitude" value={airport.longitude}/>
-              </Grid>
-              <Grid size={{ xs: 6, md: 3 }}>
-                <InfoCard title="Latitude" value={airport.latitude}/>
               </Grid>
           </Grid>
         </Box>
