@@ -12,9 +12,11 @@ import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { countryIso2ToName, previousCountryIso2, nextCountryIso2 } from '../model/CountryIso2NameMap';
 import { CircleFlag } from 'react-circle-flags';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { type ACCountry } from '../model/ACCountry';
 
 function CountryLoad() {
   const [country, setCountry] = useState<Country | undefined>();
+  const [acCountry, setAcCountry] = useState<ACCountry | undefined>();
   const [sizeAirports, setSizeAirports] = useState(0);
   const { currentIso2 } = useContext(CurrentIso2Context);
   const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
@@ -28,13 +30,18 @@ function CountryLoad() {
           setCountry(res.data);
         })
         .catch((error) => console.log(error));
+      api.get<ACCountry>(`accountries/${currentIso2}`)
+        .then((res) => {
+          setAcCountry(res.data);
+        })
+        .catch((error) => console.log(error));
     }
   }, [currentIso2]);
 
   if (country) {
     return (
       <>
-        <CountryInfo country={country} sizeAirports={sizeAirports} />
+        <CountryInfo acCountry={acCountry} country={country} sizeAirports={sizeAirports} />
         <Box sx={{ display: "flex", width: "100%", justifyContent: "center" }}>
           <IconButton onClick={() => setCurrentIso2(previousCountryIso2(currentIso2))}>
             <CircleFlag countryCode={previousCountryIso2(currentIso2).toLowerCase()} height="20"

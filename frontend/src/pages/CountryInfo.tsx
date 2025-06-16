@@ -10,13 +10,15 @@ import { convertContinentCodeToName, formatNumberWithComma } from '../utils/util
 import { CircleFlag } from 'react-circle-flags'
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 import ClickbarInfoCard from '../components/ClickbarInfoCard';
+import type { ACCountry } from '../model/ACCountry';
 
 interface CountryInfoProps {
+  acCountry: ACCountry| undefined;
   country: Country;
   sizeAirports: number;
 }
 function CountryInfo(props: CountryInfoProps) {
-  const { country, sizeAirports } = props;
+  const { acCountry, country, sizeAirports } = props;
   const { currentTopic, setCurrentTopic } = useContext(CurrentTopicContext);
 
   return (
@@ -36,7 +38,7 @@ function CountryInfo(props: CountryInfoProps) {
           <InfoCard title="Country ISO2" value={country.countryIso2} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Country ISO3" value={country.countryIso3} />
+          <InfoCard title="Area" value={acCountry ? `${formatNumberWithComma(acCountry.area)} \u33A2`:"N/A"} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Currency" value={country.currencyName} />
