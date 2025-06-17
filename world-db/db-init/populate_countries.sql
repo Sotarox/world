@@ -1,4 +1,4 @@
-INSERT INTO countries (
+INSERT INTO Countries (
         id, capital, currency_code, fips_code, country_iso2, country_iso3, continent,
         country_id, country_name, currency_name, country_iso_numeric, phone_prefix, population
         ) VALUES

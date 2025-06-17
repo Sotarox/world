@@ -24,3 +24,10 @@ export const formatNumberWithComma = (num: number) => {
     const numStr = num.toString();
     return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export const formatCoordinate = (coordinate: number[]) => {
+    const [lat, lng] = coordinate;
+    const latDirection = lat >= 0 ? 'N' : 'S';
+    const lngDirection = lng >= 0 ? 'E' : 'W';
+    return `${Math.abs(lat).toFixed(2)}° ${latDirection}, ${Math.abs(lng).toFixed(2)}° ${lngDirection}`;
+}

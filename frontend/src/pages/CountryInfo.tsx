@@ -6,17 +6,19 @@ import Box from '@mui/material/Box';
 import { Item } from '../components/Item';
 import InfoCard from '../components/InfoCard';
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { convertContinentCodeToName, formatNumberWithComma } from '../utils/utils';
+import { convertContinentCodeToName, formatCoordinate, formatNumberWithComma } from '../utils/utils';
 import { CircleFlag } from 'react-circle-flags'
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 import ClickbarInfoCard from '../components/ClickbarInfoCard';
+import type { ACCountry } from '../model/ACCountry';
 
 interface CountryInfoProps {
+  acCountry: ACCountry| undefined;
   country: Country;
   sizeAirports: number;
 }
 function CountryInfo(props: CountryInfoProps) {
-  const { country, sizeAirports } = props;
+  const { acCountry, country, sizeAirports } = props;
   const { currentTopic, setCurrentTopic } = useContext(CurrentTopicContext);
 
   return (
@@ -27,16 +29,20 @@ function CountryInfo(props: CountryInfoProps) {
       </Item>
       <Grid container spacing={0.125}>
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Capital" value={country.capital} />
+          <InfoCard title="Coordinate" 
+            value={acCountry? formatCoordinate(acCountry.latlng) : "N/A"} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Continent" value={convertContinentCodeToName(country.continent)} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Country ISO2" value={country.countryIso2} />
+          <InfoCard title="Subregion" value={acCountry?.subregion.toString() ?? "N/A"} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Country ISO3" value={country.countryIso3} />
+          <InfoCard title="Capital" value={country.capital} />
+        </Grid>
+        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
+          <InfoCard title="Country ISO2" value={country.countryIso2} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Currency" value={country.currencyName} />
@@ -44,8 +50,11 @@ function CountryInfo(props: CountryInfoProps) {
         <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
           <InfoCard title="Phone prefix" value={country.phonePrefix} />
         </Grid>
+        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
+          <InfoCard title="Area" value={acCountry ? `${formatNumberWithComma(acCountry.area)} \u33A2`:"N/A"} />
+        </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ display: "flex" }}>
-          <ClickbarInfoCard title="Population" value={formatNumberWithComma(country.population)} 
+          <ClickbarInfoCard title="Population" value={country.population ? formatNumberWithComma(country.population): "N/A"} 
             isSelected={currentTopic === "population"} onClick={() => setCurrentTopic("population")} />
         </Grid>
         <Grid size={{ xs: 6, md: 3 }} sx={{ display: "flex" }}>
