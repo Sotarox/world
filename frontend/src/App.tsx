@@ -8,6 +8,7 @@ import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
 import FloatingRandomButton from './components/FloatingRandomButton';
 import { ThemeProvider } from '@emotion/react';
 import colorTheme from './utils/colorTheme';
+import { ErrorBoundary } from './utils/ErrorBoundary';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -18,17 +19,19 @@ function App() {
     <ThemeProvider theme={colorTheme}>
       <CurrentIso2ContextProvider>
         <CurrentTopicContextProvider>
-          <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
-          <Sidebar
-            isOpen={isSidebarOpen}
-            setIsOpen={toggleIsSidebarOpen}
-          />
-          <Contents />
-          <FloatingRandomButton/>
-          <BottomBar toggleDrawer={toggleIsSidebarOpen} />
-        </CurrentTopicContextProvider>
-      </CurrentIso2ContextProvider>
-    </ThemeProvider>
+          <ErrorBoundary>
+            <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
+            <Sidebar
+              isOpen={isSidebarOpen}
+              setIsOpen={toggleIsSidebarOpen}
+            />
+            <Contents />
+            <FloatingRandomButton />
+            <BottomBar toggleDrawer={toggleIsSidebarOpen} />
+        </ErrorBoundary>
+      </CurrentTopicContextProvider>
+    </CurrentIso2ContextProvider>
+    </ThemeProvider >
   )
 }
 
