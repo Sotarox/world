@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint . --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "cd .. && husky",
+    "hello": "echo 'Hello, World!'"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
