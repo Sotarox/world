@@ -8,8 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint . --fix",
     "preview": "vite preview",
-    "prepare": "cd .. && husky",
-    "hello": "echo 'Hello, World!'"
+    "prepare": "cd .. && husky"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -42,7 +41,6 @@
     "vite": "^6.3.5"
   },
   "lint-staged": {
-    "*.ts": "eslint --fix",
-    "*.tsx": "eslint --fix"
+    "*.ts?(x)": "eslint --fix"
   }
 }
