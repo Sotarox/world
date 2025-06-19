@@ -5,13 +5,13 @@ import { useTheme } from '@mui/material/styles';
 import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
 
 const Item = styled(Paper)(({ theme }) => ({
-              backgroundColor: '#fff',
-              padding: theme.spacing(1),
-              ...theme.applyStyles('dark', {
-                backgroundColor: '#1A2027',
-              }),
-              width: '100%',
-           }));
+  backgroundColor: '#fff',
+  padding: theme.spacing(1),
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+  width: '100%',
+}));
 
 interface ClickbarInfoCardProps {
   isSelected?: boolean;
@@ -23,26 +23,36 @@ interface ClickbarInfoCardProps {
 function ClickbarInfoCard(props: ClickbarInfoCardProps) {
   const { isSelected, title, value, onClick } = props;
   const theme = useTheme();
-  const borderProperties = isSelected ? `solid 10px ${theme.palette.secondary.main}`: '0px';
+  const borderProperties = isSelected
+    ? `solid 10px ${theme.palette.secondary.main}`
+    : '0px';
   const Icon = isSelected ? <KeyboardArrowDown /> : <KeyboardArrowRight />;
   return (
-    <Button onClick={() => onClick && onClick()} 
-      sx={{alignItems:'start', padding: 1, flexGrow: 1, textAlign: 'left', textTransform: 'none'}}>
+    <Button
+      onClick={() => onClick && onClick()}
+      sx={{
+        alignItems: 'start',
+        padding: 1,
+        flexGrow: 1,
+        textAlign: 'left',
+        textTransform: 'none',
+      }}
+    >
       <Item sx={{ borderLeft: borderProperties }}>
-        <Stack direction='row' sx={{alignItems: 'flex-start'}}>
+        <Stack direction='row' sx={{ alignItems: 'flex-start' }}>
           {Icon}
           <Stack direction='column'>
-          <Typography variant="h6" style={{ fontWeight: 50 }}>
-            {title}
-          </Typography>
-          <Typography variant="body1" style={{ fontWeight: 500 }}>
-            {value}
-          </Typography>
+            <Typography variant='h6' style={{ fontWeight: 50 }}>
+              {title}
+            </Typography>
+            <Typography variant='body1' style={{ fontWeight: 500 }}>
+              {value}
+            </Typography>
           </Stack>
         </Stack>
       </Item>
     </Button>
-  )
+  );
 }
 
-export default ClickbarInfoCard
+export default ClickbarInfoCard;

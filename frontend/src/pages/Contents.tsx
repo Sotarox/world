@@ -6,17 +6,15 @@ import TopPage from '../pages/TopPage';
 
 function Contents() {
   const { currentIso2 } = useContext(CurrentIso2Context);
-  if (currentIso2 !== "") {
+  if (currentIso2 !== '') {
     return (
-      <Box sx={{pl:2, pr:2, pb: {xs:8, sm:0}}}>
-        <CountryLoad/>
+      <Box sx={{ pl: 2, pr: 2, pb: { xs: 8, sm: 0 } }}>
+        <CountryLoad />
       </Box>
-    )
+    );
   } else {
-    return ( 
-      <TopPage />
-    )  
+    return <TopPage />;
   }
 }
 
-export default Contents
+export default Contents;
