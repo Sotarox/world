@@ -38,6 +38,37 @@ Development machine is Apple M1 Pro. Other than macOS, the app behavior is not c
   - Under `backend/target`, a jar file is generated e.g. `backend-0.0.1-SNAPSHOT.jar`
 - Send this fat jar file to VPS by `scp` command.
 
+## Lint in Frontend (ESLint, Prettier, Husky, lint-staged)
+### Set up
+If you are using a npm package manager such as `nvm`, Husky might not be able to find node in your PC.
+In this case, create `init.sh` under `~/.config/husky folder`:
+```init.sh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
+```
+For the reason, refer [husky official website](https://typicode.github.io/husky/how-to.html#node-version-managers-and-guis)
+
+### Execute ESLint manually
+ESLint process includes Prettier in this project.
+To execute linting manually, Hit `npm run lint`, which lints **all files** in frontend.   
+
+### Lint at git commit hook
+Lint runs automatically at a git commit (Specifically saying, at pre-commit), 
+which targets only staged .ts and .tsx files. This process is executed following:  
+1. Husky detects git pre-commit
+2. Husky calls lint-staged
+3. lint-staged detects staged files (using `git diff --cached --name-only` under the hood)
+4. lint-staged calls `eslint` command
+5. eslint command includes `prettier` process
+When the lint command fails, staged files are not committed. 
+If you want to skip these process for some reason, use `-n` or `--no-verify` option: `git commit -m "..." -n`.
+
+### Trouble shooting
+- Is husky configured correctly?
+For initial set up after `git clone`, running `npm install` calls `npm prepare` automatically.
+This command installs `world/.husky/_` folder and its shells files.
+Also `git config core.hooksPath` command should show path to this folder.
+
 ---
 
 ## database
