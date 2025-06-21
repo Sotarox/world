@@ -59,7 +59,8 @@ which targets only staged .ts and .tsx files. This process is executed following
 2. Husky calls lint-staged
 3. lint-staged detects staged files (using `git diff --cached --name-only` under the hood)
 4. lint-staged calls `eslint` command
-5. eslint command includes `prettier` process
+5. eslint command includes `prettier` process  
+
 When the lint command fails, staged files are not committed. 
 If you want to skip these process for some reason, use `-n` or `--no-verify` option: `git commit -m "..." -n`.
 
