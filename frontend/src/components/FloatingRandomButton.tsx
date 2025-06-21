@@ -12,21 +12,24 @@ function FloatingRandomButton() {
 
   return (
     <Zoom in={true} timeout={timeoutMillisec} unmountOnExit>
-      <Tooltip title="Random Country" placement="left" arrow>
-        <Fab color="secondary" aria-label="add"
+      <Tooltip title='Random Country' placement='left' arrow>
+        <Fab
+          color='secondary'
+          aria-label='add'
           onClick={() => setCurrentIso2(randomCountryIso2())}
           sx={{
-            position: 'fixed', display: 'relative',
+            position: 'fixed',
+            display: 'relative',
             bottom: { xs: '100px', sm: '16px' },
             right: { xs: '24px', sm: '16px' },
-            zIndex: 1000
+            zIndex: 1000,
           }}
         >
           <Autorenew />
         </Fab>
       </Tooltip>
     </Zoom>
-  )
+  );
 }
 
-export default FloatingRandomButton;;
+export default FloatingRandomButton;

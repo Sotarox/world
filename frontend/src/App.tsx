@@ -13,7 +13,9 @@ import { ErrorBoundary } from './utils/ErrorBoundary';
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
   const toggleIsSidebarOpen = React.useCallback(
-    () => setIsSidebarOpen(!isSidebarOpen), [isSidebarOpen]);
+    () => setIsSidebarOpen(!isSidebarOpen),
+    [isSidebarOpen]
+  );
 
   return (
     <ThemeProvider theme={colorTheme}>
@@ -21,18 +23,15 @@ function App() {
         <CurrentTopicContextProvider>
           <ErrorBoundary>
             <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
-            <Sidebar
-              isOpen={isSidebarOpen}
-              setIsOpen={toggleIsSidebarOpen}
-            />
+            <Sidebar isOpen={isSidebarOpen} setIsOpen={toggleIsSidebarOpen} />
             <Contents />
             <FloatingRandomButton />
             <BottomBar toggleDrawer={toggleIsSidebarOpen} />
-        </ErrorBoundary>
-      </CurrentTopicContextProvider>
-    </CurrentIso2ContextProvider>
-    </ThemeProvider >
-  )
+          </ErrorBoundary>
+        </CurrentTopicContextProvider>
+      </CurrentIso2ContextProvider>
+    </ThemeProvider>
+  );
 }
 
 export default App;
