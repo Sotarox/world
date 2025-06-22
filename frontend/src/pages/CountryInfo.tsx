@@ -27,71 +27,76 @@ function CountryInfo(props: CountryInfoProps) {
 
   return (
     <Box sx={{ mt: 2 }}>
-      <Item
-        sx={{
-          mb: 2,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 1.5,
-        }}
-      >
-        <CircleFlag
-          countryCode={country.countryIso2.toLowerCase()}
-          height='50'
-        />
-        <Typography
-          variant='h2'
-          sx={{
-            maxWidth: '100%',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          {country.countryName}
-        </Typography>
+      <Item sx={{ mb: 1 }}>
+        <Grid container spacing={0.125}>
+          <Grid
+            size={12}
+            sx={{
+              p: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 1,
+            }}
+          >
+            <CircleFlag
+              countryCode={country.countryIso2.toLowerCase()}
+              height='50'
+            />
+            <Typography
+              variant='h2'
+              sx={{
+                maxWidth: '100%',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {country.countryName}
+            </Typography>
+          </Grid>
+          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+            <InfoCard
+              title='Coordinate'
+              value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
+            />
+          </Grid>
+          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+            <InfoCard
+              title='Continent'
+              value={convertContinentCodeToName(country.continent)}
+            />
+          </Grid>
+          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+            <InfoCard
+              title='Subregion'
+              value={acCountry?.subregion.toString() ?? 'N/A'}
+            />
+          </Grid>
+          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+            <InfoCard title='Capital' value={country.capital} />
+          </Grid>
+          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+            <InfoCard title='Country ISO2' value={country.countryIso2} />
+          </Grid>
+          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+            <InfoCard title='Currency' value={country.currencyName} />
+          </Grid>
+          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+            <InfoCard title='Phone prefix' value={country.phonePrefix} />
+          </Grid>
+          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+            <InfoCard
+              title='Area'
+              value={
+                acCountry
+                  ? `${formatNumberWithComma(acCountry.area)} \u33A2`
+                  : 'N/A'
+              }
+            />
+          </Grid>
+        </Grid>
       </Item>
-      <Grid container spacing={0.125}>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
-          <InfoCard
-            title='Coordinate'
-            value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
-          />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
-          <InfoCard
-            title='Continent'
-            value={convertContinentCodeToName(country.continent)}
-          />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
-          <InfoCard
-            title='Subregion'
-            value={acCountry?.subregion.toString() ?? 'N/A'}
-          />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
-          <InfoCard title='Capital' value={country.capital} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
-          <InfoCard title='Country ISO2' value={country.countryIso2} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
-          <InfoCard title='Currency' value={country.currencyName} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
-          <InfoCard title='Phone prefix' value={country.phonePrefix} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
-          <InfoCard
-            title='Area'
-            value={
-              acCountry
-                ? `${formatNumberWithComma(acCountry.area)} \u33A2`
-                : 'N/A'
-            }
-          />
-        </Grid>
+      <Grid container spacing={1.5}>
         <Grid size={{ xs: 6, md: 3 }} sx={{ display: 'flex' }}>
           <ClickbarInfoCard
             title='Population'
