@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { type Airport } from '../model/Airport';
@@ -15,14 +14,12 @@ function AirportInfo(props: AirportInfoProps) {
 
   if (airport !== null) {
     return (
-      <Box sx={{ mb: 3 }}>
+      <Item sx={{ mb: 3 }}>
         <Grid container spacing={1}>
           <Grid size={{ xs: 12 }}>
-            <Item>
-              <Typography variant='h4' style={{ fontWeight: 200 }}>
-                {airport.airportName}
-              </Typography>
-            </Item>
+            <Typography variant='h4' style={{ fontWeight: 200 }}>
+              {airport.airportName}
+            </Typography>
           </Grid>
           <Grid size={{ xs: 6, md: 3 }}>
             <InfoCard
@@ -40,7 +37,7 @@ function AirportInfo(props: AirportInfoProps) {
             <InfoCard title='City IATA Code' value={airport.cityIataCode} />
           </Grid>
         </Grid>
-      </Box>
+      </Item>
     );
   } else {
     return (
