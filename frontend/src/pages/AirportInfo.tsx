@@ -4,6 +4,7 @@ import { type Airport } from '../model/Airport';
 import InfoCard from '../components/InfoCard';
 import { Item } from '../components/Item';
 import { formatCoordinate } from '../utils/utils';
+import LocalAirportIcon from '@mui/icons-material/LocalAirport';
 
 interface AirportInfoProps {
   airport: Airport | null;
@@ -16,7 +17,8 @@ function AirportInfo(props: AirportInfoProps) {
     return (
       <Item sx={{ mb: 3 }}>
         <Grid container spacing={1}>
-          <Grid size={{ xs: 12 }}>
+          <Grid size={{ xs: 12 }} sx={{ display: 'flex', gap: 0.5 }}>
+            <LocalAirportIcon fontSize='large' />
             <Typography variant='h4' style={{ fontWeight: 200 }}>
               {airport.airportName}
             </Typography>
