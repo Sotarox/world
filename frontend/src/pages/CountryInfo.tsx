@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import Grid, { type GridProps } from '@mui/material/Grid';
 import { type Country } from '../model/Country';
 import Box from '@mui/material/Box';
 import { Item } from '../components/Item';
@@ -54,37 +54,37 @@ function CountryInfo(props: CountryInfoProps) {
               {country.countryName}
             </Typography>
           </Grid>
-          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+          <CustomGrid>
             <InfoCard
               title='Coordinate'
               value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
             />
-          </Grid>
-          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+          </CustomGrid>
+          <CustomGrid>
             <InfoCard
               title='Continent'
               value={convertContinentCodeToName(country.continent)}
             />
-          </Grid>
-          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+          </CustomGrid>
+          <CustomGrid>
             <InfoCard
               title='Subregion'
               value={acCountry?.subregion.toString() ?? 'N/A'}
             />
-          </Grid>
-          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+          </CustomGrid>
+          <CustomGrid>
             <InfoCard title='Capital' value={country.capital} />
-          </Grid>
-          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+          </CustomGrid>
+          <CustomGrid>
             <InfoCard title='Country ISO2' value={country.countryIso2} />
-          </Grid>
-          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+          </CustomGrid>
+          <CustomGrid>
             <InfoCard title='Currency' value={country.currencyName} />
-          </Grid>
-          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+          </CustomGrid>
+          <CustomGrid>
             <InfoCard title='Phone prefix' value={country.phonePrefix} />
-          </Grid>
-          <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }}>
+          </CustomGrid>
+          <CustomGrid>
             <InfoCard
               title='Area'
               value={
@@ -93,11 +93,11 @@ function CountryInfo(props: CountryInfoProps) {
                   : 'N/A'
               }
             />
-          </Grid>
+          </CustomGrid>
         </Grid>
       </Item>
       <Grid container spacing={1.5}>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ display: 'flex' }}>
+        <CustomGrid sx={{ display: 'flex' }}>
           <ClickbarInfoCard
             title='Population'
             value={
@@ -108,18 +108,22 @@ function CountryInfo(props: CountryInfoProps) {
             isSelected={currentTopic === 'population'}
             onClick={() => setCurrentTopic('population')}
           />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ display: 'flex' }}>
+        </CustomGrid>
+        <CustomGrid sx={{ display: 'flex' }}>
           <ClickbarInfoCard
             title='The number of airports'
             value={sizeAirports.toString()}
             isSelected={currentTopic === 'airports'}
             onClick={() => setCurrentTopic('airports')}
           />
-        </Grid>
+        </CustomGrid>
       </Grid>
     </Box>
   );
 }
+
+const CustomGrid: React.FC<GridProps> = (props) => (
+  <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }} {...props} />
+);
 
 export default CountryInfo;
