@@ -3,7 +3,6 @@ import Grid, { type GridProps } from '@mui/material/Grid';
 import { type Country } from '../model/Country';
 import Box from '@mui/material/Box';
 import { Item } from '../components/Item';
-import InfoCard from '../components/InfoCard';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import {
   convertContinentCodeToName,
@@ -14,6 +13,12 @@ import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 import ClickbarInfoCard from '../components/ClickbarInfoCard';
 import type { ACCountry } from '../model/ACCountry';
 import CountryInfoHeader from './CountryInfoHeader';
+import GridInfo from '../components/GridInfo';
+
+const gridProps = { size: { xs: 6, md: 3 }, sx: { p: 1 } };
+const CustomGrid: React.FC<GridProps> = (props) => (
+  <Grid {...gridProps} {...props} />
+);
 
 interface CountryInfoProps {
   acCountry: ACCountry | undefined;
@@ -29,48 +34,58 @@ function CountryInfo(props: CountryInfoProps) {
       <Item sx={{ mb: 1 }}>
         <Grid container spacing={0.125}>
           <CountryInfoHeader country={country} />
-          <CustomGrid>
-            <InfoCard
-              title='Coordinate'
-              value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
-            />
-          </CustomGrid>
-          <CustomGrid>
-            <InfoCard
-              title='Continent'
-              value={convertContinentCodeToName(country.continent)}
-            />
-          </CustomGrid>
-          <CustomGrid>
-            <InfoCard
-              title='Subregion'
-              value={acCountry?.subregion.toString() ?? 'N/A'}
-            />
-          </CustomGrid>
-          <CustomGrid>
-            <InfoCard title='Capital' value={country.capital} />
-          </CustomGrid>
-          <CustomGrid>
-            <InfoCard title='Country ISO2' value={country.countryIso2} />
-          </CustomGrid>
-          <CustomGrid>
-            <InfoCard title='Currency' value={country.currencyName} />
-          </CustomGrid>
-          <CustomGrid>
-            <InfoCard title='Phone prefix' value={country.phonePrefix} />
-          </CustomGrid>
-          <CustomGrid>
-            <InfoCard
-              title='Area'
-              value={
-                acCountry
-                  ? `${formatNumberWithComma(acCountry.area)} \u33A2`
-                  : 'N/A'
-              }
-            />
-          </CustomGrid>
+          <GridInfo
+            gridProps={gridProps}
+            title='Coordinate'
+            value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Country ISO3'
+            value={country.countryIso3}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Continent'
+            value={convertContinentCodeToName(country.continent)}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Subregion'
+            value={acCountry?.subregion.toString() ?? 'N/A'}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Capital'
+            value={country.capital}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Country ISO2'
+            value={country.countryIso2}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Currency'
+            value={country.currencyName}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Phone prefix'
+            value={country.phonePrefix}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Area'
+            value={
+              acCountry
+                ? `${formatNumberWithComma(acCountry.area)} \u33A2`
+                : 'N/A'
+            }
+          />
         </Grid>
       </Item>
+
       <Grid container spacing={1.5}>
         <CustomGrid sx={{ display: 'flex' }}>
           <ClickbarInfoCard
@@ -96,9 +111,5 @@ function CountryInfo(props: CountryInfoProps) {
     </Box>
   );
 }
-
-const CustomGrid: React.FC<GridProps> = (props) => (
-  <Grid size={{ xs: 6, md: 3 }} sx={{ p: 1 }} {...props} />
-);
 
 export default CountryInfo;
