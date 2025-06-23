@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import Typography from '@mui/material/Typography';
 import Grid, { type GridProps } from '@mui/material/Grid';
 import { type Country } from '../model/Country';
 import Box from '@mui/material/Box';
@@ -11,10 +10,10 @@ import {
   formatCoordinate,
   formatNumberWithComma,
 } from '../utils/utils';
-import { CircleFlag } from 'react-circle-flags';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 import ClickbarInfoCard from '../components/ClickbarInfoCard';
 import type { ACCountry } from '../model/ACCountry';
+import CountryInfoHeader from './CountryInfoHeader';
 
 interface CountryInfoProps {
   acCountry: ACCountry | undefined;
@@ -29,31 +28,7 @@ function CountryInfo(props: CountryInfoProps) {
     <Box sx={{ mt: 2 }}>
       <Item sx={{ mb: 1 }}>
         <Grid container spacing={0.125}>
-          <Grid
-            size={12}
-            sx={{
-              p: 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 1,
-            }}
-          >
-            <CircleFlag
-              countryCode={country.countryIso2.toLowerCase()}
-              height='50'
-            />
-            <Typography
-              variant='h2'
-              sx={{
-                maxWidth: '100%',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-              }}
-            >
-              {country.countryName}
-            </Typography>
-          </Grid>
+          <CountryInfoHeader country={country} />
           <CustomGrid>
             <InfoCard
               title='Coordinate'
