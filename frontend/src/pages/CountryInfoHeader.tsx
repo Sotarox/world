@@ -3,12 +3,16 @@ import Grid from '@mui/material/Grid';
 import { type Country } from '../model/Country';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import { CircleFlag } from 'react-circle-flags';
+import { useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 interface CountryInfoHeaderProps {
   country: Country;
 }
 function CountryInfoHeader(props: CountryInfoHeaderProps) {
   const { country } = props;
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
   return (
     <Grid
@@ -23,7 +27,7 @@ function CountryInfoHeader(props: CountryInfoHeaderProps) {
     >
       <CircleFlag countryCode={country.countryIso2.toLowerCase()} height='50' />
       <Typography
-        variant='h2'
+        variant={isXs ? 'h3' : 'h2'}
         sx={{
           maxWidth: '100%',
           overflow: 'hidden',
