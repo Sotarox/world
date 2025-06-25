@@ -1,7 +1,16 @@
 import { createTheme } from '@mui/material/styles';
 import { green, teal } from '@mui/material/colors';
 
-const colorTheme = createTheme({
+const appTheme = createTheme({
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        h3: {
+          fontWeight: 300,
+        },
+      },
+    },
+  },
   palette: {
     primary: {
       main: teal[400],
@@ -11,4 +20,4 @@ const colorTheme = createTheme({
     },
   },
 });
-export default colorTheme;
+export default appTheme;
