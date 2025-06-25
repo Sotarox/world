@@ -4,6 +4,7 @@ import { green, teal } from '@mui/material/colors';
 const appTheme = createTheme({
   typography: {
     fatValue: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       fontSize: '1rem',
       lineHeight: 1.5,
       fontWeight: 500,
