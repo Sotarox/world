@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import InfoCard from '../components/InfoCard';
 import api from '../api/axios';
 import { type PopulationRank } from '../model/PopulationRank';
+import { Item } from '../components/Item';
 
 interface PopulationInfoProps {
   isVisible: boolean;
@@ -42,7 +42,7 @@ function PopulationInfo(props: PopulationInfoProps) {
 
   if (isVisible) {
     return (
-      <Box sx={{ mb: 3 }}>
+      <Item sx={{ mb: 3 }}>
         <Grid container spacing={1}>
           <Grid size={{ xs: 12 }}>
             <InfoCard title='Population ranking' value='' />
@@ -74,7 +74,7 @@ function PopulationInfo(props: PopulationInfoProps) {
             />
           </Grid>
         </Grid>
-      </Box>
+      </Item>
     );
   } else {
     return <></>;

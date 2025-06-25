@@ -32,22 +32,25 @@ function ClickbarInfoCard(props: ClickbarInfoCardProps) {
       onClick={() => onClick && onClick()}
       sx={{
         alignItems: 'start',
-        padding: 1,
+        padding: 0,
         flexGrow: 1,
         textAlign: 'left',
         textTransform: 'none',
       }}
     >
-      <Item sx={{ borderLeft: borderProperties }}>
+      <Item
+        sx={{
+          borderLeft: borderProperties,
+          '&:hover': {
+            backgroundColor: theme.palette.grey[300],
+          },
+        }}
+      >
         <Stack direction='row' sx={{ alignItems: 'flex-start' }}>
           {Icon}
           <Stack direction='column'>
-            <Typography variant='h6' style={{ fontWeight: 50 }}>
-              {title}
-            </Typography>
-            <Typography variant='body1' style={{ fontWeight: 500 }}>
-              {value}
-            </Typography>
+            <Typography variant='h6'>{title}</Typography>
+            <Typography variant='fatValue'>{value}</Typography>
           </Stack>
         </Stack>
       </Item>
