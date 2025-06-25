@@ -78,7 +78,7 @@ function CountryInfo(props: CountryInfoProps) {
             gridProps={gridProps}
             title='Area'
             value={
-              acCountry
+              acCountry?.area
                 ? `${formatNumberWithComma(acCountry.area)} \u33A2`
                 : 'N/A'
             }

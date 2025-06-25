@@ -19,7 +19,7 @@ function AirportInfo(props: AirportInfoProps) {
         <Grid container spacing={1}>
           <Grid size={{ xs: 12 }} sx={{ display: 'flex', gap: 0.5 }}>
             <LocalAirportIcon fontSize='large' />
-            <Typography variant='h4'>{airport.airportName}</Typography>
+            <Typography variant='h4'>{airport.airportName ?? 'N/A'}</Typography>
           </Grid>
           <Grid size={{ xs: 6, md: 3 }}>
             <InfoCard
@@ -31,10 +31,13 @@ function AirportInfo(props: AirportInfoProps) {
             />
           </Grid>
           <Grid size={{ xs: 6, md: 3 }}>
-            <InfoCard title='IATA Code' value={airport.iataCode} />
+            <InfoCard title='IATA Code' value={airport.iataCode ?? 'N/A'} />
           </Grid>
           <Grid size={{ xs: 6, md: 3 }}>
-            <InfoCard title='City IATA Code' value={airport.cityIataCode} />
+            <InfoCard
+              title='City IATA Code'
+              value={airport.cityIataCode ?? 'N/A'}
+            />
           </Grid>
         </Grid>
       </Item>

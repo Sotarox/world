@@ -54,7 +54,7 @@ export interface ACCountry {
   /**
    * Area of the country in square kilometers.
    */
-  area: number;
+  area: number | null;
   /**
    * Timezone(s) of the country.
    */
@@ -62,7 +62,7 @@ export interface ACCountry {
   /**
    * Bordering countries.
    */
-  borders: string[];
+  borders: string[] | null;
   /**
    * Native name of the country.
    */
@@ -135,20 +135,22 @@ export interface ACCountry {
   /**
    * Regional blocs the country is part of.
    */
-  regionalBlocs: {
-    /**
-     * Acronym of the regional bloc.
-     */
-    acronym: string;
-    /**
-     * Name of the regional bloc.
-     */
-    name: string;
-  }[];
+  regionalBlocs:
+    | {
+        /**
+         * Acronym of the regional bloc.
+         */
+        acronym: string;
+        /**
+         * Name of the regional bloc.
+         */
+        name: string;
+      }[]
+    | null;
   /**
    * Country code for the International Olympic Committee.
    */
-  cioc: string;
+  cioc: string | null;
   /**
    * Whether the country is independent.
    */
