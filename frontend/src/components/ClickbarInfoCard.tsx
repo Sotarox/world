@@ -50,9 +50,7 @@ function ClickbarInfoCard(props: ClickbarInfoCardProps) {
           {Icon}
           <Stack direction='column'>
             <Typography variant='h6'>{title}</Typography>
-            <Typography variant='body1' style={{ fontWeight: 500 }}>
-              {value}
-            </Typography>
+            <Typography variant='fatValue'>{value}</Typography>
           </Stack>
         </Stack>
       </Item>

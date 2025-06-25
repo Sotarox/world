@@ -2,6 +2,13 @@ import { createTheme } from '@mui/material/styles';
 import { green, teal } from '@mui/material/colors';
 
 const appTheme = createTheme({
+  typography: {
+    fatValue: {
+      fontSize: '1rem',
+      lineHeight: 1.5,
+      fontWeight: 500,
+    },
+  },
   components: {
     MuiTypography: {
       styleOverrides: {
