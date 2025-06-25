@@ -7,7 +7,7 @@ import { CurrentIso2ContextProvider } from './contexts/CurrentIso2Context';
 import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
 import FloatingRandomButton from './components/FloatingRandomButton';
 import { ThemeProvider } from '@emotion/react';
-import appTheme from './utils/appTheme';
+import appTheme from './theme/appTheme';
 import { ErrorBoundary } from './utils/ErrorBoundary';
 
 function App() {
