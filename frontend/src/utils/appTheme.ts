@@ -8,6 +8,12 @@ const appTheme = createTheme({
         h3: {
           fontWeight: 300,
         },
+        h4: {
+          fontWeight: 300,
+        },
+        h6: {
+          fontWeight: 50,
+        },
       },
     },
   },

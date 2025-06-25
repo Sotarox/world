@@ -19,9 +19,7 @@ function AirportInfo(props: AirportInfoProps) {
         <Grid container spacing={1}>
           <Grid size={{ xs: 12 }} sx={{ display: 'flex', gap: 0.5 }}>
             <LocalAirportIcon fontSize='large' />
-            <Typography variant='h4' style={{ fontWeight: 200 }}>
-              {airport.airportName}
-            </Typography>
+            <Typography variant='h4'>{airport.airportName}</Typography>
           </Grid>
           <Grid size={{ xs: 6, md: 3 }}>
             <InfoCard

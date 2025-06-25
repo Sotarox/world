@@ -49,9 +49,7 @@ function ClickbarInfoCard(props: ClickbarInfoCardProps) {
         <Stack direction='row' sx={{ alignItems: 'flex-start' }}>
           {Icon}
           <Stack direction='column'>
-            <Typography variant='h6' style={{ fontWeight: 50 }}>
-              {title}
-            </Typography>
+            <Typography variant='h6'>{title}</Typography>
             <Typography variant='body1' style={{ fontWeight: 500 }}>
               {value}
             </Typography>
