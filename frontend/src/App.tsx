@@ -2,28 +2,15 @@ import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
 import { ThemeProvider } from '@emotion/react';
 import appTheme from './theme/appTheme';
 import { ErrorBoundary } from './utils/ErrorBoundary';
-import { createBrowserRouter, RouterProvider } from 'react-router';
-import MainLayout from './MainLayout';
-import TopPage from './pages/TopPage';
-import CountryLoad from './pages/CountryLoad';
-
-const router = createBrowserRouter([
-  {
-    Component: MainLayout,
-    children: [
-      { index: true, Component: TopPage },
-      { path: 'countries/:iso2', Component: CountryLoad },
-      { path: '*', Component: TopPage },
-    ],
-  },
-]);
+import { RouterProvider } from 'react-router';
+import AppRouter from './router/AppRouter';
 
 function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <CurrentTopicContextProvider>
         <ErrorBoundary>
-          <RouterProvider router={router} />
+          <RouterProvider router={AppRouter} />
         </ErrorBoundary>
       </CurrentTopicContextProvider>
     </ThemeProvider>

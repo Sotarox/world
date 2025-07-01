@@ -1,11 +1,11 @@
 import * as React from 'react';
-import BottomBar from './components/BottomBar';
-import HeaderBar from './components/HeaderBar';
-import Sidebar from './components/Sidebar';
-import FloatingRandomButton from './components/FloatingRandomButton';
+import BottomBar from '../components/BottomBar';
+import HeaderBar from '../components/HeaderBar';
+import Sidebar from '../components/Sidebar';
+import FloatingRandomButton from '../components/FloatingRandomButton';
 import { Outlet } from 'react-router';
 
-function MainLayout() {
+function AppLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
   const toggleIsSidebarOpen = React.useCallback(
     () => setIsSidebarOpen(!isSidebarOpen),
@@ -22,4 +22,4 @@ function MainLayout() {
   );
 }
 
-export default MainLayout;
+export default AppLayout;
