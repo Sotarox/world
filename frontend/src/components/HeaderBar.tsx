@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { Box, Button, IconButton, Toolbar, Typography } from '@mui/material';
 import ListIcon from '@mui/icons-material/List';
-import { SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
 import { useTheme } from '@mui/material/styles';
 import AboutButton from './AboutButton';
+import { useNavigate } from 'react-router';
 
 interface HeaderBarProps {
   toggleDrawer: () => void;
@@ -12,8 +11,8 @@ interface HeaderBarProps {
 
 export default function HeaderBar(props: HeaderBarProps) {
   const { toggleDrawer } = props;
-  const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -37,7 +36,7 @@ export default function HeaderBar(props: HeaderBarProps) {
           <Button
             variant='outlined'
             sx={{ color: theme.palette.primary.contrastText, border: '0px' }}
-            onClick={() => setCurrentIso2('')}
+            onClick={() => navigate('')}
           >
             <Typography
               variant='h6'

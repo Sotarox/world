@@ -1,5 +1,3 @@
-import * as React from 'react';
-import { CurrentIso2ContextProvider } from './contexts/CurrentIso2Context';
 import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
 import { ThemeProvider } from '@emotion/react';
 import appTheme from './theme/appTheme';
@@ -23,13 +21,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ThemeProvider theme={appTheme}>
-      <CurrentIso2ContextProvider>
-        <CurrentTopicContextProvider>
-          <ErrorBoundary>
-            <RouterProvider router={router} />
-          </ErrorBoundary>
-        </CurrentTopicContextProvider>
-      </CurrentIso2ContextProvider>
+      <CurrentTopicContextProvider>
+        <ErrorBoundary>
+          <RouterProvider router={router} />
+        </ErrorBoundary>
+      </CurrentTopicContextProvider>
     </ThemeProvider>
   );
 }

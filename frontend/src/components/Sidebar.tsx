@@ -7,7 +7,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { countryIso2NameMap } from '../model/CountryIso2NameMap';
-import { SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
 import { useNavigate } from 'react-router';
 
 interface SidebarProps {
@@ -17,7 +16,6 @@ interface SidebarProps {
 
 const Sidebar = React.memo((props: SidebarProps) => {
   const { isOpen, setIsOpen } = props;
-  const { setCurrentIso2 } = React.useContext(SetCurrentIso2Context);
   const navigate = useNavigate();
 
   const list = () => (
@@ -32,10 +30,9 @@ const Sidebar = React.memo((props: SidebarProps) => {
           .map((obj) => (
             <ListItem key={obj.countryIso2} disablePadding>
               <ListItemButton
-                onClick={() => {
-                  setCurrentIso2(obj.countryIso2);
-                  navigate(`/countries/${obj.countryIso2.toLowerCase()}`);
-                }}
+                onClick={() =>
+                  navigate(`/countries/${obj.countryIso2.toLowerCase()}`)
+                }
               >
                 <ListItemIcon>
                   <span

@@ -1,7 +1,5 @@
-import { useContext } from 'react';
 import Fab from '@mui/material/Fab';
 import { Autorenew } from '@mui/icons-material';
-import { SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
 import { randomCountryIso2 } from '../model/CountryIso2NameMap';
 import { Tooltip, Zoom } from '@mui/material';
 import { useNavigate } from 'react-router';
@@ -9,12 +7,9 @@ import { useNavigate } from 'react-router';
 const timeoutMillisec = 500;
 
 function FloatingRandomButton() {
-  const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
   const navigate = useNavigate();
   const onClick = () => {
-    const randomIso2 = randomCountryIso2();
-    setCurrentIso2(randomIso2);
-    navigate(`/countries/${randomIso2.toLowerCase()}`);
+    navigate(`/countries/${randomCountryIso2().toLowerCase()}`);
   };
   return (
     <Zoom in={true} timeout={timeoutMillisec} unmountOnExit>
