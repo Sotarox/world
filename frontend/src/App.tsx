@@ -3,16 +3,16 @@ import { ThemeProvider } from '@emotion/react';
 import appTheme from './theme/appTheme';
 import { ErrorBoundary } from './utils/ErrorBoundary';
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import Contents from './pages/Contents';
 import MainLayout from './MainLayout';
 import TopPage from './pages/TopPage';
+import CountryLoad from './pages/CountryLoad';
 
 const router = createBrowserRouter([
   {
     Component: MainLayout,
     children: [
       { index: true, Component: TopPage },
-      { path: 'countries/:iso2', Component: Contents },
+      { path: 'countries/:iso2', Component: CountryLoad },
       { path: '*', Component: TopPage },
     ],
   },
