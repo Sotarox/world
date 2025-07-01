@@ -7,13 +7,15 @@ import { ErrorBoundary } from './utils/ErrorBoundary';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Contents from './pages/Contents';
 import MainLayout from './MainLayout';
+import TopPage from './pages/TopPage';
 
 const router = createBrowserRouter([
   {
     Component: MainLayout,
     children: [
       { index: true, Component: Contents },
-      { path: 'contact', Component: Contents },
+      { path: 'countries', Component: Contents },
+      { path: 'top', Component: TopPage },
     ],
   },
 ]);

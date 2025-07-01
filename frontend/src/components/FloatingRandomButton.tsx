@@ -4,19 +4,24 @@ import { Autorenew } from '@mui/icons-material';
 import { SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
 import { randomCountryIso2 } from '../model/CountryIso2NameMap';
 import { Tooltip, Zoom } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 const timeoutMillisec = 500;
 
 function FloatingRandomButton() {
   const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
-
+  const navigate = useNavigate();
+  const onClick = () => {
+    setCurrentIso2(randomCountryIso2());
+    navigate('/countries');
+  };
   return (
     <Zoom in={true} timeout={timeoutMillisec} unmountOnExit>
       <Tooltip title='Random Country' placement='left' arrow>
         <Fab
           color='secondary'
           aria-label='add'
-          onClick={() => setCurrentIso2(randomCountryIso2())}
+          onClick={onClick}
           sx={{
             position: 'fixed',
             display: 'relative',
