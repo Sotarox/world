@@ -5,12 +5,16 @@ import { ThemeProvider } from '@emotion/react';
 import appTheme from './theme/appTheme';
 import { ErrorBoundary } from './utils/ErrorBoundary';
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import Frame from './Frame';
+import Contents from './pages/Contents';
+import MainLayout from './MainLayout';
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    Component: Frame,
+    Component: MainLayout,
+    children: [
+      { index: true, Component: Contents },
+      { path: 'contact', Component: Contents },
+    ],
   },
 ]);
 
