@@ -1,32 +1,26 @@
 import * as React from 'react';
-import BottomBar from './components/BottomBar';
-import HeaderBar from './components/HeaderBar';
-import Contents from './pages/Contents';
-import Sidebar from './components/Sidebar';
 import { CurrentIso2ContextProvider } from './contexts/CurrentIso2Context';
 import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
-import FloatingRandomButton from './components/FloatingRandomButton';
 import { ThemeProvider } from '@emotion/react';
 import appTheme from './theme/appTheme';
 import { ErrorBoundary } from './utils/ErrorBoundary';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import Frame from './Frame';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    Component: Frame,
+  },
+]);
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-  const toggleIsSidebarOpen = React.useCallback(
-    () => setIsSidebarOpen(!isSidebarOpen),
-    [isSidebarOpen]
-  );
-
   return (
     <ThemeProvider theme={appTheme}>
       <CurrentIso2ContextProvider>
         <CurrentTopicContextProvider>
           <ErrorBoundary>
-            <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
-            <Sidebar isOpen={isSidebarOpen} setIsOpen={toggleIsSidebarOpen} />
-            <Contents />
-            <FloatingRandomButton />
-            <BottomBar toggleDrawer={toggleIsSidebarOpen} />
+            <RouterProvider router={router} />
           </ErrorBoundary>
         </CurrentTopicContextProvider>
       </CurrentIso2ContextProvider>
