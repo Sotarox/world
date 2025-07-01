@@ -1,16 +1,11 @@
 import { useCallback, useContext, useState, useEffect } from 'react';
-import IconButton from '@mui/material/IconButton';
 import api from '../api/axios';
 import { type Country } from '../model/Country';
 import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
 import PopulationInfo from './PopulationInfo';
-import {
-  CurrentIso2Context,
-  SetCurrentIso2Context,
-} from '../contexts/CurrentIso2Context';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import {
   countryIso2ToName,
@@ -20,17 +15,18 @@ import {
 import { CircleFlag } from 'react-circle-flags';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import { type ACCountry } from '../model/ACCountry';
+import { useNavigate, useParams } from 'react-router';
 
 function CountryLoad() {
   const [country, setCountry] = useState<Country | undefined>();
   const [acCountry, setAcCountry] = useState<ACCountry | undefined>();
   const [sizeAirports, setSizeAirports] = useState(0);
-  const { currentIso2 } = useContext(CurrentIso2Context);
-  const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
   const { currentTopic } = useContext(CurrentTopicContext);
   const onLoadAirpots = useCallback((size: number) => {
     setSizeAirports(size);
   }, []);
+  const currentIso2 = useParams().iso2?.toUpperCase() ?? '';
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentIso2 !== '') {
@@ -51,7 +47,7 @@ function CountryLoad() {
 
   if (country) {
     return (
-      <>
+      <Box sx={{ pl: 2, pr: 2, pb: { xs: 8, sm: 0 } }}>
         <CountryInfo
           acCountry={acCountry}
           country={country}
@@ -59,7 +55,11 @@ function CountryLoad() {
         />
         <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
           <IconButton
-            onClick={() => setCurrentIso2(previousCountryIso2(currentIso2))}
+            onClick={() =>
+              navigate(
+                `/countries/${previousCountryIso2(currentIso2).toLowerCase()}`
+              )
+            }
           >
             <CircleFlag
               countryCode={previousCountryIso2(currentIso2).toLowerCase()}
@@ -69,7 +69,11 @@ function CountryLoad() {
             <ArrowLeft />
           </IconButton>
           <IconButton
-            onClick={() => setCurrentIso2(nextCountryIso2(currentIso2))}
+            onClick={() =>
+              navigate(
+                `/countries/${nextCountryIso2(currentIso2).toLowerCase()}`
+              )
+            }
           >
             <ArrowRight />
             <CircleFlag
@@ -90,10 +94,10 @@ function CountryLoad() {
           continentCode={country.continent}
           isVisible={currentTopic === 'population'}
         />
-      </>
+      </Box>
     );
   } else {
-    return <p>Country couldn't be loaded.</p>;
+    return <></>;
   }
 }
 
