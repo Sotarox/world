@@ -8,16 +8,15 @@ const timeoutMillisec = 500;
 
 function FloatingRandomButton() {
   const navigate = useNavigate();
-  const onClick = () => {
-    navigate(`/countries/${randomCountryIso2().toLowerCase()}`);
-  };
   return (
     <Zoom in={true} timeout={timeoutMillisec} unmountOnExit>
       <Tooltip title='Random Country' placement='left' arrow>
         <Fab
           color='secondary'
           aria-label='add'
-          onClick={onClick}
+          onClick={() =>
+            navigate(`/countries/${randomCountryIso2().toLowerCase()}`)
+          }
           sx={{
             position: 'fixed',
             display: 'relative',
