@@ -34,7 +34,7 @@ const Sidebar = React.memo((props: SidebarProps) => {
               <ListItemButton
                 onClick={() => {
                   setCurrentIso2(obj.countryIso2);
-                  navigate('/countries');
+                  navigate(`/countries/${obj.countryIso2.toLowerCase()}`);
                 }}
               >
                 <ListItemIcon>

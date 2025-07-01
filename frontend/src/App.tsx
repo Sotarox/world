@@ -13,9 +13,9 @@ const router = createBrowserRouter([
   {
     Component: MainLayout,
     children: [
-      { index: true, Component: Contents },
-      { path: 'countries', Component: Contents },
-      { path: 'top', Component: TopPage },
+      { index: true, Component: TopPage },
+      { path: 'countries/:iso2', Component: Contents },
+      { path: '*', Component: TopPage },
     ],
   },
 ]);

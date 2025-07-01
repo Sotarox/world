@@ -12,8 +12,9 @@ function FloatingRandomButton() {
   const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
   const navigate = useNavigate();
   const onClick = () => {
-    setCurrentIso2(randomCountryIso2());
-    navigate('/countries');
+    const randomIso2 = randomCountryIso2();
+    setCurrentIso2(randomIso2);
+    navigate(`/countries/${randomIso2.toLowerCase()}`);
   };
   return (
     <Zoom in={true} timeout={timeoutMillisec} unmountOnExit>
