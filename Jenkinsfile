@@ -7,7 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building"
-                sh "mvn clean install -DskipTests"
+                sh "${mavenHome}/bin/mvn clean install -DskipTests"
             }
         }
         stage('Test') {
