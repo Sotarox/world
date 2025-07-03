@@ -15,6 +15,9 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Testing"
+                dir('backend') {
+                    sh "${mavenHome}/bin/mvn test"
+                }
             }
         }
         stage('Deploy') {
