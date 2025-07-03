@@ -1,14 +1,11 @@
 pipeline {
     agent any
-    environment {
-    		mavenHome = tool 'jenkins-maven'
-    }
     stages {
         stage('Build') {
             steps {
                 echo "Building"
                 dir('backend') {
-                  sh "${mavenHome}/bin/mvn clean install -DskipTests"
+                  sh "./mvnw clean install -DskipTests"
                 }
             }
         }
