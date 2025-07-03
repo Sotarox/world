@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo "Testing"
                 dir('backend') {
-                    sh "${mavenHome}/bin/mvn test"
+                    sh "./mvnw test"
                 }
             }
         }
