@@ -4,7 +4,7 @@
 💎 UX theme: “Look & feel from shopping sites for informative content”.
 
 ## Technologies
-Spring Boot, React, TypeScript, Material UI, PostgresSQL, Docker, Amazon Lightsail, nginx, Ubuntu
+Spring Boot, React, TypeScript, Material UI, PostgresSQL, Docker, Amazon Lightsail, nginx, Ubuntu, Jenkins
 
 ## Prerequisites
 - Java 21
