@@ -4,33 +4,33 @@ import io.sotaro.backend.model.CountryEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 public class CountryRepositoryTest {
     @Autowired
     CountryRepository countryRepository;
 
-    @Autowired
-    TestEntityManager entityManager;
-
     @Test
-    void givenNewCountry_whenSave_thenSuccess(){
-        CountryEntity countryEntity = buildCountryEntity("123");
-        CountryEntity insertedCountry = countryRepository.saveAndFlush(countryEntity);
-        CountryEntity persisted = entityManager.find(CountryEntity.class, insertedCountry.getDbId());
-        assertEquals(persisted.getDbId(), countryEntity.getDbId());
+    void givenSingleCountryInDB_whenFindByCorrectId_thenReturnCorrectEntity(){
+        CountryEntity countryEntity = buildCountryEntity("GER");
+        countryRepository.saveAndFlush(countryEntity);
+        Optional<CountryEntity> optionalCountryEntity = countryRepository.findByCountryIso2(countryEntity.getCountryIso2());
+        assertTrue(optionalCountryEntity.isPresent());
+        CountryEntity foundCountry = optionalCountryEntity.get();
+        assertEquals(countryEntity.getCountryIso2(), foundCountry.getCountryIso2());
     }
 
-    CountryEntity buildCountryEntity(String id){
+    CountryEntity buildCountryEntity(String iso2){
         CountryEntity countryEntity = new CountryEntity();
-        countryEntity.setId(id);
+        countryEntity.setId("");
         countryEntity.setCapital("");
         countryEntity.setCurrencyCode("");
         countryEntity.setFipsCode("");
-        countryEntity.setCountryIso2("");
+        countryEntity.setCountryIso2(iso2);
         countryEntity.setCountryIso3("");
         countryEntity.setContinent("");
         countryEntity.setCountryId("");
@@ -38,7 +38,7 @@ public class CountryRepositoryTest {
         countryEntity.setCurrencyName("");
         countryEntity.setCountryIsoNumeric("");
         countryEntity.setPhonePrefix("");
-        countryEntity.setPopulation(1000);
+        countryEntity.setPopulation(0);
         return countryEntity;
     }
 }
