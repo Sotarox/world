@@ -1,16 +1,16 @@
 pipeline {
     agent any
     environment {
-        NODE_PATH = "${tool 'jenkins-nodejs'}/bin:${env.PATH}"
-        MAVEN_PATH = "${tool 'jenkins-maven'}/bin:${env.PATH}"
-        PATH = "${NODE_PATH}:${MAVEN_PATH}"
+        NODEJS_HOME = "${tool 'jenkins-nodejs'}"
+        MAVEN_HOME = "${tool 'jenkins-maven'}"
+        PATH = "$NODEJS_HOME/bin:$MAVEN_HOME/bin:${env.PATH}"
     }
     stages {
         stage ('Frontend Build') {
             steps {
                   dir('frontend') {
                     sh "npm install"
-                    sh "npm build"
+                    sh "npm run build"
                   }
             }
         }
