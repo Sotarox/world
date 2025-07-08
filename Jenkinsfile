@@ -8,7 +8,7 @@ pipeline {
         stage ('Frontend Install') {
             steps {
                   dir('frontend') {
-                    sh "${nodejs}/bin/node -v"
+                    sh "${nodejs}/bin/npm install"
                   }
             }
         }
