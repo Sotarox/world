@@ -24,6 +24,14 @@ public class CountryRepositoryTest {
         assertEquals(countryEntity.getCountryIso2(), foundCountry.getCountryIso2());
     }
 
+    @Test
+    void givenSingleCountryInDB_whenFindByNonExistingId_thenReturnEmptyEntity(){
+        CountryEntity countryEntity = buildCountryEntity("GER");
+        countryRepository.saveAndFlush(countryEntity);
+        Optional<CountryEntity> optionalCountryEntity = countryRepository.findByCountryIso2("USA");
+        assertTrue(optionalCountryEntity.isEmpty());
+    }
+
     CountryEntity buildCountryEntity(String iso2){
         CountryEntity countryEntity = new CountryEntity();
         countryEntity.setId("");
