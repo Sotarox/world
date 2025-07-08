@@ -24,7 +24,6 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo "Testing"
                 dir('backend') {
                     sh "mvn test"
                 }
@@ -32,7 +31,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo "Deploying"
+                echo "Deploy"
             }
         }
     }
