@@ -1,22 +1,24 @@
 pipeline {
     agent any
     environment {
-        mavenHome = tool 'jenkins-maven'
-        nodejs = tool 'jenkins-nodejs'
+        NODE_PATH = "${tool 'jenkins-nodejs'}/bin:${env.PATH}"
+        MAVEN_PATH = "${tool 'jenkins-maven'}/bin:${env.PATH}"
+        PATH = "${NODE_PATH}:${MAVEN_PATH}"
     }
     stages {
-        stage ('Frontend Install') {
+        stage ('Frontend Build') {
             steps {
                   dir('frontend') {
-                    sh "${nodejs}/bin/npm install"
+                    sh "npm install"
+                    sh "npm build"
                   }
             }
         }
-        stage('Build') {
+        stage('Backend Build') {
             steps {
                 echo "Building"
                 dir('backend') {
-                  sh "${mavenHome}/bin/mvn clean install -DskipTests"
+                  sh "mvn clean install -DskipTests"
                 }
             }
         }
@@ -24,7 +26,7 @@ pipeline {
             steps {
                 echo "Testing"
                 dir('backend') {
-                    sh "${mavenHome}/bin/mvn test"
+                    sh "mvn test"
                 }
             }
         }
