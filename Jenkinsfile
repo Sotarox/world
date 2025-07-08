@@ -2,8 +2,16 @@ pipeline {
     agent any
     environment {
         mavenHome = tool 'jenkins-maven'
+        nodejs = tool 'jenkins-nodejs'
     }
     stages {
+        stage ('Frontend Install') {
+            steps {
+                  dir('frontend') {
+                    sh "npm install"
+                  }
+            }
+        }
         stage('Build') {
             steps {
                 echo "Building"
