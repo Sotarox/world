@@ -37,9 +37,9 @@ public class CountryControllerTest {
 
         @Test
         void givenAnEntity_findByCorrectIso2_returnCorrectDto() throws Exception {
-            CountryDto countryDto = buildCountryDto("DE");
-            when(countryService.getCountryByIso2("DE")).thenReturn(countryDto);
-            mockMvc.perform(get(BASE_URI + "/DE"))
+            CountryDto countryDto = buildCountryDto("US");
+            when(countryService.getCountryByIso2("US")).thenReturn(countryDto);
+            mockMvc.perform(get(BASE_URI + "/US"))
                     .andExpect(status().isOk());
         }
     }
