@@ -6,11 +6,12 @@ pipeline {
         PATH = "$NODEJS_HOME/bin:$MAVEN_HOME/bin:${env.PATH}"
     }
     stages {
-        stage('Clean Up Jenkins branch') {
+        stage('Clean Up Jenkins branch info') {
             steps {
                 checkout scm
                 sh 'git remote prune origin'
             }
+        }
         stage ('Frontend Build') {
             steps {
                   dir('frontend') {
