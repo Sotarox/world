@@ -3,6 +3,7 @@ package io.sotaro.backend.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.sotaro.backend.configuration.CustomCorsConfiguration;
 import io.sotaro.backend.configuration.SecurityConfig;
+import io.sotaro.backend.exception.ResourceNotFoundException;
 import io.sotaro.backend.model.CountryDto;
 import io.sotaro.backend.service.CountryService;
 import io.sotaro.backend.service.PopulationRankService;
@@ -54,6 +55,14 @@ public class CountryControllerTest {
             String contentAsString = result.getResponse().getContentAsString();
             CountryDto resultDto = objectMapper.readValue(contentAsString, CountryDto.class);
             assertEquals(countryDto, resultDto);
+        }
+
+        @Test
+        void givenAnEntity_findByNonExistingIso2_throwsNotFoundException() throws Exception {
+            when(countryService.getCountryByIso2("US")).thenThrow(ResourceNotFoundException.class);
+            ResultActions resultActions = mockMvc.perform(get(BASE_URI + "/US"))
+                    .andDo(print())
+                    .andExpect(status().isNotFound());
         }
     }
 

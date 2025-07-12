@@ -1,6 +1,6 @@
 package io.sotaro.backend.service;
 
-import io.sotaro.backend.configuration.ResourceNotFoundException;
+import io.sotaro.backend.exception.ResourceNotFoundException;
 import io.sotaro.backend.model.*;
 import io.sotaro.backend.repository.CountryRepository;
 import org.springframework.stereotype.Service;

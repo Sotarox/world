@@ -1,4 +1,4 @@
-package io.sotaro.backend.configuration;
+package io.sotaro.backend.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 
