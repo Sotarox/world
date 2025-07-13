@@ -59,8 +59,8 @@ public class CountryControllerTest {
 
         @Test
         void givenAnEntity_findByNonExistingIso2_throwsNotFoundException() throws Exception {
-            when(countryService.getCountryByIso2("US")).thenThrow(ResourceNotFoundException.class);
-            ResultActions resultActions = mockMvc.perform(get(BASE_URI + "/US"))
+            when(countryService.getCountryByIso2("XY")).thenThrow(ResourceNotFoundException.class);
+            ResultActions resultActions = mockMvc.perform(get(BASE_URI + "/XY"))
                     .andDo(print())
                     .andExpect(status().isNotFound());
         }
