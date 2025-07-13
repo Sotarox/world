@@ -24,12 +24,11 @@ public class CountryService {
 
     public CountryDto getCountryByIso2(String countryIso2) throws ResourceNotFoundException {
         Optional<CountryEntity> optionalEntity = countryRepository.findByCountryIso2(countryIso2);
-        if (optionalEntity.isPresent()) {
-            CountryEntity entity = optionalEntity.get();
-            return convertToDto(entity);
-        } else {
-            throw new ResourceNotFoundException(String.format("Country Not Found by countryIso2: %s", countryIso2));
-        }
+        CountryEntity entity = optionalEntity.orElseThrow(
+                () -> new ResourceNotFoundException(
+                        String.format("Country Not Found by countryIso2: %s", countryIso2))
+        );
+        return convertToDto(entity);
     }
 
     private CountryDto convertToDto(CountryEntity countryEntity) {
