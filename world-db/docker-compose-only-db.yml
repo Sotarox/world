@@ -1,5 +1,5 @@
 services:
-  mypostgres:
+  postgres:
     image: postgres:15
     container_name: world_postgres
     restart: unless-stopped
@@ -13,20 +13,6 @@ services:
       - ./db-init:/docker-entrypoint-initdb.d
     networks:
       - world-local
-
-  app:
-    image: myworld:latest
-    depends_on:
-      - mypostgres
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://mypostgres:5432/mydb
-      SPRING_DATASOURCE_USERNAME: myuser
-      SPRING_DATASOURCE_PASSWORD: mypassword
-    ports:
-      - "8080:8080"
-    networks:
-      - world-local
-
 networks:
   world-local:
     driver: bridge
