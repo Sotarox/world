@@ -1,5 +1,6 @@
 package io.sotaro.backend.service;
 
+import io.sotaro.backend.exception.ResourceNotFoundException;
 import io.sotaro.backend.model.*;
 import io.sotaro.backend.repository.CountryRepository;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,12 @@ public class CountryService {
                 .collect(Collectors.toList());
     }
 
-    public CountryDto getCountryByIso2(String countryIso2) {
+    public CountryDto getCountryByIso2(String countryIso2) throws ResourceNotFoundException {
         Optional<CountryEntity> optionalEntity = countryRepository.findByCountryIso2(countryIso2);
-        CountryEntity entity = optionalEntity.orElseThrow();
+        CountryEntity entity = optionalEntity.orElseThrow(
+                () -> new ResourceNotFoundException(
+                        String.format("Country Not Found by countryIso2: %s", countryIso2))
+        );
         return convertToDto(entity);
     }
 

@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'persistent-node' }
     environment {
         NODEJS_HOME = "${tool 'jenkins-nodejs'}"
         MAVEN_HOME = "${tool 'jenkins-maven'}"
@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo "Deploy"
+                echo "Deploy!"
             }
         }
     }
