@@ -29,6 +29,13 @@ pipeline {
                 }
             }
         }
+        stage('Build Docker Image') {
+            steps {
+              script {
+                sh 'docker build -t my-app:latest .'
+              }
+            }
+        }
         stage('Deploy') {
             steps {
                 echo "Deploy!"
