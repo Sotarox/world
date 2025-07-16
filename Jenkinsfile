@@ -1,5 +1,9 @@
 pipeline {
-    agent { label 'persistent-node' }
+    agent {
+      docker {
+        image 'my-jenkins-agent'
+      }
+    }
     environment {
         NODEJS_HOME = "${tool 'jenkins-nodejs'}"
         MAVEN_HOME = "${tool 'jenkins-maven'}"
