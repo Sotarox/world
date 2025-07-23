@@ -4,6 +4,7 @@ import ListIcon from '@mui/icons-material/List';
 import { useTheme } from '@mui/material/styles';
 import AboutButton from './AboutButton';
 import { useNavigate } from 'react-router';
+import { useThemeContext } from '../contexts/UseThemeContext';
 
 interface HeaderBarProps {
   toggleDrawer: () => void;
@@ -13,6 +14,7 @@ export default function HeaderBar(props: HeaderBarProps) {
   const { toggleDrawer } = props;
   const theme = useTheme();
   const navigate = useNavigate();
+  const { toggleColorMode } = useThemeContext();
 
   return (
     <>
@@ -48,6 +50,9 @@ export default function HeaderBar(props: HeaderBarProps) {
             </Typography>
           </Button>
           <Box sx={{ flexGrow: '1' }} />
+          <Button color='inherit' onClick={() => toggleColorMode()}>
+            Toggle Color
+          </Button>
           <AboutButton />
         </Toolbar>
       </AppBar>
