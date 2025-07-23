@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { CssBaseline, useMediaQuery } from '@mui/material';
@@ -9,9 +9,8 @@ interface ThemeContextProviderProps {
   children: ReactNode;
 }
 
-export const ThemeContextProvider: React.FC<ThemeContextProviderProps> = ({
-  children,
-}) => {
+function ThemeContextProvider(props: ThemeContextProviderProps) {
+  const { children } = props;
   // Check user's system preference on initial load
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
@@ -61,4 +60,6 @@ export const ThemeContextProvider: React.FC<ThemeContextProviderProps> = ({
       </MuiThemeProvider>
     </ThemeContext.Provider>
   );
-};
+}
+
+export default ThemeContextProvider;
