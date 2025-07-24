@@ -49,8 +49,8 @@ export default function HeaderBar(props: HeaderBarProps) {
             </Typography>
           </Button>
           <Box sx={{ flexGrow: '1' }} />
-          <AboutButton />
           <ThemeSwitch />
+          <AboutButton />
         </Toolbar>
       </AppBar>
     </>
