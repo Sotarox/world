@@ -4,6 +4,7 @@ import ListIcon from '@mui/icons-material/List';
 import { useTheme } from '@mui/material/styles';
 import AboutButton from './AboutButton';
 import { useNavigate } from 'react-router';
+import ThemeSwitch from './ThemeSwitch';
 
 interface HeaderBarProps {
   toggleDrawer: () => void;
@@ -48,6 +49,7 @@ export default function HeaderBar(props: HeaderBarProps) {
             </Typography>
           </Button>
           <Box sx={{ flexGrow: '1' }} />
+          <ThemeSwitch />
           <AboutButton />
         </Toolbar>
       </AppBar>
