@@ -62,4 +62,4 @@ function ThemeContextProvider(props: ThemeContextProviderProps) {
   );
 }
 
-export default ThemeContextProvider;
+export { ThemeContextProvider };
