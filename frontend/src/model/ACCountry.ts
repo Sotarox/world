@@ -46,7 +46,7 @@ export interface ACCountry {
   /**
    * Latitude and longitude of the country.
    */
-  latlng: number[];
+  latlng: number[] | null;
   /**
    * Demonym for the country's people.
    */
