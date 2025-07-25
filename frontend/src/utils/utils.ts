@@ -25,7 +25,10 @@ export const formatNumberWithComma = (num: number) => {
   return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-export const formatCoordinate = (coordinate: number[]) => {
+export const formatCoordinate = (coordinate: number[] | null) => {
+  if (!coordinate || coordinate.length !== 2) {
+    return 'N/A';
+  }
   const [lat, lng] = coordinate;
   const latDirection = lat >= 0 ? 'N' : 'S';
   const lngDirection = lng >= 0 ? 'E' : 'W';
