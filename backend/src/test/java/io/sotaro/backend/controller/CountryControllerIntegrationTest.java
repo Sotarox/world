@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Sql(scripts = "/test_populate_countries.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "/clean_up.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class CountryControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
@@ -42,6 +43,13 @@ public class CountryControllerIntegrationTest {
             assertEquals("US", resultDto.countryIso2());
             assertEquals("United States", resultDto.countryName());
             assertEquals("Washington", resultDto.capital());
+        }
+
+        @Test
+        void whenFindByNonExistingIso2_thenThrowNotFoundException() throws Exception {
+            ResultActions resultActions = mockMvc.perform(get(BASE_URI + "/XY"))
+                    .andDo(print())
+                    .andExpect(status().isNotFound());
         }
     }
 
