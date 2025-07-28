@@ -30,6 +30,11 @@ Development machine is Apple M1 Pro. Other than macOS, the app behavior is not c
   - Run `npm run dev`
 - Open `http://localhost:5173` in browser
 
+## Open API Docs
+In local development, you can see endpoint's information under:
+http://localhost:8080/swagger-ui/index.html
+http://localhost:8080/v3/api-docs
+
 ## Deployment
 - Compiled frontend is served by Backend.
 - cd to `frontend`
