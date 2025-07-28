@@ -28,10 +28,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CountryControllerTest {
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private MockMvc mockMvc;
 
     @Autowired
-    private MockMvc mockMvc;
+    private ObjectMapper objectMapper;
 
     @MockitoBean
     private CountryService countryService;
@@ -63,6 +63,13 @@ public class CountryControllerTest {
             ResultActions resultActions = mockMvc.perform(get(BASE_URI + "/XY"))
                     .andDo(print())
                     .andExpect(status().isNotFound());
+        }
+
+        @Test
+        void whenFindByInvalidIso2Length_thenThrowBadRequestException() throws Exception {
+            ResultActions resultActions = mockMvc.perform(get(BASE_URI + "/USA"))
+                    .andDo(print())
+                    .andExpect(status().isBadRequest());
         }
     }
 
