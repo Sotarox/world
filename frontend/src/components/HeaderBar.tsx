@@ -49,6 +49,7 @@ export default function HeaderBar(props: HeaderBarProps) {
               World
             </Typography>
           </Button>
+          <Box sx={{ flexGrow: '1' }} />
           <SearchButton />
           <Box sx={{ flexGrow: '1' }} />
           <ThemeSwitch />

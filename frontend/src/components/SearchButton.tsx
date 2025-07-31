@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {
   Divider,
+  IconButton,
   ListItem,
   ListItemButton,
   ListItemIcon,
@@ -17,6 +17,7 @@ import {
   type CountryIso2NameMap,
 } from '../model/CountryIso2NameMap';
 import { useNavigate } from 'react-router';
+import SearchIcon from '@mui/icons-material/Search';
 
 function SearchButton() {
   const [open, setOpen] = useState(false);
@@ -40,13 +41,20 @@ function SearchButton() {
 
   return (
     <>
-      <Button color='inherit' onClick={() => setOpen(true)}>
-        Search
-      </Button>
-      <Modal open={open} onClose={() => reset()}>
+      <IconButton
+        size='large'
+        edge='start'
+        color='inherit'
+        aria-label='open search modal'
+        onClick={() => setOpen(true)}
+      >
+        <SearchIcon />
+      </IconButton>
+      <Modal disableRestoreFocus={true} open={open} onClose={() => reset()}>
         <StyledPaper>
           <TextField
             id='outlined-controlled'
+            autoFocus
             label='Country Name'
             value={query}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
