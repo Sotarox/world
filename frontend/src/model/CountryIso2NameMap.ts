@@ -1,4 +1,9 @@
-export const countryIso2NameMap = [
+export interface CountryIso2NameMap {
+  countryIso2: string;
+  countryName: string;
+}
+
+export const countryIso2NameMap: CountryIso2NameMap[] = [
   {
     countryIso2: 'AD',
     countryName: 'Andorra',
@@ -1008,6 +1013,12 @@ export const countryIso2NameMap = [
     countryName: 'Zimbabwe',
   },
 ];
+
+export const searchCountryName = (query: string) => {
+  return countryIso2NameMap.filter((c) =>
+    c.countryName.toLowerCase().includes(query.toLowerCase())
+  );
+};
 
 export const randomCountryIso2 = () => {
   const i = Math.floor(Math.random() * countryIso2NameMap.length);
