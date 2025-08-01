@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {
+  Box,
   Divider,
   IconButton,
   InputAdornment,
@@ -19,6 +20,7 @@ import {
 } from '../model/CountryIso2NameMap';
 import { useNavigate } from 'react-router';
 import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
 
 function SearchButton() {
   const [open, setOpen] = useState(false);
@@ -52,48 +54,72 @@ function SearchButton() {
         <SearchIcon />
       </IconButton>
       <Modal disableRestoreFocus={true} open={open} onClose={() => reset()}>
-        <StyledPaper>
-          <TextField
-            id='outlined-controlled'
-            autoFocus
-            label='Country Name'
-            value={query}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setQuery(event.target.value);
-            }}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-          <Divider sx={{ mt: 1, mb: 2 }} />
-          {results.length > 0 ? (
-            results.map((obj) => (
-              <ListItem key={obj.countryIso2} disablePadding>
-                <ListItemButton
-                  onClick={() => {
-                    navigate(`/countries/${obj.countryIso2.toLowerCase()}`);
-                    reset();
-                  }}
-                >
-                  <ListItemIcon>
-                    <span
-                      className={`fi fi-${obj.countryIso2.toLowerCase()}`}
-                      style={{ height: '24px', width: '24px', flexShrink: '0' }}
-                    ></span>
-                  </ListItemIcon>
-                  <ListItemText primary={obj.countryName} />
-                </ListItemButton>
-              </ListItem>
-            ))
-          ) : (
-            <Typography variant='body1'>No results found</Typography>
-          )}
+        <StyledPaper
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <IconButton
+            size='large'
+            edge='start'
+            color='inherit'
+            aria-label='close search modal'
+            onClick={() => setOpen(false)}
+          >
+            <CloseIcon />
+          </IconButton>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{ flexBasis: '80%' }}>
+              <TextField
+                id='outlined-controlled'
+                autoFocus
+                label='Country Name'
+                value={query}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setQuery(event.target.value);
+                }}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                sx={{ width: '100%' }}
+              />
+              <Divider sx={{ mt: 1, mb: 2 }} />
+              {results.length > 0 ? (
+                results.map((obj) => (
+                  <ListItem key={obj.countryIso2} disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        navigate(`/countries/${obj.countryIso2.toLowerCase()}`);
+                        reset();
+                      }}
+                    >
+                      <ListItemIcon>
+                        <span
+                          className={`fi fi-${obj.countryIso2.toLowerCase()}`}
+                          style={{
+                            height: '24px',
+                            width: '24px',
+                            flexShrink: '0',
+                          }}
+                        ></span>
+                      </ListItemIcon>
+                      <ListItemText primary={obj.countryName} />
+                    </ListItemButton>
+                  </ListItem>
+                ))
+              ) : (
+                <Typography variant='body1'>No results found</Typography>
+              )}
+            </Box>
+          </Box>
         </StyledPaper>
       </Modal>
     </>
