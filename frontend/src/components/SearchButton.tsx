@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import {
   Divider,
   IconButton,
+  InputAdornment,
   ListItem,
   ListItemButton,
   ListItemIcon,
@@ -59,6 +60,15 @@ function SearchButton() {
             value={query}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setQuery(event.target.value);
+            }}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              },
             }}
           />
           <Divider sx={{ mt: 1, mb: 2 }} />
