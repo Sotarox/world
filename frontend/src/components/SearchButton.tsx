@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {
-  Box,
   Divider,
   IconButton,
   InputAdornment,
@@ -12,6 +10,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Stack,
 } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import {
@@ -54,57 +53,8 @@ function SearchButton() {
         <SearchIcon />
       </IconButton>
       <Modal disableRestoreFocus={true} open={open} onClose={() => reset()}>
-        <StyledPaper sx={{ display: 'flex', flexDirection: 'row' }}>
-          <Box sx={{ flexBasis: '10%' }} />
-          <Box sx={{ flexBasis: '80%', pt: 6 }}>
-            <TextField
-              id='outlined-controlled'
-              autoFocus
-              label='Country Name'
-              value={query}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setQuery(event.target.value);
-              }}
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                },
-              }}
-              sx={{ width: '100%' }}
-            />
-            <Divider sx={{ mt: 1, mb: 2 }} />
-            {results.length > 0 ? (
-              results.map((obj) => (
-                <ListItem key={obj.countryIso2} disablePadding>
-                  <ListItemButton
-                    onClick={() => {
-                      navigate(`/countries/${obj.countryIso2.toLowerCase()}`);
-                      reset();
-                    }}
-                  >
-                    <ListItemIcon>
-                      <span
-                        className={`fi fi-${obj.countryIso2.toLowerCase()}`}
-                        style={{
-                          height: '24px',
-                          width: '24px',
-                          flexShrink: '0',
-                        }}
-                      ></span>
-                    </ListItemIcon>
-                    <ListItemText primary={obj.countryName} />
-                  </ListItemButton>
-                </ListItem>
-              ))
-            ) : (
-              <Typography variant='body1'>No results found</Typography>
-            )}
-          </Box>
-          <Box sx={{ flexBasis: '10%' }}>
+        <StyledPaper sx={{ height: '80vh' }}>
+          <Stack direction='row' sx={{ justifyContent: 'flex-end' }}>
             <IconButton
               size='large'
               edge='end'
@@ -114,7 +64,72 @@ function SearchButton() {
             >
               <CloseIcon />
             </IconButton>
-          </Box>
+          </Stack>
+          <Stack
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}
+          >
+            <Stack
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                flexBasis: '80%',
+                height: '100%',
+                overflowY: 'auto',
+                pt: 1,
+              }}
+            >
+              <TextField
+                id='outlined-controlled'
+                autoFocus
+                label='Country Name'
+                value={query}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setQuery(event.target.value);
+                }}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                sx={{ width: '100%' }}
+              />
+              <Divider sx={{ mt: 1, mb: 2 }} />
+              {results.length > 0 ? (
+                results.map((obj) => (
+                  <ListItem key={obj.countryIso2} disablePadding>
+                    <ListItemButton
+                      onClick={() => {
+                        navigate(`/countries/${obj.countryIso2.toLowerCase()}`);
+                        reset();
+                      }}
+                    >
+                      <ListItemIcon>
+                        <span
+                          className={`fi fi-${obj.countryIso2.toLowerCase()}`}
+                          style={{
+                            height: '24px',
+                            width: '24px',
+                            flexShrink: '0',
+                          }}
+                        ></span>
+                      </ListItemIcon>
+                      <ListItemText primary={obj.countryName} />
+                    </ListItemButton>
+                  </ListItem>
+                ))
+              ) : (
+                <></>
+              )}
+            </Stack>
+          </Stack>
         </StyledPaper>
       </Modal>
     </>
