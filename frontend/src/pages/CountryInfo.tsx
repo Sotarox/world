@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import Grid, { type GridProps } from '@mui/material/Grid';
 import { type Country } from '../model/Country';
-import Box from '@mui/material/Box';
 import { Item } from '../components/Item';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import {
@@ -30,7 +29,7 @@ function CountryInfo(props: CountryInfoProps) {
   const { currentTopic, setCurrentTopic } = useContext(CurrentTopicContext);
 
   return (
-    <Box sx={{ mt: 2 }}>
+    <>
       <Item sx={{ mb: 1 }}>
         <Grid container spacing={0.125}>
           <CountryInfoHeader country={country} />
@@ -108,7 +107,7 @@ function CountryInfo(props: CountryInfoProps) {
           />
         </CustomGrid>
       </Grid>
-    </Box>
+    </>
   );
 }
 
