@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 function TopPage() {
   const theme = useTheme();
   return (
-    <Paper sx={{ p: 2, m: 2 }}>
+    <Paper sx={{ p: 2 }}>
       <Typography variant='h2' component='h1'>
         Welcome
       </Typography>

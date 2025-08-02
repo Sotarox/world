@@ -4,6 +4,7 @@ import HeaderBar from '../components/HeaderBar';
 import Sidebar from '../components/Sidebar';
 import FloatingRandomButton from '../components/FloatingRandomButton';
 import { Outlet } from 'react-router';
+import { Box } from '@mui/material';
 
 function AppLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -15,7 +16,9 @@ function AppLayout() {
     <>
       <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
       <Sidebar isOpen={isSidebarOpen} setIsOpen={toggleIsSidebarOpen} />
-      <Outlet />
+      <Box sx={{ p: 2 }}>
+        <Outlet />
+      </Box>
       <FloatingRandomButton />
       <BottomBar toggleDrawer={toggleIsSidebarOpen} />
     </>

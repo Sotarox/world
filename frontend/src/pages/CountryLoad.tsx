@@ -47,7 +47,7 @@ function CountryLoad() {
 
   if (country) {
     return (
-      <Box sx={{ pl: 2, pr: 2, pb: { xs: 8, sm: 0 } }}>
+      <Box sx={{ pb: { xs: 8, sm: 0 } }}>
         <CountryInfo
           acCountry={acCountry}
           country={country}
