@@ -2,30 +2,20 @@ import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Modal from '@mui/material/Modal';
-import {
-  Divider,
-  IconButton,
-  InputAdornment,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-} from '@mui/material';
+import { Divider, IconButton, InputAdornment, Stack } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import {
   searchCountryName,
   type CountryIso2NameMap,
 } from '../model/CountryIso2NameMap';
-import { useNavigate } from 'react-router';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
+import SearchResult from './SearchResult';
 
 function SearchButton() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<CountryIso2NameMap[]>([]);
-  const navigate = useNavigate();
   const reset = () => {
     setQuery('');
     setResults([]);
@@ -102,32 +92,7 @@ function SearchButton() {
                 sx={{ width: '100%' }}
               />
               <Divider sx={{ mt: 1, mb: 2 }} />
-              {results.length > 0 ? (
-                results.map((obj) => (
-                  <ListItem key={obj.countryIso2} disablePadding>
-                    <ListItemButton
-                      onClick={() => {
-                        navigate(`/countries/${obj.countryIso2.toLowerCase()}`);
-                        reset();
-                      }}
-                    >
-                      <ListItemIcon>
-                        <span
-                          className={`fi fi-${obj.countryIso2.toLowerCase()}`}
-                          style={{
-                            height: '24px',
-                            width: '24px',
-                            flexShrink: '0',
-                          }}
-                        ></span>
-                      </ListItemIcon>
-                      <ListItemText primary={obj.countryName} />
-                    </ListItemButton>
-                  </ListItem>
-                ))
-              ) : (
-                <></>
-              )}
+              <SearchResult results={results} reset={reset} />
             </Stack>
           </Stack>
         </StyledPaper>
