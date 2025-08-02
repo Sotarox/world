@@ -5,6 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import AboutButton from './AboutButton';
 import { useNavigate } from 'react-router';
 import ThemeSwitch from './ThemeSwitch';
+import SearchButton from './SearchButton';
 
 interface HeaderBarProps {
   toggleDrawer: () => void;
@@ -48,6 +49,8 @@ export default function HeaderBar(props: HeaderBarProps) {
               World
             </Typography>
           </Button>
+          <Box sx={{ flexGrow: '1' }} />
+          <SearchButton />
           <Box sx={{ flexGrow: '1' }} />
           <ThemeSwitch />
           <AboutButton />
