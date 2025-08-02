@@ -55,17 +55,11 @@ function SearchButton() {
               <CloseIcon />
             </IconButton>
           </Stack>
-          <Stack
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}
-          >
+          <Stack direction='row' sx={{ justifyContent: 'center' }}>
             <Stack
+              direction='column'
+              spacing={2}
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
                 flexBasis: '80%',
                 height: '100%',
                 overflowY: 'auto',
@@ -91,7 +85,7 @@ function SearchButton() {
                 }}
                 sx={{ width: '100%' }}
               />
-              <Divider sx={{ mt: 1, mb: 2 }} />
+              <Divider />
               <SearchResult results={results} reset={reset} />
             </Stack>
           </Stack>
