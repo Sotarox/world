@@ -20,7 +20,7 @@ const CustomGrid: React.FC<GridProps> = (props) => (
 );
 
 interface CountryInfoProps {
-  acCountry: ACCountry | undefined;
+  acCountry: ACCountry | null;
   country: Country;
   sizeAirports: number;
 }

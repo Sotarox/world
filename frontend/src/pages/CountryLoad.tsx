@@ -1,5 +1,4 @@
-import { useCallback, useContext, useState, useEffect } from 'react';
-import api from '../api/axios';
+import { useCallback, useContext, useState } from 'react';
 import { type Country } from '../model/Country';
 import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
@@ -16,34 +15,20 @@ import { CircleFlag } from 'react-circle-flags';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import { type ACCountry } from '../model/ACCountry';
 import { useNavigate, useParams } from 'react-router';
+import useApi from '../api/useApi';
 
 function CountryLoad() {
-  const [country, setCountry] = useState<Country | undefined>();
-  const [acCountry, setAcCountry] = useState<ACCountry | undefined>();
   const [sizeAirports, setSizeAirports] = useState(0);
   const { currentTopic } = useContext(CurrentTopicContext);
   const onLoadAirpots = useCallback((size: number) => {
     setSizeAirports(size);
   }, []);
   const currentIso2 = useParams().iso2?.toUpperCase() ?? '';
+  const country: Country | null = useApi<Country>(`/countries/${currentIso2}`);
+  const acCountry: ACCountry | null = useApi<ACCountry>(
+    `/accountries/${currentIso2}`
+  );
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (currentIso2 !== '') {
-      api
-        .get<Country>(`countries/${currentIso2}`)
-        .then((res) => {
-          setCountry(res.data);
-        })
-        .catch((error) => console.log(error));
-      api
-        .get<ACCountry>(`accountries/${currentIso2}`)
-        .then((res) => {
-          setAcCountry(res.data);
-        })
-        .catch((error) => console.log(error));
-    }
-  }, [currentIso2]);
 
   if (country) {
     return (
@@ -89,11 +74,12 @@ function CountryLoad() {
           isVisible={currentTopic === 'airports'}
           onLoad={onLoadAirpots}
         />
-        <PopulationInfo
-          countryIso2={currentIso2}
-          continentCode={country.continent}
-          isVisible={currentTopic === 'population'}
-        />
+        {currentTopic === 'population' && (
+          <PopulationInfo
+            countryIso2={currentIso2}
+            continentCode={country.continent}
+          />
+        )}
       </Box>
     );
   } else {
