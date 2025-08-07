@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import api from './axios';
 
-function useApi<Type>(url: string | null) {
+function useApi<Type>(
+  url: string | null,
+  onSucess?: (data: Type) => void
+): Type | null {
   const [data, setData] = useState<Type | null>(null);
   useEffect(() => {
     if (url && url !== '') {
@@ -11,6 +14,9 @@ function useApi<Type>(url: string | null) {
         .then((res) => {
           if (!ignore) {
             setData(res.data);
+            if (onSucess) {
+              onSucess(res.data);
+            }
           }
         })
         .catch((error) => console.log(error));

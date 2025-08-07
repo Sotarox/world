@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import api from '../api/axios';
 import { type Airport } from '../model/Airport';
 import AirportInfo from './AirportInfo';
+import useApi from '../api/useApi';
 
 interface AirportListProps {
   countryIso2: string | null;
@@ -12,19 +11,11 @@ interface AirportListProps {
 
 function AirportList(props: AirportListProps) {
   const { countryIso2, isVisible, onLoad } = props;
-  const [airports, setAirports] = useState<Airport[]>([]);
+  const airports = useApi<Airport[]>(`/airports/${countryIso2}`, (data) =>
+    onLoad(data.length)
+  );
 
-  useEffect(() => {
-    api
-      .get<Airport[]>('airports/' + countryIso2)
-      .then((res) => {
-        setAirports(res.data);
-        onLoad(res.data.length);
-      })
-      .catch((error) => console.log(error));
-  }, [countryIso2, onLoad]);
-
-  if (isVisible && airports.length > 0) {
+  if (isVisible && airports) {
     return (
       <Box sx={{ mt: 4 }}>
         {airports.map((airport) => (
