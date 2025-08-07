@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import api from '../api/axios';
+import api from './axios';
 
-function useData<Type>(url: string | null) {
+function useApi<Type>(url: string | null) {
   const [data, setData] = useState<Type | null>(null);
   useEffect(() => {
     if (url && url !== '') {
@@ -22,4 +22,4 @@ function useData<Type>(url: string | null) {
   }, [url]);
   return data;
 }
-export default useData;
+export default useApi;

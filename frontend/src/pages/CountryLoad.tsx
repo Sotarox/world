@@ -15,7 +15,7 @@ import { CircleFlag } from 'react-circle-flags';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import { type ACCountry } from '../model/ACCountry';
 import { useNavigate, useParams } from 'react-router';
-import useData from '../api/useData';
+import useApi from '../api/useApi';
 
 function CountryLoad() {
   const [sizeAirports, setSizeAirports] = useState(0);
@@ -24,8 +24,8 @@ function CountryLoad() {
     setSizeAirports(size);
   }, []);
   const currentIso2 = useParams().iso2?.toUpperCase() ?? '';
-  const country: Country | null = useData<Country>(`/countries/${currentIso2}`);
-  const acCountry: ACCountry | null = useData<ACCountry>(
+  const country: Country | null = useApi<Country>(`/countries/${currentIso2}`);
+  const acCountry: ACCountry | null = useApi<ACCountry>(
     `/accountries/${currentIso2}`
   );
   const navigate = useNavigate();
