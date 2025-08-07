@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import api from './axios';
 
 function useApi<Type>(
@@ -6,11 +6,20 @@ function useApi<Type>(
   onSucess?: (data: Type) => void
 ): Type | null {
   const [data, setData] = useState<Type | null>(null);
+  const controllerRef = useRef<AbortController | null>(null);
+
   useEffect(() => {
     if (url && url !== '') {
+      // If request is duplicated, abort the previous one
+      if (controllerRef.current) {
+        controllerRef.current.abort();
+      }
+      const controller = new AbortController();
+      controllerRef.current = controller;
+
       let ignore = false;
       api
-        .get<Type>(url)
+        .get<Type>(url, { signal: controller.signal })
         .then((res) => {
           if (!ignore) {
             setData(res.data);
@@ -19,7 +28,11 @@ function useApi<Type>(
             }
           }
         })
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          if (error.name !== 'CanceledError') {
+            console.error(error);
+          }
+        });
       // Cleanup function to avoid setting state on unmounted component
       return () => {
         ignore = true;
