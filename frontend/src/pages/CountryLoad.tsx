@@ -74,11 +74,12 @@ function CountryLoad() {
           isVisible={currentTopic === 'airports'}
           onLoad={onLoadAirpots}
         />
-        <PopulationInfo
-          countryIso2={currentIso2}
-          continentCode={country.continent}
-          isVisible={currentTopic === 'population'}
-        />
+        {currentTopic === 'population' && (
+          <PopulationInfo
+            countryIso2={currentIso2}
+            continentCode={country.continent}
+          />
+        )}
       </Box>
     );
   } else {
