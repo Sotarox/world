@@ -3,6 +3,9 @@
 👓 The goal is to create a lightweight information system where users can quickly gather key data.  
 💎 UX theme: “Look & feel from shopping sites for informative content”.
 
+## Demo
+https://world.sotaro.dev/
+
 ## Technologies
 Spring Boot, React, TypeScript, Material UI, PostgresSQL, 
 Docker, Amazon Lightsail, nginx, Ubuntu, Jenkins
