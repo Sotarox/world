@@ -1,3 +1,4 @@
+import React from 'react';
 import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
 import { ThemeContextProvider } from './contexts/ThemeContext';
 import { ErrorBoundary } from './utils/ErrorBoundary';
