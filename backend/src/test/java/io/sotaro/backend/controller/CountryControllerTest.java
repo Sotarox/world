@@ -88,7 +88,8 @@ public class CountryControllerTest {
                 "currencyName",
                 "countryIsoNumeric",
                 "phonePrefix",
-                0
+                0,
+                 0
         );
     }
 }
