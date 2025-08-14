@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import { type Airport } from '../model/Airport';
 import AirportInfo from './AirportInfo';

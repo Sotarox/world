@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import Grid, { type GridProps } from '@mui/material/Grid';
 import { type Country } from '../model/Country';
 import { Item } from '../components/Item';
