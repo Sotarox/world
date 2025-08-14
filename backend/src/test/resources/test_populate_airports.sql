@@ -6482,48 +6482,80 @@ INSERT INTO Airports (
 ('3600461', '8', '10341', 'AAP', 'null', 'WALS', 'ID', '11749267','-0.374448', '117.249392', 'Aji Pangeran Tumenggung Pranoto International Airport', 'Indonesia', 'null', 'null'),
 ('3600462', '8', '10342', 'AHJ', 'null', 'ZUHY', 'CN', '8521741','32.53154', '102.35224', 'Aba Hongyuan Airport', 'China', 'null', 'null'),
 ('3600463', '8', '10343', 'AXF', 'null', 'ZBAL', 'MN', 'null','38.74831', '105.58858', 'Alxa Left Banner Bayanhot Airport', 'Mongolia', 'null', 'null'),
-('3600464', '9', '10344', 'AXJ', 'null', 'RJDA', 'JP', '8520859','32.482498', '130.158997', 'Amakusa Airfield', 'Japan', 'null', 'null'),
-('3600465', '10', '10345', 'BBL', 'null', 'YLLE', 'AU', '8533832','-27.405633', '141.809458', 'Ballera Airport', 'Australia', 'null', 'null'),
-('3600466', '8', '10346', 'BFJ', 'null', 'ZUBJ', 'CN', '8426217','27.267066', '105.472097', 'Bijie Feixiong AirportYCV', 'China', 'null', 'null'),
+('3600464', '9', '10344', 'AXJ', 'null', 'RJDA', 'JP', '8520859','32.482498', '130.158997', 'Amakusa Airfield
+', 'Japan', 'null', 'null'),
+('3600465', '10', '10345', 'BBL', 'null', 'YLLE', 'AU', '8533832','-27.405633', '141.809458', 'Ballera Airport
+', 'Australia', 'null', 'null'),
+('3600466', '8', '10346', 'BFJ', 'null', 'ZUBJ', 'CN', '8426217','27.267066', '105.472097', 'Bijie Feixiong AirportYCV
+', 'China', 'null', 'null'),
 ('3600467', '5', '10347', 'BKN', 'null', 'UT1H', 'null', '8581504','39.481389', '54.362778', 'Balkanabat Airport', 'Turkmenistan', 'null', 'null'),
-('3600468', '8', '10348', 'BPN', 'null', 'WALL', 'ID', '7668668','-1.2682700157', '116.893997192', 'Sultan Aji Muhamad Sulaiman Airport', 'Indonesia', 'null', 'null'),
-('3600469', '6', '10349', 'BUT', 'null', 'VQBT', 'BT', '8531844','27.5622', '90.7471', 'Bathpalathang Airport', 'Bhutan', 'null', 'null'),
-('3600470', '7', '10350', 'BUU', 'null', 'WIPI', 'ID', '11951798','-1.1278', '102.135', 'Muara Bungo Airport', 'Indonesia', 'null', 'null'),
-('3600471', '3', '10351', 'BVJ', 'null', 'LTFE', 'TR', '6299771','37.25059', '27.6643', 'Milas–Bodrum Airport', 'Turkey', 'null', 'null'),
-('3600472', '7', '10352', 'BWX', 'null', 'WARB', 'ID', '8531789','-8.31015', '114.3401', 'Blimbingsari Airport', 'Indonesia', 'null', 'null'),
-('3600473', '8', '10353', 'BYP', 'null', 'YBRY', 'AU', '8555592','-22.6739006042', '119.1660003662', 'Barimunya Airport', 'Australia', 'null', 'null'),
+('3600468', '8', '10348', 'BPN', 'null', 'WALL', 'ID', '7668668','-1.2682700157', '116.893997192', 'Sultan Aji Muhamad Sulaiman Airport
+', 'Indonesia', 'null', 'null'),
+('3600469', '6', '10349', 'BUT', 'null', 'VQBT', 'BT', '8531844','27.5622', '90.7471', 'Bathpalathang Airport
+', 'Bhutan', 'null', 'null'),
+('3600470', '7', '10350', 'BUU', 'null', 'WIPI', 'ID', '11951798','-1.1278', '102.135', 'Muara Bungo Airport
+', 'Indonesia', 'null', 'null'),
+('3600471', '3', '10351', 'BVJ', 'null', 'LTFE', 'TR', '6299771','37.25059', '27.6643', 'Milas–Bodrum Airport
+', 'Turkey', 'null', 'null'),
+('3600472', '7', '10352', 'BWX', 'null', 'WARB', 'ID', '8531789','-8.31015', '114.3401', 'Blimbingsari Airport
+', 'Indonesia', 'null', 'null'),
+('3600473', '8', '10353', 'BYP', 'null', 'YBRY', 'AU', '8555592','-22.6739006042', '119.1660003662', 'Barimunya Airport
+', 'Australia', 'null', 'null'),
 ('3600474', '8', '10354', 'BZX', 'null', 'ZUBZ', 'CN', '11995099','31.738', '106.64513', 'Bazhong Enyang Airport', 'China', 'null', 'null'),
-('3600475', '-5', '10355', 'CCC', 'null', 'MUCC', 'CU', '8520847','22.4610004425', '-78.3283996582', 'Jardines Del Rey Airport', 'Cuba', 'null', 'null'),
-('3600477', '8', '10357', 'CJF', 'null', 'YCWA', 'AU', '8555599','-22.9666996002', '118.81300354', 'Coondewanna Airport', 'Australia', 'null', 'null'),
-('3600478', '1', '10358', 'CQM', 'null', 'LERL', 'ES', '6452899','38.8563888889', '-3.97', 'Ciudad Real Central Airport', 'Spain', 'null', 'null'),
-('3600479', '-5', '10359', 'CSG', 'null', 'KCSG', 'US', '4188990','32.5163002014', '-84.9389038086', 'Columbus Metropolitan Airport', 'United States', 'null', 'null'),
-('3600480', '8', '10360', 'CWJ', 'null', 'ZPCW', 'CN', '11184550','23.273889', '99.373611', 'Cangyuan Washan Airport', 'China', 'null', 'null'),
-('3600481', '8', '10361', 'DBC', 'null', 'ZYBA', 'CN', '11101506','45.505278', '123.019722', 'Baicheng Chang''an Airport', 'China', 'null', 'null'),
+('3600475', '-5', '10355', 'CCC', 'null', 'MUCC', 'CU', '8520847','22.4610004425', '-78.3283996582', 'Jardines Del Rey Airport
+', 'Cuba', 'null', 'null'),
+('3600477', '8', '10357', 'CJF', 'null', 'YCWA', 'AU', '8555599','-22.9666996002', '118.81300354', 'Coondewanna Airport
+', 'Australia', 'null', 'null'),
+('3600478', '1', '10358', 'CQM', 'null', 'LERL', 'ES', '6452899','38.8563888889', '-3.97', 'Ciudad Real Central Airport
+', 'Spain', 'null', 'null'),
+('3600479', '-5', '10359', 'CSG', 'null', 'KCSG', 'US', '4188990','32.5163002014', '-84.9389038086', 'Columbus Metropolitan Airport
+', 'United States
+', 'null', 'null'),
+('3600480', '8', '10360', 'CWJ', 'null', 'ZPCW', 'CN', '11184550','23.273889', '99.373611', 'Cangyuan Washan Airport
+', 'China', 'null', 'null'),
+('3600481', '8', '10361', 'DBC', 'null', 'ZYBA', 'CN', '11101506','45.505278', '123.019722', 'Baicheng Chang''an Airport
+', 'China', 'null', 'null'),
 ('3600482', '5.3', '10362', 'DBR', 'null', 'VE89', 'IN', 'null','26.1936', '85.919403', 'Darbhanga Airport', 'India', 'null', 'null'),
 ('3600483', '5', '10363', 'DDD', 'null', 'VRMU', 'MV', '11524617','2.666075', '72.887118', 'Dhaalu Airport', 'Maldives', 'null', 'null'),
-('3600484', '9', '10364', 'DEX', 'null', 'WAVD', 'ID', 'null','-4.8557', '139.482006', 'Nop Goliat Airport', 'Indonesia', 'null', 'null'),
+('3600484', '9', '10364', 'DEX', 'null', 'WAVD', 'ID', 'null','-4.8557', '139.482006', 'Nop Goliat Airport
+', 'Indonesia', 'null', 'null'),
 ('3600485', 'null', '10365', 'DGX', 'null', 'EGSY', 'GB', 'null','null', 'null', 'St. Athan Airport', 'United Kingdom', 'null', 'null'),
-('3600486', '4', '10366', 'DQM', 'null', 'OODQ', 'OM', '8394117','19.501944', '57.634167', 'Duqm International Airport', 'Oman', 'null', 'null'),
-('3600487', 'null', '10367', 'DSS', 'null', 'GOBD', 'SN', '7732976','14.67', '-17.073333', 'Blaise Diagne International Airport', 'Senegal', 'null', 'null'),
-('3600488', '7', '10368', 'DTB', 'null', 'WIMN', 'ID', '8531809','2.25973', '98.991898', 'Silangit Airport', 'Indonesia', 'null', 'null'),
-('3600489', '8', '10369', 'DTU', 'null', 'ZYDU', 'CN', '11128430','48.445', '126.133', 'Wudalianchi Dedu Airport', 'China', 'null', 'null'),
-('3600490', '-6', '10370', 'DXE', 'null', 'KMBO', 'US', '4419655','null', 'null', 'Bruce Campbell Field', 'United States', 'null', 'null'),
+('3600486', '4', '10366', 'DQM', 'null', 'OODQ', 'OM', '8394117','19.501944', '57.634167', 'Duqm International Airport
+', 'Oman', 'null', 'null'),
+('3600487', 'null', '10367', 'DSS', 'null', 'GOBD', 'SN', '7732976','14.67', '-17.073333', 'Blaise Diagne International Airport
+', 'Senegal', 'null', 'null'),
+('3600488', '7', '10368', 'DTB', 'null', 'WIMN', 'ID', '8531809','2.25973', '98.991898', 'Silangit Airport
+', 'Indonesia', 'null', 'null'),
+('3600489', '8', '10369', 'DTU', 'null', 'ZYDU', 'CN', '11128430','48.445', '126.133', 'Wudalianchi Dedu Airport
+', 'China', 'null', 'null'),
+('3600490', '-6', '10370', 'DXE', 'null', 'KMBO', 'US', '4419655','null', 'null', 'Bruce Campbell Field', 'United States
+', 'null', 'null'),
 ('3600491', '-6', '10371', 'EDC', 'null', 'KEDC', 'US', 'null','30.3974931', '-97.5663935', 'Austin Executive Airport ', 'United States', 'null', 'null'),
-('3600492', '2', '10372', 'ETM', 'null', 'LLER', 'IL', '11153003','29.723694', '35.011416', 'Ramon Airport', 'Israel', 'null', 'null'),
-('3600493', '7', '10373', 'FLZ', 'null', 'WIMS', 'ID', '6301238','1.55594', '98.888901', 'Dr Ferdinand Lumban Tobing Airport', 'Indonesia', 'null', 'null'),
-('3600494', '5', '10374', 'FND', 'null', '-', 'MV', '12104814','6.1611', '73.2872', 'Funadhoo Airport', 'Maldives', 'null', 'null'),
-('3600495', '1', '10375', 'FRF', 'null', 'EDOL', 'DE', 'null','52.040333', '11.202833', 'Rhein-Main AFB airport', 'Germany', 'null', 'null'),
-('3600496', '8', '10376', 'FYN', 'null', 'ZWFY', 'CN', '11127692','46.804169', '89.512006', 'Fuyun Koktokay Airport', 'China', 'null', 'null'),
+('3600492', '2', '10372', 'ETM', 'null', 'LLER', 'IL', '11153003','29.723694', '35.011416', 'Ramon Airport
+', 'Israel', 'null', 'null'),
+('3600493', '7', '10373', 'FLZ', 'null', 'WIMS
+', 'ID', '6301238','1.55594', '98.888901', 'Dr Ferdinand Lumban Tobing Airport
+', 'Indonesia
+', 'null', 'null'),
+('3600494', '5', '10374', 'FND', 'null', '-', 'MV', '12104814','6.1611', '73.2872', 'Funadhoo Airport
+', 'Maldives', 'null', 'null'),
+('3600495', '1', '10375', 'FRF', 'null', 'EDOL', 'DE', 'null','52.040333', '11.202833', 'Rhein-Main AFB airport
+', 'Germany', 'null', 'null'),
+('3600496', '8', '10376', 'FYN', 'null', 'ZWFY', 'CN', '11127692','46.804169', '89.512006', 'Fuyun Koktokay Airport
+', 'China', 'null', 'null'),
 ('3600497', '8', '10377', 'GBW', 'null', 'YGIA', 'AU', 'null','-22.5812', '120.03553', 'Ginbata Airport', 'Australia', 'null', 'null'),
 ('3600498', '-3', '10378', 'GDR', 'null', 'SDAG', 'BR', 'null','-22.97527', '-44.30722', 'Angra dos Reis Airport', 'Brazil', 'null', 'null'),
-('3600499', '-4', '10379', 'GGB', 'null', 'SWHP', 'null', '12105153','-14.02531', '-52.15432', 'Água Boa Airport', 'Brazil', 'null', 'null'),
+('3600499', '-4', '10379', 'GGB', 'null', 'SWHP', 'null', '12105153','-14.02531', '-52.15432', 'Água Boa Airport
+', 'Brazil', 'null', 'null'),
 ('3600500', '1', '10380', 'GHF', 'null', 'ETEU', 'DE', 'null','49.6481018066', '9.9664897919', 'Giebelstadt Army Air Field', 'Germany', 'null', 'null'),
 ('3600501', '5', '10381', 'GKK', 'null', 'VRMO', 'MV', '8411012','0.7324', '73.4336', 'Kooddoo Airport', 'Maldives', 'null', 'null'),
 ('3600502', '2', '10382', 'GML', 'null', 'UKKM', 'UA', '6300961','50.6035003', '30.1919', 'Gostomel Airport', 'Ukraine', 'null', 'null'),
 ('3600503', '8', '10383', 'GMQ', 'null', 'ZLGL', 'CN', '11185238','34.418066', '100.301144', 'Golog Maqin Airport', 'China', 'null', 'null'),
 ('3600504', '4', '10384', 'GSV', 'null', 'UWSG', 'RU', '11459350','51.71252', '46.16881', 'Saratov Gagarin Airport', 'Russia', 'null', 'null'),
-('3600505', '-5', '10385', 'GTB', 'null', 'KGTB', 'US', '6298323','44.05562', '-75.71946', 'Wheeler-Sack Army Airfield', 'United States', 'null', 'null'),
-('3600506', '-6', '10386', 'GYB', 'null', 'KGYB', 'US', 'null','30.169167', '-96.98', 'Giddings–Lee County Airport', 'United States', 'null', 'null'),
+('3600505', '-5', '10385', 'GTB', 'null', 'KGTB', 'US', '6298323','44.05562', '-75.71946', 'Wheeler-Sack Army Airfield', 'United States
+', 'null', 'null'),
+('3600506', '-6', '10386', 'GYB', 'null', 'KGYB', 'US', 'null','30.169167', '-96.98', 'Giddings–Lee County Airport', 'United States
+', 'null', 'null'),
 ('3600507', '11', '10387', 'GYZ', 'null', 'YGRM', 'AU', '12110485','-28.01838', '123.80329', ' Gruyere Mine Airport', 'Australia', 'null', 'null'),
 ('3600508', '8', '10388', 'GZG', 'null', 'ZUGZ', 'CN', '12110486','31.7575', '99.554167', 'Garze Gesar Airport', 'China', 'null', 'null'),
 ('3600509', '8', '10389', 'HBQ', 'null', 'ZLHB', 'CN', '11874694','38.012', '100.644', 'Qilian Airport', 'China', 'null', 'null'),
@@ -6534,9 +6566,12 @@ INSERT INTO Airports (
 ('3600514', '8', '10394', 'HTT', 'null', 'ZLHX', 'CN', '11103469','38.201984', '90.841495', 'Huatugou Airport', 'China', 'null', 'null'),
 ('3600515', '8', '10395', 'HXD', 'null', 'ZLDL', 'CN', '8581628','37.125286', '97.268658', 'Delingha Airport', 'China', 'null', 'null'),
 ('3600516', '-6', '10396', 'HYI', 'null', 'KHYI', 'US', 'null','29.892778', '-97.863056', 'San Marcos Regional Airport', 'United States', 'null', 'null'),
-('3600517', '6', '10397', 'IKU', 'null', 'UAFL', 'KG', '8532010','42.58792', '76.713046', 'Issyk-Kul International Airport', 'Kyrgyzstan', 'null', 'null'),
+('3600517', '6', '10397', 'IKU', 'null', 'UAFL', 'KG', '8532010','42.58792', '76.713046', 'Issyk-Kul International Airport
+', 'Kyrgyzstan', 'null', 'null'),
 ('3600518', '-6', '10398', 'ILS', 'null', 'MSSS', 'SV', '6299912','13.691667', '-89.125556', 'Ilopango International Airport', 'El Salvador', 'null', 'null'),
-('3600519', '3.3', '10399', 'IMQ', 'null', 'OITU', 'IR', '6676732','39.1925', '44.925278', 'Maku International Airport', 'Iran', 'null', 'null'),
+('3600519', '3.3', '10399', 'IMQ', 'null', 'OITU', 'IR', '6676732','39.1925', '44.925278', 'Maku International Airport
+
+', 'Iran', 'null', 'null'),
 ('3600520', '-5', '10400', 'IMS', 'null', 'KIMS', 'US', '4207457','33.61233', '-83.46167', 'Madison Municipal Airport', 'United States', 'null', 'null'),
 ('3600521', '11', '10401', 'ITU', 'null', 'UHSI', 'RU', '10943293','45.256389', '147.955833', 'Iturup Airport', 'Russia', 'null', 'null'),
 ('3600522', '5.3', '10402', 'IXX', 'null', 'VOBR', 'IN', '8441899','17.9', '77.47', 'Bidar Airport', 'India', 'null', 'null'),
@@ -6554,15 +6589,21 @@ INSERT INTO Airports (
 ('3600534', 'null', '10414', 'KXB', 'null', 'WAWP', 'ID', 'null','-4.341217', '121.523983', 'Kolaka Airport', 'Indonesia', 'null', 'null'),
 ('3600535', '8', '10415', 'LFQ', 'null', 'ZBLF', 'CN', '11102728','36.132629', '111.641236', 'Linfen Qiaoli Airport', 'China', 'null', 'null'),
 ('3600536', '8', '10416', 'LHW', 'null', 'ZLLL', 'CN', '6301373','36.5152015686', '103.620002747', 'Lanzhou Zhongchuan Airport', 'China', 'null', 'null'),
-('3600537', '9', '10417', 'LLJ', 'null', 'WIPB', 'ID', '9036044','-3.28', '102.917222', 'Silampari Airport', 'Indonesia', 'null', 'null'),
-('3600538', '8', '10418', 'LLO', 'null', 'WAFD', 'ID', 'null','-3.084722', '120.245278', 'Bua Airport', 'Indonesia', 'null', 'null'),
+('3600537', '9', '10417', 'LLJ', 'null', 'WIPB', 'ID', '9036044','-3.28', '102.917222', 'Silampari Airport', 'Indonesia
+', 'null', 'null'),
+('3600538', '8', '10418', 'LLO', 'null', 'WAFD', 'ID', 'null','-3.084722', '120.245278', 'Bua Airport', 'Indonesia
+', 'null', 'null'),
 ('3600539', '8', '10419', 'LLV', 'null', 'ZBLL', 'CN', '8593872','37.683333', '111.142778', 'Lüliang Airport', 'China', 'null', 'null'),
-('3600540', '7', '10420', 'LMU', 'null', 'WIDL', 'ID', '11862126','2.964167', '105.754444', 'Letung Airport', 'Indonesia', 'null', 'null'),
+('3600540', '7', '10420', 'LMU', 'null', 'WIDL', 'ID', '11862126','2.964167', '105.754444', 'Letung Airport', 'Indonesia
+', 'null', 'null'),
 ('3600541', '8', '10421', 'LNL', 'null', 'ZLLN', 'CN', '11778483','33.788', '105.797', 'Longnan Chengzhou Airport', 'China', 'null', 'null'),
-('3600542', '9', '10422', 'LNU', 'null', 'WAQM', 'ID', '8531915','3.575278', '116.619722', 'Robert Atty Bessing Airport', 'Indonesia', 'null', 'null'),
+('3600542', '9', '10422', 'LNU', 'null', 'WAQM', 'ID', '8531915','3.575278', '116.619722', 'Robert Atty Bessing Airport', 'Indonesia
+', 'null', 'null'),
 ('3600543', '8', '10423', 'LPF', 'null', 'ZUPS', 'CN', 'null','26.609417', '104.979', 'Liupanshui Yuezhao Airport', 'China', 'null', 'null'),
-('3600544', '8', '10424', 'MOH', 'null', 'WAFO', 'ID', 'null','-2.203333', '121.660278', 'Maleo Airport', 'Indonesia', 'null', 'null'),
-('3600545', '-10', '10425', 'NGF', 'null', 'PHNG', 'US', '6300277','21.4505004', '-157.768', 'Kaneohe Bay MCAS (Marion E. Carl Field) Airport', 'United States', 'null', 'null'),
+('3600544', '8', '10424', 'MOH', 'null', 'WAFO', 'ID', 'null','-2.203333', '121.660278', 'Maleo Airport', 'Indonesia
+', 'null', 'null'),
+('3600545', '-10', '10425', 'NGF', 'null', 'PHNG', 'US', '6300277','21.4505004', '-157.768', 'Kaneohe Bay MCAS (Marion E. Carl Field) Airport', 'United States
+', 'null', 'null'),
 ('3600546', '3', '10426', 'NKT', 'null', 'LTCV', 'TR', '8593875','37.3647', '42.0582', 'Sirnak Serafettin Elci Airport', 'Turkey', 'null', 'null'),
 ('3600547', '8', '10427', 'NLH', 'null', 'ZPNL', 'CN', '10943299','27.5403', '100.7593', 'Ninglang Luguhu Airport', 'China', 'null', 'null'),
 ('3600548', '10', '10428', 'NLI', 'null', 'UHNN', 'RU', '8617215','53.154999', '140.649994', 'Nikolayevsk-na-Amure Airport', 'Russia', 'null', 'null'),
@@ -6576,8 +6617,10 @@ INSERT INTO Airports (
 ('3600556', '10.3', '10436', 'OOD', 'null', 'YOOD', 'AU', '7731357','-27.56', '135.445', 'Oodnadatta Airport', 'Australia', 'null', 'null'),
 ('3600557', '3', '10437', 'OSF', 'null', 'UUMO', 'RU', '8030066','55.511667', '37.507222', 'Ostafyevo International Airport', 'Russia', 'null', 'null'),
 ('3600558', '7', '10438', 'PHQ', 'null', 'YTMO', 'AU', '8555618','-21.811667', '139.923333', 'The Monument Airport', 'Australia', 'null', 'null'),
-('3600559', '-5', '10439', 'PNM', 'null', 'KPNM', 'US', '5042363','45.56', '-93.608333', 'Princeton Municipal Airport', 'United States', 'null', 'null'),
-('3600560', '-7', '10440', 'PWY', 'null', 'KPNA', 'US', '5835906','42.79550171', '-109.8069992', 'Ralph Wenz Field', 'United States', 'null', 'null'),
+('3600559', '-5', '10439', 'PNM', 'null', 'KPNM', 'US', '5042363','45.56', '-93.608333', 'Princeton Municipal Airport', 'United States
+', 'null', 'null'),
+('3600560', '-7', '10440', 'PWY', 'null', 'KPNA', 'US', '5835906','42.79550171', '-109.8069992', 'Ralph Wenz Field', 'United States
+', 'null', 'null'),
 ('3600561', '5.3', '10441', 'PYG', 'null', 'VEPY', 'IN', '11928000','27.2325', '88.588333', 'Pakyong Airport', 'India', 'null', 'null'),
 ('3600562', '1', '10442', 'QBQ', 'null', 'LFQM', 'FR', '6299465','47.205278', '6.080556', 'Besançon – La Vèze Aerodrome', 'France', 'null', 'null'),
 ('3600563', '-3', '10443', 'QDV', 'null', 'SBJD', 'BR', '8533002','-23.181667', '-46.943611', 'Comte. Rolim Adolfo Amaro State Airport', 'Brazil', 'null', 'null'),
@@ -6625,7 +6668,8 @@ INSERT INTO Airports (
 ('3600605', '8', '10485', 'SQJ', 'null', 'ZSSM', 'CN', '11102729','26.4263', '117.8336', 'Shaxian Airport', 'null', 'null', 'null'),
 ('3600606', '-5', '10486', 'SSM', 'null', 'KANJ', 'US', '5009005','46.479167', '-84.368333', 'Sault Ste. Marie Municipal Airport ', 'United States', 'null', 'null'),
 ('3600607', '1', '10487', 'TEV', 'null', 'LETL', 'ES', '10943187','40.411944', '-1.2175', 'Teruel Airport', 'Spain', 'null', 'null'),
-('3600608', '-4', '10488', 'TJL', 'null', 'SSTL', 'BR', '8643372','-20.75306', '-51.682', 'Plínio Alarcom Airport', 'Brazil', 'null', 'null'),
+('3600608', '-4', '10488', 'TJL', 'null', 'SSTL', 'BR', '8643372','-20.75306', '-51.682', 'Plínio Alarcom Airport
+', 'Brazil', 'null', 'null'),
 ('3600609', '9', '10489', 'TLK', 'null', 'UECT', 'RU', '8468841','59.876389', '111.044444', 'Talakan Airport', 'Russia', 'null', 'null'),
 ('3600610', '6', '10490', 'TMF', 'null', 'VRNT', 'MV', '8617220','2.211', '73.1533', 'Thimarafushi Airport', 'Maldives', 'null', 'null'),
 ('3600611', '10', '10491', 'TQP', 'null', 'YTEE', 'AU', '8533833','-21.835', '140.888056', 'Trepell Airport', 'Australia', 'null', 'null'),
@@ -6633,55 +6677,78 @@ INSERT INTO Airports (
 ('3600613', '7', '10493', 'TXE', 'null', 'WITK', 'ID', '11184554','4.720833', '96.849444', 'Takengon Rembele Airport', 'Indonesia', 'null', 'null'),
 ('3600614', '-5', '10494', 'TYQ', 'null', 'KTYQ', 'US', '4921871','40.030556', '-86.251389', 'Indianapolis Executive Airport ', 'United States', 'null', 'null'),
 ('3600615', '8', '10495', 'UCB', 'null', 'ZBUC', 'CN', 'null','41.129722', '113.108056', 'Ulanqab Jining Airport', 'China', 'null', 'null'),
-('3600616', '-5', '10496', 'USA', 'null', 'KJQF', 'US', '6298496','35.387778', '-80.709167', 'Concord-Padgett Regional Airport', 'United States', 'null', 'null'),
+('3600616', '-5', '10496', 'USA', 'null', 'KJQF', 'US', '6298496','35.387778', '-80.709167', 'Concord-Padgett Regional Airport', 'United States
+', 'null', 'null'),
 ('3600617', '7', '10497', 'VDO', 'null', 'VVVD', 'VN', '11961817','21.117778', '107.414167', 'Van Don International Airport', 'Vietnam', 'null', 'null'),
 ('3600618', '8', '10498', 'WDS', 'null', 'ZHSY', 'CN', '11102720','32.591667', '110.907778', 'Shiyan Wudangshan Airport', 'China', 'null', 'null'),
-('3600619', '-5', '10499', 'WLE', 'null', 'YMLS', 'AU', '8556009','-26.809167', '150.165', 'Miles Airport', 'Australia', 'null', 'null'),
+('3600619', '-5', '10499', 'WLE', 'null', 'YMLS', 'AU', '8556009','-26.809167', '150.165', 'Miles Airport
+
+', 'Australia', 'null', 'null'),
 ('3600620', '8', '10500', 'WLP', 'null', 'YANG', 'AU', '8556010','null', 'null', 'West Angelas Airport', 'Australia', 'null', 'null'),
-('3600621', '8', '10501', 'WMT', 'null', 'ZUMT', 'CN', '11608591','27.81638', '106.33268', 'Zunyi Maotai Airport', 'China', 'null', 'null'),
-('3600622', '8', '10502', 'WNI', 'null', 'WAWD', 'ID', '11789255','-5.316667', '123.583333', 'Matahora Airport', 'Indonesia', 'null', 'null'),
-('3600623', 'null', '10503', 'WRT', 'null', 'EGNO', 'GB', '9034837','53.745098', '-2.88306', 'Warton Airport', 'United Kingdom', 'null', 'null'),
+('3600621', '8', '10501', 'WMT', 'null', 'ZUMT', 'CN', '11608591','27.81638', '106.33268', 'Zunyi Maotai Airport
+', 'China', 'null', 'null'),
+('3600622', '8', '10502', 'WNI', 'null', 'WAWD', 'ID', '11789255','-5.316667', '123.583333', 'Matahora Airport
+', 'Indonesia', 'null', 'null'),
+('3600623', 'null', '10503', 'WRT', 'null', 'EGNO', 'GB', '9034837','53.745098', '-2.88306', 'Warton Airport
+', 'United Kingdom', 'null', 'null'),
 ('3600624', '8', '10504', 'WSK', 'null', 'ZUWS', 'CN', '11928660','31.064', '109.706', 'Chongqing Wushan Airport', 'China', 'null', 'null'),
-('3600625', '10', '10505', 'WTB', 'null', 'YBWW', 'AU', '9881357','-27.558332', '151.793335', 'Toowoomba Wellcamp Airport', 'Australia', 'null', 'null'),
-('3600626', '8', '10506', 'WUT', 'null', 'ZBXZ', 'CN', '11102730','38.597456', '112.969173', 'Xinzhou Wutaishan Airport', 'China', 'null', 'null'),
+('3600625', '10', '10505', 'WTB', 'null', 'YBWW', 'AU', '9881357','-27.558332', '151.793335', 'Toowoomba Wellcamp Airport
+', 'Australia', 'null', 'null'),
+('3600626', '8', '10506', 'WUT', 'null', 'ZBXZ', 'CN', '11102730','38.597456', '112.969173', 'Xinzhou Wutaishan Airport
+', 'China', 'null', 'null'),
 ('3600627', '1', '10507', 'XAC', 'null', 'LFCH', 'FR', '6694755','44.596389', '-1.110833', 'Arcachon – La Teste-de-Buch Airport', 'France', 'null', 'null'),
 ('3600628', '8', '10508', 'XAI', 'null', 'ZHXY', 'CN', '11493830','32.541389', '114.077778', 'Xinyang Minggang Airport', 'China', 'null', 'null'),
 ('3600629', '1', '10509', 'XMU', 'null', 'LFHY', 'FR', '6694474','46.5345993042', '3.423719883', 'Moulins Montbeugny Airport', 'France', 'null', 'null'),
 ('3600630', '7', '10510', 'YIA', 'null', 'WAHI', 'ID', '12042155','-7.907459', '110.05448', 'Yogyakarta International Airport', 'Indonesia', 'null', 'null'),
 ('3600631', '8', '10511', 'YIC', 'null', 'ZSYC', 'CN', '8435706','27.8025', '114.3062', 'Yichun Mingyueshan Airport', 'China', 'null', 'null'),
-('3600632', '8', '10512', 'YKH', 'null', 'ZYYK', 'CN', '11102736','40.542524', '122.3586', 'Yingkou Lanqi Airport', 'China', 'null', 'null'),
-('3600633', '3', '10513', 'YKO', 'null', 'LTCW', 'TR', '8593887','37.5497', '44.2381', 'Hakkari Yüksekova Airport', 'Turkey', 'null', 'null'),
-('3600634', '6', '10514', 'YON', 'null', 'VQTY', 'BT', '8411020','27.2563889', '91.5144444', 'Yongphulla Airport', 'Bhutan', 'null', 'null'),
+('3600632', '8', '10512', 'YKH', 'null', 'ZYYK', 'CN', '11102736','40.542524', '122.3586', 'Yingkou Lanqi Airport
+', 'China', 'null', 'null'),
+('3600633', '3', '10513', 'YKO', 'null', 'LTCW', 'TR', '8593887','37.5497', '44.2381', 'Hakkari Yüksekova Airport
+', 'Turkey', 'null', 'null'),
+('3600634', '6', '10514', 'YON', 'null', 'VQTY', 'BT', '8411020','27.2563889', '91.5144444', 'Yongphulla Airport
+', 'Bhutan', 'null', 'null'),
 ('3600635', '8', '10515', 'YTW', 'null', 'ZWYT', 'CN', 'null','null', 'null', 'Yutian Airport', 'China', 'null', 'null'),
 ('3600636', '-3', '10516', 'ZCO', 'null', 'SCQP', 'CL', '11153726','-38.9259', '-72.6515', 'La Araucanía Airport', 'Chile', 'null', 'null'),
 ('3600637', '3', '10517', 'ZIA', 'null', 'UUBW', 'RU', '8531980','55.553299', '38.150002', 'Zhukovsky International Airport', 'Russia', 'null', 'null'),
-('3600638', '2', '10518', 'ZIS', 'null', 'HLZN', 'LY', 'null','31.774878', '12.25006', 'Alzintan Airport', 'Libya', 'null', 'null'),
+('3600638', '2', '10518', 'ZIS', 'null', 'HLZN', 'LY', 'null','31.774878', '12.25006', 'Alzintan Airport
+', 'Libya', 'null', 'null'),
 ('3600639', '1', '10519', 'ZNO', 'null', 'EDVM', 'DE', '3206637','52.181111', '9.946944', 'Airport Hildesheim', 'Germany', 'null', 'null'),
 ('3600640', '1', '10520', 'ZQW', 'null', 'EDRZ', 'DE', '3208965','49.2094', '7.40056', 'Zweibrücken Airport', 'Germany', 'null', 'null'),
 ('3600641', '-3', '10521', 'ARX', 'null', 'SBAC', 'BR', '3407379','-4.568611', '-37.804722', 'Aracati - Dragão do Mar Regional Airport', 'Brazil', 'null', 'null'),
 ('3600642', 'null', '10522', 'AYH', 'null', 'EGWZ', 'GB', '11591974','52.363333', '-0.222778', 'Royal Air Force Alconbury', 'United Kingdom', 'null', 'null'),
 ('3600643', '-9', '10523', 'DGG', 'null', 'PADG', 'US', '5872534','68.032222', '-162.899167', 'Red Dog Airport', 'United States', 'null', 'null'),
-('3600644', '8', '10524', 'FYJ', 'null', 'ZYFY', 'CN', 'null','48.199494', '134.366447', 'Dongji Aiport', 'China', 'null', 'null'),
+('3600644', '8', '10524', 'FYJ', 'null', 'ZYFY', 'CN', 'null','48.199494', '134.366447', 'Dongji Aiport
+', 'China', 'null', 'null'),
 ('3600645', '-3', '10525', 'GGH', 'null', 'SSCT', 'BR', '12105156','-23.691667', '-52.642222', 'Engenheiro Gastão Mesquita Airport', 'Brazil', 'null', 'null'),
-('3600646', '8', '10526', 'GXH', 'null', 'ZLXH', 'CN', '8521364','34.8105', '102.6447', 'Gannan Xiahe Airport', 'China', 'null', 'null'),
-('3600647', '8', '10527', 'HCJ', 'null', 'ZGHC', 'CN', 'null','24.805', '107.6997', 'Hechi Jinchengjiang Airport', 'China', 'null', 'null'),
+('3600646', '8', '10526', 'GXH', 'null', 'ZLXH', 'CN', '8521364','34.8105', '102.6447', 'Gannan Xiahe Airport
+', 'China', 'null', 'null'),
+('3600647', '8', '10527', 'HCJ', 'null', 'ZGHC', 'CN', 'null','24.805', '107.6997', 'Hechi Jinchengjiang Airport
+', 'China', 'null', 'null'),
 ('3600648', '1', '10528', 'HDB', 'null', 'EDIU', 'DE', '997156','49.393333', '8.6525', 'Heidelberg Airport', 'Germany', 'null', 'null'),
-('3600649', 'null', '10529', 'HLE', 'null', 'FHSH', 'GB', '11126251','-15.957725', '-5.645943', 'St. Helena Airport', 'United Kingdom', 'null', 'null'),
+('3600649', 'null', '10529', 'HLE', 'null', 'FHSH', 'GB', '11126251','-15.957725', '-5.645943', 'St. Helena Airport
+', 'United Kingdom', 'null', 'null'),
 ('3600650', '-5', '10530', 'HMP', 'null', 'KHMP', 'US', '4199556','33.389167', '-84.332222', 'Atlanta Speedway Airport', 'United States', 'null', 'America/New_York'),
-('3600651', '8', '10531', 'HPG', 'null', 'ZHSN', 'CN', '8594743','31.626', '110.34', 'Shennongjia Hongping Airport', 'China', 'null', 'null'),
-('3600652', '8', '10532', 'HUO', 'null', 'ZBHZ', 'CN', '11185240','45.487222', '119.407222', 'Holingol Huolinhe Airport', 'China', 'null', 'null'),
+('3600651', '8', '10531', 'HPG', 'null', 'ZHSN', 'CN', '8594743','31.626', '110.34', 'Shennongjia Hongping Airport
+', 'China', 'null', 'null'),
+('3600652', '8', '10532', 'HUO', 'null', 'ZBHZ', 'CN', '11185240','45.487222', '119.407222', 'Holingol Huolinhe Airport
+', 'China', 'null', 'null'),
 ('3600653', '-5', '10533', 'HWY', 'null', 'KHWY', 'US', '4792269','38.586389', '-77.710556', 'Warrenton–Fauquier Airport', 'United States', 'null', 'null'),
-('3600654', '5', '10534', 'IFU', 'null', 'VREI', 'MV', '10943305','5.7083', '73.025', 'Ifuru Airport', 'Maldives', 'null', 'null'),
+('3600654', '5', '10534', 'IFU', 'null', 'VREI', 'MV', '10943305','5.7083', '73.025', 'Ifuru Airport
+', 'Maldives', 'null', 'null'),
 ('3600655', '-3', '10535', 'JRT', 'null', 'SNRJ', 'BR', 'null','-2.186667', '-56.090278', 'Juruti Airport ', 'Brazil', 'null', 'null'),
 ('3600656', '-3', '10536', 'JTN', 'null', 'SDIM', 'BR', 'null','-24.164722', '-46.785556', 'Antônio Ribeiro Nogueira Jr. State Airport ', 'Brazil', 'null', 'null'),
 ('3600657', '7', '10537', 'KJT', 'null', 'WICA', 'ID', '11778474','-6.669167', '108.191111', 'Kertajati International Airport', 'Indonesia', 'null', 'null'),
-('3600658', 'null', '10538', 'KRH', 'null', 'EGKR', 'GB', '7668209','51.2136001587', '0.1386110038', 'Redhill Aerodrome', 'United Kingdom', 'null', 'null'),
+('3600658', 'null', '10538', 'KRH', 'null', 'EGKR', 'GB', '7668209','51.2136001587', '0.1386110038', 'Redhill Aerodrome
+', 'United Kingdom', 'null', 'null'),
 ('3600659', '-6', '10539', 'LLQ', 'null', 'KLLQ', 'US', '4122023','33.638611', '-91.751111', 'Monticello Municipal Airport', 'United States', 'null', 'null'),
 ('3600660', '3', '10540', 'NPY', 'null', 'HTMP', 'TZ', '8555863','-6.355556', '31.080556', 'Mpanda Airport', 'Tanzania', 'null', 'null'),
 ('3600661', '3', '10541', 'NUM', 'null', 'OENN', 'SA', 'null','27.925', '35.29', 'Neom Bay Airport ', 'Saudi Arabia', 'null', 'null'),
-('3600662', '-6', '10542', 'OFF', 'null', 'KOFF', 'US', '5074379','41.1183013916', '-95.9124984741', 'Offutt Air Force Base', 'United States', 'null', 'null'),
+('3600662', '-6', '10542', 'OFF', 'null', 'KOFF', 'US', '5074379','41.1183013916', '-95.9124984741', 'Offutt Air Force Base
+', 'United States
+', 'null', 'null'),
 ('3600663', '4', '10543', 'OHS', 'null', 'OOSH', 'OM', '10943321','24.38604', '56.62541', 'Sohar Airport', 'Oman', 'null', 'null'),
-('3600664', '-5', '10544', 'PVL', 'null', 'KPBX', 'US', '4304231','37.5617981', '-82.56639862', 'Pike County-Hatcher Field', 'United States', 'null', 'null'),
+('3600664', '-5', '10544', 'PVL', 'null', 'KPBX', 'US', '4304231','37.5617981', '-82.56639862', 'Pike County-Hatcher Field
+', 'United States', 'null', 'null'),
 ('3600665', '3.3', '10545', 'QAO', 'null', 'AT17', 'AQ', 'null','-70.821517', '11.643345', 'Novo Runway', 'Antarctica', 'null', 'null'),
 ('3600666', '1', '10546', 'QEB', 'null', 'EPBC', 'PL', 'null','52.2685012817', '20.9109992981', 'Warsaw Babice Airport', 'Poland', 'null', 'null'),
 ('3600667', 'null', '10547', 'QEE', 'null', 'EGTR', 'GB', '7668213','51.6557998657', '-0.3258329928', 'London Elstree Aerodrome', 'United Kingdom', 'null', 'null'),

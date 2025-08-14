@@ -13,4 +13,5 @@ export interface Country {
   countryIsoNumeric: string;
   phonePrefix: string;
   population: number;
+  totalNumberOfAirports: number;
 }

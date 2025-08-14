@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react';
+import { useContext } from 'react';
 import { type Country } from '../model/Country';
 import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
@@ -18,11 +18,7 @@ import { useNavigate, useParams } from 'react-router';
 import useApi from '../api/useApi';
 
 function CountryLoad() {
-  const [sizeAirports, setSizeAirports] = useState(0);
   const { currentTopic } = useContext(CurrentTopicContext);
-  const onLoadAirpots = useCallback((size: number) => {
-    setSizeAirports(size);
-  }, []);
   const currentIso2 = useParams().iso2?.toUpperCase() ?? '';
   const country: Country | null = useApi<Country>(`/countries/${currentIso2}`);
   const acCountry: ACCountry | null = useApi<ACCountry>(
@@ -36,7 +32,7 @@ function CountryLoad() {
         <CountryInfo
           acCountry={acCountry}
           country={country}
-          sizeAirports={sizeAirports}
+          sizeAirports={country.totalNumberOfAirports}
         />
         <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
           <IconButton
@@ -72,7 +68,6 @@ function CountryLoad() {
         <AirportList
           countryIso2={country.countryIso2}
           isVisible={currentTopic === 'airports'}
-          onLoad={onLoadAirpots}
         />
         {currentTopic === 'population' && (
           <PopulationInfo

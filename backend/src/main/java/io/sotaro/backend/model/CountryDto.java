@@ -13,6 +13,7 @@ public record CountryDto(Long dbId,
                          String currencyName,
                          String countryIsoNumeric,
                          String phonePrefix,
-                         Integer population
+                         Integer population,
+                         Integer totalNumberOfAirports
 ) {
 }

@@ -31,7 +31,7 @@ public class AirportEntity {
     @Column(name = "icao_code")
     private String icaoCode;
 
-    @Column(name = "country_iso2", unique = true)
+    @Column(name = "country_iso2")
     private String countryIso2;
 
     @Column(name = "geoname_id")

@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import api from './axios';
 
-function useApi<Type>(
-  url: string | null,
-  onSucess?: (data: Type) => void
-): Type | null {
+function useApi<Type>(url: string | null): Type | null {
   const [data, setData] = useState<Type | null>(null);
   const controllerRef = useRef<AbortController | null>(null);
 
@@ -23,9 +20,6 @@ function useApi<Type>(
         .then((res) => {
           if (!ignore) {
             setData(res.data);
-            if (onSucess) {
-              onSucess(res.data);
-            }
           }
         })
         .catch((error) => {

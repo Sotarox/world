@@ -5,15 +5,12 @@ import useApi from '../api/useApi';
 
 interface AirportListProps {
   countryIso2: string | null;
-  onLoad: (size: number) => void;
   isVisible: boolean;
 }
 
 function AirportList(props: AirportListProps) {
-  const { countryIso2, isVisible, onLoad } = props;
-  const airports = useApi<Airport[]>(`/airports/${countryIso2}`, (data) =>
-    onLoad(data.length)
-  );
+  const { countryIso2, isVisible } = props;
+  const airports = useApi<Airport[]>(`/airports/${countryIso2}`);
 
   if (isVisible && airports) {
     return (
