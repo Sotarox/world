@@ -1,3 +1,4 @@
+import React from 'react';
 import { Grid } from '@mui/material';
 import type { InfoCardProps } from './InfoCard';
 import InfoCard from './InfoCard';

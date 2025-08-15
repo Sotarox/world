@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -35,7 +36,7 @@ function AboutButton() {
             Technologies in this web service
           </Typography>
           <Typography variant='body1' sx={{ whiteSpace: 'pre-line' }}>
-            {`Spring Boot, React, TypeScript, Material UI, PostgresSQL, Docker, Amazon Lightsail, nginx, Ubuntu 
+            {`Spring Boot, React, TypeScript, Webpack, Material UI, PostgresSQL, Docker, Amazon Lightsail, nginx, Ubuntu 
 
          `}
           </Typography>

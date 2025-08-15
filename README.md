@@ -7,7 +7,7 @@
 https://world.sotaro.dev/
 
 ## Technologies
-Spring Boot, React, TypeScript, Material UI, PostgresSQL, 
+Spring Boot, React, TypeScript, Webpack, Material UI, PostgresSQL, 
 Docker, Amazon Lightsail, nginx, Ubuntu, Jenkins
 
 ## Prerequisites
