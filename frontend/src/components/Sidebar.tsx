@@ -78,4 +78,5 @@ const Sidebar = React.memo((props: SidebarProps) => {
     </SwipeableDrawer>
   );
 });
+Sidebar.displayName = 'Sidebar';
 export default Sidebar;
