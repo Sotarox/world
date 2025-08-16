@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const SOURCE_PATH = "./data/countries";
+const SOURCE_PATH = "./data/aviation/countries";
 const DESTINATION_PATH = "./db-init/populate_countries.sql";
 
 const jsonArray = readFiles(SOURCE_PATH);
@@ -56,7 +56,7 @@ function readFiles(dir) {
 
 function writeSql(jsonArray) {
     var result = 
-        `INSERT INTO countries (
+        `INSERT INTO Countries (
         id, capital, currency_code, fips_code, country_iso2, country_iso3, continent,
         country_id, country_name, currency_name, country_iso_numeric, phone_prefix, population
         ) VALUES\n`

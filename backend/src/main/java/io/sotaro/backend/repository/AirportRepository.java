@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface AirportRepository extends JpaRepository<AirportEntity, Long> {
     List<AirportEntity> findByCountryIso2(String countryIso2);
+
 }

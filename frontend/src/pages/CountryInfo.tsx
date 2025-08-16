@@ -1,60 +1,114 @@
-import { useContext } from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid'
+import React, { useContext } from 'react';
+import Grid, { type GridProps } from '@mui/material/Grid';
 import { type Country } from '../model/Country';
-import Box from '@mui/material/Box';
 import { Item } from '../components/Item';
-import InfoCard from '../components/InfoCard';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { convertContinentCodeToName, formatNumberWithComma } from '../utils/utils';
-import { CircleFlag } from 'react-circle-flags'
+import '/node_modules/flag-icons/css/flag-icons.min.css';
+import {
+  convertContinentCodeToName,
+  formatCoordinate,
+  formatNumberWithComma,
+} from '../utils/utils';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 import ClickbarInfoCard from '../components/ClickbarInfoCard';
+import type { ACCountry } from '../model/ACCountry';
+import CountryInfoHeader from './CountryInfoHeader';
+import GridInfo from '../components/GridInfo';
+
+const gridProps = { size: { xs: 6, md: 3 }, sx: { p: 1 } };
+const CustomGrid: React.FC<GridProps> = (props) => (
+  <Grid {...gridProps} {...props} />
+);
 
 interface CountryInfoProps {
+  acCountry: ACCountry | null;
   country: Country;
   sizeAirports: number;
 }
 function CountryInfo(props: CountryInfoProps) {
-  const { country, sizeAirports } = props;
+  const { acCountry, country, sizeAirports } = props;
   const { currentTopic, setCurrentTopic } = useContext(CurrentTopicContext);
 
   return (
-    <Box sx={{ mt: 2 }}>
-      <Item sx={{ mb: 2, display: "flex", justifyContent: "center", alignItems: "center", gap: 1.5 }}>
-        <CircleFlag countryCode={country.countryIso2.toLowerCase()} height="50" />
-        <Typography variant="h2" sx={{ maxWidth: "100%", overflow: "hidden", textOverflow: "ellipsis" }}>{country.countryName}</Typography>
+    <>
+      <Item sx={{ mb: 1 }}>
+        <Grid container spacing={0.125}>
+          <CountryInfoHeader country={country} />
+          <GridInfo
+            gridProps={gridProps}
+            title='Coordinate'
+            value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Country ISO3'
+            value={country.countryIso3}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Continent'
+            value={convertContinentCodeToName(country.continent)}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Subregion'
+            value={acCountry?.subregion.toString() ?? 'N/A'}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Capital'
+            value={country.capital}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Country ISO2'
+            value={country.countryIso2}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Currency'
+            value={country.currencyName}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Phone prefix'
+            value={country.phonePrefix}
+          />
+          <GridInfo
+            gridProps={gridProps}
+            title='Area'
+            value={
+              acCountry?.area
+                ? `${formatNumberWithComma(acCountry.area)} \u33A2`
+                : 'N/A'
+            }
+          />
+        </Grid>
       </Item>
-      <Grid container spacing={0.125}>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Capital" value={country.capital} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Continent" value={convertContinentCodeToName(country.continent)} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Country ISO2" value={country.countryIso2} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Country ISO3" value={country.countryIso3} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Currency" value={country.currencyName} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ p:1 }}>
-          <InfoCard title="Phone prefix" value={country.phonePrefix} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ display: "flex" }}>
-          <ClickbarInfoCard title="Population" value={formatNumberWithComma(country.population)} 
-            isSelected={currentTopic === "population"} onClick={() => setCurrentTopic("population")} />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }} sx={{ display: "flex" }}>
-          <ClickbarInfoCard title="The number of airports" value={sizeAirports.toString()} 
-            isSelected={currentTopic === "airports"} onClick={() => setCurrentTopic("airports")} />
-        </Grid>
+
+      <Grid container spacing={1.5}>
+        <CustomGrid sx={{ display: 'flex' }}>
+          <ClickbarInfoCard
+            title='Population'
+            value={
+              country.population
+                ? formatNumberWithComma(country.population)
+                : 'N/A'
+            }
+            isSelected={currentTopic === 'population'}
+            onClick={() => setCurrentTopic('population')}
+          />
+        </CustomGrid>
+        <CustomGrid sx={{ display: 'flex' }}>
+          <ClickbarInfoCard
+            title='The number of airports'
+            value={sizeAirports.toString()}
+            isSelected={currentTopic === 'airports'}
+            onClick={() => setCurrentTopic('airports')}
+          />
+        </CustomGrid>
       </Grid>
-    </Box>
-  )
+    </>
+  );
 }
 
 export default CountryInfo;

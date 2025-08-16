@@ -1,61 +1,84 @@
-import { useCallback, useContext, useState, useEffect } from 'react';
-import IconButton from '@mui/material/IconButton';
-import api from '../api/axios';
+import React, { useContext } from 'react';
 import { type Country } from '../model/Country';
 import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
 import PopulationInfo from './PopulationInfo';
-import { CurrentIso2Context, SetCurrentIso2Context } from '../contexts/CurrentIso2Context';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
-import { countryIso2ToName, previousCountryIso2, nextCountryIso2 } from '../model/CountryIso2NameMap';
+import {
+  countryIso2ToName,
+  previousCountryIso2,
+  nextCountryIso2,
+} from '../model/CountryIso2NameMap';
 import { CircleFlag } from 'react-circle-flags';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import '/node_modules/flag-icons/css/flag-icons.min.css';
+import { type ACCountry } from '../model/ACCountry';
+import { useNavigate, useParams } from 'react-router';
+import useApi from '../api/useApi';
 
 function CountryLoad() {
-  const [country, setCountry] = useState<Country | undefined>();
-  const [sizeAirports, setSizeAirports] = useState(0);
-  const { currentIso2 } = useContext(CurrentIso2Context);
-  const { setCurrentIso2 } = useContext(SetCurrentIso2Context);
   const { currentTopic } = useContext(CurrentTopicContext);
-  const onLoadAirpots = useCallback((size:number) => {setSizeAirports(size)}, []);
-
-  useEffect(() => {
-    if (currentIso2 !== "") {
-      api.get<Country>(`countries/${currentIso2}`)
-        .then((res) => {
-          setCountry(res.data);
-        })
-        .catch((error) => console.log(error));
-    }
-  }, [currentIso2]);
+  const currentIso2 = useParams().iso2?.toUpperCase() ?? '';
+  const country: Country | null = useApi<Country>(`/countries/${currentIso2}`);
+  const acCountry: ACCountry | null = useApi<ACCountry>(
+    `/accountries/${currentIso2}`
+  );
+  const navigate = useNavigate();
 
   if (country) {
     return (
-      <>
-        <CountryInfo country={country} sizeAirports={sizeAirports} />
-        <Box sx={{ display: "flex", width: "100%", justifyContent: "center" }}>
-          <IconButton onClick={() => setCurrentIso2(previousCountryIso2(currentIso2))}>
-            <CircleFlag countryCode={previousCountryIso2(currentIso2).toLowerCase()} height="20"
-              title={countryIso2ToName(previousCountryIso2(currentIso2))} />
+      <Box sx={{ pb: { xs: 8, sm: 0 } }}>
+        <CountryInfo
+          acCountry={acCountry}
+          country={country}
+          sizeAirports={country.totalNumberOfAirports}
+        />
+        <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+          <IconButton
+            onClick={() =>
+              navigate(
+                `/countries/${previousCountryIso2(currentIso2).toLowerCase()}`
+              )
+            }
+          >
+            <CircleFlag
+              countryCode={previousCountryIso2(currentIso2).toLowerCase()}
+              height='20'
+              title={countryIso2ToName(previousCountryIso2(currentIso2))}
+            />
             <ArrowLeft />
           </IconButton>
-          <IconButton onClick={() => setCurrentIso2(nextCountryIso2(currentIso2))}>
+          <IconButton
+            onClick={() =>
+              navigate(
+                `/countries/${nextCountryIso2(currentIso2).toLowerCase()}`
+              )
+            }
+          >
             <ArrowRight />
-            <CircleFlag countryCode={nextCountryIso2(currentIso2).toLowerCase()} height="20"
-              title={countryIso2ToName(nextCountryIso2(currentIso2))} />
+            <CircleFlag
+              countryCode={nextCountryIso2(currentIso2).toLowerCase()}
+              height='20'
+              title={countryIso2ToName(nextCountryIso2(currentIso2))}
+            />
           </IconButton>
         </Box>
         <Divider sx={{ mt: 2, mb: 2 }} />
-        <AirportList countryIso2={country.countryIso2} isVisible={currentTopic === "airports"}
-          onLoad={onLoadAirpots} />
-        <PopulationInfo countryIso2={currentIso2} continentCode={country.continent}
-          isVisible={currentTopic === "population"} />
-      </>
-    )
+        <AirportList
+          countryIso2={country.countryIso2}
+          isVisible={currentTopic === 'airports'}
+        />
+        {currentTopic === 'population' && (
+          <PopulationInfo
+            countryIso2={currentIso2}
+            continentCode={country.continent}
+          />
+        )}
+      </Box>
+    );
   } else {
-    return <p>Country couldn't be loaded.</p>
+    return <></>;
   }
 }
 
