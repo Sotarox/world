@@ -3,14 +3,18 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "dev": "webpack serve",
-    "build": "webpack",
+    "dev": "concurrently \"tailwindcss -i ./public/globals.css -o ./public/output.css --watch\" \"webpack serve\"",
+    "build": "tailwindcss -i ./public/globals.css -o ./public/output.css && webpack",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
-    "prepare": "cd .. && husky"
+    "prepare": "cd .. && husky",
+    "tailwind": "tailwindcss -i ./public/globals.css -o ./public/output.css --watch"
   },
   "lint-staged": {
-    "*.ts?(x)": ["eslint --fix", "prettier --write"]
+    "*.ts?(x)": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.27.1",
@@ -18,12 +22,14 @@
     "@emotion/styled": "^11.14.1",
     "@fontsource/roboto": "^5.2.6",
     "@mui/icons-material": "^7.3.1",
+    "@tailwindcss/cli": "^4.1.12",
     "axios": "^1.11.0",
     "flag-icons": "^7.5.0",
     "react": "^19.1.1",
     "react-circle-flags": "^0.0.23",
     "react-dom": "^19.1.1",
-    "react-router": "^7.8.0"
+    "react-router": "^7.8.0",
+    "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.0",
@@ -36,6 +42,7 @@
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
     "babel-loader": "^10.0.0",
+    "concurrently": "^9.2.0",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
     "eslint": "^9.33.0",
