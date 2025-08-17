@@ -3,12 +3,13 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "dev": "concurrently \"tailwindcss -i ./public/globals.css -o ./public/output.css --watch\" \"webpack serve\"",
-    "build": "tailwindcss -i ./public/globals.css -o ./public/output.css && webpack",
+    "dev": "concurrently \"npm run tailwind:watch\" \"webpack serve\"",
+    "build": "npm run tailwind:build && webpack",
     "lint": "eslint . --fix",
     "format": "prettier --write .",
     "prepare": "cd .. && husky",
-    "tailwind": "tailwindcss -i ./public/globals.css -o ./public/output.css --watch"
+    "tailwind:build": "tailwindcss -i ./public/globals.css -o ./public/output.css",
+    "tailwind:watch": "tailwindcss -i ./public/globals.css -o ./public/output.css --watch"
   },
   "lint-staged": {
     "*.ts?(x)": [
