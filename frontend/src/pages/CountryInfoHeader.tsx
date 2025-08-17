@@ -26,7 +26,11 @@ function CountryInfoHeader(props: CountryInfoHeaderProps) {
         gap: 1,
       }}
     >
-      <CircleFlag countryCode={country.countryIso2.toLowerCase()} height='50' />
+      <CircleFlag
+        countryCode={country.countryIso2.toLowerCase()}
+        height='50'
+        width='50'
+      />
       <Typography
         variant={isXs ? 'h3' : 'h2'}
         sx={{

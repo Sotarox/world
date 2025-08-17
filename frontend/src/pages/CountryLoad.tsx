@@ -45,6 +45,7 @@ function CountryLoad() {
             <CircleFlag
               countryCode={previousCountryIso2(currentIso2).toLowerCase()}
               height='20'
+              width='20'
               title={countryIso2ToName(previousCountryIso2(currentIso2))}
             />
             <ArrowLeft />
@@ -60,6 +61,7 @@ function CountryLoad() {
             <CircleFlag
               countryCode={nextCountryIso2(currentIso2).toLowerCase()}
               height='20'
+              width='20'
               title={countryIso2ToName(nextCountryIso2(currentIso2))}
             />
           </IconButton>
