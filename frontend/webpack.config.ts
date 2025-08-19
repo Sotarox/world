@@ -1,12 +1,13 @@
 import path from 'path';
-import webpack from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { fileURLToPath } from 'url';
+import type { Configuration as WebpackConfiguration } from 'webpack';
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const config: webpack.Configuration = {
+const config: WebpackConfiguration = {
   mode:
     (process.env.NODE_ENV as 'production' | 'development' | undefined) ??
     'development',
@@ -55,7 +56,7 @@ const config: webpack.Configuration = {
         target: 'http://localhost:8080',
       },
     ],
-  },
+  } satisfies DevServerConfiguration,
 };
 
 export default config;
