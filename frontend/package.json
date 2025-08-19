@@ -11,12 +11,6 @@
     "tailwind:build": "tailwindcss -i ./public/globals.css -o ./public/output.css",
     "tailwind:watch": "tailwindcss -i ./public/globals.css -o ./public/output.css --watch"
   },
-  "lint-staged": {
-    "*.ts?(x)": [
-      "eslint --fix",
-      "prettier --write"
-    ]
-  },
   "dependencies": {
     "@babel/preset-typescript": "^7.27.1",
     "@emotion/react": "^11.14.0",
