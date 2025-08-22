@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import Grid, { type GridProps } from '@mui/material/Grid';
 import { type Country } from '../model/Country';
 import { Item } from '../components/Item';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
@@ -12,12 +11,7 @@ import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 import ClickbarInfoCard from '../components/ClickbarInfoCard';
 import type { ACCountry } from '../model/ACCountry';
 import CountryInfoHeader from './CountryInfoHeader';
-import GridInfo from '../components/GridInfo';
-
-const gridProps = { size: { xs: 6, md: 3 }, sx: { p: 1 } };
-const CustomGrid: React.FC<GridProps> = (props) => (
-  <Grid {...gridProps} {...props} />
-);
+import InfoCard from '../components/InfoCard';
 
 interface CountryInfoProps {
   acCountry: ACCountry | null;
@@ -31,50 +25,26 @@ function CountryInfo(props: CountryInfoProps) {
   return (
     <>
       <Item sx={{ mb: 1 }}>
-        <Grid container spacing={0.125}>
-          <CountryInfoHeader country={country} />
-          <GridInfo
-            gridProps={gridProps}
+        <CountryInfoHeader country={country} />
+        <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
+          <InfoCard
             title='Coordinate'
             value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
           />
-          <GridInfo
-            gridProps={gridProps}
-            title='Country ISO3'
-            value={country.countryIso3}
-          />
-          <GridInfo
-            gridProps={gridProps}
+          <InfoCard title='Country ISO3' value={country.countryIso3} />
+          <InfoCard
             title='Continent'
             value={convertContinentCodeToName(country.continent)}
           />
-          <GridInfo
-            gridProps={gridProps}
+          <InfoCard
             title='Subregion'
             value={acCountry?.subregion.toString() ?? 'N/A'}
           />
-          <GridInfo
-            gridProps={gridProps}
-            title='Capital'
-            value={country.capital}
-          />
-          <GridInfo
-            gridProps={gridProps}
-            title='Country ISO2'
-            value={country.countryIso2}
-          />
-          <GridInfo
-            gridProps={gridProps}
-            title='Currency'
-            value={country.currencyName}
-          />
-          <GridInfo
-            gridProps={gridProps}
-            title='Phone prefix'
-            value={country.phonePrefix}
-          />
-          <GridInfo
-            gridProps={gridProps}
+          <InfoCard title='Capital' value={country.capital} />
+          <InfoCard title='Country ISO2' value={country.countryIso2} />
+          <InfoCard title='Currency' value={country.currencyName} />
+          <InfoCard title='Phone prefix' value={country.phonePrefix} />
+          <InfoCard
             title='Area'
             value={
               acCountry?.area
@@ -82,31 +52,27 @@ function CountryInfo(props: CountryInfoProps) {
                 : 'N/A'
             }
           />
-        </Grid>
+        </div>
       </Item>
 
-      <Grid container spacing={1.5}>
-        <CustomGrid sx={{ display: 'flex' }}>
-          <ClickbarInfoCard
-            title='Population'
-            value={
-              country.population
-                ? formatNumberWithComma(country.population)
-                : 'N/A'
-            }
-            isSelected={currentTopic === 'population'}
-            onClick={() => setCurrentTopic('population')}
-          />
-        </CustomGrid>
-        <CustomGrid sx={{ display: 'flex' }}>
-          <ClickbarInfoCard
-            title='The number of airports'
-            value={sizeAirports.toString()}
-            isSelected={currentTopic === 'airports'}
-            onClick={() => setCurrentTopic('airports')}
-          />
-        </CustomGrid>
-      </Grid>
+      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
+        <ClickbarInfoCard
+          title='Population'
+          value={
+            country.population
+              ? formatNumberWithComma(country.population)
+              : 'N/A'
+          }
+          isSelected={currentTopic === 'population'}
+          onClick={() => setCurrentTopic('population')}
+        />
+        <ClickbarInfoCard
+          title='The number of airports'
+          value={sizeAirports.toString()}
+          isSelected={currentTopic === 'airports'}
+          onClick={() => setCurrentTopic('airports')}
+        />
+      </div>
     </>
   );
 }

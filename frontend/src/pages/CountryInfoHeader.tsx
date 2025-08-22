@@ -1,19 +1,14 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { type Country } from '../model/Country';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import { CircleFlag } from 'react-circle-flags';
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 
 interface CountryInfoHeaderProps {
   country: Country;
 }
 function CountryInfoHeader(props: CountryInfoHeaderProps) {
   const { country } = props;
-  const theme = useTheme();
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
   return (
     <Grid
@@ -31,16 +26,10 @@ function CountryInfoHeader(props: CountryInfoHeaderProps) {
         height='50'
         width='50'
       />
-      <Typography
-        variant={isXs ? 'h3' : 'h2'}
-        sx={{
-          maxWidth: '100%',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}
-      >
+      {/* for xs screens, use h3, otherwise h2 */}
+      <h3 className='xs:text-6xl max-w-full overflow-hidden text-ellipsis'>
         {country.countryName}
-      </Typography>
+      </h3>
     </Grid>
   );
 }

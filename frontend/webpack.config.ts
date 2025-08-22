@@ -49,7 +49,7 @@ const config: Configuration = {
     port: 5173,
     open: true, // Automatically open the browser
     hot: true, // Enable Hot Module Replacement
-    historyApiFallback: true, // For SPA-Routing
+    historyApiFallback: true, // Always serve index.html for user requested url in a browser
     proxy: [
       {
         context: ['/api'],
