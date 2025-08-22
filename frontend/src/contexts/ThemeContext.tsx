@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
-import { CssBaseline, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import { lightTheme, darkTheme } from '../theme/theme';
 import { ThemeContext } from './UseThemeContext';
 
@@ -52,12 +52,7 @@ function ThemeContextProvider(props: ThemeContextProviderProps) {
 
   return (
     <ThemeContext.Provider value={{ mode, toggleColorMode }}>
-      <MuiThemeProvider theme={theme}>
-        {/* CssBaseline provides a consistent baseline to build upon. 
-            It also sets the background color based on the current theme palette. */}
-        <CssBaseline />
-        {children}
-      </MuiThemeProvider>
+      <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
     </ThemeContext.Provider>
   );
 }
