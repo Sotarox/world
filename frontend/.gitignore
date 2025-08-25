@@ -25,6 +25,3 @@ dist-ssr
 
 # cache
 .vite
-
-# tailwind output
-public/output.css
