@@ -11,7 +11,10 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.{ts,tsx}": ["eslint --fix", "prettier --write"]
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.27.1",
@@ -19,17 +22,12 @@
     "@emotion/styled": "^11.14.1",
     "@fontsource/roboto": "^5.2.6",
     "@mui/icons-material": "^7.3.1",
-    "@tailwindcss/cli": "^4.1.12",
-    "@tailwindcss/postcss": "^4.1.12",
     "axios": "^1.11.0",
     "flag-icons": "^7.5.0",
-    "postcss": "^8.5.6",
-    "postcss-loader": "^8.1.1",
     "react": "^19.1.1",
     "react-circle-flags": "^0.0.23",
     "react-dom": "^19.1.1",
-    "react-router": "^7.8.0",
-    "tailwindcss": "^4.1.12"
+    "react-router": "^7.8.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.28.0",
@@ -37,6 +35,8 @@
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "@eslint/js": "^9.33.0",
+    "@tailwindcss/cli": "^4.1.12",
+    "@tailwindcss/postcss": "^4.1.12",
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/node": "^24.2.0",
     "@types/react": "^19.1.9",
@@ -50,8 +50,11 @@
     "globals": "^16.3.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.1.1",
     "prettier": "3.6.2",
     "style-loader": "^4.0.0",
+    "tailwindcss": "^4.1.12",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.39.1",
