@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { type Country } from '../model/Country';
-import { Item } from '../components/Item';
+import { Item } from '../units/Item';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import {
   convertContinentCodeToName,
@@ -8,10 +8,10 @@ import {
   formatNumberWithComma,
 } from '../utils/utils';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
-import ClickbarInfoCard from '../components/ClickbarInfoCard';
+import ClickbarInfoCard from '../units/ClickbarInfoCard';
 import type { ACCountry } from '../model/ACCountry';
 import CountryInfoHeader from './CountryInfoHeader';
-import InfoCard from '../components/InfoCard';
+import InfoCard from '../units/InfoCard';
 
 interface CountryInfoProps {
   acCountry: ACCountry | null;

@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import { Box, Button, IconButton, Toolbar, Typography } from '@mui/material';
-import ListIcon from '@mui/icons-material/List';
+import { List as ListIcon } from 'lucide-react';
 import { useTheme } from '@mui/material/styles';
 import AboutButton from './AboutButton';
 import { useNavigate } from 'react-router';

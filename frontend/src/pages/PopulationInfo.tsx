@@ -1,8 +1,8 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import InfoCard from '../components/InfoCard';
+import InfoCard from '../units/InfoCard';
 import { type PopulationRank } from '../model/PopulationRank';
-import { Item } from '../components/Item';
+import { Item } from '../units/Item';
 import useApi from '../api/useApi';
 
 interface PopulationInfoProps {
