@@ -8,9 +8,8 @@ import {
   searchCountryName,
   type CountryIso2NameMap,
 } from '../model/CountryIso2NameMap';
-import SearchIcon from '@mui/icons-material/Search';
-import CloseIcon from '@mui/icons-material/Close';
 import SearchResult from './SearchResult';
+import { Search, X } from 'lucide-react';
 
 function SearchButton() {
   const [open, setOpen] = useState(false);
@@ -40,7 +39,7 @@ function SearchButton() {
         aria-label='open search modal'
         onClick={() => setOpen(true)}
       >
-        <SearchIcon />
+        <Search />
       </IconButton>
       <Modal disableRestoreFocus={true} open={open} onClose={() => reset()}>
         <StyledPaper sx={{ height: '80vh' }}>
@@ -52,7 +51,7 @@ function SearchButton() {
               aria-label='close search modal'
               onClick={() => reset()}
             >
-              <CloseIcon />
+              <X />
             </IconButton>
           </Stack>
           <Stack direction='row' sx={{ justifyContent: 'center' }}>
@@ -78,7 +77,7 @@ function SearchButton() {
                   input: {
                     startAdornment: (
                       <InputAdornment position='start'>
-                        <SearchIcon />
+                        <Search />
                       </InputAdornment>
                     ),
                   },

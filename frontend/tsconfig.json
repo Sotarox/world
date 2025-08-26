@@ -9,7 +9,11 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "outDir": "dist",
     "moduleResolution": "node",
-    "module": "esnext"
+    "module": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["**/*.ts", "**/*.tsx", "webpack.config.js"]
 }
