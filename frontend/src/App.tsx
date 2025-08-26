@@ -1,6 +1,6 @@
 import React from 'react';
 import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
-import { ThemeContextProvider } from './contexts/ThemeContext';
+import { ThemeContextProvider } from './contexts/ThemeContextProvider';
 import { ErrorBoundary } from './utils/ErrorBoundary';
 import { RouterProvider } from 'react-router';
 import AppRouter from './router/AppRouter';
