@@ -30,6 +30,11 @@ function ThemeContextProvider(props: ThemeContextProviderProps) {
 
   // Persist mode to localStorage whenever it changes
   useEffect(() => {
+    if (mode === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
     try {
       localStorage.setItem('themeMode', mode);
     } catch (error) {
@@ -39,7 +44,16 @@ function ThemeContextProvider(props: ThemeContextProviderProps) {
 
   const toggleColorMode = useMemo(
     () => () => {
-      setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      setMode((prevMode) => {
+        const next = prevMode === 'light' ? 'dark' : 'light';
+        // switch <html>-class
+        if (next === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        return next;
+      });
     },
     []
   );
