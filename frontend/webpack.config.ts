@@ -12,6 +12,7 @@ const config: Configuration = {
     (process.env.NODE_ENV as 'production' | 'development' | undefined) ??
     'development',
   entry: './src/entrypoint.tsx',
+  devtool: 'source-map',
   module: {
     rules: [
       {

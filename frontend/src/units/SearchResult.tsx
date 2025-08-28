@@ -10,11 +10,10 @@ import { useNavigate } from 'react-router';
 
 interface SearchResultProps {
   results: CountryIso2NameMap[];
-  reset: () => void;
 }
 
 function SearchResult(props: SearchResultProps) {
-  const { results, reset } = props;
+  const { results } = props;
   const navigate = useNavigate();
 
   if (results.length > 0) {
@@ -23,7 +22,6 @@ function SearchResult(props: SearchResultProps) {
         <ListItemButton
           onClick={() => {
             navigate(`/countries/${obj.countryIso2.toLowerCase()}`);
-            reset();
           }}
         >
           <ListItemIcon>
