@@ -5,7 +5,6 @@ import Sidebar from '../units/Sidebar';
 import FloatingRandomButton from '../units/FloatingRandomButton';
 import { Outlet } from 'react-router';
 import { Box } from '@mui/material';
-import { useThemeContext } from '../contexts/UseThemeContext';
 
 function AppLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -13,11 +12,10 @@ function AppLayout() {
     () => setIsSidebarOpen(!isSidebarOpen),
     [isSidebarOpen]
   );
-  const mode = useThemeContext().mode;
   return (
     // when mode is dark, tailwind applies corresponding styles to underlying elements
     <div
-      className={`${mode} bg-neutral-100 dark:bg-neutral-800 font-display min-h-screen`}
+      className={`bg-neutral-100 dark:bg-neutral-800 font-display min-h-screen`}
     >
       <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
       <Sidebar isOpen={isSidebarOpen} setIsOpen={toggleIsSidebarOpen} />
