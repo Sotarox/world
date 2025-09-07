@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Divider, IconButton, InputAdornment, Stack } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import {
-  searchCountryName,
-  type CountryIso2NameMap,
-} from '../model/CountryIso2NameMap';
-import SearchResult from './SearchResult';
+import { searchCountryName } from '../model/CountryIso2NameMap';
+import SearchResultComponent from './SearchResult';
 import { Search as SearchIcon } from 'lucide-react';
 import {
   Dialog,
@@ -20,8 +17,11 @@ import { useLocation } from 'react-router';
 function SearchButton() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const results: CountryIso2NameMap[] =
-    query.length > 1 ? searchCountryName(query) : [];
+  const results = useMemo(
+    () => (query.length > 1 ? searchCountryName(query) : []),
+    [query]
+  );
+
   const location = useLocation();
   // when url changes, close the dialog
   useEffect(() => {
@@ -82,7 +82,7 @@ function SearchButton() {
                   sx={{ width: '100%' }}
                 />
                 <Divider />
-                <SearchResult results={results} />
+                <SearchResultComponent results={results} />
               </Stack>
             </Stack>
           </DialogHeader>
