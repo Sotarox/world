@@ -3,7 +3,7 @@ import { Button, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
 
-const HeaderLogo = React.memo(() => {
+const HeaderLogo: React.FC = React.memo(() => {
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -24,5 +24,6 @@ const HeaderLogo = React.memo(() => {
     </Button>
   );
 });
+
 HeaderLogo.displayName = 'HeaderLogo';
 export default HeaderLogo;
