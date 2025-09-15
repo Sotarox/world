@@ -5,13 +5,13 @@ module.exports = {
     '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest',
   },
   
-  // Set the test environment to 'node' since testing only utility functions.
-  // This is faster and simpler than a browser environment like jsdom.
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
 
   testMatch: [
-    "**/__tests__/**/*.test.ts",
-    "**/?(*.)+(spec|test).ts"
+    "**/__tests__/**/*.test.(ts|tsx)",
+    "**/?(*.)+(spec|test).(ts|tsx)"
   ],
 
   testPathIgnorePatterns: ["/node_modules/", "/public/"],
