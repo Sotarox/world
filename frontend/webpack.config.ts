@@ -1,16 +1,18 @@
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
+import type { Configuration } from 'webpack';
 import path from 'path';
-import webpack from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const config: webpack.Configuration = {
+const config: Configuration = {
   mode:
     (process.env.NODE_ENV as 'production' | 'development' | undefined) ??
     'development',
   entry: './src/entrypoint.tsx',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -20,7 +22,7 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/i,
@@ -30,6 +32,9 @@ const config: webpack.Configuration = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
   output: {
     filename: 'bundle.js',
@@ -48,14 +53,14 @@ const config: webpack.Configuration = {
     port: 5173,
     open: true, // Automatically open the browser
     hot: true, // Enable Hot Module Replacement
-    historyApiFallback: true, // For SPA-Routing
+    historyApiFallback: true, // Always serve index.html for user requested url in a browser
     proxy: [
       {
         context: ['/api'],
         target: 'http://localhost:8080',
       },
     ],
-  },
+  } satisfies DevServerConfiguration,
 };
 
 export default config;

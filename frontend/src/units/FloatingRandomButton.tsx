@@ -1,6 +1,6 @@
 import React from 'react';
 import Fab from '@mui/material/Fab';
-import { Autorenew } from '@mui/icons-material';
+import { Shuffle as ShuffleIcon } from 'lucide-react';
 import { randomCountryIso2 } from '../model/CountryIso2NameMap';
 import { Tooltip, Zoom } from '@mui/material';
 import { useNavigate } from 'react-router';
@@ -26,7 +26,7 @@ function FloatingRandomButton() {
             zIndex: 1000,
           }}
         >
-          <Autorenew />
+          <ShuffleIcon />
         </Fab>
       </Tooltip>
     </Zoom>
