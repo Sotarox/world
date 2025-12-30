@@ -6,6 +6,13 @@ import AboutButton from './AboutButton';
 import ThemeSwitch from './ThemeSwitch';
 import SearchButton from './SearchButton';
 import HeaderLogo from './HeaderLogo';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { useNavigate } from 'react-router';
 
 interface HeaderBarProps {
   toggleDrawer: () => void;
@@ -13,6 +20,7 @@ interface HeaderBarProps {
 
 const HeaderBar = React.memo((props: HeaderBarProps) => {
   const { toggleDrawer } = props;
+  const navigate = useNavigate();
 
   return (
     <>
@@ -39,6 +47,17 @@ const HeaderBar = React.memo((props: HeaderBarProps) => {
           <Box sx={{ flexGrow: '1' }} />
           <ThemeSwitch />
           <AboutButton />
+          <DropdownMenu>
+            <DropdownMenuTrigger>Menu</DropdownMenuTrigger>
+            {/* Since AppBar has z-index 1201 */}
+            <DropdownMenuContent className='z-[1202]'>
+              <DropdownMenuItem onClick={() => navigate('/inquiry')}>
+                Inquiry
+              </DropdownMenuItem>
+              <DropdownMenuItem>Dummy</DropdownMenuItem>
+              <DropdownMenuItem>Dummy</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </Toolbar>
       </AppBar>
     </>
