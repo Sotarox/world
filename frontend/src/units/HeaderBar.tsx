@@ -54,11 +54,11 @@ const HeaderBar = React.memo((props: HeaderBarProps) => {
             </DropdownMenuTrigger>
             {/* Since AppBar has z-index 1201 */}
             <DropdownMenuContent className='z-[1202]'>
-              <DropdownMenuItem onClick={() => navigate('/inquiry')}>
-                Inquiry
-              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => navigate('/about')}>
                 About
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/inquiry')}>
+                Inquiry
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

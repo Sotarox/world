@@ -31,12 +31,12 @@ import {
 const formSchema = z.object({
   title: z
     .string()
-    .min(5, 'Bug title must be at least 5 characters.')
-    .max(32, 'Bug title must be at most 32 characters.'),
+    .min(1, 'Title must be given.')
+    .max(64, 'Title must be at most 64 characters.'),
   description: z
     .string()
-    .min(20, 'Description must be at least 20 characters.')
-    .max(100, 'Description must be at most 100 characters.'),
+    .min(1, 'Description must be given.')
+    .max(1000, 'Description must be at most 1000 characters.'),
 });
 
 export function Inquiry() {
@@ -66,11 +66,11 @@ export function Inquiry() {
   }
 
   return (
-    <Card className='w-full sm:max-w-md'>
+    <Card className='w-full'>
       <CardHeader>
         <CardTitle>Inquiry Form</CardTitle>
         <CardDescription>
-          Help us improve by sending your expression or question.
+          In this form you can send your feedback/question.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -88,7 +88,7 @@ export function Inquiry() {
                     {...field}
                     id='form-rhf-demo-title'
                     aria-invalid={fieldState.invalid}
-                    placeholder='Login button not working on mobile'
+                    placeholder='Expression of website'
                     autoComplete='off'
                   />
                   {fieldState.invalid && (
@@ -109,20 +109,19 @@ export function Inquiry() {
                     <InputGroupTextarea
                       {...field}
                       id='form-rhf-demo-description'
-                      placeholder="I'm having an issue with the login button on mobile."
+                      placeholder="The features I'd like to see are..."
                       rows={6}
                       className='min-h-24 resize-none'
                       aria-invalid={fieldState.invalid}
                     />
                     <InputGroupAddon align='block-end'>
                       <InputGroupText className='tabular-nums'>
-                        {field.value.length}/100 characters
+                        {field.value.length}/1000 characters
                       </InputGroupText>
                     </InputGroupAddon>
                   </InputGroup>
                   <FieldDescription>
-                    Include steps to reproduce, expected behavior, and what
-                    actually happened.
+                    Your feedback is valuable to motivate me making a web app.
                   </FieldDescription>
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
