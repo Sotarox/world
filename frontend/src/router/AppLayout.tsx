@@ -5,6 +5,7 @@ import Sidebar from '../units/Sidebar';
 import FloatingRandomButton from '../units/FloatingRandomButton';
 import { Outlet } from 'react-router';
 import { Box } from '@mui/material';
+import { Toaster } from '@/components/ui/sonner';
 
 function AppLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
@@ -24,6 +25,7 @@ function AppLayout() {
       </Box>
       <FloatingRandomButton />
       <BottomBar toggleDrawer={toggleIsSidebarOpen} />
+      <Toaster />
     </div>
   );
 }
