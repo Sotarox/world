@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
+import api from '../api/axios';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -62,6 +63,9 @@ export function Inquiry() {
       style: {
         '--border-radius': 'calc(var(--radius)  + 4px)',
       } as React.CSSProperties,
+    });
+    api.post('/mail/inquiry', data).catch((error) => {
+      toast.error(`Failed to submit inquiry: ${error.message}`);
     });
   }
 
