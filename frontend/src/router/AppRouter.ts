@@ -3,6 +3,7 @@ import AppLayout from './AppLayout';
 import TopPage from '../pages/TopPage';
 import CountryLoad from '../pages/CountryLoad';
 import Inquiry from '../pages/Inquiry';
+import About from '@/pages/About';
 
 const AppRouter = createBrowserRouter([
   {
@@ -10,6 +11,7 @@ const AppRouter = createBrowserRouter([
     children: [
       { index: true, Component: TopPage },
       { path: 'countries/:iso2', Component: CountryLoad },
+      { path: 'about', Component: About },
       { path: 'inquiry', Component: Inquiry },
       { path: '*', Component: TopPage },
     ],

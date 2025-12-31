@@ -1,8 +1,7 @@
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import { Box, IconButton, Toolbar } from '@mui/material';
-import { List as ListIcon } from 'lucide-react';
-import AboutButton from './AboutButton';
+import { List as ListIcon, MenuIcon } from 'lucide-react';
 import ThemeSwitch from './ThemeSwitch';
 import SearchButton from './SearchButton';
 import HeaderLogo from './HeaderLogo';
@@ -12,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
 
 interface HeaderBarProps {
@@ -46,16 +46,20 @@ const HeaderBar = React.memo((props: HeaderBarProps) => {
           <SearchButton />
           <Box sx={{ flexGrow: '1' }} />
           <ThemeSwitch />
-          <AboutButton />
           <DropdownMenu>
-            <DropdownMenuTrigger>Menu</DropdownMenuTrigger>
+            <DropdownMenuTrigger>
+              <Button size='icon' variant='ghost'>
+                <MenuIcon className='size-6' />
+              </Button>
+            </DropdownMenuTrigger>
             {/* Since AppBar has z-index 1201 */}
             <DropdownMenuContent className='z-[1202]'>
               <DropdownMenuItem onClick={() => navigate('/inquiry')}>
                 Inquiry
               </DropdownMenuItem>
-              <DropdownMenuItem>Dummy</DropdownMenuItem>
-              <DropdownMenuItem>Dummy</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/about')}>
+                About
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </Toolbar>
