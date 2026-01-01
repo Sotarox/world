@@ -50,7 +50,7 @@ export default function BottomBar(props: BottomBarProps) {
           <Box sx={{ flexGrow: '1' }} />
           <ThemeSwitch />
           <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild>
               <Button size='icon' variant='ghost'>
                 <MenuIcon className='size-6' />
               </Button>
