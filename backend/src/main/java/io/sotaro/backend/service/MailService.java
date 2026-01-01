@@ -10,14 +10,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
-@ConditionalOnProperty(name = "mail.enabled", havingValue = "true")
+@ConditionalOnProperty(name = "custom.mail.enabled", havingValue = "true")
 public class MailService {
 
     private final String forwardTo;
     private final JavaMailSender mailSender;
 
     public MailService(
-            @Value("${mail.forward.to}") String forwardTo,
+            @Value("${custom.mail.forward}") String forwardTo,
             JavaMailSender mailSender
     ) {
         this.forwardTo = forwardTo;

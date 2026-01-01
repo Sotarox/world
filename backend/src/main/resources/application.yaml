@@ -4,7 +4,6 @@ spring:
   profiles:
     active: local
   mail:
-    enabled: true
     host: ${MAIL_HOST}
     port: ${MAIL_PORT}
     username: ${MAIL_USERNAME}
@@ -15,9 +14,11 @@ spring:
           auth: true
           starttls:
             enable: true
-        forward:
-          to: ${MAIL_FORWARD_TO}
-
+# custom properties for world app
+custom:
+  mail:
+    enabled: true
+    forward: ${MAIL_FORWARD}
 ---
 
 spring:

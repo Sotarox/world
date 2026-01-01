@@ -1,7 +1,6 @@
 package io.sotaro.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.sotaro.backend.AbstractIntegrationTest;
 import io.sotaro.backend.model.CountryDto;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql(scripts = "/test_populate_countries.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/test_populate_airports.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/clean_up.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class CountryControllerIntegrationTest extends AbstractIntegrationTest {
+public class CountryControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
