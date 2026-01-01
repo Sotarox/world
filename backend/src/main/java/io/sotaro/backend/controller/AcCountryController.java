@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class AcCountryController {
@@ -17,6 +19,10 @@ public class AcCountryController {
         this.acCountryDAO = acCountryDAO;
     }
 
+    @GetMapping("/accountries")
+    public ResponseEntity<List<AcCountry>> getCountries() {
+        return ResponseEntity.ok(acCountryDAO.getAcCountries());
+    }
     @GetMapping("/accountries/{countryIso2}")
     public ResponseEntity<AcCountry> getCountryByCountryIso2(@PathVariable String countryIso2) {
         return ResponseEntity.ok(acCountryDAO.getAcCountry(countryIso2));
