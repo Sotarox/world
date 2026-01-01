@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/mail")
-@ConditionalOnProperty(name = "mail.enabled", havingValue = "true")
+@ConditionalOnProperty(name = "custom.mail.enabled", havingValue = "true")
 public class MailController {
 
     private final MailService mailService;
