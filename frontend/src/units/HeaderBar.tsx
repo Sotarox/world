@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
+import { CountryFilter } from './CountryFilter';
 
 interface HeaderBarProps {
   toggleDrawer: () => void;
@@ -59,6 +60,9 @@ const HeaderBar = React.memo((props: HeaderBarProps) => {
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => navigate('/inquiry')}>
                 Inquiry
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <CountryFilter />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
