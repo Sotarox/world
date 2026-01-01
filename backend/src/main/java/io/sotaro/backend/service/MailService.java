@@ -2,21 +2,32 @@ package io.sotaro.backend.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@ConditionalOnProperty(name = "mail.enabled", havingValue = "true")
 public class MailService {
 
+    private final String forwardTo;
     private final JavaMailSender mailSender;
 
-    public void sendSimpleMail(String to, String subject, String text) {
+    public MailService(
+            @Value("${mail.forward.to}") String forwardTo,
+            JavaMailSender mailSender
+    ) {
+        this.forwardTo = forwardTo;
+        this.mailSender = mailSender;
+    }
+
+
+    public void sendSimpleMail(String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
+        message.setTo(forwardTo);
         message.setSubject(subject);
         message.setText(text);
 
