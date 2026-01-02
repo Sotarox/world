@@ -1,16 +1,5 @@
 import { create } from 'zustand';
-
-export const Region = [
-  'Africa',
-  'Americas',
-  'Antarctic',
-  'Antarctic Ocean',
-  'Asia',
-  'Europe',
-  'Oceania',
-  'Polar',
-] as const;
-export type RegionType = (typeof Region)[number];
+import { Region, RegionType } from '@/model/ACCountry';
 
 type RegionFilterState = {
   enabled: boolean;

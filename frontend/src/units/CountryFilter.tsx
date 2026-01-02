@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import { Region, RegionType, useRegionFilter } from '@/store/RegionFilterStore';
+import { useRegionFilter } from '@/store/RegionFilterStore';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Dialog,
@@ -12,6 +12,7 @@ import {
   DialogTitle,
   DialogHeader,
 } from '@/components/ui/dialog';
+import { Region, RegionType } from '@/model/ACCountry';
 
 const formSchema = z.object({
   regions: z

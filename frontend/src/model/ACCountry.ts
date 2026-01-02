@@ -1,4 +1,14 @@
-import { RegionType } from '@/store/RegionFilterStore';
+export const Region = [
+  'Africa',
+  'Americas',
+  'Antarctic',
+  'Antarctic Ocean',
+  'Asia',
+  'Europe',
+  'Oceania',
+  'Polar',
+] as const;
+export type RegionType = (typeof Region)[number];
 
 /**
  * Information about a country.
