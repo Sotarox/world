@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router';
 import { ACCountryNav } from '@/model/ACCountry';
 import useApi from '@/api/useApi';
 import { useRegionFilter } from '@/store/RegionFilterStore';
+import { CountryFilter } from './CountryFilter';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -80,6 +81,7 @@ const Sidebar = React.memo((props: SidebarProps) => {
         },
       }}
     >
+      <CountryFilter />
       {renderList(navs || [])}
     </SwipeableDrawer>
   );

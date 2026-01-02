@@ -8,7 +8,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router';
 import { MenuIcon } from 'lucide-react';
-import { CountryFilter } from './CountryFilter';
 
 const BurgerMenu = React.memo(() => {
   const navigate = useNavigate();
@@ -27,9 +26,6 @@ const BurgerMenu = React.memo(() => {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => navigate('/inquiry')}>
           Inquiry
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <CountryFilter />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import * as z from 'zod';
 import { useRegionFilter } from '@/store/RegionFilterStore';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogTrigger,
@@ -14,6 +15,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { Region, RegionType } from '@/model/ACCountry';
+import { FilterIcon } from 'lucide-react';
 
 const formSchema = z.object({
   regions: z
@@ -37,11 +39,12 @@ export function CountryFilter() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button type='button' aria-label='Open filter dialog'>
-          Filter
-        </button>
+        <Button variant='ghost' aria-label='Open filter dialog'>
+          <FilterIcon className='size-5' />
+          <span className='text-lg'>Filter</span>
+        </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className='w-[400px]'>
         <DialogHeader>
           <DialogTitle>Region Filter</DialogTitle>
           <DialogDescription>Select which regions to display</DialogDescription>
@@ -78,9 +81,11 @@ export function CountryFilter() {
               {form.formState.errors.regions.message}
             </div>
           )}
-          <button type='submit' className='mt-4 btn btn-primary'>
-            Save
-          </button>
+          <div className='flex justify-end'>
+            <Button type='submit' className='mt-4 btn btn-primary'>
+              Save
+            </Button>
+          </div>
         </form>
       </DialogContent>
     </Dialog>
