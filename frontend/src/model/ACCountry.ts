@@ -1,3 +1,5 @@
+import { RegionType } from '@/store/RegionFilterStore';
+
 /**
  * Information about a country.
  * https://www.apicountries.com/docs/api/alpha
@@ -38,7 +40,7 @@ export interface ACCountry {
   /**
    * Region of the country.
    */
-  region: string;
+  region: RegionType;
   /**
    * Population of the country.
    */
@@ -173,7 +175,7 @@ export interface ACCountryNav {
   /**
    * Region of the country.
    */
-  region: string;
+  region: RegionType;
   /**
    * Population of the country.
    */
