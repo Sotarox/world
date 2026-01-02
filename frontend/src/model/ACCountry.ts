@@ -156,3 +156,30 @@ export interface ACCountry {
    */
   independent: boolean;
 }
+
+export interface ACCountryNav {
+  /**
+   * Name of the country.
+   */
+  name: string;
+  /**
+   * Alpha-2 code of the country.
+   */
+  alpha2Code: string;
+  /**
+   * Subregion of the country.
+   */
+  subregion: string;
+  /**
+   * Region of the country.
+   */
+  region: string;
+  /**
+   * Population of the country.
+   */
+  population: number;
+  /**
+   * Area of the country in square kilometers.
+   */
+  area: number | null;
+}
