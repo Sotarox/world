@@ -11,6 +11,7 @@ import {
   DialogContent,
   DialogTitle,
   DialogHeader,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { Region, RegionType } from '@/model/ACCountry';
 
@@ -43,6 +44,7 @@ export function CountryFilter() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Region Filter</DialogTitle>
+          <DialogDescription>Select which regions to display</DialogDescription>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className='flex flex-col gap-2'>

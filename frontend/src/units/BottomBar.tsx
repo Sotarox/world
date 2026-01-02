@@ -1,18 +1,10 @@
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
 import { Box, IconButton, Toolbar } from '@mui/material';
-import { List as ListIcon, MenuIcon } from 'lucide-react';
-import ThemeSwitch from './ThemeSwitch';
-import SearchButton from './SearchButton';
+import AppBar from '@mui/material/AppBar';
+import { List as ListIcon } from 'lucide-react';
+import BurgerMenu from './BurgerMenu';
 import HeaderLogo from './HeaderLogo';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router';
+import SearchButton from './SearchButton';
+import ThemeSwitch from './ThemeSwitch';
 
 interface BottomBarProps {
   toggleDrawer: () => void;
@@ -20,7 +12,6 @@ interface BottomBarProps {
 
 export default function BottomBar(props: BottomBarProps) {
   const { toggleDrawer } = props;
-  const navigate = useNavigate();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -49,22 +40,7 @@ export default function BottomBar(props: BottomBarProps) {
           <SearchButton />
           <Box sx={{ flexGrow: '1' }} />
           <ThemeSwitch />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size='icon' variant='ghost'>
-                <MenuIcon className='size-6' />
-              </Button>
-            </DropdownMenuTrigger>
-            {/* Since AppBar has z-index 1201 */}
-            <DropdownMenuContent className='z-[1202]'>
-              <DropdownMenuItem onClick={() => navigate('/about')}>
-                About
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate('/inquiry')}>
-                Inquiry
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <BurgerMenu />
         </Toolbar>
       </AppBar>
     </Box>
