@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { Region, RegionType } from '@/model/ACCountry';
 
 type RegionFilterState = {
-  enabled: boolean;
   regions: RegionType[];
   addRegion: (region: RegionType) => void;
   setRegions: (regions: RegionType[]) => void;
@@ -10,7 +9,6 @@ type RegionFilterState = {
 };
 
 export const useRegionFilter = create<RegionFilterState>((set) => ({
-  enabled: false,
   regions: [...Region],
   addRegion: (region) =>
     set((state) => ({ regions: [...state.regions, region] })),
