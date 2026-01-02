@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogHeader,
   DialogDescription,
+  DialogClose,
 } from '@/components/ui/dialog';
 import { Region, RegionType } from '@/model/ACCountry';
 import { FilterIcon } from 'lucide-react';
@@ -41,7 +42,7 @@ export function CountryFilter() {
       <DialogTrigger asChild>
         <Button variant='ghost' aria-label='Open filter dialog'>
           <FilterIcon className='size-5' />
-          <span className='text-lg'>Filter</span>
+          <span className='text-base'>Filter</span>
         </Button>
       </DialogTrigger>
       <DialogContent className='w-[400px]'>
@@ -82,9 +83,9 @@ export function CountryFilter() {
             </div>
           )}
           <div className='flex justify-end'>
-            <Button type='submit' className='mt-4 btn btn-primary'>
-              Save
-            </Button>
+            <DialogClose asChild>
+              <Button type='submit'>Save</Button>
+            </DialogClose>
           </div>
         </form>
       </DialogContent>
