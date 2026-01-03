@@ -37,6 +37,10 @@ function CountryInfo(props: CountryInfoProps) {
             value={convertContinentCodeToName(country.continent)}
           />
           <InfoCard
+            title='Region'
+            value={acCountry?.region.toString() ?? 'N/A'}
+          />
+          <InfoCard
             title='Subregion'
             value={acCountry?.subregion.toString() ?? 'N/A'}
           />
