@@ -47,7 +47,7 @@ export function CountryFilter() {
       </DialogTrigger>
       <DialogContent className='w-[400px]'>
         <DialogHeader>
-          <DialogTitle>Region Filter</DialogTitle>
+          <DialogTitle>Country Filter</DialogTitle>
           <DialogDescription>Select which regions to display</DialogDescription>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -82,7 +82,10 @@ export function CountryFilter() {
               {form.formState.errors.regions.message}
             </div>
           )}
-          <div className='flex justify-end'>
+          <div className='flex gap-2 justify-end'>
+            <DialogClose asChild>
+              <Button variant='secondary'>Close</Button>
+            </DialogClose>
             <DialogClose asChild>
               <Button type='submit'>Save</Button>
             </DialogClose>
