@@ -1,3 +1,13 @@
+export const Region = [
+  'Africa',
+  'Americas',
+  'Asia',
+  'Europe',
+  'Oceania',
+  'Antarctic',
+] as const;
+export type RegionType = (typeof Region)[number];
+
 /**
  * Information about a country.
  * https://www.apicountries.com/docs/api/alpha
@@ -38,7 +48,7 @@ export interface ACCountry {
   /**
    * Region of the country.
    */
-  region: string;
+  region: RegionType;
   /**
    * Population of the country.
    */
@@ -155,4 +165,31 @@ export interface ACCountry {
    * Whether the country is independent.
    */
   independent: boolean;
+}
+
+export interface ACCountryNav {
+  /**
+   * Name of the country.
+   */
+  name: string;
+  /**
+   * Alpha-2 code of the country.
+   */
+  alpha2Code: string;
+  /**
+   * Subregion of the country.
+   */
+  subregion: string;
+  /**
+   * Region of the country.
+   */
+  region: RegionType;
+  /**
+   * Population of the country.
+   */
+  population: number;
+  /**
+   * Area of the country in square kilometers.
+   */
+  area: number | null;
 }
