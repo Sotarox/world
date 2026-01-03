@@ -1,12 +1,10 @@
 export const Region = [
   'Africa',
   'Americas',
-  'Antarctic',
-  'Antarctic Ocean',
   'Asia',
   'Europe',
   'Oceania',
-  'Polar',
+  'Antarctic',
 ] as const;
 export type RegionType = (typeof Region)[number];
 

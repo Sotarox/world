@@ -14,20 +14,44 @@ public class AcCountryService {
         this.acCountryDao = acCountryDao;
     }
 
-    public List<AcCountryNavDto> getCountriesNav() {
+    public List<AcCountry> getCountries() {
         return acCountryDao.getAcCountries().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
-    private AcCountryNavDto convertToDto(AcCountry countryEntity) {
+    public AcCountry getCountryByCountryIso2(String countryIso2) {
+        return convertToDto(acCountryDao.getAcCountry(countryIso2));
+    }
+
+    public List<AcCountryNavDto> getCountriesNav() {
+        return acCountryDao.getAcCountries().stream()
+                .map(this::convertToNavDto)
+                .collect(Collectors.toList());
+    }
+
+    private AcCountry convertToDto(AcCountry countryEntity) {
+        String modifiedRegion = unifyArcticRegion(countryEntity.getRegion());
+        countryEntity.setRegion(modifiedRegion);
+        return countryEntity;
+    }
+
+    private AcCountryNavDto convertToNavDto(AcCountry countryEntity) {
         return new AcCountryNavDto(
                 countryEntity.getName(),
                 countryEntity.getAlpha2Code(),
                 countryEntity.getSubregion(),
-                countryEntity.getRegion(),
+                unifyArcticRegion(countryEntity.getRegion()),
                 countryEntity.getPopulation(),
                 countryEntity.getArea()
         );
+    }
+
+    private String unifyArcticRegion(String entityRegion) {
+        if (entityRegion.equals("Antarctic Ocean") || entityRegion.equals("Polar")) {
+            return "Antarctic";
+        } else {
+            return entityRegion;
+        }
     }
 }

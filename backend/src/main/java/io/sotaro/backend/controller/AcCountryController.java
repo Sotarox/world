@@ -15,17 +15,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class AcCountryController {
-    AcCountryDAO acCountryDAO;
     AcCountryService acCountryService;
 
-    AcCountryController(AcCountryDAO acCountryDAO, AcCountryService acCountryService) {
-        this.acCountryDAO = acCountryDAO;
+    AcCountryController(AcCountryService acCountryService) {
         this.acCountryService = acCountryService;
     }
 
     @GetMapping("/accountries")
     public ResponseEntity<List<AcCountry>> getCountries() {
-        return ResponseEntity.ok(acCountryDAO.getAcCountries());
+        return ResponseEntity.ok(acCountryService.getCountries());
     }
 
     @GetMapping("/accountries/nav")
@@ -34,6 +32,6 @@ public class AcCountryController {
     }
     @GetMapping("/accountries/{countryIso2}")
     public ResponseEntity<AcCountry> getCountryByCountryIso2(@PathVariable String countryIso2) {
-        return ResponseEntity.ok(acCountryDAO.getAcCountry(countryIso2));
+        return ResponseEntity.ok(acCountryService.getCountryByCountryIso2(countryIso2));
     }
 }
