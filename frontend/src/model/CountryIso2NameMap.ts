@@ -1027,42 +1027,37 @@ export const randomCountryIso2 = () => {
   return countryIso2NameMap[i].countryIso2;
 };
 
-export const nextCountryIso2 = (
+export const nextCountryNav = (
   currentIso2: string,
   countryNavs: ACCountryNav[]
-) => {
+): ACCountryNav | undefined => {
   const currentIndex = countryNavs.findIndex(
     (obj) => obj.alpha2Code === currentIso2
   );
   // currentIso2 not found in the navs
   if (currentIndex === -1) {
     // fallback: return first country in navs or undefined
-    return countryNavs.length > 0 ? countryNavs[0].alpha2Code : undefined;
+    return countryNavs.length > 0
+      ? countryNavs[countryNavs.length - 1]
+      : undefined;
   }
   const nextIndex = (currentIndex + 1) % countryNavs.length;
-  return countryNavs[nextIndex].alpha2Code;
+  return countryNavs[nextIndex];
 };
 
-export const previousCountryIso2 = (
+export const previousCountryNav = (
   currentIso2: string,
   countryNavs: ACCountryNav[]
-) => {
+): ACCountryNav | undefined => {
   const currentIndex = countryNavs.findIndex(
     (obj) => obj.alpha2Code === currentIso2
   );
   // currentIso2 not found in the navs
   if (currentIndex === -1) {
     // fallback: return first country in navs or undefined
-    return countryNavs.length > 0 ? countryNavs[0].alpha2Code : undefined;
+    return countryNavs.length > 0 ? countryNavs[0] : undefined;
   }
   const previousIndex =
     (currentIndex - 1 + countryNavs.length) % countryNavs.length;
-  return countryNavs[previousIndex].alpha2Code;
-};
-
-export const countryIso2ToName = (countryIso2: string) => {
-  const country = countryIso2NameMap.find(
-    (obj) => obj.countryIso2 === countryIso2
-  );
-  return country ? country.countryName : 'Unknown Country';
+  return countryNavs[previousIndex];
 };

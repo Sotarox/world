@@ -7,9 +7,8 @@ import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
 import { Box, Divider, IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import {
-  countryIso2ToName,
-  previousCountryIso2,
-  nextCountryIso2,
+  previousCountryNav,
+  nextCountryNav,
 } from '../model/CountryIso2NameMap';
 import { CircleFlag } from 'react-circle-flags';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
@@ -27,8 +26,8 @@ function CountryLoad() {
   );
   const navigate = useNavigate();
   const countryNavs = useCountryNav((s) => s.countries);
-  const prevIso2 = previousCountryIso2(currentIso2, countryNavs)?.toLowerCase();
-  const nextIso2 = nextCountryIso2(currentIso2, countryNavs)?.toLowerCase();
+  const previousNav = previousCountryNav(currentIso2, countryNavs);
+  const nextNav = nextCountryNav(currentIso2, countryNavs);
 
   if (country) {
     return (
@@ -39,25 +38,33 @@ function CountryLoad() {
           sizeAirports={country.totalNumberOfAirports}
         />
         <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-          {prevIso2 && (
-            <IconButton onClick={() => navigate(`/countries/${prevIso2}`)}>
+          {previousNav && (
+            <IconButton
+              onClick={() =>
+                navigate(`/countries/${previousNav.alpha2Code.toLowerCase()}`)
+              }
+            >
               <CircleFlag
-                countryCode={prevIso2 || ''}
+                countryCode={previousNav.alpha2Code.toLowerCase() || ''}
                 height='20'
                 width='20'
-                title={countryIso2ToName(prevIso2 || '')}
+                title={previousNav.name || ''}
               />
               <ArrowLeft />
             </IconButton>
           )}
-          {nextIso2 && (
-            <IconButton onClick={() => navigate(`/countries/${nextIso2}`)}>
+          {nextNav && (
+            <IconButton
+              onClick={() =>
+                navigate(`/countries/${nextNav.alpha2Code.toLowerCase()}`)
+              }
+            >
               <ArrowRight />
               <CircleFlag
-                countryCode={nextIso2 || ''}
+                countryCode={nextNav.alpha2Code.toLowerCase() || ''}
                 height='20'
                 width='20'
-                title={countryIso2ToName(nextIso2 || '')}
+                title={nextNav.name || ''}
               />
             </IconButton>
           )}
