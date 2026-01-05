@@ -28,11 +28,6 @@ function CountryInfo(props: CountryInfoProps) {
         <CountryInfoHeader country={country} />
         <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
           <InfoCard
-            title='Coordinate'
-            value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
-          />
-          <InfoCard title='Country ISO3' value={country.countryIso3} />
-          <InfoCard
             title='Continent'
             value={convertContinentCodeToName(country.continent)}
           />
@@ -44,8 +39,13 @@ function CountryInfo(props: CountryInfoProps) {
             title='Subregion'
             value={acCountry?.subregion.toString() ?? 'N/A'}
           />
+          <InfoCard
+            title='Coordinate'
+            value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
+          />
           <InfoCard title='Capital' value={country.capital} />
           <InfoCard title='Country ISO2' value={country.countryIso2} />
+          <InfoCard title='Country ISO3' value={country.countryIso3} />
           <InfoCard title='Currency' value={country.currencyName} />
           <InfoCard title='Phone prefix' value={country.phonePrefix} />
           <InfoCard

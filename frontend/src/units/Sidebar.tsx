@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
@@ -12,6 +12,8 @@ import { useRegionFilter } from '@/store/RegionFilterStore';
 import { CountryFilter } from './CountryFilter';
 import { useCountryNav } from '@/store/CountryNavStore';
 import api from '../api/axios';
+import { Button } from '@/components/ui/button';
+import { ArrowDownUpIcon } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -24,6 +26,7 @@ const Sidebar = React.memo((props: SidebarProps) => {
   const filteredRegions = useRegionFilter((s) => s.regions);
   const countryNavs = useCountryNav((s) => s.countries);
   const setCountryNavs = useCountryNav((s) => s.setCountries);
+  const [reverse, setReverse] = useState(false);
 
   useEffect(() => {
     api
@@ -32,6 +35,9 @@ const Sidebar = React.memo((props: SidebarProps) => {
         const filteredNavs = res.data.filter((obj) =>
           filteredRegions.includes(obj.region)
         );
+        if (reverse) {
+          filteredNavs.reverse();
+        }
         setCountryNavs(filteredNavs);
       })
       .catch((error) => {
@@ -39,7 +45,7 @@ const Sidebar = React.memo((props: SidebarProps) => {
           console.error(error);
         }
       });
-  }, [filteredRegions, setCountryNavs]);
+  }, [filteredRegions, setCountryNavs, reverse]);
 
   const renderList = () => (
     <Box
@@ -95,7 +101,13 @@ const Sidebar = React.memo((props: SidebarProps) => {
         },
       }}
     >
-      <CountryFilter />
+      <div className='flex gap-2'>
+        <CountryFilter />
+        <Button variant='ghost' onClick={() => setReverse(!reverse)}>
+          <ArrowDownUpIcon className='size-5' />
+          <span className='text-base'>Reverse</span>
+        </Button>
+      </div>
       {renderList()}
     </SwipeableDrawer>
   );
