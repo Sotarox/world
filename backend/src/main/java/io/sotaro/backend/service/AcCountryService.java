@@ -2,6 +2,7 @@ package io.sotaro.backend.service;
 
 import io.sotaro.backend.dao.AcCountryDAO;
 import io.sotaro.backend.model.*;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,16 +15,31 @@ public class AcCountryService {
         this.acCountryDao = acCountryDao;
     }
 
+    @Cacheable(
+        value = "countries",
+        key = "'all'",
+        unless = "#result == null"
+    )
     public List<AcCountry> getCountries() {
         return acCountryDao.getAcCountries().stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
+    @Cacheable(
+        value = "country",
+        key = "#countryIso2",
+        unless = "#result == null"
+    )
     public AcCountry getCountryByCountryIso2(String countryIso2) {
         return convertToDto(acCountryDao.getAcCountry(countryIso2));
     }
 
+    @Cacheable(
+            value = "countryNavs",
+            key = "'all'",
+            unless = "#result == null"
+    )
     public List<AcCountryNavDto> getCountriesNav() {
         return acCountryDao.getAcCountries().stream()
                 .map(this::convertToNavDto)
