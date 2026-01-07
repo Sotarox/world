@@ -1,20 +1,22 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('HeaderBar drawer and About navigation', async ({ page }) => {
+  await page.setViewportSize({ width: 1200, height: 800 }); // Ensure desktop view
+  await page.goto('/');
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+  // Click the ListIcon (drawer button)
+  await page.getByLabel('open drawer').click();
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  // Open the burger menu. nth(0) to select the HeaderBar one
+  await page.getByLabel('open dropdown menu').nth(0).click();
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
+  // Check "About" is visible in the dropdown
+  const aboutItem = page.getByRole('menuitem', { name: 'About' });
+  await expect(aboutItem).toBeVisible();
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(
-    page.getByRole('heading', { name: 'Installation' })
-  ).toBeVisible();
+  // Click "About"
+  await aboutItem.click();
+
+  // Check URL changed to /about
+  await expect(page).toHaveURL(/\/about$/);
 });
