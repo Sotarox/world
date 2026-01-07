@@ -32,8 +32,11 @@ function About() {
       <ul>
         <li>🗺️ Map by OpenLayers or Leaflet</li>
         <li>👨‍🦳 CI/CD by Jenkins</li>
-        <li>👷‍♀️ End2End Test</li>
         <li>✨ More data from public APIs</li>
+        <li>
+          ✅ <s>End2End Test</s>{' '}
+          <span className='text-gray-500 dark:text-gray-300'> Done</span>
+        </li>
       </ul>
     </>
   );
