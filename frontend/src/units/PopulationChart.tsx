@@ -20,7 +20,10 @@ export function PopulationChart({ data }: PopulationChartProps) {
         <CartesianGrid strokeDasharray='3 3' />
         <XAxis dataKey='population' type='number' />
         <YAxis dataKey='name' type='category' />
-        <Tooltip />
+        <Tooltip
+          contentStyle={{ backgroundColor: 'var(--color-gray-50)' }}
+          labelStyle={{ color: 'var(--color-gray-900)' }}
+        />
         <Bar dataKey='population' fill='var(--chart-1)' radius={4} />
       </BarChart>
     </ChartContainer>
