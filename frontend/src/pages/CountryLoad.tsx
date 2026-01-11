@@ -16,6 +16,7 @@ import { type ACCountry } from '../model/ACCountry';
 import { useNavigate, useParams } from 'react-router';
 import useApi from '../api/useApi';
 import { useCountryNav } from '@/store/CountryNavStore';
+import { PopulationChart } from '@/units/PopulationChart';
 
 function CountryLoad() {
   const { currentTopic } = useContext(CurrentTopicContext);
@@ -69,6 +70,8 @@ function CountryLoad() {
             </IconButton>
           )}
         </Box>
+        <Divider sx={{ mt: 2, mb: 2 }} />
+        {countryNavs?.length > 0 && <PopulationChart data={countryNavs} />}
         <Divider sx={{ mt: 2, mb: 2 }} />
         <AirportList
           countryIso2={country.countryIso2}
