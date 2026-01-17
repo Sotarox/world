@@ -78,7 +78,9 @@ function CountryLoad() {
           )}
         </Box>
         <Divider sx={{ mt: 2, mb: 2 }} />
-        {countryNavs?.length > 0 && <PopulationChart data={countryNavs} />}
+        {countryNavs?.length > 0 && (
+          <PopulationChart data={countryNavs} selectedIso2={currentIso2} />
+        )}
         <Divider sx={{ mt: 2, mb: 2 }} />
         <AirportList
           countryIso2={country.countryIso2}
