@@ -27,13 +27,13 @@ function CountryLoad() {
     `/accountries/${currentIso2}`
   );
   const navigate = useNavigate();
-  const countryNavsRaw = useCountryNav((s) => s.countries);
-  const countryNavs = React.useMemo(
+  const countryNavs = useCountryNav((s) => s.countries);
+  const countryNavsSortedByPopulation = React.useMemo(
     () =>
-      [...countryNavsRaw].sort(
+      [...countryNavs].sort(
         (a, b) => (b.population ?? 0) - (a.population ?? 0)
       ),
-    [countryNavsRaw]
+    [countryNavs]
   );
   const previousNav = previousCountryNav(currentIso2, countryNavs);
   const nextNav = nextCountryNav(currentIso2, countryNavs);
@@ -89,7 +89,10 @@ function CountryLoad() {
               countryIso2={currentIso2}
               continentCode={country.continent}
             />
-            <PopulationChart data={countryNavs} selectedIso2={currentIso2} />
+            <PopulationChart
+              data={countryNavsSortedByPopulation}
+              selectedIso2={currentIso2}
+            />
           </Item>
         )}
       </Box>
