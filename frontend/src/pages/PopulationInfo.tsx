@@ -2,7 +2,6 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import InfoCard from '../units/InfoCard';
 import { type PopulationRank } from '../model/PopulationRank';
-import { Item } from '../units/Item';
 import useApi from '../api/useApi';
 
 interface PopulationInfoProps {
@@ -20,39 +19,37 @@ function PopulationInfo(props: PopulationInfoProps) {
   );
 
   return (
-    <Item sx={{ mb: 3 }}>
-      <Grid container spacing={1}>
-        <Grid size={{ xs: 12 }}>
-          <InfoCard title='Population ranking' value='' />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }}>
-          <InfoCard
-            title='World:'
-            value={
-              populationRankWorld
-                ? formatRankInfo(
-                    populationRankWorld.rank,
-                    populationRankWorld.countCountries
-                  )
-                : 'N/A'
-            }
-          />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }}>
-          <InfoCard
-            title='Continent:'
-            value={
-              populationRankContinent
-                ? formatRankInfo(
-                    populationRankContinent.rank,
-                    populationRankContinent.countCountries
-                  )
-                : 'N/A'
-            }
-          />
-        </Grid>
+    <Grid container spacing={1}>
+      <Grid size={{ xs: 12 }}>
+        <InfoCard title='Population ranking' value='' />
       </Grid>
-    </Item>
+      <Grid size={{ xs: 6, md: 3 }}>
+        <InfoCard
+          title='World:'
+          value={
+            populationRankWorld
+              ? formatRankInfo(
+                  populationRankWorld.rank,
+                  populationRankWorld.countCountries
+                )
+              : 'N/A'
+          }
+        />
+      </Grid>
+      <Grid size={{ xs: 6, md: 3 }}>
+        <InfoCard
+          title='Continent:'
+          value={
+            populationRankContinent
+              ? formatRankInfo(
+                  populationRankContinent.rank,
+                  populationRankContinent.countCountries
+                )
+              : 'N/A'
+          }
+        />
+      </Grid>
+    </Grid>
   );
 }
 

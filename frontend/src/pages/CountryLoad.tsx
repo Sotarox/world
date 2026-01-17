@@ -17,6 +17,7 @@ import { useNavigate, useParams } from 'react-router';
 import useApi from '../api/useApi';
 import { useCountryNav } from '@/store/CountryNavStore';
 import { PopulationChart } from '@/units/PopulationChart';
+import { Item } from '../units/Item';
 
 function CountryLoad() {
   const { currentTopic } = useContext(CurrentTopicContext);
@@ -78,19 +79,18 @@ function CountryLoad() {
           )}
         </Box>
         <Divider sx={{ mt: 2, mb: 2 }} />
-        {countryNavs?.length > 0 && (
-          <PopulationChart data={countryNavs} selectedIso2={currentIso2} />
-        )}
-        <Divider sx={{ mt: 2, mb: 2 }} />
         <AirportList
           countryIso2={country.countryIso2}
           isVisible={currentTopic === 'airports'}
         />
         {currentTopic === 'population' && (
-          <PopulationInfo
-            countryIso2={currentIso2}
-            continentCode={country.continent}
-          />
+          <Item sx={{ mb: 3 }}>
+            <PopulationInfo
+              countryIso2={currentIso2}
+              continentCode={country.continent}
+            />
+            <PopulationChart data={countryNavs} selectedIso2={currentIso2} />
+          </Item>
         )}
       </Box>
     );
