@@ -16,6 +16,8 @@ import { type ACCountry } from '../model/ACCountry';
 import { useNavigate, useParams } from 'react-router';
 import useApi from '../api/useApi';
 import { useCountryNav } from '@/store/CountryNavStore';
+import { PopulationChart } from '@/units/PopulationChart';
+import { Item } from '../units/Item';
 
 function CountryLoad() {
   const { currentTopic } = useContext(CurrentTopicContext);
@@ -26,6 +28,13 @@ function CountryLoad() {
   );
   const navigate = useNavigate();
   const countryNavs = useCountryNav((s) => s.countries);
+  const countryNavsSortedByPopulation = React.useMemo(
+    () =>
+      [...countryNavs].sort(
+        (a, b) => (b.population ?? 0) - (a.population ?? 0)
+      ),
+    [countryNavs]
+  );
   const previousNav = previousCountryNav(currentIso2, countryNavs);
   const nextNav = nextCountryNav(currentIso2, countryNavs);
 
@@ -75,10 +84,16 @@ function CountryLoad() {
           isVisible={currentTopic === 'airports'}
         />
         {currentTopic === 'population' && (
-          <PopulationInfo
-            countryIso2={currentIso2}
-            continentCode={country.continent}
-          />
+          <Item sx={{ mb: 3 }}>
+            <PopulationInfo
+              countryIso2={currentIso2}
+              continentCode={country.continent}
+            />
+            <PopulationChart
+              data={countryNavsSortedByPopulation}
+              selectedIso2={currentIso2}
+            />
+          </Item>
         )}
       </Box>
     );
