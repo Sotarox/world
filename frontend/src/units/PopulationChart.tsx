@@ -22,11 +22,25 @@ interface PopulationChartProps {
   selectedIso2: string;
 }
 
-const BAR_HEIGHT = 40; // Height per country
+const BAR_HEIGHT = 40;
 const MINIMUM_BAR_HEIGHT = 200;
+const SPLIT_NAME_LENGTH = 25;
 
 export function PopulationChart({ data, selectedIso2 }: PopulationChartProps) {
   const chartHeight = Math.max(data.length * BAR_HEIGHT, MINIMUM_BAR_HEIGHT);
+  const formatPopulation = (value: number): string => {
+    const largestPopulation = Math.max(
+      ...data.map((country) => country.population)
+    );
+    if (largestPopulation >= 1_000_000_000) {
+      return `${(value / 1_000_000_000).toFixed(1)}B`;
+    } else if (largestPopulation >= 1_000_000) {
+      return `${(value / 1_000_000).toFixed(1)}M`;
+    } else if (largestPopulation >= 1_000) {
+      return `${(value / 1_000).toFixed(1)}K`;
+    }
+    return largestPopulation.toString();
+  };
   // Custom function to set bar color
   const getBarColor = (entry: ACCountryNav) => {
     if (
@@ -54,7 +68,7 @@ export function PopulationChart({ data, selectedIso2 }: PopulationChartProps) {
           dataKey='population'
           type='number'
           orientation='top'
-          tickFormatter={(value) => `${(value / 1_000_000).toFixed(1)}M`}
+          tickFormatter={(value) => formatPopulation(value)}
         />
         <YAxis
           dataKey='name'
@@ -66,14 +80,17 @@ export function PopulationChart({ data, selectedIso2 }: PopulationChartProps) {
               selectedIso2 &&
               country?.alpha2Code?.toUpperCase() === selectedIso2.toUpperCase();
             const name = country ? country.name : payload.value;
-            // Split long names into two lines if longer than 25 chars
+            // Split long names into two lines if longer than predefined character length
             let lines: string[] = [name];
-            if (name.length > 25) {
-              const splitIdx = name.lastIndexOf(' ', 25);
+            if (name.length > SPLIT_NAME_LENGTH) {
+              const splitIdx = name.lastIndexOf(' ', SPLIT_NAME_LENGTH);
               if (splitIdx > 0) {
                 lines = [name.slice(0, splitIdx), name.slice(splitIdx + 1)];
               } else {
-                lines = [name.slice(0, 25), name.slice(25)];
+                lines = [
+                  name.slice(0, SPLIT_NAME_LENGTH),
+                  name.slice(SPLIT_NAME_LENGTH),
+                ];
               }
             }
             return (
