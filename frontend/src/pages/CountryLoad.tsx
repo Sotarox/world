@@ -18,6 +18,7 @@ import useApi from '../api/useApi';
 import { useCountryNav } from '@/store/CountryNavStore';
 import { PopulationChart } from '@/units/PopulationChart';
 import { Item } from '../units/Item';
+import { Card } from '@/components/ui/card';
 
 function CountryLoad() {
   const { currentTopic } = useContext(CurrentTopicContext);
@@ -40,7 +41,8 @@ function CountryLoad() {
 
   if (country) {
     return (
-      <Box sx={{ pb: { xs: 8, sm: 0 } }}>
+      // <Box sx={{ pb: { xs: 8, sm: 0 } }}>
+      <Card className='p-4 pb-2 sm:pb-0'>
         <CountryInfo
           acCountry={acCountry}
           country={country}
@@ -95,7 +97,8 @@ function CountryLoad() {
             />
           </Item>
         )}
-      </Box>
+      </Card>
+      // </Box>
     );
   } else {
     return <></>;

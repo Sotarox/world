@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link, Paper, Typography } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import { Card } from '@/components/ui/card';
 
 function TopPage() {
   const theme = useTheme();
   return (
-    <Paper sx={{ p: 2 }}>
+    <Card className='p-4'>
       <Typography variant='h2' component='h1'>
         Welcome
       </Typography>
@@ -35,7 +36,7 @@ function TopPage() {
       >
         Source Code (GitHub)
       </Link>
-    </Paper>
+    </Card>
   );
 }
 export default TopPage;
