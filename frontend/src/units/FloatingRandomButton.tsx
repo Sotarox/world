@@ -21,7 +21,7 @@ function FloatingRandomButton() {
           sx={{
             position: 'fixed',
             display: 'relative',
-            bottom: { xs: '100px', sm: '16px' },
+            bottom: { xs: '80px', sm: '16px' },
             right: { xs: '24px', sm: '16px' },
             zIndex: 1000,
           }}

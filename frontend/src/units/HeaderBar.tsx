@@ -6,6 +6,7 @@ import HeaderLogo from './HeaderLogo';
 import BurgerMenu from './BurgerMenu';
 import { useTheme } from '@mui/material/styles';
 import { Button } from '../components/custom/button';
+import { cn } from '@/lib/utils';
 
 interface HeaderBarProps {
   toggleDrawer: () => void;
@@ -17,7 +18,13 @@ const HeaderBar = React.memo((props: HeaderBarProps) => {
   return (
     <>
       <div
-        className='sticky bg-primary px-6 min-h-16 flex items-center display-none sm:display-block top-0 shadow-md'
+        className={cn(
+          'w-full bg-primary flex items-center shadow-md',
+          // On small screen Header is fixed at the bottom
+          'fixed bottom-0 h-15 top-auto px-3',
+          // On larger screen Header is sticky at the top
+          'sm:sticky sm:top-0 sm:min-h-16 sm:px-6'
+        )}
         style={{ zIndex: useTheme().zIndex.drawer + 1 }}
       >
         <Button variant='ghost' size='icon' onClick={toggleDrawer}>

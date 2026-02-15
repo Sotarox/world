@@ -72,7 +72,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --header-bar-height: 64px;
-  --bottom-bar-height: 80px;
+  --bottom-bar-height: 60px;
 
   /* schadcn */
   --background: oklch(1 0 0);

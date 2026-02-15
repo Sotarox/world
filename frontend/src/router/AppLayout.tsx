@@ -1,5 +1,4 @@
 import * as React from 'react';
-import BottomBar from '../units/BottomBar';
 import HeaderBar from '../units/HeaderBar';
 import Sidebar from '../units/Sidebar';
 import FloatingRandomButton from '../units/FloatingRandomButton';
@@ -24,7 +23,6 @@ function AppLayout() {
         <Outlet />
       </Box>
       <FloatingRandomButton />
-      <BottomBar toggleDrawer={toggleIsSidebarOpen} />
       <Toaster />
     </div>
   );
