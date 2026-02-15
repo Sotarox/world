@@ -1,35 +1,30 @@
-import React from 'react';
-import Fab from '@mui/material/Fab';
+import React, { useEffect, useState } from 'react';
 import { Shuffle as ShuffleIcon } from 'lucide-react';
 import { randomCountryIso2 } from '../model/CountryIso2NameMap';
-import { Tooltip, Zoom } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import { useNavigate } from 'react-router';
-
-const timeoutMillisec = 500;
+import { Button } from '../components/custom/button';
 
 function FloatingRandomButton() {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setShow(true), 10);
+    return () => clearTimeout(timer);
+  }, []);
   return (
-    <Zoom in={true} timeout={timeoutMillisec} unmountOnExit>
-      <Tooltip title='Random Country' placement='left' arrow>
-        <Fab
-          color='secondary'
-          aria-label='add'
-          onClick={() =>
-            navigate(`/countries/${randomCountryIso2().toLowerCase()}`)
-          }
-          sx={{
-            position: 'fixed',
-            display: 'relative',
-            bottom: { xs: '80px', sm: '16px' },
-            right: { xs: '24px', sm: '16px' },
-            zIndex: 1000,
-          }}
-        >
-          <ShuffleIcon />
-        </Fab>
-      </Tooltip>
-    </Zoom>
+    <Tooltip title='Random Country' placement='left' arrow>
+      <Button
+        variant='secondary'
+        className={`fixed size-12 bottom-[76px] sm:bottom-6 right-6 z-1000 rounded-full drop-shadow-lg/50 drop-shadow-neutral-500 hover:bg-green-700 transition-all duration-500 ease-out transform
+          ${show ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
+        onClick={() =>
+          navigate(`/countries/${randomCountryIso2().toLowerCase()}`)
+        }
+      >
+        <ShuffleIcon className='size-6' />
+      </Button>
+    </Tooltip>
   );
 }
 
