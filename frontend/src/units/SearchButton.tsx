@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Divider, IconButton, InputAdornment, Stack } from '@mui/material';
+import { Divider, InputAdornment, Stack } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { searchCountryName } from '../model/CountryIso2NameMap';
 import SearchResultComponent from './SearchResult';
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useLocation } from 'react-router';
+import { Button } from '../components/custom/button';
 
 function SearchButton() {
   const [open, setOpen] = useState(false);
@@ -30,18 +31,16 @@ function SearchButton() {
 
   return (
     <>
-      <IconButton
-        size='large'
-        edge='start'
-        color='inherit'
-        aria-label='open search dialog'
+      <Button
+        variant='ghost'
         onClick={() => {
           setQuery('');
           setOpen(true);
         }}
+        aria-label='open search dialog'
       >
-        <SearchIcon />
-      </IconButton>
+        <SearchIcon className='size-6' />
+      </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className='h-4/5'>
           <DialogHeader>
