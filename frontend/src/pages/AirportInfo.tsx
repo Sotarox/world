@@ -3,9 +3,9 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { type Airport } from '../model/Airport';
 import InfoCard from '../units/InfoCard';
-import { Item } from '../units/Item';
 import { formatCoordinate } from '../utils/utils';
 import LocalAirportIcon from '@mui/icons-material/LocalAirport';
+import { Card } from '@/components/ui/card';
 
 interface AirportInfoProps {
   airport: Airport | null;
@@ -16,7 +16,7 @@ function AirportInfo(props: AirportInfoProps) {
 
   if (airport !== null) {
     return (
-      <Item sx={{ mb: 3 }}>
+      <Card className='p-4'>
         <Grid container spacing={1}>
           <Grid size={{ xs: 12 }} sx={{ display: 'flex', gap: 0.5 }}>
             <LocalAirportIcon fontSize='large' />
@@ -41,7 +41,7 @@ function AirportInfo(props: AirportInfoProps) {
             />
           </Grid>
         </Grid>
-      </Item>
+      </Card>
     );
   } else {
     return (

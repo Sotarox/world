@@ -1,18 +1,7 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import { Button, Paper, Stack } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Card } from '@/components/ui/card';
 import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  padding: theme.spacing(1),
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-  width: '100%',
-}));
+import { cn } from '@/lib/utils';
 
 interface ClickbarInfoCardProps {
   isSelected?: boolean;
@@ -23,39 +12,19 @@ interface ClickbarInfoCardProps {
 
 function ClickbarInfoCard(props: ClickbarInfoCardProps) {
   const { isSelected, title, value, onClick } = props;
-  const theme = useTheme();
-  const borderProperties = isSelected
-    ? `solid 10px ${theme.palette.secondary.main}`
-    : '0px';
   const Icon = isSelected ? <KeyboardArrowDown /> : <KeyboardArrowRight />;
   return (
-    <Button
-      onClick={() => onClick && onClick()}
-      sx={{
-        alignItems: 'start',
-        padding: 0,
-        flexGrow: 1,
-        textAlign: 'left',
-        textTransform: 'none',
-      }}
-    >
-      <Item
-        sx={{
-          borderLeft: borderProperties,
-          '&:hover': {
-            backgroundColor: theme.palette.grey[300],
-          },
-        }}
-      >
-        <Stack direction='row' sx={{ alignItems: 'flex-start' }}>
+    <button onClick={() => onClick && onClick()} className=''>
+      <Card className={cn('hover:bg-black/50 w-full p-2 text-left')}>
+        <div className='flex flex-start'>
           {Icon}
-          <Stack direction='column'>
-            <Typography variant='h6'>{title}</Typography>
-            <Typography variant='fatValue'>{value}</Typography>
-          </Stack>
-        </Stack>
-      </Item>
-    </Button>
+          <div className='flex flex-col'>
+            <span className='text-lg font-extralight'>{title}</span>
+            <span className='text-base'>{value}</span>
+          </div>
+        </div>
+      </Card>
+    </button>
   );
 }
 

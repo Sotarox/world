@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { type Country } from '../model/Country';
-import { Item } from '../units/Item';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import {
   convertContinentCodeToName,
@@ -12,6 +11,7 @@ import ClickbarInfoCard from '../units/ClickbarInfoCard';
 import type { ACCountry } from '../model/ACCountry';
 import CountryInfoHeader from './CountryInfoHeader';
 import InfoCard from '../units/InfoCard';
+import { Card } from '@/components/ui/card';
 
 interface CountryInfoProps {
   acCountry: ACCountry | null;
@@ -24,7 +24,7 @@ function CountryInfo(props: CountryInfoProps) {
 
   return (
     <>
-      <Item sx={{ mb: 1 }}>
+      <Card className='p-4'>
         <CountryInfoHeader country={country} />
         <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
           <InfoCard
@@ -57,9 +57,9 @@ function CountryInfo(props: CountryInfoProps) {
             }
           />
         </div>
-      </Item>
+      </Card>
 
-      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
+      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 items-start'>
         <ClickbarInfoCard
           title='Population'
           value={

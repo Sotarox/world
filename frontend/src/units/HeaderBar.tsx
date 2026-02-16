@@ -27,10 +27,10 @@ const HeaderBar = React.memo((props: HeaderBarProps) => {
         )}
         style={{ zIndex: useTheme().zIndex.drawer + 1 }}
       >
+        <HeaderLogo />
         <Button variant='ghost' size='icon' onClick={toggleDrawer}>
           <PanelLeftIcon className='size-6' />
         </Button>
-        <HeaderLogo />
         <div className='flex-1' />
         <SearchButton />
         <div className='flex-1' />
