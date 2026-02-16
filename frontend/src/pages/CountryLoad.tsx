@@ -4,7 +4,7 @@ import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
 import PopulationInfo from './PopulationInfo';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
-import { Divider, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import {
   previousCountryNav,
@@ -18,6 +18,7 @@ import useApi from '../api/useApi';
 import { useCountryNav } from '@/store/CountryNavStore';
 import { PopulationChart } from '@/units/PopulationChart';
 import { Card } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
 function CountryLoad() {
   const { currentTopic } = useContext(CurrentTopicContext);
@@ -78,7 +79,7 @@ function CountryLoad() {
             </IconButton>
           )}
         </div>
-        <Divider sx={{ mt: 2, mb: 2 }} />
+        <Separator />
         <AirportList
           countryIso2={country.countryIso2}
           isVisible={currentTopic === 'airports'}
