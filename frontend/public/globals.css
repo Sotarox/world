@@ -52,6 +52,7 @@
   --breakpoint-xs: 300px;
   --font-display: "Roboto", Helvetica, Arial, sans-serif;
   /* Custom colors Gt */
+  --color-gt-header: oklch(0.3 0.02 260);
   --color-gt-background: oklch(0.15 0.02 260);
   --color-gt-elevated: oklch(0.18 0.02 260);
   --color-gt-subtle: oklch(0.22 0.02 260);

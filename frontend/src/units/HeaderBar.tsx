@@ -19,7 +19,7 @@ const HeaderBar = React.memo((props: HeaderBarProps) => {
     <>
       <div
         className={cn(
-          'w-full bg-primary flex items-center shadow-md',
+          'w-full bg-primary dark:bg-gt-header flex items-center shadow-md',
           // On small screen Header is fixed at the bottom
           'fixed bottom-0 h-15 top-auto px-3',
           // On larger screen Header is sticky at the top
