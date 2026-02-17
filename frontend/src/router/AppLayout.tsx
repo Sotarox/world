@@ -15,7 +15,7 @@ function AppLayout() {
   return (
     // when mode is dark, tailwind applies corresponding styles to underlying elements
     <div
-      className={`bg-neutral-100 dark:bg-neutral-800 font-display min-h-screen`}
+      className={`bg-neutral-100 dark:bg-gt-background font-display min-h-screen`}
     >
       <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
       <Sidebar isOpen={isSidebarOpen} setIsOpen={toggleIsSidebarOpen} />

@@ -14,8 +14,12 @@ function ClickbarInfoCard(props: ClickbarInfoCardProps) {
   const { isSelected, title, value, onClick } = props;
   const Icon = isSelected ? <KeyboardArrowDown /> : <KeyboardArrowRight />;
   return (
-    <button onClick={() => onClick && onClick()} className=''>
-      <Card className={cn('hover:bg-black/50 w-full p-2 text-left')}>
+    <button onClick={() => onClick && onClick()}>
+      <Card
+        className={cn(
+          'w-full p-2 text-left hover:accent dark:hover:bg-gt-subtle/70'
+        )}
+      >
         <div className='flex flex-start'>
           {Icon}
           <div className='flex flex-col'>

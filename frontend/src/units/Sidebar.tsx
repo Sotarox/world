@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -14,11 +13,14 @@ import { useCountryNav } from '@/store/CountryNavStore';
 import api from '../api/axios';
 import { Button } from '@/components/ui/button';
 import { ArrowDownUpIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface SidebarProps {
   isOpen: boolean;
   setIsOpen: () => void;
 }
+
+const sidebarColor = 'bg-sidebar dark:bg-gt-subtle text-sidebar-foreground';
 
 const Sidebar = React.memo((props: SidebarProps) => {
   const { isOpen, setIsOpen } = props;
@@ -48,31 +50,32 @@ const Sidebar = React.memo((props: SidebarProps) => {
   }, [filteredRegions, setCountryNavs, reverse]);
 
   const renderList = () => (
-    <Box
-      sx={{ width: { xs: '250px', sm: '300px' } }}
+    <div
+      className={cn('w-[250px] sm:w-[300px]', sidebarColor)}
       role='presentation'
-      onClick={setIsOpen}
     >
-      <List>
-        {countryNavs.map((obj) => (
-          <ListItem key={obj.alpha2Code} disablePadding>
-            <ListItemButton
-              onClick={() =>
-                navigate(`/countries/${obj.alpha2Code.toLowerCase()}`)
-              }
-            >
-              <ListItemIcon>
-                <span
-                  className={`fi fi-${obj.alpha2Code.toLowerCase()}`}
-                  style={{ height: '24px', width: '24px', flexShrink: '0' }}
-                ></span>
-              </ListItemIcon>
-              <ListItemText primary={obj.name} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+      <button onClick={setIsOpen}>
+        <List>
+          {countryNavs.map((obj) => (
+            <ListItem key={obj.alpha2Code} disablePadding>
+              <ListItemButton
+                onClick={() =>
+                  navigate(`/countries/${obj.alpha2Code.toLowerCase()}`)
+                }
+              >
+                <ListItemIcon>
+                  <span
+                    className={`fi fi-${obj.alpha2Code.toLowerCase()}`}
+                    style={{ height: '24px', width: '24px', flexShrink: '0' }}
+                  ></span>
+                </ListItemIcon>
+                <ListItemText primary={obj.name} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </button>
+    </div>
   );
 
   const iOS =
@@ -97,11 +100,12 @@ const Sidebar = React.memo((props: SidebarProps) => {
             mb: { xs: 'var(--bottom-bar-height)', sm: '0px' },
             bottom: 0,
             height: 'auto',
+            backgroundColor: 'var(--sidebar-bg)',
           },
         },
       }}
     >
-      <div className='flex gap-2'>
+      <div className={cn('flex gap-2', sidebarColor)}>
         <CountryFilter />
         <Button variant='ghost' onClick={() => setReverse(!reverse)}>
           <ArrowDownUpIcon className='size-5' />

@@ -51,6 +51,15 @@
 @theme {
   --breakpoint-xs: 300px;
   --font-display: "Roboto", Helvetica, Arial, sans-serif;
+  /* Custom colors */
+  --color-gt-background: oklch(0.15 0.02 260);
+  --color-gt-elevated: oklch(0.18 0.02 260);
+  --color-gt-subtle: oklch(0.22 0.02 260);
+  --color-gt-border: oklch(0.30 0.015 260);
+  --color-gt-text-primary: oklch(0.92 0.01 260);
+  --color-gt-text-secondary: oklch(0.72 0.015 260);
+  --color-gt-accent: oklch(0.65 0.18 255);
+  --color-gt-accent-hover: oklch(0.60 0.20 255);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -113,7 +122,8 @@ body {
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
+  /* --card: oklch(0.145 0 0); */
+  --card: var(--color-gt-elevated);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
@@ -127,7 +137,8 @@ body {
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
+  /* --border: oklch(0.269 0 0); */
+  --border: var(--color-gt-border);
   --input: oklch(0.269 0 0);
   --ring: oklch(0.439 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
