@@ -51,7 +51,7 @@
 @theme {
   --breakpoint-xs: 300px;
   --font-display: "Roboto", Helvetica, Arial, sans-serif;
-  /* Custom colors */
+  /* Custom colors Gt */
   --color-gt-background: oklch(0.15 0.02 260);
   --color-gt-elevated: oklch(0.18 0.02 260);
   --color-gt-subtle: oklch(0.22 0.02 260);
@@ -60,6 +60,17 @@
   --color-gt-text-secondary: oklch(0.72 0.015 260);
   --color-gt-accent: oklch(0.65 0.18 255);
   --color-gt-accent-hover: oklch(0.60 0.20 255);
+  /* Custom colors grayscale */
+  --color-grayscale-900: oklch(0.9 0 0);
+  --color-grayscale-800: oklch(0.8 0 0);
+  --color-grayscale-700: oklch(0.7 0 0);
+  --color-grayscale-600: oklch(0.6 0 0);
+  --color-grayscale-500: oklch(0.5 0 0);
+  --color-grayscale-400: oklch(0.4 0 0);
+  --color-grayscale-300: oklch(0.3 0 0);
+  --color-grayscale-200: oklch(0.2 0 0);
+  --color-grayscale-100: oklch(0.1 0 0);
+
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

@@ -7,7 +7,7 @@ import {
   formatNumberWithComma,
 } from '../utils/utils';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
-import ClickbarInfoCard from '../units/ClickbarInfoCard';
+import InfoCardClickable from '../units/InfoCardClickable';
 import type { ACCountry } from '../model/ACCountry';
 import CountryInfoHeader from './CountryInfoHeader';
 import InfoCard from '../units/InfoCard';
@@ -60,7 +60,7 @@ function CountryInfo(props: CountryInfoProps) {
       </Card>
 
       <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 items-start'>
-        <ClickbarInfoCard
+        <InfoCardClickable
           title='Population'
           value={
             country.population
@@ -70,7 +70,7 @@ function CountryInfo(props: CountryInfoProps) {
           isSelected={currentTopic === 'population'}
           onClick={() => setCurrentTopic('population')}
         />
-        <ClickbarInfoCard
+        <InfoCardClickable
           title='The number of airports'
           value={sizeAirports.toString()}
           isSelected={currentTopic === 'airports'}
