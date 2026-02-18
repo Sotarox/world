@@ -15,8 +15,7 @@ function FloatingRandomButton() {
   return (
     <Tooltip title='Random Country' placement='left' arrow>
       <Button
-        variant='secondary'
-        className={`fixed size-12 bottom-[76px] sm:bottom-6 right-6 z-1000 rounded-full drop-shadow-lg/50 drop-shadow-neutral-500 hover:bg-green-700 dark:hover:bg-green-700/60 transition-all duration-500 ease-out transform
+        className={`bg-teal-600 text-secondary-foreground fixed size-12 bottom-[76px] sm:bottom-6 right-6 z-1000 rounded-full drop-shadow-lg/50 drop-shadow-neutral-500 hover:bg-green-700 dark:hover:bg-green-700/60 transition-all duration-500 ease-out transform
           ${show ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}
         onClick={() =>
           navigate(`/countries/${randomCountryIso2().toLowerCase()}`)
