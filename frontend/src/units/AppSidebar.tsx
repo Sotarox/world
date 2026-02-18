@@ -16,12 +16,15 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
+  useSidebar,
 } from '@/components/custom/sidebar';
 
 const sidebarColor = 'bg-sidebar dark:bg-gt-subtle text-sidebar-foreground';
 
 export function AppSidebar() {
   const navigate = useNavigate();
+  const { toggleSidebar } = useSidebar();
   const filteredRegions = useRegionFilter((s) => s.regions);
   const countryNavs = useCountryNav((s) => s.countries);
   const setCountryNavs = useCountryNav((s) => s.setCountries);
@@ -59,12 +62,13 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarMenu>
             {countryNavs.map((obj) => (
-              <SidebarMenuItem key={obj.name}>
+              <SidebarMenuItem key={obj.name} className='cursor-default'>
                 <SidebarMenuButton
                   asChild
-                  onClick={() =>
-                    navigate(`/countries/${obj.alpha2Code.toLowerCase()}`)
-                  }
+                  onClick={() => {
+                    navigate(`/countries/${obj.alpha2Code.toLowerCase()}`);
+                    toggleSidebar();
+                  }}
                 >
                   <div className={cn('flex gap-2')}>
                     <span
@@ -79,6 +83,8 @@ export function AppSidebar() {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarRail />
     </Sidebar>
   );
 }
+AppSidebar.displayName = 'AppSidebar';

@@ -52,6 +52,8 @@
   --breakpoint-xs: 300px;
   --font-display: "Roboto", Helvetica, Arial, sans-serif;
   /* Custom colors Gt */
+  --gt-chroma: 0.02;
+  --gt-hue: 260;
   --color-gt-header: oklch(0.3 0.02 260);
   --color-gt-background: oklch(0.15 0.02 260);
   --color-gt-elevated: oklch(0.18 0.02 260);
@@ -158,13 +160,13 @@ body {
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
+  --sidebar: oklch(0.205 var(--gt-chroma) var(--gt-hue));
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent: oklch(0.269 var(--gt-chroma) var(--gt-hue));
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-border: oklch(0.269 var(--gt-chroma) var(--gt-hue));
   --sidebar-ring: oklch(0.439 0 0);
 }
 

@@ -15,14 +15,14 @@ import { Button } from '@/components/ui/button';
 import { ArrowDownUpIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-interface SidebarProps {
+interface SwipeableSidebarProps {
   isOpen: boolean;
   setIsOpen: () => void;
 }
 
 const sidebarColor = 'bg-sidebar dark:bg-gt-subtle text-sidebar-foreground';
 
-const Sidebar = React.memo((props: SidebarProps) => {
+const SwipeableSidebar = React.memo((props: SwipeableSidebarProps) => {
   const { isOpen, setIsOpen } = props;
   const navigate = useNavigate();
   const filteredRegions = useRegionFilter((s) => s.regions);
@@ -116,5 +116,5 @@ const Sidebar = React.memo((props: SidebarProps) => {
     </SwipeableDrawer>
   );
 });
-Sidebar.displayName = 'Sidebar';
-export default Sidebar;
+SwipeableSidebar.displayName = 'SwipeableSidebar';
+export default SwipeableSidebar;
