@@ -15,9 +15,9 @@ function AppLayout() {
       <SidebarProvider>
         <div className='flex flex-col w-full'>
           <HeaderBar />
-          <div className='flex p-4 w-full'>
+          <div className='flex'>
             <AppSidebar />
-            <div className='flex-1'>
+            <div className='p-4'>
               <Outlet />
             </div>
           </div>

@@ -1,15 +1,13 @@
 import * as React from 'react';
 import Switch from '@mui/material/Switch';
-// import { useThemeContext } from '../contexts/UseThemeContext';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import { styled } from '@mui/material/styles';
 import { useTheme } from '@/theme/theme-provider';
 
 export default function ThemeSwitch() {
-  const { setTheme } = useTheme();
-  const [checked, setChecked] = React.useState(true);
-  // const { toggleColorMode } = useThemeContext();
+  const { theme, setTheme } = useTheme();
+  const [checked, setChecked] = React.useState(theme === 'dark');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     setTheme(event.target.checked ? 'dark' : 'light');
@@ -38,9 +36,9 @@ export default function ThemeSwitch() {
 
 const thumbSize = 20;
 
-const CustomSwitch = styled(Switch)(({ theme }) => ({
+const CustomSwitch = styled(Switch)(() => ({
   '& .MuiSwitch-thumb': {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: 'var(--color-teal-500)',
     width: thumbSize,
     height: thumbSize,
     display: 'flex',
@@ -53,8 +51,8 @@ const CustomSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-const IconWrapper = styled('span')(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.main,
+const IconWrapper = styled('span')(() => ({
+  backgroundColor: 'var(--color-teal-600)',
   borderRadius: '50%',
   width: thumbSize,
   height: thumbSize,
