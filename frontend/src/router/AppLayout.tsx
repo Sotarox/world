@@ -13,11 +13,11 @@ function AppLayout() {
       className={`bg-neutral-100 dark:bg-gt-background font-display min-h-screen`}
     >
       <SidebarProvider>
-        <div className='flex flex-col w-full'>
+        <div className='flex flex-col'>
           <HeaderBar />
-          <div className='flex'>
+          <div className='flex w-svw'>
             <AppSidebar />
-            <div className='p-4'>
+            <div className='min-w-0 p-4 flex-1'>
               <Outlet />
             </div>
           </div>

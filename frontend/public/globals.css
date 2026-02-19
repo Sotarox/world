@@ -48,6 +48,15 @@
   }
 }
 
+/* Ensure the root html element matches the app background so overscroll
+   gaps don't reveal white default background in some browsers/devices */
+html,
+body,
+#root {
+  height: 100%;
+  background-color: var(--background);
+}
+
 @theme {
   --breakpoint-xs: 300px;
   --font-display: "Roboto", Helvetica, Arial, sans-serif;
