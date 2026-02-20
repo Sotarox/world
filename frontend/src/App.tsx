@@ -8,13 +8,11 @@ import { ThemeProvider } from '@/theme/theme-provider';
 function App() {
   return (
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-      {/* <ThemeContextProvider> */}
       <CurrentTopicContextProvider>
         <ErrorBoundary>
           <RouterProvider router={AppRouter} />
         </ErrorBoundary>
       </CurrentTopicContextProvider>
-      {/* </ThemeContextProvider> */}
     </ThemeProvider>
   );
 }
