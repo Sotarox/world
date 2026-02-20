@@ -1,19 +1,23 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Divider, InputAdornment, Stack } from '@mui/material';
-import TextField from '@mui/material/TextField';
 import { searchCountryName } from '../model/CountryIso2NameMap';
-import SearchResultComponent from './SearchResult';
-import { Search as SearchIcon } from 'lucide-react';
+import SearchResult from './SearchResult';
+import { SearchIcon } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/custom/dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { useLocation } from 'react-router';
 import { Button } from '../components/custom/button';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/ui/input-group';
+import { Separator } from '@/components/ui/separator';
 
 function SearchButton() {
   const [open, setOpen] = useState(false);
@@ -50,40 +54,22 @@ function SearchButton() {
                 search a country by its name
               </DialogDescription>
             </VisuallyHidden>
-            <Stack direction='row' sx={{ justifyContent: 'center' }}>
-              <Stack
-                direction='column'
-                spacing={2}
-                sx={{
-                  flexBasis: '80%',
-                  height: '100%',
-                  overflowY: 'auto',
-                  pt: 1,
-                }}
-              >
-                <TextField
-                  id='outlined-controlled'
-                  autoFocus
-                  label='Country Name'
-                  value={query}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setQuery(event.target.value);
-                  }}
-                  slotProps={{
-                    input: {
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <SearchIcon />
-                        </InputAdornment>
-                      ),
-                    },
-                  }}
-                  sx={{ width: '100%' }}
-                />
-                <Divider />
-                <SearchResultComponent results={results} />
-              </Stack>
-            </Stack>
+            <div className='flex justify-center px-1'>
+              <div className='flex flex-col px-2 h-full overflow-y-auto pt-1 basis-4/5'>
+                <InputGroup>
+                  <InputGroupAddon>
+                    <SearchIcon className='h-4 w-4 text-muted-foreground' />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    placeholder='Country Name'
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                  />
+                </InputGroup>
+                <Separator className='my-2' />
+                <SearchResult results={results} />
+              </div>
+            </div>
           </DialogHeader>
         </DialogContent>
       </Dialog>

@@ -28,7 +28,7 @@ interface SearchResultProps {
   results: CountryIso2NameMap[];
 }
 
-function SearchResultComponent(props: SearchResultProps) {
+function SearchResult(props: SearchResultProps) {
   const { results } = props;
   const navigate = useNavigate();
 
@@ -39,4 +39,4 @@ function SearchResultComponent(props: SearchResultProps) {
   return <KeyboardNavigableList items={resultItems} />;
 }
 
-export default React.memo(SearchResultComponent);
+export default React.memo(SearchResult);
