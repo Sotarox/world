@@ -716,7 +716,17 @@ function SidebarMenuSubButton({
   );
 }
 
+const DummySidebarTrigger = () => {
+  return (
+    <Button variant='ghost' size='icon' className='size-10'>
+      <PanelLeftIcon />
+      <span className='sr-only'>Toggle Sidebar</span>
+    </Button>
+  );
+};
+
 export {
+  DummySidebarTrigger,
   Sidebar,
   SidebarContent,
   SidebarFooter,

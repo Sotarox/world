@@ -5,19 +5,11 @@ import HeaderLogo from './HeaderLogo';
 import BurgerMenu from './BurgerMenu';
 import { useTheme } from '@mui/material/styles';
 import { cn } from '@/lib/utils';
-import { SidebarTrigger } from '@/components/custom/sidebar';
-import { Button } from '@/components/ui/button';
+import {
+  SidebarTrigger,
+  DummySidebarTrigger,
+} from '@/components/custom/sidebar';
 import { useSidebar } from '@/components/custom/sidebar';
-import { PanelLeftIcon } from 'lucide-react';
-
-const DummySidebarTrigger = () => {
-  return (
-    <Button variant='ghost' size='icon' className='size-10'>
-      <PanelLeftIcon />
-      <span className='sr-only'>Toggle Sidebar</span>
-    </Button>
-  );
-};
 
 const HeaderBar = React.memo(() => {
   const { isMobile, openMobile } = useSidebar();
@@ -34,7 +26,7 @@ const HeaderBar = React.memo(() => {
       style={{ zIndex: useTheme().zIndex.drawer + 1 }}
     >
       <HeaderLogo />
-      {/* When sidebar is open on mobile, click on Trigger makes flashingly opens sidebar again.
+      {/* When sidebar is open on mobile, click on Trigger opens sidebar twice flashingly.
        * As a workaround, dummy button is shown */}
       {openMobile && isMobile ? (
         <DummySidebarTrigger />
