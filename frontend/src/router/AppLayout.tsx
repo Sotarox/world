@@ -1,31 +1,30 @@
 import * as React from 'react';
-import BottomBar from '../units/BottomBar';
 import HeaderBar from '../units/HeaderBar';
-import Sidebar from '../units/Sidebar';
 import FloatingRandomButton from '../units/FloatingRandomButton';
 import { Outlet } from 'react-router';
-import { Box } from '@mui/material';
 import { Toaster } from '@/components/ui/sonner';
+import { SidebarProvider } from '@/components/custom/sidebar';
+import { AppSidebar } from '@/units/AppSidebar';
 
 function AppLayout() {
-  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-  const toggleIsSidebarOpen = React.useCallback(
-    () => setIsSidebarOpen(!isSidebarOpen),
-    [isSidebarOpen]
-  );
   return (
     // when mode is dark, tailwind applies corresponding styles to underlying elements
     <div
-      className={`bg-neutral-100 dark:bg-neutral-800 font-display min-h-screen`}
+      className={`bg-neutral-100 dark:bg-gt-background font-display min-h-screen`}
     >
-      <HeaderBar toggleDrawer={toggleIsSidebarOpen} />
-      <Sidebar isOpen={isSidebarOpen} setIsOpen={toggleIsSidebarOpen} />
-      <Box sx={{ p: 2 }}>
-        <Outlet />
-      </Box>
-      <FloatingRandomButton />
-      <BottomBar toggleDrawer={toggleIsSidebarOpen} />
-      <Toaster />
+      <SidebarProvider>
+        <div className='flex flex-col'>
+          <HeaderBar />
+          <div className='flex w-svw'>
+            <AppSidebar />
+            <div className='min-w-0 p-4 flex-1'>
+              <Outlet />
+            </div>
+          </div>
+          <FloatingRandomButton />
+          <Toaster />
+        </div>
+      </SidebarProvider>
     </div>
   );
 }

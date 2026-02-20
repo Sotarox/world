@@ -1,22 +1,16 @@
 import React from 'react';
-import { Link, Paper, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Link, Typography } from '@mui/material';
+import { Card } from '@/components/ui/card';
 
 function TopPage() {
-  const theme = useTheme();
   return (
-    <Paper sx={{ p: 2 }}>
+    <Card className='p-4'>
       <Typography variant='h2' component='h1'>
         Welcome
       </Typography>
       <Typography variant='body1' sx={{ mt: 2, whiteSpace: 'pre-line' }}>
-        🌍 This{' '}
-        <span
-          style={{ fontWeight: 'bold', color: theme.palette.primary.light }}
-        >
-          World
-        </span>{' '}
-        is a simple web service that offers various data about countries.
+        🌍 This <span className='text-primary font-bold'>World</span> is a
+        simple web service that offers various data about countries.
       </Typography>
       <Typography variant='body1' sx={{ whiteSpace: 'pre-line' }}>
         {`
@@ -35,7 +29,7 @@ function TopPage() {
       >
         Source Code (GitHub)
       </Link>
-    </Paper>
+    </Card>
   );
 }
 export default TopPage;

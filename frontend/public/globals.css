@@ -3,26 +3,33 @@
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
+
   /* schadcn */
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   /* END schadcn */
   h1 {
     @apply text-7xl font-medium dark:text-white;
   }
+
   h2 {
     @apply text-6xl font-medium dark:text-white;
   }
+
   h3 {
     @apply text-5xl font-medium dark:text-white;
   }
+
   h4 {
     @apply text-4xl font-light dark:text-white;
   }
+
   /* chart */
   :root {
     --chart-1: oklch(0.646 0.222 41.116);
@@ -41,9 +48,43 @@
   }
 }
 
+/* Ensure the root html element matches the app background so overscroll
+   gaps don't reveal white default background in some browsers/devices */
+html,
+body,
+#root {
+  height: 100%;
+  background-color: var(--background);
+}
+
 @theme {
   --breakpoint-xs: 300px;
-  --font-display: "Roboto", Helvetica, Arial, sans-serif; 
+  --font-display: "Roboto", Helvetica, Arial, sans-serif;
+  --default-font-family: "Roboto", Helvetica, Arial, sans-serif;
+  /* Custom colors Gt */
+  --gt-chroma: 0.02;
+  --gt-hue: 260;
+  --color-gt-header: oklch(0.3 0.02 260);
+  --color-gt-background: oklch(0.15 0.02 260);
+  --color-gt-elevated: oklch(0.18 0.02 260);
+  --color-gt-subtle: oklch(0.22 0.02 260);
+  --color-gt-border: oklch(0.30 0.015 260);
+  --color-gt-text-primary: oklch(0.92 0.01 260);
+  --color-gt-text-secondary: oklch(0.72 0.015 260);
+  --color-gt-accent: oklch(0.65 0.18 255);
+  --color-gt-accent-hover: oklch(0.60 0.20 255);
+  /* Custom colors grayscale */
+  --color-grayscale-950: oklch(0.95 0 0);
+  --color-grayscale-900: oklch(0.9 0 0);
+  --color-grayscale-800: oklch(0.8 0 0);
+  --color-grayscale-700: oklch(0.7 0 0);
+  --color-grayscale-600: oklch(0.6 0 0);
+  --color-grayscale-500: oklch(0.5 0 0);
+  --color-grayscale-400: oklch(0.4 0 0);
+  --color-grayscale-300: oklch(0.3 0 0);
+  --color-grayscale-200: oklch(0.2 0 0);
+  --color-grayscale-100: oklch(0.1 0 0);
+
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -65,7 +106,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --header-bar-height: 64px;
-  --bottom-bar-height: 80px;
+  --bottom-bar-height: 60px;
 
   /* schadcn */
   --background: oklch(1 0 0);
@@ -74,7 +115,7 @@ body {
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: var(--color-teal-500);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -106,11 +147,12 @@ body {
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
+  /* --card: oklch(0.145 0 0); */
+  --card: var(--color-gt-elevated);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
+  --primary: var(--color-teal-500);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -120,7 +162,8 @@ body {
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
+  /* --border: oklch(0.269 0 0); */
+  --border: var(--color-gt-border);
   --input: oklch(0.269 0 0);
   --ring: oklch(0.439 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -128,13 +171,13 @@ body {
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
+  --sidebar: oklch(0.205 var(--gt-chroma) var(--gt-hue));
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent: oklch(0.269 var(--gt-chroma) var(--gt-hue));
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-border: oklch(0.269 var(--gt-chroma) var(--gt-hue));
   --sidebar-ring: oklch(0.439 0 0);
 }
 

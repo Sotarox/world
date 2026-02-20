@@ -1,5 +1,4 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 import { type Airport } from '../model/Airport';
 import AirportInfo from './AirportInfo';
 import useApi from '../api/useApi';
@@ -15,11 +14,11 @@ function AirportList(props: AirportListProps) {
 
   if (isVisible && airports) {
     return (
-      <Box sx={{ mt: 4 }}>
+      <div className='mt-4 space-y-3'>
         {airports.map((airport) => (
           <AirportInfo key={airport.dbId} airport={airport} />
         ))}
-      </Box>
+      </div>
     );
   } else return <></>;
 }

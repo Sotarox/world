@@ -4,7 +4,7 @@ import AirportList from './AirportList';
 import CountryInfo from './CountryInfo';
 import PopulationInfo from './PopulationInfo';
 import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
-import { Box, Divider, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import {
   previousCountryNav,
@@ -17,7 +17,8 @@ import { useNavigate, useParams } from 'react-router';
 import useApi from '../api/useApi';
 import { useCountryNav } from '@/store/CountryNavStore';
 import { PopulationChart } from '@/units/PopulationChart';
-import { Item } from '../units/Item';
+import { Card } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
 function CountryLoad() {
   const { currentTopic } = useContext(CurrentTopicContext);
@@ -40,13 +41,13 @@ function CountryLoad() {
 
   if (country) {
     return (
-      <Box sx={{ pb: { xs: 8, sm: 0 } }}>
+      <div className='pb-2 sm:pb-0 flex flex-col gap-3'>
         <CountryInfo
           acCountry={acCountry}
           country={country}
           sizeAirports={country.totalNumberOfAirports}
         />
-        <Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+        <div className='flex w-full justify-center'>
           {previousNav && (
             <IconButton
               onClick={() =>
@@ -77,14 +78,14 @@ function CountryLoad() {
               />
             </IconButton>
           )}
-        </Box>
-        <Divider sx={{ mt: 2, mb: 2 }} />
+        </div>
+        <Separator />
         <AirportList
           countryIso2={country.countryIso2}
           isVisible={currentTopic === 'airports'}
         />
         {currentTopic === 'population' && (
-          <Item sx={{ mb: 3 }}>
+          <Card className='p-4'>
             <PopulationInfo
               countryIso2={currentIso2}
               continentCode={country.continent}
@@ -93,9 +94,9 @@ function CountryLoad() {
               data={countryNavsSortedByPopulation}
               selectedIso2={currentIso2}
             />
-          </Item>
+          </Card>
         )}
-      </Box>
+      </div>
     );
   } else {
     return <></>;

@@ -4,10 +4,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { IconButton } from '@mui/material';
 import { MenuIcon } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { Button } from '../components/custom/button';
 
 const BurgerMenu = React.memo(() => {
   const navigate = useNavigate();
@@ -15,14 +15,9 @@ const BurgerMenu = React.memo(() => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <IconButton
-          size='large'
-          edge='start'
-          color='inherit'
-          aria-label='open dropdown menu'
-        >
-          <MenuIcon />
-        </IconButton>
+        <Button variant='ghost' size='icon' aria-label='open dropdown menu'>
+          <MenuIcon className='size-6' />
+        </Button>
       </DropdownMenuTrigger>
       {/* Since AppBar has z-index 1201 */}
       <DropdownMenuContent className='z-[1202]'>

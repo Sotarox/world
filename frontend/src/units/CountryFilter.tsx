@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogDescription,
   DialogClose,
-} from '@/components/ui/dialog';
+} from '@/components/custom/dialog';
 import { Region, RegionType } from '@/model/ACCountry';
 import { FilterIcon } from 'lucide-react';
 

@@ -1,19 +1,19 @@
 import React from 'react';
 import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
-import { ThemeContextProvider } from './contexts/ThemeContextProvider';
 import { ErrorBoundary } from './utils/ErrorBoundary';
 import { RouterProvider } from 'react-router';
 import AppRouter from './router/AppRouter';
+import { ThemeProvider } from '@/theme/theme-provider';
 
 function App() {
   return (
-    <ThemeContextProvider>
+    <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
       <CurrentTopicContextProvider>
         <ErrorBoundary>
           <RouterProvider router={AppRouter} />
         </ErrorBoundary>
       </CurrentTopicContextProvider>
-    </ThemeContextProvider>
+    </ThemeProvider>
   );
 }
 
