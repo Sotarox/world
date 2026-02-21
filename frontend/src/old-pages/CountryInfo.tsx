@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { type Country } from '../model/Country';
-import '/node_modules/flag-icons/css/flag-icons.min.css';
+import 'flag-icons/css/flag-icons.min.css';
 import {
   convertContinentCodeToName,
   formatCoordinate,

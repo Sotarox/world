@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router';
 import AppLayout from './AppLayout';
-import TopPage from '../pages/TopPage';
-import CountryLoad from '../pages/CountryLoad';
-import Inquiry from '../pages/Inquiry';
-import About from '@/pages/About';
+import TopPage from '../old-pages/TopPage';
+import CountryLoad from '../old-pages/CountryLoad';
+import Inquiry from '../old-pages/Inquiry';
+import About from '@/old-pages/About';
 
 const AppRouter = createBrowserRouter([
   {

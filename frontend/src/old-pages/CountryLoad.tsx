@@ -11,7 +11,7 @@ import {
   nextCountryNav,
 } from '../model/CountryIso2NameMap';
 import { CircleFlag } from 'react-circle-flags';
-import '/node_modules/flag-icons/css/flag-icons.min.css';
+import 'flag-icons/css/flag-icons.min.css';
 import { type ACCountry } from '../model/ACCountry';
 import { useNavigate, useParams } from 'react-router';
 import useApi from '../api/useApi';
