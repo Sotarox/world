@@ -1,3 +1,5 @@
+'use client';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,11 +8,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MenuIcon } from 'lucide-react';
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/navigation';
 import { Button } from '../components/custom/button';
 
 const BurgerMenu = React.memo(() => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <DropdownMenu>
@@ -21,12 +23,16 @@ const BurgerMenu = React.memo(() => {
       </DropdownMenuTrigger>
       {/* Since AppBar has z-index 1201 */}
       <DropdownMenuContent className='z-[1202]'>
-        <DropdownMenuItem onClick={() => navigate('/about')}>
+        <DropdownMenuItem
+          onClick={() => {
+            router.push('/about');
+          }}
+        >
           About
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => navigate('/inquiry')}>
+        {/* <DropdownMenuItem onClick={() => navigate('/inquiry')}>
           Inquiry
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { CurrentTopicContextProvider } from './contexts/CurrentTopicContext';
 import { ErrorBoundary } from './utils/ErrorBoundary';

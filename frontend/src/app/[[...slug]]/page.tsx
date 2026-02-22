@@ -1,9 +1,12 @@
-import { ClientOnly } from './client';
+// import { ClientOnly } from './client';
 
 export function generateStaticParams() {
-  return [{ slug: [''] }];
+  // Only generate the root path as a static param
+  // All other routes will be handled client-side by React Router
+  return [{ slug: [] }];
 }
 
 export default function Page() {
-  return <ClientOnly />;
+  // return <ClientOnly />;
+  return null;
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ACCountryNav } from '@/model/ACCountry';
@@ -34,7 +36,9 @@ export function AppSidebar() {
     api
       .get<ACCountryNav[]>(`/accountries/nav`)
       .then((res) => {
-        const filteredNavs = res.data.filter((obj) =>
+        const data = Array.isArray(res.data) ? res.data : [];
+        console.log('Fetched country navs:', data);
+        const filteredNavs = data.filter((obj) =>
           filteredRegions.includes(obj.region)
         );
         if (reverse) {
