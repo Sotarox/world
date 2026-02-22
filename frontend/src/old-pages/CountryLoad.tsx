@@ -13,21 +13,22 @@ import {
 import { CircleFlag } from 'react-circle-flags';
 import 'flag-icons/css/flag-icons.min.css';
 import { type ACCountry } from '../model/ACCountry';
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import useApi from '../api/useApi';
 import { useCountryNav } from '@/store/CountryNavStore';
 import { PopulationChart } from '@/units/PopulationChart';
 import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { useRouter } from 'next/navigation';
 
 function CountryLoad() {
+  const router = useRouter();
   const { currentTopic } = useContext(CurrentTopicContext);
   const currentIso2 = useParams().iso2?.toUpperCase() ?? '';
   const country: Country | null = useApi<Country>(`/countries/${currentIso2}`);
   const acCountry: ACCountry | null = useApi<ACCountry>(
     `/accountries/${currentIso2}`
   );
-  const navigate = useNavigate();
   const countryNavs = useCountryNav((s) => s.countries);
   const countryNavsSortedByPopulation = React.useMemo(
     () =>
@@ -51,7 +52,9 @@ function CountryLoad() {
           {previousNav && (
             <IconButton
               onClick={() =>
-                navigate(`/countries/${previousNav.alpha2Code.toLowerCase()}`)
+                router.push(
+                  `/countries/${previousNav.alpha2Code.toLowerCase()}`
+                )
               }
             >
               <CircleFlag
@@ -66,7 +69,7 @@ function CountryLoad() {
           {nextNav && (
             <IconButton
               onClick={() =>
-                navigate(`/countries/${nextNav.alpha2Code.toLowerCase()}`)
+                router.push(`/countries/${nextNav.alpha2Code.toLowerCase()}`)
               }
             >
               <ArrowRight />
