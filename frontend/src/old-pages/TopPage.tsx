@@ -14,7 +14,7 @@ function TopPage() {
       </Typography>
       <Typography variant='body1' sx={{ whiteSpace: 'pre-line' }}>
         {`
-          🐣 The current version is in alpha, which means only limited information is available.
+          🐣 The current version is beta, which means only limited information is available.
 
           👓 The goal is to create a lightweight information system where users can quickly gather key data.
 
