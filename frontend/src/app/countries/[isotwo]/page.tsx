@@ -17,14 +17,3 @@ export default function Page({ params }: PageProps<'/countries/[isotwo]'>) {
     </Suspense>
   );
 }
-
-// export default async function Page({
-//   params,
-// }: {
-//   params: Promise<{ isotwo: string }>
-// }) {
-//   const { isotwo } = await params
-//   return (
-//     <CountryInfoWrapper />
-//   );
-// }
