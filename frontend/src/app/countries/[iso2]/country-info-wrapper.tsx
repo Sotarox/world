@@ -19,8 +19,8 @@ import useApi from '@/api/useApi';
 import { useCountryNav } from '@/store/CountryNavStore';
 import { useRouter } from 'next/navigation';
 
-export default function CountryInfoWrapper({ isotwo }: { isotwo: string }) {
-  const currentIso2 = isotwo.toUpperCase();
+export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
+  const currentIso2 = iso2.toUpperCase();
 
   const country: Country | null = useApi<Country>(`/countries/${currentIso2}`);
   const acCountry: ACCountry | null = useApi<ACCountry>(
