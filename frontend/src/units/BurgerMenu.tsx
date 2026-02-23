@@ -30,9 +30,9 @@ const BurgerMenu = React.memo(() => {
         >
           About
         </DropdownMenuItem>
-        {/* <DropdownMenuItem onClick={() => navigate('/inquiry')}>
+        <DropdownMenuItem onClick={() => router.push('/inquiry')}>
           Inquiry
-        </DropdownMenuItem> */}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
