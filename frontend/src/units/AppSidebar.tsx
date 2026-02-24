@@ -1,5 +1,6 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 import { ACCountryNav } from '@/model/ACCountry';
 import { useRegionFilter } from '@/store/RegionFilterStore';
 import { CountryFilter } from './CountryFilter';
@@ -19,11 +20,12 @@ import {
   SidebarRail,
   useSidebar,
 } from '@/components/custom/sidebar';
+import { useRouter } from 'next/navigation';
 
 const sidebarColor = 'bg-sidebar dark:bg-gt-subtle text-sidebar-foreground';
 
 export function AppSidebar() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { toggleSidebar } = useSidebar();
   const filteredRegions = useRegionFilter((s) => s.regions);
   const countryNavs = useCountryNav((s) => s.countries);
@@ -34,7 +36,9 @@ export function AppSidebar() {
     api
       .get<ACCountryNav[]>(`/accountries/nav`)
       .then((res) => {
-        const filteredNavs = res.data.filter((obj) =>
+        const data = Array.isArray(res.data) ? res.data : [];
+        console.log('Fetched country navs:', data);
+        const filteredNavs = data.filter((obj) =>
           filteredRegions.includes(obj.region)
         );
         if (reverse) {
@@ -66,7 +70,7 @@ export function AppSidebar() {
                 <SidebarMenuButton
                   asChild
                   onClick={() => {
-                    navigate(`/countries/${obj.alpha2Code.toLowerCase()}`);
+                    router.push(`/countries/${obj.alpha2Code.toLowerCase()}`);
                     toggleSidebar();
                   }}
                 >

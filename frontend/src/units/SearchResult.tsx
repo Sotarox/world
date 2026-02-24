@@ -1,12 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
 import { type CountryIso2NameMap } from '../model/CountryIso2NameMap';
 import { KeyboardNavigableList } from '@/components/custom/keyboard-navigable-list';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import 'flag-icons/css/flag-icons.min.css';
 
 const resultItem = (
   result: CountryIso2NameMap,
-  navigate: (path: string) => void
+  push: (path: string) => void
 ) => {
   return {
     node: (
@@ -20,7 +21,7 @@ const resultItem = (
         <span>{result.countryName}</span>
       </>
     ),
-    onClick: () => navigate(`/countries/${result.countryIso2.toLowerCase()}`),
+    onClick: () => push(`/countries/${result.countryIso2.toLowerCase()}`),
   };
 };
 
@@ -30,12 +31,10 @@ interface SearchResultProps {
 
 function SearchResult(props: SearchResultProps) {
   const { results } = props;
-  const navigate = useNavigate();
+  const router = useRouter();
 
   if (results.length === 0) return null;
-
-  const resultItems = results.map((result) => resultItem(result, navigate));
-
+  const resultItems = results.map((result) => resultItem(result, router.push));
   return <KeyboardNavigableList items={resultItems} />;
 }
 

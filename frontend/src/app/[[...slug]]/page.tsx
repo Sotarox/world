@@ -1,8 +1,15 @@
+// import { ClientOnly } from './client';
 import React from 'react';
 import { Link, Typography } from '@mui/material';
 import { Card } from '@/components/ui/card';
 
-function TopPage() {
+export function generateStaticParams() {
+  // Only generate the root path as a static param
+  // All other routes will be handled client-side by React Router
+  return [{ slug: [] }];
+}
+
+function HomePage() {
   return (
     <Card className='p-4'>
       <Typography variant='h2' component='h1'>
@@ -32,4 +39,5 @@ function TopPage() {
     </Card>
   );
 }
-export default TopPage;
+
+export default HomePage;

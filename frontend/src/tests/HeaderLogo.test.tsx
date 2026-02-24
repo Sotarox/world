@@ -5,7 +5,7 @@ import HeaderLogo from '../units/HeaderLogo';
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
-  useNavigate: () => jest.fn(),
+  useRouter: () => jest.fn(),
 }));
 
 describe('HeaderLogo Component', () => {

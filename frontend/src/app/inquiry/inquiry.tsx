@@ -1,9 +1,11 @@
+'use client';
+
 import React from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import api from '../api/axios';
+import api from '@/api/axios';
 
 import { Button } from '@/components/ui/button';
 import {

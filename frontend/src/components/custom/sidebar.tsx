@@ -192,7 +192,6 @@ function Sidebar({
     );
   }
 
-  console.log('Sidebar itself.', { isMobile, state, openMobile });
   if (isMobile) {
     return openMobile ? (
       <Sheet

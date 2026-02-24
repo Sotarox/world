@@ -50,7 +50,7 @@ const config: Configuration = {
     static: {
       directory: path.join(__dirname, 'public'),
     },
-    port: 5173,
+    port: 3000,
     open: true, // Automatically open the browser
     hot: true, // Enable Hot Module Replacement
     historyApiFallback: true, // Always serve index.html for user requested url in a browser

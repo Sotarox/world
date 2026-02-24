@@ -1,14 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/navigation';
 import { Button } from '../components/custom/button';
 
 const HeaderLogo: React.FC = React.memo(() => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <Button
       variant='ghost'
-      onClick={() => navigate('')}
+      onClick={() => {
+        router.push('/');
+      }}
       className='text-lg hidden sm:inline-flex nowrap'
     >
       WORLD

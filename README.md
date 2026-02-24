@@ -7,7 +7,7 @@
 https://world.sotaro.dev/
 
 ## Technologies
-Spring Boot, React, TypeScript, Webpack, Material UI, PostgresSQL, 
+Spring Boot, React, Next.js, TypeScript, Webpack, Tailwind, shadcn/ui, Material UI, PostgresSQL, 
 Docker, Amazon Lightsail, nginx, Ubuntu, Jenkins
 
 ## Prerequisites
@@ -21,6 +21,16 @@ Development machine is Apple M1 Pro. Other than macOS, the app behavior is not c
 ## First time set up
 - cd to `backend` folder
   - Run `mvn package`
+  - Add .env file under backend folder, write the following Email information:
+  ```
+  MAIL_HOST=smtp.gmail.com
+  MAIL_PORT=587
+  MAIL_USERNAME=youremail@gmail.com
+  MAIL_PASSWORD=
+  MAIL_FORWARD=bl@gmail.com
+  ```
+  - This setting is when using gmail.  
+  - MAIL_FORWARD is used to forward email to developer when form is submitted by user.
 - cd to `frontend` folder
   - Run `npm install`
 
@@ -41,7 +51,7 @@ http://localhost:8080/v3/api-docs
 ## Deployment
 - Compiled frontend is served by Backend.
 - cd to `frontend`
-  - Run `npm run build`, which generates index.html under `backend/src/main/resources/static` folder.
+  - Run `npm run pack`, which generates index.html under `backend/src/main/resources/static` folder.
   - Spring Boot handles index.html as response for GET request to root i.e. `localhost:8080`.
 - Compile backend by `mvn package`
   - Under `backend/target`, a jar file is generated e.g. `backend-0.0.1-SNAPSHOT.jar`
@@ -73,7 +83,7 @@ which targets only staged .ts and .tsx files. This process is executed following
 When the lint command fails, staged files are not committed. 
 If you want to skip these process for some reason, use `-n` or `--no-verify` option: `git commit -m "..." -n`.
 
-### Trouble shooting
+### Troubleshooting
 - Is husky configured correctly?
 For initial set up after `git clone`, running `npm install` calls `npm prepare` automatically.
 This command installs `world/.husky/_` folder and its shells files.

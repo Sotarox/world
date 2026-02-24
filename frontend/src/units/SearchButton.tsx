@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from '@/components/custom/dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-import { useLocation } from 'react-router';
+import { usePathname } from 'next/navigation';
 import { Button } from '../components/custom/button';
 import {
   InputGroup,
@@ -27,11 +27,11 @@ function SearchButton() {
     [query]
   );
 
-  const location = useLocation();
+  const pathname = usePathname();
   // when url changes, close the dialog
   useEffect(() => {
     setOpen(false);
-  }, [location]);
+  }, [pathname]);
 
   return (
     <>
