@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "pack": "next build && rimraf ../backend/src/main/resources/static/* && shx mv ./build/* ../backend/src/main/resources/static",
     "start": "npx serve@latest ./build",
     "lint": "eslint . --fix",
     "format": "prettier --write .",

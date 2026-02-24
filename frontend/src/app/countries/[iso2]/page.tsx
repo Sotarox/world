@@ -3,8 +3,8 @@ import { Suspense } from 'react';
 import { countryIso2NameMap } from '@/model/CountryIso2NameMap';
 
 export async function generateStaticParams() {
-  return Object.keys(countryIso2NameMap).map((iso2) => ({
-    iso2: iso2.toLowerCase(),
+  return countryIso2NameMap.map((country) => ({
+    iso2: country.countryIso2.toLowerCase(),
   }));
 }
 
