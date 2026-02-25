@@ -1,3 +1,5 @@
+import { ACCountryNav } from './ACCountry';
+
 export interface CountryIso2NameMap {
   countryIso2: string;
   countryName: string;
@@ -1025,34 +1027,37 @@ export const randomCountryIso2 = () => {
   return countryIso2NameMap[i].countryIso2;
 };
 
-export const nextCountryIso2 = (currentIso2: string) => {
-  const currentIndex = countryIso2NameMap.findIndex(
-    (obj) => obj.countryIso2 === currentIso2
+export const nextCountryNav = (
+  currentIso2: string,
+  countryNavs: ACCountryNav[]
+): ACCountryNav | undefined => {
+  const currentIndex = countryNavs.findIndex(
+    (obj) => obj.alpha2Code === currentIso2
   );
-  // currentIso2 not found in the map
+  // currentIso2 not found in the navs
   if (currentIndex === -1) {
-    return randomCountryIso2();
+    // fallback: return first country in navs or undefined
+    return countryNavs.length > 0
+      ? countryNavs[countryNavs.length - 1]
+      : undefined;
   }
-  const nextIndex = (currentIndex + 1) % countryIso2NameMap.length;
-  return countryIso2NameMap[nextIndex].countryIso2;
+  const nextIndex = (currentIndex + 1) % countryNavs.length;
+  return countryNavs[nextIndex];
 };
 
-export const previousCountryIso2 = (currentIso2: string) => {
-  const currentIndex = countryIso2NameMap.findIndex(
-    (obj) => obj.countryIso2 === currentIso2
+export const previousCountryNav = (
+  currentIso2: string,
+  countryNavs: ACCountryNav[]
+): ACCountryNav | undefined => {
+  const currentIndex = countryNavs.findIndex(
+    (obj) => obj.alpha2Code === currentIso2
   );
-  // currentIso2 not found in the map
+  // currentIso2 not found in the navs
   if (currentIndex === -1) {
-    return randomCountryIso2();
+    // fallback: return first country in navs or undefined
+    return countryNavs.length > 0 ? countryNavs[0] : undefined;
   }
   const previousIndex =
-    (currentIndex - 1 + countryIso2NameMap.length) % countryIso2NameMap.length;
-  return countryIso2NameMap[previousIndex].countryIso2;
-};
-
-export const countryIso2ToName = (countryIso2: string) => {
-  const country = countryIso2NameMap.find(
-    (obj) => obj.countryIso2 === countryIso2
-  );
-  return country ? country.countryName : 'Unknown Country';
+    (currentIndex - 1 + countryNavs.length) % countryNavs.length;
+  return countryNavs[previousIndex];
 };

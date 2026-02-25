@@ -25,3 +25,16 @@ dist-ssr
 
 # cache
 .vite
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Next.js build output
+.next
+next-env.d.ts
+build
+.env.local

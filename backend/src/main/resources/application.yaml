@@ -3,7 +3,22 @@ spring:
     name: backend
   profiles:
     active: local
-
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+# custom properties for world app
+custom:
+  mail:
+    enabled: true
+    forward: ${MAIL_FORWARD}
 ---
 
 spring:
@@ -19,12 +34,13 @@ spring:
     show-sql: true
 
 ---
-
+# currently setting is all the same with local.
 spring:
   config:
     activate:
       on-profile: prod
   datasource:
+    # When database locates in another instance, this url must be changed
     url: jdbc:postgresql://localhost:5432/mydb
     username: myuser
     password: mypassword
