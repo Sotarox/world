@@ -2,9 +2,9 @@
 
 import React, { useContext } from 'react';
 import { type Country } from '@/model/Country';
-import AirportList from '@/old-pages/AirportList';
-import CountryInfo from '@/old-pages/CountryInfo';
-import PopulationInfo from '@/old-pages/PopulationInfo';
+import { AirportList } from '@/app/countries/[iso2]/airport-list';
+import { CountryInfo } from '@/app/countries/[iso2]/country-info';
+import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
 import { CurrentTopicContext } from '@/contexts/CurrentTopicContext';
 import { IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';

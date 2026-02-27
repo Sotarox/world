@@ -1,7 +1,7 @@
 // AirportList.test.tsx
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
-import AirportList from '../old-pages/AirportList';
+import { AirportList } from '../app/countries/[iso2]/airport-list';
 import type { Airport } from '../model/Airport';
 
 jest.mock('../api/useApi', () => ({

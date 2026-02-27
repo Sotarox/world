@@ -6,7 +6,7 @@ import FloatingRandomButton from '../units/FloatingRandomButton';
 import { Toaster } from '@/components/shadcn/sonner';
 import { SidebarProvider } from '@/components/custom/sidebar';
 import { AppSidebar } from '@/units/AppSidebar';
-import { ThemeProvider } from '@/theme/theme-provider';
+import { ThemeProvider } from '@/contexts/theme-provider';
 import { CurrentTopicContextProvider } from '@/contexts/CurrentTopicContext';
 
 function LayoutHelper({ children }: { children: React.ReactNode }) {

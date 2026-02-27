@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import { type Country } from '../model/Country';
+import { type Country } from '../../../model/Country';
 import 'flag-icons/css/flag-icons.min.css';
 import { CircleFlag } from 'react-circle-flags';
 

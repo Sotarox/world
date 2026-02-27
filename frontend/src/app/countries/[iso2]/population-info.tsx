@@ -1,8 +1,8 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import InfoCard from '../units/InfoCard';
-import { type PopulationRank } from '../model/PopulationRank';
-import useApi from '../api/useApi';
+import InfoCard from '../../../units/InfoCard';
+import { type PopulationRank } from '../../../model/PopulationRank';
+import useApi from '../../../api/useApi';
 
 interface PopulationInfoProps {
   countryIso2: string;
@@ -59,4 +59,4 @@ const formatRankInfo = (rank: number, countCountries: number): string => {
   return `${rank}${order} in ${countCountries} countries`;
 };
 
-export default PopulationInfo;
+export { PopulationInfo };

@@ -6,6 +6,7 @@ export const Region = [
   'Oceania',
   'Antarctic',
 ] as const;
+
 export type RegionType = (typeof Region)[number];
 
 /**

@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
-import { type Country } from '../model/Country';
+import { type Country } from '../../../model/Country';
 import 'flag-icons/css/flag-icons.min.css';
 import {
   convertContinentCodeToName,
   formatCoordinate,
   formatNumberWithComma,
-} from '../utils/utils';
-import { CurrentTopicContext } from '../contexts/CurrentTopicContext';
-import InfoCardClickable from '../units/InfoCardClickable';
-import type { ACCountry } from '../model/ACCountry';
-import CountryInfoHeader from './CountryInfoHeader';
-import InfoCard from '../units/InfoCard';
+} from '../../../utils/utils';
+import { CurrentTopicContext } from '../../../contexts/CurrentTopicContext';
+import InfoCardClickable from '../../../units/InfoCardClickable';
+import type { ACCountry } from '../../../model/ACCountry';
+import CountryInfoHeader from './country-info-header';
+import InfoCard from '../../../units/InfoCard';
 import { Card } from '@/components/shadcn/card';
 
 interface CountryInfoProps {
@@ -81,4 +81,4 @@ function CountryInfo(props: CountryInfoProps) {
   );
 }
 
-export default CountryInfo;
+export { CountryInfo };
