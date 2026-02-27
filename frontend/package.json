@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "prepare": "cd .. && husky",
     "precommit": "lint-staged",
-    "test": "jest",
+    "test:unit": "jest",
     "test:e2e": "playwright test"
   },
   "lint-staged": {

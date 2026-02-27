@@ -11,9 +11,9 @@ const HeaderLogo: React.FC = React.memo(() => {
       onClick={() => {
         router.push('/');
       }}
-      className='text-lg hidden sm:inline-flex nowrap'
+      className='text-lg uppercase hidden sm:inline-flex nowrap'
     >
-      WORLD
+      World
     </Button>
   );
 });

@@ -3,8 +3,8 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import HeaderLogo from '../units/HeaderLogo';
 
-jest.mock('react-router', () => ({
-  ...jest.requireActual('react-router'),
+jest.mock('next/navigation', () => ({
+  ...jest.requireActual('next/navigation'),
   useRouter: () => jest.fn(),
 }));
 
