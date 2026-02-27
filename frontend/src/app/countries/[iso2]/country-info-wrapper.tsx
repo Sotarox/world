@@ -15,7 +15,7 @@ import { type ACCountry } from '@/model/ACCountry';
 import { PopulationChart } from '@/components/world/population-chart';
 import { Card } from '@/components/shadcn/card';
 import { Separator } from '@/components/shadcn/separator';
-import useApi from '@/api/useApi';
+import { useApi } from '@/api/use-api';
 import { useCountryNav } from '@/store/CountryNavStore';
 import { useRouter } from 'next/navigation';
 

@@ -35,4 +35,4 @@ function useApi<Type>(url: string | null): Type | null {
   }, [url]);
   return data;
 }
-export default useApi;
+export { useApi };

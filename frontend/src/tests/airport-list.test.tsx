@@ -8,7 +8,7 @@ jest.mock('../api/useApi', () => ({
   default: jest.fn(),
 }));
 
-import useApi from '../api/useApi';
+import { useApi } from '../api/use-api';
 
 describe('AirportList Component', () => {
   const mockAirports: Airport[] = [

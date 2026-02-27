@@ -1,7 +1,7 @@
 import React from 'react';
 import { type Airport } from '../../../model/Airport';
-import AirportInfo from './airport-info';
-import useApi from '../../../api/useApi';
+import { AirportInfo } from './airport-info';
+import { useApi } from '../../../api/use-api';
 
 interface AirportListProps {
   countryIso2: string | null;

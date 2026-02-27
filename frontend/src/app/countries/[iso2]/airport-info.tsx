@@ -52,4 +52,4 @@ function AirportInfo(props: AirportInfoProps) {
   }
 }
 
-export default AirportInfo;
+export { AirportInfo };
