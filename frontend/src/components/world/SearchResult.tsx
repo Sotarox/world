@@ -1,5 +1,5 @@
 import React from 'react';
-import { type CountryIso2NameMap } from '../model/CountryIso2NameMap';
+import { type CountryIso2NameMap } from '../../model/CountryIso2NameMap';
 import { KeyboardNavigableList } from '@/components/custom/keyboard-navigable-list';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';

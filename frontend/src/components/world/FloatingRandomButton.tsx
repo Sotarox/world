@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { Shuffle as ShuffleIcon } from 'lucide-react';
-import { randomCountryIso2 } from '../model/CountryIso2NameMap';
+import { randomCountryIso2 } from '../../model/CountryIso2NameMap';
 import { Tooltip } from '@mui/material';
-import { Button } from '../components/custom/button';
+import { Button } from '../custom/button';
 import { useRouter } from 'next/navigation';
 
 function FloatingRandomButton() {

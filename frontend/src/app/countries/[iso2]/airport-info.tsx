@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { type Airport } from '../../../model/Airport';
-import InfoCard from '../../../units/InfoCard';
+import InfoCard from '../../../components/world/InfoCard';
 import { formatCoordinate } from '../../../utils/utils';
 import LocalAirportIcon from '@mui/icons-material/LocalAirport';
 import { Card } from '@/components/shadcn/card';

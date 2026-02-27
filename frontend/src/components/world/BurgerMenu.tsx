@@ -9,7 +9,7 @@ import {
 import { MenuIcon } from 'lucide-react';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '../components/custom/button';
+import { Button } from '../custom/button';
 
 const BurgerMenu = React.memo(() => {
   const router = useRouter();

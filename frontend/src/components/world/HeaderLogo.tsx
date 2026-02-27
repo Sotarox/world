@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '../components/custom/button';
+import { Button } from '../custom/button';
 
 const HeaderLogo: React.FC = React.memo(() => {
   const router = useRouter();

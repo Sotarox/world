@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import HeaderLogo from '../units/HeaderLogo';
+import HeaderLogo from '../components/world/HeaderLogo';
 
 jest.mock('next/navigation', () => ({
   ...jest.requireActual('next/navigation'),
