@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { type Country } from '../../../model/Country';
+import { type Country } from '../../../model/country';
 import 'flag-icons/css/flag-icons.min.css';
 import {
   convertContinentCodeToName,
   formatCoordinate,
   formatNumberWithComma,
 } from '../../../utils/utils';
-import { CurrentTopicContext } from '../../../contexts/CurrentTopicContext';
+import { CurrentTopicContext } from '../../../contexts/current-topic-context';
 import InfoCardClickable from '../../../components/world/info-card-clickable';
-import type { ACCountry } from '../../../model/ACCountry';
+import type { ACCountry } from '../../../model/ac-country';
 import CountryInfoHeader from './country-info-header';
 import InfoCard from '../../../components/world/info-card';
 import { Card } from '@/components/shadcn/card';

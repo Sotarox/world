@@ -1,4 +1,4 @@
-import { ACCountryNav } from './ACCountry';
+import { ACCountryNav } from './ac-country';
 
 export interface CountryIso2NameMap {
   countryIso2: string;

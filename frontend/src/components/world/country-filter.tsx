@@ -15,7 +15,7 @@ import {
   DialogDescription,
   DialogClose,
 } from '@/components/custom/dialog';
-import { Region, RegionType } from '@/model/ACCountry';
+import { Region, RegionType } from '@/model/ac-country';
 import { FilterIcon } from 'lucide-react';
 
 const formSchema = z.object({

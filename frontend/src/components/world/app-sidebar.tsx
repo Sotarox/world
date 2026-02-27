@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ACCountryNav } from '@/model/ACCountry';
+import { ACCountryNav } from '@/model/ac-country';
 import { useRegionFilter } from '@/store/RegionFilterStore';
 import { CountryFilter } from './country-filter';
 import { useCountryNav } from '@/store/CountryNavStore';

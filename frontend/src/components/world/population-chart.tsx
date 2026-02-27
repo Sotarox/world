@@ -9,7 +9,7 @@ import {
 } from 'recharts';
 
 import { ChartContainer, type ChartConfig } from '@/components/shadcn/chart';
-import { ACCountryNav } from '@/model/ACCountry';
+import { ACCountryNav } from '@/model/ac-country';
 
 const chartConfig = {
   population: {

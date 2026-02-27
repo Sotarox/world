@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import { AirportList } from '../app/countries/[iso2]/airport-list';
-import type { Airport } from '../model/Airport';
+import type { Airport } from '../model/airport';
 
 jest.mock('../api/useApi', () => ({
   __esModule: true,

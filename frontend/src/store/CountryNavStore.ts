@@ -1,4 +1,4 @@
-import { ACCountryNav } from '@/model/ACCountry';
+import { ACCountryNav } from '@/model/ac-country';
 import { create } from 'zustand';
 
 type CountryNavStoreState = {

@@ -1,17 +1,20 @@
 'use client';
 
 import React, { useContext } from 'react';
-import { type Country } from '@/model/Country';
+import { type Country } from '@/model/country';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { CountryInfo } from '@/app/countries/[iso2]/country-info';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
-import { CurrentTopicContext } from '@/contexts/CurrentTopicContext';
+import { CurrentTopicContext } from '@/contexts/current-topic-context';
 import { IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
-import { previousCountryNav, nextCountryNav } from '@/model/CountryIso2NameMap';
+import {
+  previousCountryNav,
+  nextCountryNav,
+} from '@/model/country-iso2-name-map';
 import { CircleFlag } from 'react-circle-flags';
 import 'flag-icons/css/flag-icons.min.css';
-import { type ACCountry } from '@/model/ACCountry';
+import { type ACCountry } from '@/model/ac-country';
 import { PopulationChart } from '@/components/world/population-chart';
 import { Card } from '@/components/shadcn/card';
 import { Separator } from '@/components/shadcn/separator';

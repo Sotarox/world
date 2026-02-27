@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Region, RegionType } from '@/model/ACCountry';
+import { Region, RegionType } from '@/model/ac-country';
 import { persist } from 'zustand/middleware';
 
 type RegionFilterStore = {

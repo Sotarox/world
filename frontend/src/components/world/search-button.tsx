@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { searchCountryName } from '../../model/CountryIso2NameMap';
+import { searchCountryName } from '../../model/country-iso2-name-map';
 import SearchResult from './search-result';
 import { SearchIcon } from 'lucide-react';
 import {

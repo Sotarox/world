@@ -1,5 +1,5 @@
 import React from 'react';
-import { type Airport } from '../../../model/Airport';
+import { type Airport } from '../../../model/airport';
 import { AirportInfo } from './airport-info';
 import { useApi } from '../../../api/use-api';
 

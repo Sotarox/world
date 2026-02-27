@@ -7,7 +7,7 @@ import { Toaster } from '@/components/shadcn/sonner';
 import { SidebarProvider } from '@/components/custom/sidebar';
 import { AppSidebar } from '@/components/world/app-sidebar';
 import { ThemeProvider } from '@/contexts/theme-provider';
-import { CurrentTopicContextProvider } from '@/contexts/CurrentTopicContext';
+import { CurrentTopicContextProvider } from '@/contexts/current-topic-context';
 
 function LayoutHelper({ children }: { children: React.ReactNode }) {
   return (
