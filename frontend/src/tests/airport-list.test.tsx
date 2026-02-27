@@ -1,4 +1,3 @@
-// AirportList.test.tsx
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import { AirportList } from '../app/countries/[iso2]/airport-list';

@@ -7,10 +7,10 @@ import {
   formatNumberWithComma,
 } from '../../../utils/utils';
 import { CurrentTopicContext } from '../../../contexts/CurrentTopicContext';
-import InfoCardClickable from '../../../components/world/InfoCardClickable';
+import InfoCardClickable from '../../../components/world/info-card-clickable';
 import type { ACCountry } from '../../../model/ACCountry';
 import CountryInfoHeader from './country-info-header';
-import InfoCard from '../../../components/world/InfoCard';
+import InfoCard from '../../../components/world/info-card';
 import { Card } from '@/components/shadcn/card';
 
 interface CountryInfoProps {

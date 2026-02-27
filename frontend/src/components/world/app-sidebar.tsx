@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { ACCountryNav } from '@/model/ACCountry';
 import { useRegionFilter } from '@/store/RegionFilterStore';
-import { CountryFilter } from './CountryFilter';
+import { CountryFilter } from './country-filter';
 import { useCountryNav } from '@/store/CountryNavStore';
 import api from '../../api/axios';
 import { Button } from '@/components/shadcn/button';

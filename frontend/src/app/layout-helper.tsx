@@ -1,11 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import HeaderBar from '@/components/world/HeaderBar';
-import FloatingRandomButton from '../components/world/FloatingRandomButton';
+import HeaderBar from '@/components/world/header-bar';
+import FloatingRandomButton from '../components/world/floating-random-button';
 import { Toaster } from '@/components/shadcn/sonner';
 import { SidebarProvider } from '@/components/custom/sidebar';
-import { AppSidebar } from '@/components/world/AppSidebar';
+import { AppSidebar } from '@/components/world/app-sidebar';
 import { ThemeProvider } from '@/contexts/theme-provider';
 import { CurrentTopicContextProvider } from '@/contexts/CurrentTopicContext';
 

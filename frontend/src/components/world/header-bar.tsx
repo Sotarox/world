@@ -1,8 +1,8 @@
 import React from 'react';
-import ThemeSwitch from './ThemeSwitch';
-import SearchButton from './SearchButton';
-import HeaderLogo from './HeaderLogo';
-import BurgerMenu from './BurgerMenu';
+import ThemeSwitch from './theme-switch';
+import SearchButton from './search-button';
+import HeaderLogo from './header-logo';
+import BurgerMenu from './burger-menu';
 import { useTheme } from '@mui/material/styles';
 import { cn } from '@/lib/utils';
 import {

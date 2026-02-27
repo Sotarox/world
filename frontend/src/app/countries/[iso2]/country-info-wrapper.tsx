@@ -12,7 +12,7 @@ import { previousCountryNav, nextCountryNav } from '@/model/CountryIso2NameMap';
 import { CircleFlag } from 'react-circle-flags';
 import 'flag-icons/css/flag-icons.min.css';
 import { type ACCountry } from '@/model/ACCountry';
-import { PopulationChart } from '@/components/world/PopulationChart';
+import { PopulationChart } from '@/components/world/population-chart';
 import { Card } from '@/components/shadcn/card';
 import { Separator } from '@/components/shadcn/separator';
 import useApi from '@/api/useApi';

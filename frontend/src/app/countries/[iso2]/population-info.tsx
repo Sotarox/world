@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import InfoCard from '../../../components/world/InfoCard';
+import InfoCard from '../../../components/world/info-card';
 import { type PopulationRank } from '../../../model/PopulationRank';
 import useApi from '../../../api/useApi';
 
