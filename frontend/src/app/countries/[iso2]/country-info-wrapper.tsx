@@ -19,7 +19,7 @@ import { PopulationChart } from '@/components/world/population-chart';
 import { Card } from '@/components/shadcn/card';
 import { Separator } from '@/components/shadcn/separator';
 import { useApi } from '@/api/use-api';
-import { useCountryNav } from '@/store/CountryNavStore';
+import { useCountryNav } from '@/store/country-nav-store';
 import { useRouter } from 'next/navigation';
 
 export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
