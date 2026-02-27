@@ -3,7 +3,7 @@
 import * as React from 'react';
 import HeaderBar from '@/units/HeaderBar';
 import FloatingRandomButton from '../units/FloatingRandomButton';
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/shadcn/sonner';
 import { SidebarProvider } from '@/components/custom/sidebar';
 import { AppSidebar } from '@/units/AppSidebar';
 import { ThemeProvider } from '@/theme/theme-provider';

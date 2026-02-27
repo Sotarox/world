@@ -4,8 +4,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 import { useRegionFilter } from '@/store/RegionFilterStore';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/shadcn/checkbox';
+import { Button } from '@/components/shadcn/button';
 import {
   Dialog,
   DialogTrigger,

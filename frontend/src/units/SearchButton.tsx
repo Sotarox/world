@@ -16,8 +16,8 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from '@/components/ui/input-group';
-import { Separator } from '@/components/ui/separator';
+} from '@/components/shadcn/input-group';
+import { Separator } from '@/components/shadcn/separator';
 
 function SearchButton() {
   const [open, setOpen] = useState(false);

@@ -5,7 +5,7 @@ import { type Airport } from '../model/Airport';
 import InfoCard from '../units/InfoCard';
 import { formatCoordinate } from '../utils/utils';
 import LocalAirportIcon from '@mui/icons-material/LocalAirport';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/shadcn/card';
 
 interface AirportInfoProps {
   airport: Airport | null;

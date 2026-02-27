@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/components/shadcn/dropdown-menu';
 import { MenuIcon } from 'lucide-react';
 import React from 'react';
 import { useRouter } from 'next/navigation';

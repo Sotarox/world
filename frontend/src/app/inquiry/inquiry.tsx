@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import * as z from 'zod';
 import api from '@/api/axios';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/shadcn/button';
 import {
   Card,
   CardContent,
@@ -15,21 +15,21 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '@/components/shadcn/card';
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
+} from '@/components/shadcn/field';
+import { Input } from '@/components/shadcn/input';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
   InputGroupTextarea,
-} from '@/components/ui/input-group';
+} from '@/components/shadcn/input-group';
 
 const formSchema = z.object({
   title: z

@@ -11,7 +11,7 @@ import InfoCardClickable from '../units/InfoCardClickable';
 import type { ACCountry } from '../model/ACCountry';
 import CountryInfoHeader from './CountryInfoHeader';
 import InfoCard from '../units/InfoCard';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/shadcn/card';
 
 interface CountryInfoProps {
   acCountry: ACCountry | null;

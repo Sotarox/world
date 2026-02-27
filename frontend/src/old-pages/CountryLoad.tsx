@@ -17,8 +17,8 @@ import { useParams } from 'react-router';
 import useApi from '../api/useApi';
 import { useCountryNav } from '@/store/CountryNavStore';
 import { PopulationChart } from '@/units/PopulationChart';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import { Card } from '@/components/shadcn/card';
+import { Separator } from '@/components/shadcn/separator';
 import { useRouter } from 'next/navigation';
 
 function CountryLoad() {

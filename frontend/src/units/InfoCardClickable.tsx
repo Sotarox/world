@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/shadcn/card';
 import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
 import { cn } from '@/lib/utils';
 

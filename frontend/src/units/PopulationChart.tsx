@@ -8,7 +8,7 @@ import {
   Cell,
 } from 'recharts';
 
-import { ChartContainer, type ChartConfig } from '@/components/ui/chart';
+import { ChartContainer, type ChartConfig } from '@/components/shadcn/chart';
 import { ACCountryNav } from '@/model/ACCountry';
 
 const chartConfig = {

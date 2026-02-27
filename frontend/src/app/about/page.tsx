@@ -3,7 +3,11 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 import { Divider, Stack } from '@mui/material';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/shadcn/avatar';
 
 function About() {
   return (
