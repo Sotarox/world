@@ -1,13 +1,13 @@
 'use client';
 
 import * as React from 'react';
-import HeaderBar from '@/units/HeaderBar';
-import FloatingRandomButton from '../units/FloatingRandomButton';
-import { Toaster } from '@/components/ui/sonner';
+import HeaderBar from '@/components/world/header-bar';
+import FloatingRandomButton from '../components/world/floating-random-button';
+import { Toaster } from '@/components/shadcn/sonner';
 import { SidebarProvider } from '@/components/custom/sidebar';
-import { AppSidebar } from '@/units/AppSidebar';
-import { ThemeProvider } from '@/theme/theme-provider';
-import { CurrentTopicContextProvider } from '@/contexts/CurrentTopicContext';
+import { AppSidebar } from '@/components/world/app-sidebar';
+import { ThemeProvider } from '@/contexts/theme-provider';
+import { CurrentTopicContextProvider } from '@/contexts/current-topic-context';
 
 function LayoutHelper({ children }: { children: React.ReactNode }) {
   return (

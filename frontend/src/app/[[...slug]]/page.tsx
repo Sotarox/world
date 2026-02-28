@@ -1,7 +1,7 @@
 // import { ClientOnly } from './client';
 import React from 'react';
 import { Link, Typography } from '@mui/material';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/shadcn/card';
 
 export function generateStaticParams() {
   // Only generate the root path as a static param

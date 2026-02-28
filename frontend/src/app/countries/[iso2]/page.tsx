@@ -1,6 +1,6 @@
 import CountryInfoWrapper from './country-info-wrapper';
 import { Suspense } from 'react';
-import { countryIso2NameMap } from '@/model/CountryIso2NameMap';
+import { countryIso2NameMap } from '@/model/country-iso2-name-map';
 
 export async function generateStaticParams() {
   return countryIso2NameMap.map((country) => ({

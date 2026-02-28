@@ -7,7 +7,7 @@ import { Slot } from 'radix-ui';
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/custom/button';
+import { Button } from '@/components/shadcn/button';
 import { Input } from '@/components/shadcn/input';
 import { Separator } from '@/components/shadcn/separator';
 import {
@@ -34,7 +34,6 @@ const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
 type SidebarContextProps = {
   state: 'expanded' | 'collapsed';
-  stateMobile: 'expanded' | 'collapsed';
   open: boolean;
   setOpen: (open: boolean) => void;
   openMobile: boolean;
@@ -113,12 +112,10 @@ function SidebarProvider({
   // We add a state so that we can do data-state="expanded" or "collapsed".
   // This makes it easier to style the sidebar with Tailwind classes.
   const state = open ? 'expanded' : 'collapsed';
-  const stateMobile = openMobile ? 'expanded' : 'collapsed';
 
   const contextValue = React.useMemo<SidebarContextProps>(
     () => ({
       state,
-      stateMobile,
       open,
       setOpen,
       isMobile,
@@ -126,16 +123,7 @@ function SidebarProvider({
       setOpenMobile,
       toggleSidebar,
     }),
-    [
-      state,
-      stateMobile,
-      open,
-      setOpen,
-      isMobile,
-      openMobile,
-      setOpenMobile,
-      toggleSidebar,
-    ]
+    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
   );
 
   return (
@@ -193,13 +181,8 @@ function Sidebar({
   }
 
   if (isMobile) {
-    return openMobile ? (
-      <Sheet
-        open={openMobile}
-        onOpenChange={setOpenMobile}
-        {...props}
-        modal={false}
-      >
+    return (
+      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
         <SheetContent
           data-sidebar='sidebar'
           data-slot='sidebar'
@@ -219,12 +202,12 @@ function Sidebar({
           <div className='flex h-full w-full flex-col'>{children}</div>
         </SheetContent>
       </Sheet>
-    ) : null;
+    );
   }
 
   return (
     <div
-      className='group peer text-sidebar-foreground block'
+      className='group peer text-sidebar-foreground hidden md:block'
       data-state={state}
       data-collapsible={state === 'collapsed' ? collapsible : ''}
       data-variant={variant}
@@ -246,7 +229,7 @@ function Sidebar({
       <div
         data-slot='sidebar-container'
         className={cn(
-          'fixed inset-y-0 z-10 h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear flex',
+          'fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex',
           side === 'left'
             ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
             : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
@@ -715,17 +698,7 @@ function SidebarMenuSubButton({
   );
 }
 
-const DummySidebarTrigger = () => {
-  return (
-    <Button variant='ghost' size='icon' className='size-10'>
-      <PanelLeftIcon />
-      <span className='sr-only'>Toggle Sidebar</span>
-    </Button>
-  );
-};
-
 export {
-  DummySidebarTrigger,
   Sidebar,
   SidebarContent,
   SidebarFooter,

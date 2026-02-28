@@ -1,22 +1,25 @@
 'use client';
 
 import React, { useContext } from 'react';
-import { type Country } from '@/model/Country';
-import AirportList from '@/old-pages/AirportList';
-import CountryInfo from '@/old-pages/CountryInfo';
-import PopulationInfo from '@/old-pages/PopulationInfo';
-import { CurrentTopicContext } from '@/contexts/CurrentTopicContext';
+import { type Country } from '@/model/country';
+import { AirportList } from '@/app/countries/[iso2]/airport-list';
+import { CountryInfo } from '@/app/countries/[iso2]/country-info';
+import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
+import { CurrentTopicContext } from '@/contexts/current-topic-context';
 import { IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
-import { previousCountryNav, nextCountryNav } from '@/model/CountryIso2NameMap';
+import {
+  previousCountryNav,
+  nextCountryNav,
+} from '@/model/country-iso2-name-map';
 import { CircleFlag } from 'react-circle-flags';
 import 'flag-icons/css/flag-icons.min.css';
-import { type ACCountry } from '@/model/ACCountry';
-import { PopulationChart } from '@/units/PopulationChart';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import useApi from '@/api/useApi';
-import { useCountryNav } from '@/store/CountryNavStore';
+import { type ACCountry } from '@/model/ac-country';
+import { PopulationChart } from '@/components/world/population-chart';
+import { Card } from '@/components/shadcn/card';
+import { Separator } from '@/components/shadcn/separator';
+import { useApi } from '@/api/use-api';
+import { useCountryNav } from '@/store/country-nav-store';
 import { useRouter } from 'next/navigation';
 
 export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
