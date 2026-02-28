@@ -22,7 +22,7 @@ function About() {
         </Avatar>
       </Stack>
       <Typography variant='body1' sx={{ whiteSpace: 'pre-line' }}>
-        {`🥷 Full-stack web developer, borned in Japan 🇯🇵, lives in Stuttgart, Germany 🥨.`}
+        {`🥷 Web developer, borned in Japan 🇯🇵, lives in Stuttgart, Germany 🥨.`}
       </Typography>
       <br />
       <Typography variant='h5' sx={{ mb: 1 }}>
@@ -35,7 +35,13 @@ function About() {
       </Typography>
       <Typography variant='h5'>Upcoming Features</Typography>
       <ul>
-        <li>⚛️ Migration from React to Next.js</li>
+        <li>
+          ⚛️ Migration from React to Next.js
+          <span className='text-gray-500 dark:text-gray-300'>
+            {' '}
+            ... Now running in Next.js&apos;s SSG mode
+          </span>
+        </li>
         <li>🎨 Migration from Material UI to Tailwind CSS + Shadcn/ui</li>
         <li>🗺️ Map by OpenLayers or Leaflet</li>
         <li>✨ More data from public APIs</li>
