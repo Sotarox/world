@@ -1,10 +1,9 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
+test('has title logo image', async ({ page }) => {
   await page.goto('/');
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/World/);
+  await expect(page.getByAltText('World Logo')).toBeVisible();
 });
 
 test('view welcome header', async ({ page }) => {
