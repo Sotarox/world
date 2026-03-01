@@ -1,18 +1,18 @@
-import React, { useContext } from 'react';
-import { type Country } from '../../../model/country';
+import React from 'react';
+import { type Country } from '@/model/country';
 import 'flag-icons/css/flag-icons.min.css';
 import {
   convertContinentCodeToName,
   formatCoordinate,
   formatNumberWithComma,
   concatStringsWithComma,
-} from '../../../utils/utils';
-import { CurrentTopicContext } from '../../../contexts/current-topic-context';
-import InfoCardClickable from '../../../components/world/info-card-clickable';
-import type { ACCountry } from '../../../model/ac-country';
+} from '@/utils/utils';
+import InfoCardClickable from '@/components/world/info-card-clickable';
+import type { ACCountry } from '@/model/ac-country';
 import CountryInfoHeader from './country-info-header';
-import InfoCard from '../../../components/world/info-card';
+import InfoCard from '@/components/world/info-card';
 import { Card } from '@/components/shadcn/card';
+import { useTopicStore } from '@/store/topic-store';
 
 interface CountryInfoProps {
   acCountry: ACCountry | null;
@@ -21,7 +21,7 @@ interface CountryInfoProps {
 }
 function CountryInfo(props: CountryInfoProps) {
   const { acCountry, country, sizeAirports } = props;
-  const { currentTopic, setCurrentTopic } = useContext(CurrentTopicContext);
+  const { currentTopic, toggleCurrentTopic } = useTopicStore();
 
   return (
     <>
@@ -77,13 +77,13 @@ function CountryInfo(props: CountryInfoProps) {
               : 'N/A'
           }
           isSelected={currentTopic === 'population'}
-          onClick={() => setCurrentTopic('population')}
+          onClick={() => toggleCurrentTopic('population')}
         />
         <InfoCardClickable
           title='The number of airports'
           value={sizeAirports.toString()}
           isSelected={currentTopic === 'airports'}
-          onClick={() => setCurrentTopic('airports')}
+          onClick={() => toggleCurrentTopic('airports')}
         />
       </div>
     </>

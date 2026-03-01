@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React from 'react';
 import { type Country } from '@/model/country';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { CountryInfo } from '@/app/countries/[iso2]/country-info';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
-import { CurrentTopicContext } from '@/contexts/current-topic-context';
 import { IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import {
@@ -21,6 +20,7 @@ import { Separator } from '@/components/shadcn/separator';
 import { useApi } from '@/api/use-api';
 import { useCountryNav } from '@/store/country-nav-store';
 import { useRouter } from 'next/navigation';
+import { useTopicStore } from '@/store/topic-store';
 
 export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   const currentIso2 = iso2.toUpperCase();
@@ -30,7 +30,7 @@ export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
     `/accountries/${currentIso2}`
   );
   const countryNavs = useCountryNav((s) => s.countries);
-  const { currentTopic } = useContext(CurrentTopicContext);
+  const { currentTopic } = useTopicStore();
   const countryNavsSortedByPopulation = React.useMemo(
     () =>
       [...countryNavs].sort(

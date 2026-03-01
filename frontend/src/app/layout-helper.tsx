@@ -7,29 +7,26 @@ import { Toaster } from '@/components/shadcn/sonner';
 import { SidebarProvider } from '@/components/custom/sidebar';
 import { AppSidebar } from '@/components/world/app-sidebar';
 import { ThemeProvider } from '@/contexts/theme-provider';
-import { CurrentTopicContextProvider } from '@/contexts/current-topic-context';
 
 function LayoutHelper({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-      <CurrentTopicContextProvider>
-        {/* when mode is dark, tailwind applies corresponding styles to underlying elements */}
-        <div
-          className={`bg-neutral-100 dark:bg-gt-background font-display min-h-screen`}
-        >
-          <SidebarProvider>
-            <div className='flex flex-col'>
-              <HeaderBar />
-              <div className='flex w-svw'>
-                <AppSidebar />
-                <div className='min-w-0 p-4 flex-1'>{children}</div>
-              </div>
-              <FloatingRandomButton />
-              <Toaster />
+      {/* when mode is dark, tailwind applies corresponding styles to underlying elements */}
+      <div
+        className={`bg-neutral-100 dark:bg-gt-background font-display min-h-screen`}
+      >
+        <SidebarProvider>
+          <div className='flex flex-col'>
+            <HeaderBar />
+            <div className='flex w-svw'>
+              <AppSidebar />
+              <div className='min-w-0 p-4 flex-1'>{children}</div>
             </div>
-          </SidebarProvider>
-        </div>
-      </CurrentTopicContextProvider>
+            <FloatingRandomButton />
+            <Toaster />
+          </div>
+        </SidebarProvider>
+      </div>
     </ThemeProvider>
   );
 }
