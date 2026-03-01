@@ -1,4 +1,4 @@
-type TopicType = '' | 'population' | 'airports';
+export type TopicType = '' | 'population' | 'airports';
 
 export interface PopulationRank {
   dbId: number;
@@ -9,5 +9,3 @@ export interface PopulationRank {
   countCountries: number;
   rank: number;
 }
-
-export type { TopicType, PopulationRank };
