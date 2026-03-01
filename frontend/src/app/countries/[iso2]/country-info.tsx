@@ -5,6 +5,7 @@ import {
   convertContinentCodeToName,
   formatCoordinate,
   formatNumberWithComma,
+  concatStringsWithComma,
 } from '../../../utils/utils';
 import { CurrentTopicContext } from '../../../contexts/current-topic-context';
 import InfoCardClickable from '../../../components/world/info-card-clickable';
@@ -55,6 +56,14 @@ function CountryInfo(props: CountryInfoProps) {
                 ? `${formatNumberWithComma(acCountry.area)} \u33A2`
                 : 'N/A'
             }
+          />
+          <InfoCard
+            title='Top domain'
+            value={concatStringsWithComma(acCountry?.topLevelDomain)}
+          />
+          <InfoCard
+            title='Time zone'
+            value={concatStringsWithComma(acCountry?.timezones)}
           />
         </div>
       </Card>
