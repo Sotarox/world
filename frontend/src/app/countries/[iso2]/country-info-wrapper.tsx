@@ -3,7 +3,7 @@
 import React from 'react';
 import { type Country } from '@/model/country';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
-import { CountryInfo } from '@/app/countries/[iso2]/country-info';
+import { CountryInfo } from '@/components/world/country-info';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
 import { IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
