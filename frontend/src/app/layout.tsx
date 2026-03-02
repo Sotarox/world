@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
-import '../../public/globals.css';
+import '@/styles/globals.css';
 import LayoutHelper from './layout-helper';
 
 export const metadata: Metadata = {
   title: 'World',
-  description: 'Web site created with Next.js.',
+  description:
+    'Explore countries, airports, and more with World - your gateway to global information.',
 };
 
 export default function RootLayout({

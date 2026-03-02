@@ -13,6 +13,7 @@ import CountryInfoHeader from './country-info-header';
 import InfoCard from '@/components/world/info-card';
 import { Card } from '@/components/shadcn/card';
 import { useTopicStore } from '@/store/topic-store';
+import { CountryShape } from '@/components/world/country-shape';
 
 interface CountryInfoProps {
   acCountry: ACCountry | null;
@@ -25,8 +26,14 @@ function CountryInfo(props: CountryInfoProps) {
 
   return (
     <>
-      <Card className='p-4'>
+      <Card className='p-4 gap-3'>
         <CountryInfoHeader country={country} />
+        <CountryShape
+          iso2={country.countryIso2.toLowerCase()}
+          width={200}
+          height={200}
+          className='self-center'
+        />
         <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
           <InfoCard
             title='Continent'
@@ -80,7 +87,7 @@ function CountryInfo(props: CountryInfoProps) {
           onClick={() => toggleCurrentTopic('population')}
         />
         <InfoCardClickable
-          title='The number of airports'
+          title='Airports'
           value={sizeAirports.toString()}
           isSelected={currentTopic === 'airports'}
           onClick={() => toggleCurrentTopic('airports')}
