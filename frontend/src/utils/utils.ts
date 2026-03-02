@@ -34,3 +34,11 @@ export const formatCoordinate = (coordinate: number[] | null) => {
   const lngDirection = lng >= 0 ? 'E' : 'W';
   return `${Math.abs(lat).toFixed(2)}° ${latDirection}, ${Math.abs(lng).toFixed(2)}° ${lngDirection}`;
 };
+
+export const concatStringsWithComma = (values: string[] | undefined) => {
+  if (!values || values.length === 0) {
+    return 'N/A';
+  } else {
+    return values.join(', ');
+  }
+};

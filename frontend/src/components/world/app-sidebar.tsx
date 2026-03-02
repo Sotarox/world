@@ -26,7 +26,7 @@ const sidebarColor = 'bg-sidebar dark:bg-gt-subtle text-sidebar-foreground';
 
 export function AppSidebar() {
   const router = useRouter();
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, isMobile } = useSidebar();
   const filteredRegions = useRegionFilter((s) => s.regions);
   const countryNavs = useCountryNav((s) => s.countries);
   const setCountryNavs = useCountryNav((s) => s.setCountries);
@@ -71,7 +71,9 @@ export function AppSidebar() {
                   asChild
                   onClick={() => {
                     router.push(`/countries/${obj.alpha2Code.toLowerCase()}`);
-                    toggleSidebar();
+                    if (isMobile) {
+                      toggleSidebar();
+                    }
                   }}
                 >
                   <div className={cn('flex gap-2')}>

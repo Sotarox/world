@@ -1,3 +1,5 @@
+export type TopicType = '' | 'population' | 'airports';
+
 export interface PopulationRank {
   dbId: number;
   countryIso2: string;

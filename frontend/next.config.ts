@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   // when output: 'export' is set, causing errors for dynamic routes.
   output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
   distDir: 'build', // Changes the build output directory to `build`
+  devIndicators: {
+    position: 'top-left',
+  },
 
   // Proxy /api requests to backend during development
   async rewrites() {
