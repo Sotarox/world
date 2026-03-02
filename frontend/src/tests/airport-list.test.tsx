@@ -1,36 +1,31 @@
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
-import { AirportList } from '../app/countries/[iso2]/airport-list';
-import type { Airport } from '../model/airport';
+import { AirportList } from '@/app/countries/[iso2]/airport-list';
+import type { Airport } from '@/model/airport';
 
-jest.mock('../api/useApi', () => ({
-  __esModule: true,
-  default: jest.fn(),
+const mockAirports: Airport[] = [
+  {
+    dbId: 0,
+    iataCode: 'AGB',
+    cityIataCode: 'MUC',
+    airportName: 'Augsburg - Muehlhausen',
+    countryName: 'Germany',
+  },
+  {
+    dbId: 1,
+    iataCode: 'BRE',
+    cityIataCode: 'BRE',
+    airportName: 'Bremen',
+    countryName: 'Germany',
+  },
+] as Airport[];
+
+jest.mock('../api/use-api', () => ({
+  useApi: () => mockAirports,
 }));
 
-import { useApi } from '../api/use-api';
-
 describe('AirportList Component', () => {
-  const mockAirports: Airport[] = [
-    {
-      dbId: 0,
-      iataCode: 'AGB',
-      cityIataCode: 'MUC',
-      airportName: 'Augsburg - Muehlhausen',
-      countryName: 'Germany',
-    },
-    {
-      dbId: 1,
-      iataCode: 'BRE',
-      cityIataCode: 'BRE',
-      airportName: 'Bremen',
-      countryName: 'Germany',
-    },
-  ] as Airport[];
-
   test('renders airports when isVisible is true and airports are available', () => {
-    (useApi as jest.Mock).mockReturnValue(mockAirports);
-
     render(<AirportList countryIso2='DE' isVisible={true} />);
 
     expect(screen.getByText('Augsburg - Muehlhausen')).toBeInTheDocument();
@@ -58,8 +53,6 @@ describe('AirportList Component', () => {
   });
 
   test('renders no airport when isVisible is false', () => {
-    (useApi as jest.Mock).mockReturnValue(mockAirports);
-
     render(<AirportList countryIso2='DE' isVisible={false} />);
 
     expect(screen.queryByText('Augsburg - Muehlhausen')).toBeNull();

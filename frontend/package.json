@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "prepare": "cd .. && husky",
     "precommit": "lint-staged",
+    "test:clear-cache": "jest --clearCache",
     "test:unit": "jest",
     "test:e2e": "playwright test",
     "test": "npm run test:unit && npm run test:e2e"

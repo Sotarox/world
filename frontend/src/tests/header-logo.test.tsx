@@ -9,8 +9,8 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('HeaderLogo Component', () => {
-  test('renders "World" text', () => {
+  test('renders World Logo', () => {
     render(<HeaderLogo />);
-    expect(screen.getByText('World')).toBeInTheDocument();
+    expect(screen.getByAltText('World Logo')).toBeInTheDocument();
   });
 });
