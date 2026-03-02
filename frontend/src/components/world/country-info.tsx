@@ -87,7 +87,7 @@ function CountryInfo(props: CountryInfoProps) {
           onClick={() => toggleCurrentTopic('population')}
         />
         <InfoCardClickable
-          title='The number of airports'
+          title='Airports'
           value={sizeAirports.toString()}
           isSelected={currentTopic === 'airports'}
           onClick={() => toggleCurrentTopic('airports')}

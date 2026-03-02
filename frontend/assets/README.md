@@ -1,0 +1,1 @@
+In this folder project related asset files are placed, which is **NOT** currently referenced in the bundled code.
