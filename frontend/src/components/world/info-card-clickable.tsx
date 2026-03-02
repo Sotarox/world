@@ -22,9 +22,9 @@ function InfoCardClickable(props: InfoCardClickableProps) {
       >
         <div className='flex flex-start'>
           {Icon}
-          <div className='flex flex-col'>
-            <span className='text-lg font-extralight'>{title}</span>
-            <span className='text-base'>{value}</span>
+          <div className='flex flex-col min-w-0'>
+            <span className='text-lg font-extralight truncate'>{title}</span>
+            <span className='text-base truncate'>{value}</span>
           </div>
         </div>
       </Card>
