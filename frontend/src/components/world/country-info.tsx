@@ -26,7 +26,7 @@ function CountryInfo(props: CountryInfoProps) {
 
   return (
     <>
-      <Card className='p-4'>
+      <Card className='p-4 gap-3'>
         <CountryInfoHeader country={country} />
         <CountryShape
           iso2={country.countryIso2.toLowerCase()}

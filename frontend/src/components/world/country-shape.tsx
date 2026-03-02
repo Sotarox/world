@@ -12,7 +12,7 @@ interface CountryShapeProps {
 // iso2 is small letters e.g. 'us', 'fr', 'jp'
 function CountryShape({ iso2, width, height, className }: CountryShapeProps) {
   const [isExist, setExist] = useState(false);
-  const path = `/country-shapes/${iso2}/vector.svg`;
+  const path = `/country-shapes/${iso2}.svg`;
 
   useEffect(() => {
     fetch(path, { method: 'HEAD' }).then((res) => {
