@@ -1,6 +1,6 @@
 services:
   world-app:
-    image: sotaro-world-app:latest
+    image:  ghcr.io/sotarox/world-app:latest
     container_name: world-app
     restart: unless-stopped
     environment:
