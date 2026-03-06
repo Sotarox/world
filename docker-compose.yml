@@ -1,0 +1,40 @@
+services:
+  world-app:
+    image: sotaro-world-app:latest
+    container_name: world-app
+    restart: unless-stopped
+    environment:
+    - DATABASE_HOST=world-db
+    env_file: ./backend/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      world-db:
+        condition: service_healthy
+        restart: true
+    networks:
+      - world-local
+  world-db:
+    image: postgres:15
+    container_name: world-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./world-db/db-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - world-local
+networks:
+  world-local:
+    driver: bridge
+    name: world-local
