@@ -30,7 +30,7 @@ function About() {
       <Typography variant='h5'>Upcoming Features</Typography>
       <ul>
         <li>
-          ⚛️ Migration from React to Next.js
+          ⚛️ <s>Migration from React to Next.js</s>
           <span className='text-gray-500 dark:text-gray-300'>
             {' '}
             ... Now running in Next.js&apos;s SSG mode
