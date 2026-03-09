@@ -47,3 +47,17 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local-container
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST}:5432/mydb
+    username: myuser
+    password: mypassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
