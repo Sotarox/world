@@ -48,14 +48,22 @@ In local development, you can see endpoint's information under:
 http://localhost:8080/swagger-ui/index.html
 http://localhost:8080/v3/api-docs
 
-## Deployment
-- Compiled frontend is served by Backend.
-- cd to `frontend`
+## Deployment (npm, Maven, Docker, GitHub package registry)
+Architecture is simple. Compiled frontend is served by Backend. Backend and Database run in each docker container in a VPS instance. 
+- Build frontend
+  - cd to `frontend`
   - Run `npm run pack`, which generates index.html under `backend/src/main/resources/static` folder.
   - Spring Boot handles index.html as response for GET request to root i.e. `localhost:8080`.
-- Compile backend by `mvn package`
+- Build backend by `mvn package`
   - Under `backend/target`, a jar file is generated e.g. `backend-0.0.1-SNAPSHOT.jar`
-- Send this fat jar file to VPS by `scp` command.
+  - cd to `backend`
+  - Build a docker image by `docker build --platform linux/amd64 . -t ghcr.io/sotarox/world-app:0.0.1` 
+    - NOTE: `0.0.1` is the newest version number, which must be incremented each time manually. 
+  - After that create a latest tag with the same image: `docker tag ghcr.io/sotarox/world-app:0.0.1 ghcr.io/sotarox/world-app:latest`
+  - Push both docker image to GitHub package registry: 
+    - `docker push ghcr.io/sotarox/world-app:0.0.1` 
+    - `docker push ghcr.io/sotarox/world-app:latest` // this one override the old world-app:latest in registry 
+    - NOTE: Docker login with GitHub's Personal Access Token (PAT) is necessary for push.
 
 ## Lint in Frontend (ESLint, Prettier, Husky, lint-staged)
 ### Set up
