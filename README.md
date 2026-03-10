@@ -12,10 +12,10 @@ Docker, Amazon Lightsail, nginx, Ubuntu, Jenkins
 
 ## Prerequisites
 - Java 21
-- node.js v20.11.0
+- node.js v24.2.0
 - Docker 
-  - Engine: 28.1.1
-  - Docker Desktop 4.41.2
+  - Engine: 29.2.1
+  - Docker Desktop 4.63.0
 Development machine is Apple M1 Pro. Other than macOS, the app behavior is not checked. 
 
 ## First time set up
