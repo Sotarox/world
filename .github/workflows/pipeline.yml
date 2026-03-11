@@ -9,6 +9,9 @@ on:
 jobs:
   backend:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
     - uses: actions/checkout@v6
     - name: Set up JDK 21
@@ -18,9 +21,9 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B compile --file ./backend/pom.xml
+      run: mvn -B compile --file ./pom.xml
     - name: Run tests
-      run: mvn -B test --file ./backend/pom.xml
+      run: mvn -B test --file ./pom.xml
     
   frontend:
     runs-on: ubuntu-latest
@@ -43,5 +46,7 @@ jobs:
       run: npm run build
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
+    # Currently E2E test is only run on Chromium to speed up the test execution.
+    # Also E2E test targets only frontend. In the future, testing along with backend is considerable.
     - name: Run E2E tests
       run: npx playwright test --project=chromium
