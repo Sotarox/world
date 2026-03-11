@@ -2,9 +2,9 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "dev", "feature/add-git-action-test-frontend" ]
+    branches: [ "main", "dev", "feature/**" ]
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "main", "dev", "feature/**" ]
 
 jobs:
   backend:
@@ -37,11 +37,11 @@ jobs:
         cache-dependency-path: frontend/package-lock.json
     - name: Install dependencies
       run: npm ci
+    - name: Run unit tests
+      run: npm run test:unit
     - name: Build frontend
       run: npm run build
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
     - name: Run E2E tests
       run: npx playwright test --project=chromium
-    - name: Run unit tests
-      run: npm run test:unit
