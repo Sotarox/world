@@ -1,3 +1,4 @@
+// Change file extension from yml to txt, so that this sample doesn't run in github
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
