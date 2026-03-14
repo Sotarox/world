@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main", "dev", "feature/**" ]
 
+env:
+  DOCKER_IMAGE_NAME: world-app
+  DOCKER_REGISTRY_URL: myregistry.domain.com
+
 jobs:
   backend:
     runs-on: ubuntu-latest
@@ -50,3 +54,24 @@ jobs:
     # Also E2E test targets only frontend. In the future, testing along with backend is considerable.
     - name: Run E2E tests
       run: npx playwright test --project=chromium
+
+  docker-push:
+    needs: [backend, frontend]
+    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/feature/add-docker-push'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v6
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v4
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build the hello-docker Docker image
+    run: |
+       docker build . --tag ghcr.io/sotarox/world-app:latest
+       docker push ghcr.io/sotarox/world-app:latest
+
