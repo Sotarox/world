@@ -54,7 +54,7 @@ jobs:
       run: npm run build
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
-    # Currently E2E test is only run on Chromium to speed up the test execution.
+    # Currently E2E test is only running on Chromium to speed up the test execution.
     # Also E2E test targets only frontend. In the future, testing along with backend is considerable.
     - name: Run E2E tests
       run: npx playwright test --project=chromium
