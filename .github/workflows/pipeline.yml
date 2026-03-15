@@ -7,7 +7,7 @@ on:
     branches: [ "main", "dev", "feature/**" ]
 
 env:
-  DOCKER_IMAGE_NAME: world-app
+  DOCKER_IMAGE_NAME: ghcr.io/sotarox/world-app
 
 jobs:
   backend:
@@ -81,6 +81,6 @@ jobs:
         path: backend/target
     - name: Build and push Docker image
       run: |
-        docker build . --tag ghcr.io/sotarox/world-app:latest
-        docker push ghcr.io/sotarox/world-app:latest
+        docker build . --tag ${{ env.DOCKER_IMAGE_NAME }}:latest
+        docker push ${{ env.DOCKER_IMAGE_NAME }}:latest
 
