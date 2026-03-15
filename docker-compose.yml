@@ -12,12 +12,7 @@ services:
       world-db:
         condition: service_healthy
         restart: true
-    deploy:
-      resources:
-        limits:
-          memory: 384M
-        reservations:
-          memory: 128M
+    mem_limit: 512m
     networks:
       - world-local
   world-db:
@@ -38,10 +33,7 @@ services:
       retries: 5
       start_period: 30s
       timeout: 10s
-    deploy:
-      resources:
-        limits:
-          memory: 256M
+    mem_limit: 256m
     networks:
       - world-local
 networks:
