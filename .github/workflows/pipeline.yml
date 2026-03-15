@@ -6,8 +6,11 @@ on:
   pull_request:
     branches: [ "main", "dev", "feature/**" ]
 
+env:
+  DOCKER_IMAGE_NAME: ghcr.io/sotarox/world-app
+
 jobs:
-  backend:
+  build-and-test-backend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -21,11 +24,15 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B compile --file ./pom.xml
+      run: mvn -B package -DskipTests --file ./pom.xml
+    - uses: actions/upload-artifact@v6
+      with:
+        name: backend-jar
+        path: backend/target/*.jar
     - name: Run tests
       run: mvn -B test --file ./pom.xml
     
-  frontend:
+  build-and-test-frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -46,7 +53,34 @@ jobs:
       run: npm run build
     - name: Install Playwright Browsers
       run: npx playwright install chromium --with-deps
-    # Currently E2E test is only run on Chromium to speed up the test execution.
+    # Currently E2E test is only running on Chromium to speed up the test execution.
     # Also E2E test targets only frontend. In the future, testing along with backend is considerable.
     - name: Run E2E tests
       run: npx playwright test --project=chromium
+
+  push-docker-image:
+    needs: [build-and-test-backend, build-and-test-frontend]
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v6
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v4
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Download backend JAR artifact
+      uses: actions/download-artifact@v8
+      with:
+        name: backend-jar
+        path: backend/target
+    - name: Build and push Docker image
+      run: |
+        docker build . --tag ${{ env.DOCKER_IMAGE_NAME }}:latest
+        docker push ${{ env.DOCKER_IMAGE_NAME }}:latest
+
