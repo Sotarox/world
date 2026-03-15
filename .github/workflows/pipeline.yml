@@ -8,7 +8,6 @@ on:
 
 env:
   DOCKER_IMAGE_NAME: world-app
-  DOCKER_REGISTRY_URL: myregistry.domain.com
 
 jobs:
   backend:
@@ -63,9 +62,6 @@ jobs:
     needs: [backend, frontend]
     if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/feature/add-docker-push'
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     defaults:
       run:
         working-directory: ./backend
