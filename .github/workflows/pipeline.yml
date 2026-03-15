@@ -58,7 +58,7 @@ jobs:
     - name: Run E2E tests
       run: npx playwright test --project=chromium
 
-  docker-push:
+  push-docker-image:
     needs: [build-and-test-backend, build-and-test-frontend]
     if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/feature/add-docker-push'
     runs-on: ubuntu-latest
