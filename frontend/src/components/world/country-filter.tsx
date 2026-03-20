@@ -31,21 +31,22 @@ export function CountryFilter() {
   const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onChange',
     defaultValues: { regions: isFiltered ? [...regions] : [] },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    setRegions(data.regions as RegionType[]);
-    toast.success('Regions updated!');
-  }
+  const watchedRegions = form.watch('regions');
+  const hasSelection =
+    Array.isArray(watchedRegions) && watchedRegions.length > 0;
 
   useEffect(() => {
     form.reset({ regions: isFiltered ? [...regions] : [] });
   }, [regions]);
 
-  const watchedRegions = form.watch('regions');
-  const hasSelection =
-    Array.isArray(watchedRegions) && watchedRegions.length > 0;
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    setRegions(data.regions as RegionType[]);
+    toast.success('Regions updated!');
+  };
 
   const onOpenChange = (isOpen: boolean) => {
     setOpen(isOpen);
