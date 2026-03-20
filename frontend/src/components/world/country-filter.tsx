@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 import { useRegionFilter } from '@/store/region-filter-store';
 import { Checkbox } from '@/components/shadcn/checkbox';
-import { Button } from '@/components/shadcn/button';
+import { Button } from '@/components/custom/button';
 import {
   Dialog,
   DialogTrigger,
@@ -26,16 +26,21 @@ const formSchema = z.object({
 
 export function CountryFilter() {
   const regions = useRegionFilter((s) => s.regions);
+  const isFiltered = regions.length !== Region.length;
   const setRegions = useRegionFilter((s) => s.setRegions);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { regions: [...regions] },
+    defaultValues: { regions: isFiltered ? [...regions] : [] },
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     setRegions(data.regions as RegionType[]);
     toast.success('Regions updated!');
   }
+
+  useEffect(() => {
+    form.reset({ regions: isFiltered ? [...regions] : [] });
+  }, [regions]);
 
   return (
     <Dialog>
@@ -78,7 +83,7 @@ export function CountryFilter() {
             ))}
           </div>
           {form.formState.errors.regions && (
-            <div className='text-red-500 text-sm mt-2'>
+            <div className='text-red-500 text-sm mt-2 mb-4'>
               {form.formState.errors.regions.message}
             </div>
           )}

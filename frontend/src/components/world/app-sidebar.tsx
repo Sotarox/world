@@ -37,7 +37,6 @@ export function AppSidebar() {
       .get<ACCountryNav[]>(`/accountries/nav`)
       .then((res) => {
         const data = Array.isArray(res.data) ? res.data : [];
-        console.log('Fetched country navs:', data);
         const filteredNavs = data.filter((obj) =>
           filteredRegions.includes(obj.region)
         );
