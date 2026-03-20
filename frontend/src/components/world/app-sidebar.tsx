@@ -7,7 +7,7 @@ import { CountryFilter } from './country-filter';
 import { useCountryNav } from '@/store/country-nav-store';
 import api from '../../api/axios';
 import { Button } from '@/components/shadcn/button';
-import { ArrowDownUpIcon } from 'lucide-react';
+import { ArrowDownAZIcon, ArrowDownZAIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   Sidebar,
@@ -30,7 +30,7 @@ export function AppSidebar() {
   const filteredRegions = useRegionFilter((s) => s.regions);
   const countryNavs = useCountryNav((s) => s.countries);
   const setCountryNavs = useCountryNav((s) => s.setCountries);
-  const [reverse, setReverse] = useState(false);
+  const [reversed, setReversed] = useState(false);
 
   useEffect(() => {
     api
@@ -40,7 +40,7 @@ export function AppSidebar() {
         const filteredNavs = data.filter((obj) =>
           filteredRegions.includes(obj.region)
         );
-        if (reverse) {
+        if (reversed) {
           filteredNavs.reverse();
         }
         setCountryNavs(filteredNavs);
@@ -50,14 +50,18 @@ export function AppSidebar() {
           console.error(error);
         }
       });
-  }, [filteredRegions, setCountryNavs, reverse]);
+  }, [filteredRegions, setCountryNavs, reversed]);
 
   return (
     <Sidebar className={cn('pb-15 sm:pt-15 sm:pb-0', sidebarColor)}>
       <SidebarHeader className={cn('flex-row')}>
         <CountryFilter />
-        <Button variant='ghost' onClick={() => setReverse(!reverse)}>
-          <ArrowDownUpIcon className='size-5' />
+        <Button variant='ghost' onClick={() => setReversed(!reversed)}>
+          {reversed ? (
+            <ArrowDownZAIcon className='size-5 text-primary' />
+          ) : (
+            <ArrowDownAZIcon className='size-5' />
+          )}
           <span className='text-base'>Reverse</span>
         </Button>
       </SidebarHeader>

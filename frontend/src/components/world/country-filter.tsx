@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import * as z from 'zod';
 import { useRegionFilter } from '@/store/region-filter-store';
 import { Checkbox } from '@/components/shadcn/checkbox';
-import { Button } from '@/components/custom/button';
+import { Button } from '@/components/shadcn/button';
 import {
   Dialog,
   DialogTrigger,
@@ -17,6 +17,7 @@ import {
 } from '@/components/custom/dialog';
 import { Region, RegionType } from '@/model/ac-country';
 import { FilterIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   regions: z
@@ -59,7 +60,7 @@ export function CountryFilter() {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <Button variant='ghost' aria-label='Open filter dialog'>
-          <FilterIcon className='size-5' />
+          <FilterIcon className={cn('size-5', isFiltered && 'text-primary')} />
           <span className='text-base'>Filter</span>
         </Button>
       </DialogTrigger>
