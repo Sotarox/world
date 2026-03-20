@@ -12,7 +12,7 @@ services:
       world-db:
         condition: service_healthy
         restart: true
-    mem_limit: 512m
+    mem_limit: 384m
     networks:
       - world-local
   world-db:
