@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -28,6 +28,7 @@ export function CountryFilter() {
   const regions = useRegionFilter((s) => s.regions);
   const isFiltered = regions.length !== Region.length;
   const setRegions = useRegionFilter((s) => s.setRegions);
+  const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { regions: isFiltered ? [...regions] : [] },
@@ -42,8 +43,19 @@ export function CountryFilter() {
     form.reset({ regions: isFiltered ? [...regions] : [] });
   }, [regions]);
 
+  const watchedRegions = form.watch('regions');
+  const hasSelection =
+    Array.isArray(watchedRegions) && watchedRegions.length > 0;
+
+  const onOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+    if (isOpen) {
+      form.reset({ regions: isFiltered ? [...regions] : [] });
+    }
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <Button variant='ghost' aria-label='Open filter dialog'>
           <FilterIcon className='size-5' />
@@ -92,7 +104,9 @@ export function CountryFilter() {
               <Button variant='secondary'>Close</Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button type='submit'>Save</Button>
+              <Button type='submit' disabled={!hasSelection}>
+                Save
+              </Button>
             </DialogClose>
           </div>
         </form>
