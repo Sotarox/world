@@ -11,10 +11,14 @@ jest.mock('../api/axios', () => ({
   },
 }));
 
-it('submits valid data should fire API call', async () => {
-  const mockPost = jest.mocked(api.post);
-  mockPost.mockResolvedValue({ success: true });
+const mockPost = jest.mocked(api.post);
+mockPost.mockResolvedValue({ success: true });
 
+afterEach(() => {
+  mockPost.mockClear();
+});
+
+it('submits with valid data should fire API call', async () => {
   render(<Inquiry />);
   await userEvent.type(screen.getByLabelText('Inquiry Title'), 'Test title');
   await userEvent.type(
@@ -27,4 +31,25 @@ it('submits valid data should fire API call', async () => {
     title: 'Test title',
     description: 'Test description',
   });
+});
+
+it('submits with empty title field should not fire API call', async () => {
+  render(<Inquiry />);
+  await userEvent.type(
+    screen.getByLabelText('Description'),
+    'Test description'
+  );
+  await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+  expect(screen.getByTestId('inquiry-title-error')).toBeInTheDocument();
+  expect(mockPost).not.toHaveBeenCalled();
+});
+
+it('submits with empty description field should not fire API call', async () => {
+  render(<Inquiry />);
+  await userEvent.type(screen.getByLabelText('Inquiry Title'), 'Test title');
+  await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+  expect(screen.getByTestId('inquiry-description-error')).toBeInTheDocument();
+  expect(mockPost).not.toHaveBeenCalled();
 });

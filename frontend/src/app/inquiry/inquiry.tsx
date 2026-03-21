@@ -98,7 +98,10 @@ export function Inquiry() {
                     autoComplete='off'
                   />
                   {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError
+                      data-testid='inquiry-title-error'
+                      errors={[fieldState.error]}
+                    />
                   )}
                 </Field>
               )}
@@ -130,7 +133,10 @@ export function Inquiry() {
                     Your feedback is valuable to motivate me making a web app.
                   </FieldDescription>
                   {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
+                    <FieldError
+                      data-testid='inquiry-description-error'
+                      errors={[fieldState.error]}
+                    />
                   )}
                 </Field>
               )}
