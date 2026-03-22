@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { InquiryForm } from '@/app/inquiry/inquiry-form';
 import api from '../api/axios';
 
@@ -24,38 +23,44 @@ afterEach(() => {
 
 it('submits with valid data should fire API call', async () => {
   render(<InquiryForm />);
-  await userEvent.type(screen.getByLabelText('Inquiry Title'), 'Test title');
-  await userEvent.type(
-    screen.getByLabelText('Description'),
-    'Test description'
-  );
-  await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+  fireEvent.change(screen.getByLabelText('Inquiry Title'), {
+    target: { value: 'Test title' },
+  });
+  fireEvent.change(screen.getByLabelText('Description'), {
+    target: { value: 'Test description' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-  expect(mockPost).toHaveBeenCalledWith('/mail/inquiry', {
-    title: 'Test title',
-    description: 'Test description',
+  await waitFor(() => {
+    expect(mockPost).toHaveBeenCalledWith('/mail/inquiry', {
+      title: 'Test title',
+      description: 'Test description',
+    });
   });
 });
 
 it('submits with empty title field should not fire API call', async () => {
   render(<InquiryForm />);
-  await userEvent.type(
-    screen.getByLabelText('Description'),
-    'Test description'
-  );
-  await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+  fireEvent.change(screen.getByLabelText('Description'), {
+    target: { value: 'Test description' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
-  expect(screen.getByTestId('inquiry-form-title-error')).toBeInTheDocument();
+  expect(
+    await screen.findByTestId('inquiry-form-title-error')
+  ).toBeInTheDocument();
   expect(mockPost).not.toHaveBeenCalled();
 });
 
 it('submits with empty description field should not fire API call', async () => {
   render(<InquiryForm />);
-  await userEvent.type(screen.getByLabelText('Inquiry Title'), 'Test title');
-  await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+  fireEvent.change(screen.getByLabelText('Inquiry Title'), {
+    target: { value: 'Test title' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: /submit/i }));
 
   expect(
-    screen.getByTestId('inquiry-form-description-error')
+    await screen.findByTestId('inquiry-form-description-error')
   ).toBeInTheDocument();
   expect(mockPost).not.toHaveBeenCalled();
 });
