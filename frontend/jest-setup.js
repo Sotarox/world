@@ -3,3 +3,5 @@ import '@testing-library/jest-dom';
 // Therefore add Polyfill in Node.js environment.
 import { TextEncoder, TextDecoder } from 'util';
 Object.assign(global, { TextDecoder, TextEncoder });
+// Mock Zustand store for testing
+jest.mock('zustand');
