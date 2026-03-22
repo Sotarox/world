@@ -1,7 +1,7 @@
-import Inquiry from './inquiry';
+import InquiryForm from './inquiry-form';
 
 function InquiryPage() {
-  return <Inquiry />;
+  return <InquiryForm />;
 }
 
 export default InquiryPage;

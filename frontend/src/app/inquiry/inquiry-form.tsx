@@ -42,7 +42,7 @@ const formSchema = z.object({
     .max(1000, 'Description must be at most 1000 characters.'),
 });
 
-export function Inquiry() {
+export function InquiryForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -74,32 +74,30 @@ export function Inquiry() {
   return (
     <Card className='w-full'>
       <CardHeader>
-        <CardTitle>Inquiry Form</CardTitle>
-        <CardDescription>
-          In this form you can send your feedback/question.
-        </CardDescription>
+        <CardTitle>Inquiry</CardTitle>
+        <CardDescription>Send your feedback/question</CardDescription>
       </CardHeader>
       <CardContent>
-        <form id='form-rhf-demo' onSubmit={form.handleSubmit(onSubmit)}>
+        <form id='inquiry-form' onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <Controller
               name='title'
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='form-rhf-demo-title'>
+                  <FieldLabel htmlFor='inquiry-form-title'>
                     Inquiry Title
                   </FieldLabel>
                   <Input
                     {...field}
-                    id='form-rhf-demo-title'
+                    id='inquiry-form-title'
                     aria-invalid={fieldState.invalid}
                     placeholder='Expression of website'
                     autoComplete='off'
                   />
                   {fieldState.invalid && (
                     <FieldError
-                      data-testid='inquiry-title-error'
+                      data-testid='inquiry-form-title-error'
                       errors={[fieldState.error]}
                     />
                   )}
@@ -111,13 +109,13 @@ export function Inquiry() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='form-rhf-demo-description'>
+                  <FieldLabel htmlFor='inquiry-form-description'>
                     Description
                   </FieldLabel>
                   <InputGroup>
                     <InputGroupTextarea
                       {...field}
-                      id='form-rhf-demo-description'
+                      id='inquiry-form-description'
                       placeholder="The features I'd like to see are..."
                       rows={6}
                       className='min-h-24 resize-none'
@@ -134,7 +132,7 @@ export function Inquiry() {
                   </FieldDescription>
                   {fieldState.invalid && (
                     <FieldError
-                      data-testid='inquiry-description-error'
+                      data-testid='inquiry-form-description-error'
                       errors={[fieldState.error]}
                     />
                   )}
@@ -149,7 +147,7 @@ export function Inquiry() {
           <Button type='button' variant='outline' onClick={() => form.reset()}>
             Reset
           </Button>
-          <Button type='submit' form='form-rhf-demo'>
+          <Button type='submit' form='inquiry-form'>
             Submit
           </Button>
         </Field>
@@ -158,4 +156,4 @@ export function Inquiry() {
   );
 }
 
-export default Inquiry;
+export default InquiryForm;
