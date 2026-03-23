@@ -5,9 +5,6 @@ import { TextDecoder, TextEncoder } from 'util';
 // Therefore add Polyfill in Node.js environment.
 Object.assign(global, { TextDecoder, TextEncoder });
 
-// Mock Zustand store for testing
-jest.mock('zustand');
-
 // Start JSDOM setting for Radix UI components
 // JSDOM does not fully implement PointerEvent and related APIs used by Radix UI.
 // As a result, click on DialogTrigger doesn't work in tests without these mocks.

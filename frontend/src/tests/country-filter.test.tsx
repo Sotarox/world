@@ -3,27 +3,8 @@ import { CountryFilter } from '@/components/world/country-filter';
 import { useRegionFilter } from '../store/region-filter-store';
 import { RegionType } from '@/model/ac-country';
 
-jest.mock('../store/region-filter-store', () => ({
-  useRegionFilter: jest.fn(),
-}));
-
-const mockedUseRegionFilter = jest.mocked(useRegionFilter);
-
 describe('CountryFilter Component', () => {
   it('click on filter button opens the dialog', async () => {
-    const state = {
-      regions: [
-        'Africa',
-        'Americas',
-        'Asia',
-        'Europe',
-        'Oceania',
-        'Antarctic',
-      ] as RegionType[],
-      setRegions: jest.fn(),
-    };
-
-    mockedUseRegionFilter.mockImplementation((selector) => selector(state));
     render(<CountryFilter />);
     fireEvent.click(
       screen.getByRole('button', { name: /Open filter dialog/i })
@@ -31,20 +12,7 @@ describe('CountryFilter Component', () => {
     expect(await screen.findByRole('dialog')).toBeInTheDocument();
   });
 
-  it('all checkboxes are unchecked when no filter is applied', async () => {
-    const state = {
-      regions: [
-        'Africa',
-        'Americas',
-        'Asia',
-        'Europe',
-        'Oceania',
-        'Antarctic',
-      ] as RegionType[],
-      setRegions: jest.fn(),
-    };
-
-    mockedUseRegionFilter.mockImplementation((selector) => selector(state));
+  it('when filter is not applied, all checkboxes are unchecked', async () => {
     render(<CountryFilter />);
     fireEvent.click(
       screen.getByRole('button', { name: /Open filter dialog/i })
@@ -56,12 +24,10 @@ describe('CountryFilter Component', () => {
   });
 
   it('when countries are filtered, corresponding checkboxes are checked', async () => {
-    const state = {
-      regions: ['Africa', 'Oceania'] as RegionType[],
-      setRegions: jest.fn(),
-    };
+    useRegionFilter
+      .getState()
+      .setRegions(['Africa', 'Oceania'] as RegionType[]);
 
-    mockedUseRegionFilter.mockImplementation((selector) => selector(state));
     render(<CountryFilter />);
     fireEvent.click(
       screen.getByRole('button', { name: /Open filter dialog/i })

@@ -27,8 +27,8 @@ const formSchema = z.object({
 
 export function CountryFilter() {
   const regions = useRegionFilter((s) => s.regions);
-  const isFiltered = regions.length !== Region.length;
   const setRegions = useRegionFilter((s) => s.setRegions);
+  const isFiltered = regions.length !== Region.length;
   const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
