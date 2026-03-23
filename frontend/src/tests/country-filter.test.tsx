@@ -46,4 +46,23 @@ describe('CountryFilter Component', () => {
     expect(checkboxAsia).not.toBeChecked();
     expect(checkboxAntarctic).not.toBeChecked();
   });
+
+  it('selecting a region persists after dialog reopen', async () => {
+    useRegionFilter
+      .getState()
+      .setRegions(['Africa', 'Oceania'] as RegionType[]);
+
+    render(<CountryFilter />);
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /Open filter dialog/i })
+    );
+    fireEvent.click(screen.getByLabelText('Africa'));
+    fireEvent.click(screen.getByRole('button', { name: /save/i }));
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /Open filter dialog/i })
+    );
+    expect(screen.getByLabelText('Africa')).toBeChecked();
+  });
 });
