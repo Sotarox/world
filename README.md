@@ -65,6 +65,12 @@ Architecture is simple. Compiled frontend is served by Backend. Backend and Data
     - `docker push ghcr.io/sotarox/world-app:latest` // this one override the old world-app:latest in registry 
     - NOTE: Docker login with GitHub's Personal Access Token (PAT) is necessary for push.
 
+## Debug Frontend (Next.js)
+Open only frontend folder in VSCode. Hit F1 key then select "Debug: start debugging".  
+Alternatively you can hit just F5 key. These launches dev server with the same port 3000.
+You can put breakpoint in VSCode and see what's happening while clicking around in a browser.
+The corresponding config file locates under `frontend/.vscode/launch.json`.
+
 ## Lint in Frontend (ESLint, Prettier, Husky, lint-staged)
 ### Set up
 If you are using a npm package manager such as `nvm`, Husky might not be able to find node in your PC.

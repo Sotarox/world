@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -17,6 +17,7 @@ import {
 } from '@/components/custom/dialog';
 import { Region, RegionType } from '@/model/ac-country';
 import { FilterIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const formSchema = z.object({
   regions: z
@@ -27,21 +28,39 @@ const formSchema = z.object({
 export function CountryFilter() {
   const regions = useRegionFilter((s) => s.regions);
   const setRegions = useRegionFilter((s) => s.setRegions);
+  const isFiltered = regions.length !== Region.length;
+  const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { regions: [...regions] },
+    mode: 'onChange',
+    defaultValues: { regions: isFiltered ? [...regions] : [] },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  const watchedRegions = form.watch('regions');
+  const hasSelection =
+    Array.isArray(watchedRegions) && watchedRegions.length > 0;
+
+  useEffect(() => {
+    form.reset({ regions: isFiltered ? [...regions] : [] });
+  }, [regions]);
+
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
     setRegions(data.regions as RegionType[]);
     toast.success('Regions updated!');
-  }
+  };
+
+  const onOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+    if (isOpen) {
+      form.reset({ regions: isFiltered ? [...regions] : [] });
+    }
+  };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <Button variant='ghost' aria-label='Open filter dialog'>
-          <FilterIcon className='size-5' />
+          <FilterIcon className={cn('size-5', isFiltered && 'text-primary')} />
           <span className='text-base'>Filter</span>
         </Button>
       </DialogTrigger>
@@ -78,16 +97,18 @@ export function CountryFilter() {
             ))}
           </div>
           {form.formState.errors.regions && (
-            <div className='text-red-500 text-sm mt-2'>
+            <div className='text-red-500 text-sm mt-2 mb-4'>
               {form.formState.errors.regions.message}
             </div>
           )}
           <div className='flex gap-2 justify-end'>
             <DialogClose asChild>
-              <Button variant='secondary'>Close</Button>
+              <Button variant='secondary'>Cancel</Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button type='submit'>Save</Button>
+              <Button type='submit' disabled={!hasSelection}>
+                Save
+              </Button>
             </DialogClose>
           </div>
         </form>
