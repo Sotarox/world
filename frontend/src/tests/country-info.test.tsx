@@ -114,20 +114,4 @@ describe('CountryInfo Component', () => {
     );
     expect(screen.getByText('Japan')).toBeInTheDocument();
   });
-
-  it('renders country information correctly', () => {
-    mockedUseTopicStore.mockReturnValue({
-      currentTopic: 'population',
-      setCurrentTopic: jest.fn(),
-      toggleCurrentTopic: jest.fn(),
-    });
-    render(
-      <CountryInfo
-        acCountry={mockAcCountry}
-        country={mockCountry}
-        sizeAirports={1}
-      />
-    );
-    expect(screen.getByText('Japan')).toBeInTheDocument();
-  });
 });
