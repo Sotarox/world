@@ -48,21 +48,39 @@ describe('CountryFilter Component', () => {
   });
 
   it('selecting a region persists after dialog reopen', async () => {
-    useRegionFilter
-      .getState()
-      .setRegions(['Africa', 'Oceania'] as RegionType[]);
-
+    useRegionFilter.getState().setRegions(['Oceania'] as RegionType[]);
     render(<CountryFilter />);
 
     fireEvent.click(
       screen.getByRole('button', { name: /Open filter dialog/i })
     );
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
+
     fireEvent.click(screen.getByLabelText('Africa'));
     fireEvent.click(screen.getByRole('button', { name: /save/i }));
 
     fireEvent.click(
       screen.getByRole('button', { name: /Open filter dialog/i })
     );
+    expect(await screen.findByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByLabelText('Oceania')).toBeChecked();
     expect(screen.getByLabelText('Africa')).toBeChecked();
+  });
+
+  it('selecting a region does not persist without save', async () => {
+    useRegionFilter.getState().setRegions(['Oceania'] as RegionType[]);
+    render(<CountryFilter />);
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /Open filter dialog/i })
+    );
+    fireEvent.click(screen.getByLabelText('Africa'));
+    fireEvent.click(screen.getByRole('button', { name: /Cancel/i }));
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /Open filter dialog/i })
+    );
+    expect(screen.getByLabelText('Oceania')).toBeChecked();
+    expect(screen.getByLabelText('Africa')).not.toBeChecked();
   });
 });

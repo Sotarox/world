@@ -103,7 +103,7 @@ export function CountryFilter() {
           )}
           <div className='flex gap-2 justify-end'>
             <DialogClose asChild>
-              <Button variant='secondary'>Close</Button>
+              <Button variant='secondary'>Cancel</Button>
             </DialogClose>
             <DialogClose asChild>
               <Button type='submit' disabled={!hasSelection}>
