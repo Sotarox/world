@@ -1,6 +1,6 @@
 package io.sotaro.backend.dao;
 
-import io.sotaro.backend.model.AcCountry;
+import io.sotaro.backend.model.WbBaseInfo;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;
@@ -11,32 +11,21 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @Service
-public class AcCountryDAO {
+public class WorldBankDAO {
     private final WebClient webClient;
-        public AcCountryDAO(@Qualifier("acCountriesWebClient") WebClient webClient) {
+    public WorldBankDAO(@Qualifier("worldBankWebClient") WebClient webClient) {
         this.webClient = webClient;
     }
 
-    public List<AcCountry> getAcCountries() {
+    public WbBaseInfo getGdpInfo(String iso2) {
         return webClient.get()
-                .uri("/countries")
+                .uri("/country/{iso2}/indicators/NY.GDP.MKTP.KD.ZG;NY.GDP.MKTP.CD?source=2&mrv=20&format=json", iso2)
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, response ->
                         Mono.error(new RuntimeException("Client Error: " + response.statusCode())))
                 .onStatus(HttpStatusCode::is5xxServerError, response ->
                         Mono.error(new RuntimeException("Server Error: " + response.statusCode())))
-                .bodyToMono(new ParameterizedTypeReference<List<AcCountry>>() {})
-                .block();
-    }
-    public AcCountry getAcCountry(String iso2) {
-        return webClient.get()
-                .uri("/alpha/{iso2}", iso2)
-                .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, response ->
-                        Mono.error(new RuntimeException("Client Error: " + response.statusCode())))
-                .onStatus(HttpStatusCode::is5xxServerError, response ->
-                        Mono.error(new RuntimeException("Server Error: " + response.statusCode())))
-                .bodyToMono(AcCountry.class)
+                .bodyToMono(WbBaseInfo.class)
                 .block();
     }
 }
