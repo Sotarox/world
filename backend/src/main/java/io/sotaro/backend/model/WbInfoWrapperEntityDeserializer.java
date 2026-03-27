@@ -9,19 +9,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WbBaseInfoDeserializer extends JsonDeserializer<WbBaseInfo> {
+public class WbInfoWrapperEntityDeserializer extends JsonDeserializer<WbInfoWrapperEntity> {
     @Override
-    public WbBaseInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public WbInfoWrapperEntity deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         JsonNode root = p.getCodec().readTree(p);
         
-        WbBaseInfo result = new WbBaseInfo();
+        WbInfoWrapperEntity result = new WbInfoWrapperEntity();
         
         // Root is an array: [metadata, [data]]
         if (root.isArray() && root.size() >= 2) {
             // First element: metadata
             JsonNode metaNode = root.get(0);
             if (metaNode.isObject()) {
-                WbBaseInfo.MetaInfo metaInfo = new WbBaseInfo.MetaInfo();
+                WbInfoWrapperEntity.MetaInfo metaInfo = new WbInfoWrapperEntity.MetaInfo();
                 metaInfo.setPage(metaNode.get("page").asInt());
                 metaInfo.setPages(metaNode.get("pages").asInt());
                 metaInfo.setPer_page(metaNode.get("per_page").asInt());
@@ -34,9 +34,9 @@ public class WbBaseInfoDeserializer extends JsonDeserializer<WbBaseInfo> {
             // Second element: data array
             JsonNode dataNode = root.get(1);
             if (dataNode.isArray()) {
-                List<WbAtomicInfo> dataList = new ArrayList<>();
+                List<WbInfoEntity> dataList = new ArrayList<>();
                 for (JsonNode itemNode : dataNode) {
-                    WbAtomicInfo info = ctxt.readTreeAsValue(itemNode, WbAtomicInfo.class);
+                    WbInfoEntity info = ctxt.readTreeAsValue(itemNode, WbInfoEntity.class);
                     dataList.add(info);
                 }
                 result.setData(dataList);

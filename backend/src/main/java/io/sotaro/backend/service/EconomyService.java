@@ -1,21 +1,19 @@
 package io.sotaro.backend.service;
 
 import io.sotaro.backend.dao.WorldBankDAO;
-import io.sotaro.backend.model.WbBaseInfo;
-import io.sotaro.backend.model.WbGdpAtomicInfoDto;
-import io.sotaro.backend.model.WbGdpDto;
+import io.sotaro.backend.model.WbInfoWrapperEntity;
+import io.sotaro.backend.model.WbEconomyInfoDto;
+import io.sotaro.backend.model.WbEconomyWrapperDto;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class GdpService {
+public class EconomyService {
     private final WorldBankDAO worldBankDAO;
-    public GdpService(WorldBankDAO worldBankDAO) {this.worldBankDAO = worldBankDAO;}
+    public EconomyService(WorldBankDAO worldBankDAO) {this.worldBankDAO = worldBankDAO;}
 
-    public WbGdpDto getGdpInfo(String iso2) {
-        WbBaseInfo entity = worldBankDAO.getGdpInfo(iso2);
-        WbGdpDto dto = new WbGdpDto();
+    public WbEconomyWrapperDto getEconomyInfo(String iso2) {
+        WbInfoWrapperEntity entity = worldBankDAO.getEconomyInfo(iso2);
+        WbEconomyWrapperDto dto = new WbEconomyWrapperDto();
         dto.setPage(entity.getMetaInfo().getPage());
         dto.setPages(entity.getMetaInfo().getPages());
         dto.setPerPage(entity.getMetaInfo().getPer_page());
@@ -40,7 +38,7 @@ public class GdpService {
                             }
                         });
             } else {
-                WbGdpAtomicInfoDto atomicInfoDto = new WbGdpAtomicInfoDto();
+                WbEconomyInfoDto atomicInfoDto = new WbEconomyInfoDto();
                 atomicInfoDto.setYear(year);
                 if (indicator.equals("NY.GDP.MKTP.CD")) {
                     atomicInfoDto.setGdpValue(atomicInfoEntity.getValue());

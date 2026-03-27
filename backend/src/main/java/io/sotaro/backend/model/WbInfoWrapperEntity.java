@@ -6,10 +6,10 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@JsonDeserialize(using = WbBaseInfoDeserializer.class)
-public class WbBaseInfo {
+@JsonDeserialize(using = WbInfoWrapperEntityDeserializer.class)
+public class WbInfoWrapperEntity {
     private MetaInfo metaInfo;
-    private List<WbAtomicInfo> data;
+    private List<WbInfoEntity> data;
 
     @Data
     public static class MetaInfo {

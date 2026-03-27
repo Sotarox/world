@@ -3,7 +3,7 @@ package io.sotaro.backend.model;
 import lombok.Data;
 
 @Data
-public class WbAtomicInfo {
+public class WbInfoEntity {
     private Indicator indicator;
     private Country country;
     private String countryiso3code;
