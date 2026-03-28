@@ -16,7 +16,7 @@ public class EconomyController {
         this.economyService = economyService;
     }
 
-    @GetMapping("/gdp/{iso2}")
+    @GetMapping("/economy/{iso2}")
     public ResponseEntity<WbEconomyWrapperDto> getGdpInfo2ByIso2(@PathVariable String iso2){
         return ResponseEntity.ok(economyService.getEconomyInfo(iso2));
     }

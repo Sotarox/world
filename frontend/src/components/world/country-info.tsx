@@ -14,6 +14,7 @@ import InfoCard from '@/components/world/info-card';
 import { Card } from '@/components/shadcn/card';
 import { useTopicStore } from '@/store/topic-store';
 import { CountryShape } from '@/components/world/country-shape';
+import { CountryInfoEconomy } from '@/components/world/country-info-economy';
 
 interface CountryInfoProps {
   acCountry: ACCountry | null;
@@ -92,6 +93,7 @@ function CountryInfo(props: CountryInfoProps) {
           isSelected={currentTopic === 'airports'}
           onClick={() => toggleCurrentTopic('airports')}
         />
+        <CountryInfoEconomy iso2={country.countryIso2} />
       </div>
     </>
   );
