@@ -42,3 +42,16 @@ export const concatStringsWithComma = (values: string[] | undefined) => {
     return values.join(', ');
   }
 };
+
+export const formatGdpValue = (value: number): string => {
+  if (value >= 1_000_000_000_000) {
+    return `${(value / 1_000_000_000_000).toFixed(1)} Trillion (USD)`;
+  } else if (value >= 1_000_000_000) {
+    return `${(value / 1_000_000_000).toFixed(1)} Billion (USD)`;
+  } else if (value >= 1_000_000) {
+    return `${(value / 1_000_000).toFixed(1)} Million (USD)`;
+  } else if (value >= 1_000) {
+    return `${(value / 1_000).toFixed(1)} Thousand (USD)`;
+  }
+  return `${value} (USD)`;
+};

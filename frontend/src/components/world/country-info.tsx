@@ -76,6 +76,8 @@ function CountryInfo(props: CountryInfoProps) {
         </div>
       </Card>
 
+      <CountryInfoEconomy iso2={country.countryIso2} />
+
       <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 items-start'>
         <InfoCardClickable
           title='Population'
@@ -93,7 +95,6 @@ function CountryInfo(props: CountryInfoProps) {
           isSelected={currentTopic === 'airports'}
           onClick={() => toggleCurrentTopic('airports')}
         />
-        <CountryInfoEconomy iso2={country.countryIso2} />
       </div>
     </>
   );
