@@ -13,7 +13,7 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        CaffeineCacheManager manager = new CaffeineCacheManager("country","countries","countryNavs");
+        CaffeineCacheManager manager = new CaffeineCacheManager("country","countries","countryNavs", "economy");
         manager.setCaffeine(
                 Caffeine.newBuilder()
                         .expireAfterWrite(1, TimeUnit.DAYS)

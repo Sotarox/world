@@ -4,6 +4,7 @@ import io.sotaro.backend.dao.WorldBankDAO;
 import io.sotaro.backend.model.WbInfoWrapperEntity;
 import io.sotaro.backend.model.WbEconomyInfoDto;
 import io.sotaro.backend.model.WbEconomyWrapperDto;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,6 +12,11 @@ public class EconomyService {
     private final WorldBankDAO worldBankDAO;
     public EconomyService(WorldBankDAO worldBankDAO) {this.worldBankDAO = worldBankDAO;}
 
+    @Cacheable(
+            value = "economy",
+            key = "#iso2",
+            unless = "#result == null"
+    )
     public WbEconomyWrapperDto getEconomyInfo(String iso2) {
         WbInfoWrapperEntity entity = worldBankDAO.getEconomyInfo(iso2);
         WbEconomyWrapperDto dto = new WbEconomyWrapperDto();
