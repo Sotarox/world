@@ -31,21 +31,23 @@ function CountryInfoEconomy({ iso2 }: { iso2: string }) {
         <AccordionItem value='economy'>
           <AccordionTrigger>
             <div className='flex-col'>
-              <span className='text-lg'>Economy</span>
+              <span className='text-lg'>{`Economy (${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year})`}</span>
               <div className='flex items-center justify-between w-full'>
                 <InfoCard
-                  title='GDP Value'
+                  title='GDP'
                   value={
-                    economyWrapper?.data[0]?.gdpValue
-                      ? `$${formatGdpValue(economyWrapper.data[0].gdpValue)}`
+                    economyWrapper?.data?.[economyWrapper.data.length - 1]
+                      ?.gdpValue
+                      ? `$${formatGdpValue(economyWrapper.data[economyWrapper.data.length - 1].gdpValue, false)} USD`
                       : 'N/A'
                   }
                 />
                 <InfoCard
-                  title='GDP Growth Rate'
+                  title='Growth rate'
                   value={
-                    economyWrapper?.data[0]?.growthRate
-                      ? `${economyWrapper.data[0].growthRate.toFixed(2)}%`
+                    economyWrapper?.data?.[economyWrapper.data.length - 1]
+                      ?.growthRate
+                      ? `${economyWrapper.data[economyWrapper.data.length - 1].growthRate.toFixed(2)}%`
                       : 'N/A'
                   }
                 />

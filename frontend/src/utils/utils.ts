@@ -43,15 +43,18 @@ export const concatStringsWithComma = (values: string[] | undefined) => {
   }
 };
 
-export const formatGdpValue = (value: number): string => {
+export const formatGdpValue = (
+  value: number,
+  showUnitShort: boolean = true
+): string => {
   if (value >= 1_000_000_000_000) {
-    return `${(value / 1_000_000_000_000).toFixed(1)} Trillion (USD)`;
+    return `${(value / 1_000_000_000_000).toFixed(1)} ${showUnitShort ? 'T' : 'Trillion'}`;
   } else if (value >= 1_000_000_000) {
-    return `${(value / 1_000_000_000).toFixed(1)} Billion (USD)`;
+    return `${(value / 1_000_000_000).toFixed(1)} ${showUnitShort ? 'B' : 'Billion'}`;
   } else if (value >= 1_000_000) {
-    return `${(value / 1_000_000).toFixed(1)} Million (USD)`;
+    return `${(value / 1_000_000).toFixed(1)} ${showUnitShort ? 'M' : 'Million'}`;
   } else if (value >= 1_000) {
-    return `${(value / 1_000).toFixed(1)} Thousand (USD)`;
+    return `${(value / 1_000).toFixed(1)} ${showUnitShort ? 'K' : 'Thousand'}`;
   }
-  return `${value} (USD)`;
+  return `${value}`;
 };

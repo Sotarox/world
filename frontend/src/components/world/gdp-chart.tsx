@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'recharts';
 import { ChartConfig, ChartContainer } from '../shadcn/chart';
+import { formatGdpValue } from '@/utils/utils';
 
 const chartConfig = {
   gdpValue: {
@@ -36,21 +37,25 @@ function GdpChart({ data }: GdpChartProps) {
       >
         <CartesianGrid strokeDasharray='3 3' stroke='var(--color-gray-500)' />
         <XAxis dataKey='year' stroke='var(--color-text-3)' />
-        <YAxis stroke='var(--color-text-3)' />
+        <YAxis
+          stroke='var(--color-text-3)'
+          tickFormatter={(value) => formatGdpValue(value)}
+        />
         <Tooltip
           cursor={{
             stroke: 'var(--color-border-2)',
           }}
           contentStyle={{
-            backgroundColor: 'var(--color-surface-raised)',
+            backgroundColor: 'var(--color-slate-50)',
             borderColor: 'var(--color-border-2)',
           }}
+          labelStyle={{ color: 'var(--color-gray-900)' }}
         />
         <Legend />
         <Line
           type='monotone'
           dataKey='gdpValue'
-          stroke='var(--color-chart-1)'
+          stroke='var(--color-chart-2)'
           dot={{
             fill: 'var(--color-surface-base)',
           }}
