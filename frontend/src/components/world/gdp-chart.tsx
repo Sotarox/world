@@ -50,10 +50,17 @@ function GdpChart({ data }: GdpChartProps) {
             borderColor: 'var(--color-border-2)',
           }}
           labelStyle={{ color: 'var(--color-gray-900)' }}
+          formatter={(value, name) => {
+            if (typeof value === 'number') {
+              return [Math.round(value).toLocaleString(), name];
+            }
+            return [value, name];
+          }}
         />
         <Legend />
         <Line
           type='monotone'
+          name='GDP Value'
           dataKey='gdpValue'
           stroke='var(--color-chart-2)'
           dot={{
