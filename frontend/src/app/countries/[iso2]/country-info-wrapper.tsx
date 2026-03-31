@@ -21,6 +21,7 @@ import { useApi } from '@/api/use-api';
 import { useCountryNav } from '@/store/country-nav-store';
 import { useRouter } from 'next/navigation';
 import { useTopicStore } from '@/store/topic-store';
+import { EconomyInfo } from '@/components/world/economy-info';
 
 export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   const currentIso2 = iso2.toUpperCase();
@@ -86,10 +87,6 @@ export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
           )}
         </div>
         <Separator />
-        <AirportList
-          countryIso2={country.countryIso2}
-          isVisible={currentTopic === 'airports'}
-        />
         {currentTopic === 'population' && (
           <Card className='p-4'>
             <PopulationInfo
@@ -102,6 +99,14 @@ export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
             />
           </Card>
         )}
+        <AirportList
+          countryIso2={country.countryIso2}
+          isVisible={currentTopic === 'airports'}
+        />
+        <EconomyInfo
+          iso2={currentIso2}
+          isVisible={currentTopic === 'economy'}
+        />
       </div>
     );
   } else {

@@ -6,14 +6,17 @@ import {
   AccordionContent,
   AccordionItem,
 } from '@/components/shadcn/accordion';
-// import { AccordionTrigger } from '@/components/custom/accordion';
 import { formatGdpValue } from '@/utils/utils';
 import InfoCard from './info-card';
 import { Card } from '../shadcn/card';
 import { GdpChart } from '@/components/world/gdp-chart';
 import { useEffect, useState } from 'react';
 
-function CountryInfoEconomy({ iso2 }: { iso2: string }) {
+interface EconomyInfoProps {
+  iso2: string;
+}
+
+function CountryInfoEconomy({ iso2 }: EconomyInfoProps) {
   const [gdpData, setGdpData] = useState<WbEconomyInfo[]>([]);
   const economyWrapper = useApi<WbEconomyWrapper>(`/economy/${iso2}`);
 
@@ -63,4 +66,5 @@ function CountryInfoEconomy({ iso2 }: { iso2: string }) {
   );
 }
 
+CountryInfoEconomy.displayName = 'CountryInfoEconomy';
 export { CountryInfoEconomy };

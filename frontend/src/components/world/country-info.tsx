@@ -14,7 +14,6 @@ import InfoCard from '@/components/world/info-card';
 import { Card } from '@/components/shadcn/card';
 import { useTopicStore } from '@/store/topic-store';
 import { CountryShape } from '@/components/world/country-shape';
-import { CountryInfoEconomy } from '@/components/world/country-info-economy';
 
 interface CountryInfoProps {
   acCountry: ACCountry | null;
@@ -75,9 +74,6 @@ function CountryInfo(props: CountryInfoProps) {
           />
         </div>
       </Card>
-
-      <CountryInfoEconomy iso2={country.countryIso2} />
-
       <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 items-start'>
         <InfoCardClickable
           title='Population'
@@ -88,6 +84,12 @@ function CountryInfo(props: CountryInfoProps) {
           }
           isSelected={currentTopic === 'population'}
           onClick={() => toggleCurrentTopic('population')}
+        />
+        <InfoCardClickable
+          title='Economy'
+          value='GDP'
+          isSelected={currentTopic === 'economy'}
+          onClick={() => toggleCurrentTopic('economy')}
         />
         <InfoCardClickable
           title='Airports'

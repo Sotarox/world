@@ -20,8 +20,8 @@ function PopulationInfo(props: PopulationInfoProps) {
 
   return (
     <Grid container spacing={1}>
-      <Grid size={{ xs: 12 }}>
-        <InfoCard title='Population ranking' value='' />
+      <Grid size={{ xs: 12 }} sx={{ paddingX: 1 }}>
+        <span className='text-lg font-extralight'>Population</span>
       </Grid>
       <Grid size={{ xs: 6, md: 3 }}>
         <InfoCard
