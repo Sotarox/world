@@ -30,8 +30,10 @@ function CountryInfoEconomy({ iso2 }: { iso2: string }) {
       <Accordion type='single' collapsible className='w-full'>
         <AccordionItem value='economy'>
           <AccordionTrigger>
-            <div className='flex-col'>
-              <span className='text-lg'>{`Economy (${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year})`}</span>
+            <span className='text-lg'>{`Economy (${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year})`}</span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className='flex-col w-full'>
               <div className='flex items-center justify-between w-full'>
                 <InfoCard
                   title='GDP'
@@ -51,11 +53,9 @@ function CountryInfoEconomy({ iso2 }: { iso2: string }) {
                       : 'N/A'
                   }
                 />
+                <GdpChart data={gdpData} />
               </div>
             </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <GdpChart data={gdpData} />
           </AccordionContent>
         </AccordionItem>
       </Accordion>

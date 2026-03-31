@@ -48,13 +48,13 @@ export const formatGdpValue = (
   showUnitShort: boolean = true
 ): string => {
   if (value >= 1_000_000_000_000) {
-    return `${(value / 1_000_000_000_000).toFixed(1)} ${showUnitShort ? 'T' : 'Trillion'}`;
+    return `${Math.round(value / 1_000_000_000_000).toFixed(1)} ${showUnitShort ? 'T' : 'Trillion'}`;
   } else if (value >= 1_000_000_000) {
-    return `${(value / 1_000_000_000).toFixed(1)} ${showUnitShort ? 'B' : 'Billion'}`;
+    return `${Math.round(value / 1_000_000_000)} ${showUnitShort ? 'B' : 'Billion'}`;
   } else if (value >= 1_000_000) {
-    return `${(value / 1_000_000).toFixed(1)} ${showUnitShort ? 'M' : 'Million'}`;
+    return `${Math.round(value / 1_000_000)} ${showUnitShort ? 'M' : 'Million'}`;
   } else if (value >= 1_000) {
-    return `${(value / 1_000).toFixed(1)} ${showUnitShort ? 'K' : 'Thousand'}`;
+    return `${Math.round(value / 1_000)} ${showUnitShort ? 'K' : 'Thousand'}`;
   }
-  return `${value}`;
+  return `${Math.round(value)}`;
 };
