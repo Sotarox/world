@@ -21,7 +21,7 @@ const mockAirports: Airport[] = [
 ] as Airport[];
 
 jest.mock('../api/use-api', () => ({
-  useApi: () => mockAirports,
+  useApi: () => ({ data: mockAirports }),
 }));
 
 describe('AirportList Component', () => {
