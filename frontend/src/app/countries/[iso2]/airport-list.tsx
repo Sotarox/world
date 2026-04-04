@@ -10,7 +10,7 @@ interface AirportListProps {
 
 function AirportList(props: AirportListProps) {
   const { countryIso2, isVisible } = props;
-  const airports = useApi<Airport[]>(`/airports/${countryIso2}`);
+  const { data: airports } = useApi<Airport[]>(`/airports/${countryIso2}`);
 
   if (isVisible && airports) {
     return (

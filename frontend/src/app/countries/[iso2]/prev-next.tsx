@@ -1,10 +1,6 @@
 'use client';
 
-import React from 'react';
 import { type Country } from '@/model/country';
-import { AirportList } from '@/app/countries/[iso2]/airport-list';
-import { CountryInfo } from '@/components/world/country-info';
-import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
 import { IconButton } from '@mui/material';
 import { ArrowLeft, ArrowRight } from '@mui/icons-material';
 import {
@@ -13,45 +9,23 @@ import {
 } from '@/model/country-iso2-name-map';
 import { CircleFlag } from 'react-circle-flags';
 import 'flag-icons/css/flag-icons.min.css';
-import { type ACCountry } from '@/model/ac-country';
-import { PopulationChart } from '@/components/world/population-chart';
-import { Card } from '@/components/shadcn/card';
-import { Separator } from '@/components/shadcn/separator';
 import { useApi } from '@/api/use-api';
 import { useCountryNav } from '@/store/country-nav-store';
 import { useRouter } from 'next/navigation';
-import { useTopicStore } from '@/store/topic-store';
-import { EconomyInfo } from '@/components/world/economy-info';
 
-export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
+function PrevNext({ iso2 }: { iso2: string }) {
   const currentIso2 = iso2.toUpperCase();
 
-  const { data: countryApiData } = useApi<Country>(`/countries/${currentIso2}`);
-
-  const { data: acCountryApiData } = useApi<ACCountry>(`/accountries/${iso2}`);
-
+  const { data: country } = useApi<Country>(`/countries/${currentIso2}`);
   const countryNavs = useCountryNav((s) => s.countries);
-  const { currentTopic } = useTopicStore();
-  const countryNavsSortedByPopulation = React.useMemo(
-    () =>
-      [...countryNavs].sort(
-        (a, b) => (b.population ?? 0) - (a.population ?? 0)
-      ),
-    [countryNavs]
-  );
 
   const previousNav = previousCountryNav(currentIso2, countryNavs);
   const nextNav = nextCountryNav(currentIso2, countryNavs);
   const router = useRouter();
 
-  if (countryApiData && acCountryApiData) {
+  if (country) {
     return (
       <div className='pb-2 sm:pb-0 flex flex-col gap-3'>
-        <CountryInfo
-          acCountry={acCountryApiData}
-          country={countryApiData}
-          sizeAirports={countryApiData.totalNumberOfAirports}
-        />
         <div className='flex w-full justify-center'>
           {previousNav && (
             <IconButton
@@ -86,30 +60,11 @@ export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
             </IconButton>
           )}
         </div>
-        <Separator />
-        {currentTopic === 'population' && (
-          <Card className='p-4'>
-            <PopulationInfo
-              countryIso2={currentIso2}
-              continentCode={countryApiData.continent}
-            />
-            <PopulationChart
-              data={countryNavsSortedByPopulation}
-              selectedIso2={currentIso2}
-            />
-          </Card>
-        )}
-        <AirportList
-          countryIso2={countryApiData.countryIso2}
-          isVisible={currentTopic === 'airports'}
-        />
-        <EconomyInfo
-          iso2={currentIso2}
-          isVisible={currentTopic === 'economy'}
-        />
       </div>
     );
   } else {
     return <></>;
   }
 }
+
+export { PrevNext };

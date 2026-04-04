@@ -18,7 +18,7 @@ interface EconomyInfoProps {
 
 function CountryInfoEconomy({ iso2 }: EconomyInfoProps) {
   const [gdpData, setGdpData] = useState<WbEconomyInfo[]>([]);
-  const economyWrapper = useApi<WbEconomyWrapper>(`/economy/${iso2}`);
+  const { data: economyWrapper } = useApi<WbEconomyWrapper>(`/economy/${iso2}`);
 
   useEffect(() => {
     if (economyWrapper?.data) {

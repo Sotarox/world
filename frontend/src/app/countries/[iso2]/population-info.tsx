@@ -11,10 +11,10 @@ interface PopulationInfoProps {
 
 function PopulationInfo(props: PopulationInfoProps) {
   const { countryIso2, continentCode } = props;
-  const populationRankWorld = useApi<PopulationRank>(
+  const { data: populationRankWorld } = useApi<PopulationRank>(
     `/countries/rank/population/world/${countryIso2}`
   );
-  const populationRankContinent = useApi<PopulationRank>(
+  const { data: populationRankContinent } = useApi<PopulationRank>(
     `/countries/rank/population/continent/${continentCode}/country/${countryIso2}`
   );
 

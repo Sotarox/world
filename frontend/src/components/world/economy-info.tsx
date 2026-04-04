@@ -14,7 +14,11 @@ interface EconomyInfoProps {
 
 function EconomyInfo({ iso2, isVisible }: EconomyInfoProps) {
   const [gdpData, setGdpData] = useState<WbEconomyInfo[]>([]);
-  const economyWrapper = useApi<WbEconomyWrapper>(`/economy/${iso2}`);
+  const {
+    data: economyWrapper,
+    error,
+    loading,
+  } = useApi<WbEconomyWrapper>(`/economy/${iso2}`);
 
   useEffect(() => {
     if (economyWrapper?.data) {
@@ -24,7 +28,8 @@ function EconomyInfo({ iso2, isVisible }: EconomyInfoProps) {
     }
   }, [economyWrapper]);
 
-  return isVisible ? (
+  if (!isVisible) return null;
+  return (
     <Card className='p-4'>
       <Grid container spacing={1}>
         <Grid
@@ -36,32 +41,46 @@ function EconomyInfo({ iso2, isVisible }: EconomyInfoProps) {
             {`Year: ${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year}`}
           </span>
         </Grid>
-        <Grid size={{ xs: 6, md: 3 }}>
-          <InfoCard
-            title='GDP'
-            value={
-              economyWrapper?.data?.[economyWrapper.data.length - 1]?.gdpValue
-                ? `$${formatGdpValue(economyWrapper.data[economyWrapper.data.length - 1].gdpValue, false)} USD`
-                : 'N/A'
-            }
-          />
-        </Grid>
-        <Grid size={{ xs: 6, md: 3 }}>
-          <InfoCard
-            title='Growth rate'
-            value={
-              economyWrapper?.data?.[economyWrapper.data.length - 1]?.growthRate
-                ? `${economyWrapper.data[economyWrapper.data.length - 1].growthRate.toFixed(2)}%`
-                : 'N/A'
-            }
-          />
-        </Grid>
-        <Grid size={{ xs: 12 }}>
-          <GdpChart data={gdpData} />
-        </Grid>
+        {loading ? (
+          <Grid size={{ xs: 12 }}>
+            <span className='pl-2'>Loading...</span>
+          </Grid>
+        ) : error ? (
+          <Grid size={{ xs: 12 }}>
+            <span className='pl-2'>Error loading economy data</span>
+          </Grid>
+        ) : (
+          <>
+            <Grid size={{ xs: 6, md: 3 }}>
+              <InfoCard
+                title='GDP'
+                value={
+                  economyWrapper?.data?.[economyWrapper.data.length - 1]
+                    ?.gdpValue
+                    ? `$${formatGdpValue(economyWrapper.data[economyWrapper.data.length - 1].gdpValue, false)} USD`
+                    : 'N/A'
+                }
+              />
+            </Grid>
+            <Grid size={{ xs: 6, md: 3 }}>
+              <InfoCard
+                title='Growth rate'
+                value={
+                  economyWrapper?.data?.[economyWrapper.data.length - 1]
+                    ?.growthRate
+                    ? `${economyWrapper.data[economyWrapper.data.length - 1].growthRate.toFixed(2)}%`
+                    : 'N/A'
+                }
+              />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <GdpChart data={gdpData} />
+            </Grid>
+          </>
+        )}
       </Grid>
     </Card>
-  ) : null;
+  );
 }
 
 EconomyInfo.displayName = 'CountryInfoEconomy';
