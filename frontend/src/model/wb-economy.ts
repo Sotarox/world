@@ -11,5 +11,5 @@ export interface WbEconomyWrapper {
   total: number;
   sourceId: string;
   lastUpdated: string;
-  data: WbEconomyInfo[];
+  data: WbEconomyInfo[] | null;
 }

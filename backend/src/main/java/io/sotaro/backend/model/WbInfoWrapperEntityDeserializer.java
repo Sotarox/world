@@ -40,6 +40,8 @@ public class WbInfoWrapperEntityDeserializer extends JsonDeserializer<WbInfoWrap
                     dataList.add(info);
                 }
                 result.setData(dataList);
+            } else if (dataNode.isNull()) {
+                result.setData(null);
             }
         }
         

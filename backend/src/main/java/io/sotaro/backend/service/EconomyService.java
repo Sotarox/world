@@ -26,7 +26,10 @@ public class EconomyService {
         dto.setTotal(entity.getMetaInfo().getTotal());
         dto.setSourceId(entity.getMetaInfo().getSourceid());
         dto.setLastUpdated(entity.getMetaInfo().getLastupdated());
-
+        if (entity.getData() == null) {
+            dto.setData(null);
+            return dto;
+        }
         entity.getData().forEach(atomicInfoEntity -> {
             // check if the Entity's year exists already in DTO
             String year = atomicInfoEntity.getDate();
