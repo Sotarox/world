@@ -22,6 +22,6 @@ public class AirportController {
 
     @GetMapping("/airports/{countryIso2}")
     public ResponseEntity<List<AirportDto>> getAirportsByCountryIso2(@PathVariable String countryIso2) {
-        return ResponseEntity.ok(airportService.getAirportByCountryIso2(countryIso2));
+        return ResponseEntity.ok(airportService.getAirportByCountryIso2(countryIso2.toUpperCase()));
     }
 }

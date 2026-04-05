@@ -13,19 +13,16 @@ import { type Country } from '@/model/country';
 import { useCountryNav } from '@/store/country-nav-store';
 import { useTopicStore } from '@/store/topic-store';
 import 'flag-icons/css/flag-icons.min.css';
-import React from 'react';
+import { useMemo } from 'react';
 import { PrevNext } from './prev-next';
 
 function CountryInfoWrapper({ iso2 }: { iso2: string }) {
-  const currentIso2 = iso2.toUpperCase();
-
-  const { data: countryApiData } = useApi<Country>(`/countries/${currentIso2}`);
-
+  const { data: countryApiData } = useApi<Country>(`/countries/${iso2}`);
   const { data: acCountryApiData } = useApi<ACCountry>(`/accountries/${iso2}`);
 
-  const countryNavs = useCountryNav((s) => s.countries);
   const { currentTopic } = useTopicStore();
-  const countryNavsSortedByPopulation = React.useMemo(
+  const countryNavs = useCountryNav((s) => s.countries);
+  const countryNavsSortedByPopulation = useMemo(
     () =>
       [...countryNavs].sort(
         (a, b) => (b.population ?? 0) - (a.population ?? 0)
@@ -42,28 +39,25 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
           country={countryApiData}
           sizeAirports={countryApiData.totalNumberOfAirports}
         />
-        <PrevNext iso2={currentIso2} />
+        <PrevNext iso2={iso2} />
         <Separator />
         {currentTopic === 'population' && (
           <Card className='p-4'>
             <PopulationInfo
-              countryIso2={currentIso2}
+              countryIso2={iso2}
               continentCode={countryApiData.continent}
             />
             <PopulationChart
               data={countryNavsSortedByPopulation}
-              selectedIso2={currentIso2}
+              selectedIso2={iso2}
             />
           </Card>
         )}
         <AirportList
-          countryIso2={countryApiData.countryIso2}
+          countryIso2={iso2}
           isVisible={currentTopic === 'airports'}
         />
-        <EconomyInfo
-          iso2={currentIso2}
-          isVisible={currentTopic === 'economy'}
-        />
+        <EconomyInfo iso2={iso2} isVisible={currentTopic === 'economy'} />
       </div>
     );
   } else {
