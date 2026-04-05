@@ -1,27 +1,20 @@
 'use client';
 
-import React from 'react';
-import { type Country } from '@/model/country';
+import { useApi } from '@/api/use-api';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
-import { CountryInfo } from '@/components/world/country-info';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
-import { IconButton } from '@mui/material';
-import { ArrowLeft, ArrowRight } from '@mui/icons-material';
-import {
-  previousCountryNav,
-  nextCountryNav,
-} from '@/model/country-iso2-name-map';
-import { CircleFlag } from 'react-circle-flags';
-import 'flag-icons/css/flag-icons.min.css';
-import { type ACCountry } from '@/model/ac-country';
-import { PopulationChart } from '@/components/world/population-chart';
 import { Card } from '@/components/shadcn/card';
 import { Separator } from '@/components/shadcn/separator';
-import { useApi } from '@/api/use-api';
-import { useCountryNav } from '@/store/country-nav-store';
-import { useRouter } from 'next/navigation';
-import { useTopicStore } from '@/store/topic-store';
+import { CountryInfo } from '@/components/world/country-info';
 import { EconomyInfo } from '@/components/world/economy-info';
+import { PopulationChart } from '@/components/world/population-chart';
+import { type ACCountry } from '@/model/ac-country';
+import { type Country } from '@/model/country';
+import { useCountryNav } from '@/store/country-nav-store';
+import { useTopicStore } from '@/store/topic-store';
+import 'flag-icons/css/flag-icons.min.css';
+import React from 'react';
+import { PrevNext } from './prev-next';
 
 export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   const currentIso2 = iso2.toUpperCase();
@@ -40,10 +33,6 @@ export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
     [countryNavs]
   );
 
-  const previousNav = previousCountryNav(currentIso2, countryNavs);
-  const nextNav = nextCountryNav(currentIso2, countryNavs);
-  const router = useRouter();
-
   if (countryApiData && acCountryApiData) {
     return (
       <div className='pb-2 sm:pb-0 flex flex-col gap-3'>
@@ -52,40 +41,7 @@ export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
           country={countryApiData}
           sizeAirports={countryApiData.totalNumberOfAirports}
         />
-        <div className='flex w-full justify-center'>
-          {previousNav && (
-            <IconButton
-              onClick={() =>
-                router.push(
-                  `/countries/${previousNav.alpha2Code.toLowerCase()}`
-                )
-              }
-            >
-              <CircleFlag
-                countryCode={previousNav.alpha2Code.toLowerCase() || ''}
-                height='20'
-                width='20'
-                title={previousNav.name || ''}
-              />
-              <ArrowLeft />
-            </IconButton>
-          )}
-          {nextNav && (
-            <IconButton
-              onClick={() =>
-                router.push(`/countries/${nextNav.alpha2Code.toLowerCase()}`)
-              }
-            >
-              <ArrowRight />
-              <CircleFlag
-                countryCode={nextNav.alpha2Code.toLowerCase() || ''}
-                height='20'
-                width='20'
-                title={nextNav.name || ''}
-              />
-            </IconButton>
-          )}
-        </div>
+        <PrevNext iso2={currentIso2} />
         <Separator />
         {currentTopic === 'population' && (
           <Card className='p-4'>
