@@ -16,12 +16,13 @@ import { useTopicStore } from '@/store/topic-store';
 import { CountryShape } from '@/components/world/country-shape';
 
 interface CountryInfoProps {
+  iso2: string;
   acCountry: ACCountry | null;
   country: Country;
   sizeAirports: number;
 }
 function CountryInfo(props: CountryInfoProps) {
-  const { acCountry, country, sizeAirports } = props;
+  const { iso2, acCountry, country, sizeAirports } = props;
   const { currentTopic, toggleCurrentTopic } = useTopicStore();
 
   return (
@@ -29,7 +30,7 @@ function CountryInfo(props: CountryInfoProps) {
       <Card className='p-4 gap-3'>
         <CountryInfoHeader country={country} />
         <CountryShape
-          iso2={country.countryIso2.toLowerCase()}
+          iso2={iso2}
           width={200}
           height={200}
           className='self-center'

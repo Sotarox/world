@@ -16,7 +16,7 @@ import 'flag-icons/css/flag-icons.min.css';
 import React from 'react';
 import { PrevNext } from './prev-next';
 
-export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
+function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   const currentIso2 = iso2.toUpperCase();
 
   const { data: countryApiData } = useApi<Country>(`/countries/${currentIso2}`);
@@ -37,6 +37,7 @@ export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
     return (
       <div className='pb-2 sm:pb-0 flex flex-col gap-3'>
         <CountryInfo
+          iso2={iso2}
           acCountry={acCountryApiData}
           country={countryApiData}
           sizeAirports={countryApiData.totalNumberOfAirports}
@@ -69,3 +70,6 @@ export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
     return <></>;
   }
 }
+
+CountryInfoWrapper.displayName = 'CountryInfoWrapper';
+export { CountryInfoWrapper };
