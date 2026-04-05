@@ -3,53 +3,62 @@ import Grid from '@mui/material/Grid';
 import InfoCard from '@/components/world/info-card';
 import { type PopulationRank } from '@/model/misc';
 import { useApi } from '@/api/use-api';
+import { Card } from '@/components/shadcn/card';
+import { PopulationChart } from '@/components/world/population-chart';
+import { ACCountryNav } from '@/model/ac-country';
 
 interface PopulationInfoProps {
-  countryIso2: string;
+  iso2: string;
   continentCode: string;
+  data: ACCountryNav[];
+  isVisible: boolean;
 }
 
 function PopulationInfo(props: PopulationInfoProps) {
-  const { countryIso2, continentCode } = props;
+  const { iso2, continentCode, data, isVisible } = props;
+  if (!isVisible) return null;
   const { data: populationRankWorld } = useApi<PopulationRank>(
-    `/countries/rank/population/world/${countryIso2}`
+    `/countries/rank/population/world/${iso2}`
   );
   const { data: populationRankContinent } = useApi<PopulationRank>(
-    `/countries/rank/population/continent/${continentCode}/country/${countryIso2}`
+    `/countries/rank/population/continent/${continentCode}/country/${iso2}`
   );
 
   return (
-    <Grid container spacing={1}>
-      <Grid size={{ xs: 12 }} sx={{ paddingX: 1 }}>
-        <span className='text-lg font-extralight'>Population</span>
+    <Card className='p-4'>
+      <Grid container spacing={1}>
+        <Grid size={{ xs: 12 }} sx={{ paddingX: 1 }}>
+          <span className='text-lg font-extralight'>Population</span>
+        </Grid>
+        <Grid size={{ xs: 6, md: 3 }}>
+          <InfoCard
+            title='World:'
+            value={
+              populationRankWorld
+                ? formatRankInfo(
+                    populationRankWorld.rank,
+                    populationRankWorld.countCountries
+                  )
+                : 'N/A'
+            }
+          />
+        </Grid>
+        <Grid size={{ xs: 6, md: 3 }}>
+          <InfoCard
+            title='Continent:'
+            value={
+              populationRankContinent
+                ? formatRankInfo(
+                    populationRankContinent.rank,
+                    populationRankContinent.countCountries
+                  )
+                : 'N/A'
+            }
+          />
+        </Grid>
       </Grid>
-      <Grid size={{ xs: 6, md: 3 }}>
-        <InfoCard
-          title='World:'
-          value={
-            populationRankWorld
-              ? formatRankInfo(
-                  populationRankWorld.rank,
-                  populationRankWorld.countCountries
-                )
-              : 'N/A'
-          }
-        />
-      </Grid>
-      <Grid size={{ xs: 6, md: 3 }}>
-        <InfoCard
-          title='Continent:'
-          value={
-            populationRankContinent
-              ? formatRankInfo(
-                  populationRankContinent.rank,
-                  populationRankContinent.countCountries
-                )
-              : 'N/A'
-          }
-        />
-      </Grid>
-    </Grid>
+      <PopulationChart data={data} selectedIso2={iso2} />
+    </Card>
   );
 }
 

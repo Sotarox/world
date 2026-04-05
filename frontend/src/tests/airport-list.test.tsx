@@ -26,7 +26,7 @@ jest.mock('../api/use-api', () => ({
 
 describe('AirportList Component', () => {
   it('renders airports when isVisible is true and airports are available', () => {
-    render(<AirportList countryIso2='DE' isVisible={true} />);
+    render(<AirportList iso2='DE' isVisible={true} />);
 
     expect(screen.getByText('Augsburg - Muehlhausen')).toBeInTheDocument();
     expect(screen.getByText('Bremen')).toBeInTheDocument();
@@ -53,7 +53,7 @@ describe('AirportList Component', () => {
   });
 
   it('renders no airport when isVisible is false', () => {
-    render(<AirportList countryIso2='DE' isVisible={false} />);
+    render(<AirportList iso2='DE' isVisible={false} />);
 
     expect(screen.queryByText('Augsburg - Muehlhausen')).toBeNull();
   });

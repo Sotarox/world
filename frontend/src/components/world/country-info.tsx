@@ -19,10 +19,9 @@ interface CountryInfoProps {
   iso2: string;
   acCountry: ACCountry | null;
   country: Country;
-  sizeAirports: number;
 }
 function CountryInfo(props: CountryInfoProps) {
-  const { iso2, acCountry, country, sizeAirports } = props;
+  const { iso2, acCountry, country } = props;
   const { currentTopic, toggleCurrentTopic } = useTopicStore();
 
   return (
@@ -94,7 +93,7 @@ function CountryInfo(props: CountryInfoProps) {
         />
         <InfoCardClickable
           title='Airports'
-          value={sizeAirports.toString()}
+          value={country.totalNumberOfAirports.toString()}
           isSelected={currentTopic === 'airports'}
           onClick={() => toggleCurrentTopic('airports')}
         />

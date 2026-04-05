@@ -1,18 +1,16 @@
 import React from 'react';
-import { type Airport } from '../../../model/airport';
+import { type Airport } from '@/model/airport';
 import { AirportInfo } from './airport-info';
-import { useApi } from '../../../api/use-api';
+import { useApi } from '@/api/use-api';
 
 interface AirportListProps {
-  countryIso2: string | null;
+  iso2: string | null;
   isVisible: boolean;
 }
 
 function AirportList(props: AirportListProps) {
-  const { countryIso2, isVisible } = props;
-  const { data, error, loading } = useApi<Airport[]>(
-    `/airports/${countryIso2}`
-  );
+  const { iso2, isVisible } = props;
+  const { data, error, loading } = useApi<Airport[]>(`/airports/${iso2}`);
 
   if (!isVisible) return null;
 
