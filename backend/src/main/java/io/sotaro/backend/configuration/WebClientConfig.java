@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
     @Bean
-    public WebClient webClient() {
+    public WebClient.Builder webClientBuilder() {
         ExchangeStrategies strategies = ExchangeStrategies.builder()
                 .codecs(configurer ->
                         configurer.defaultCodecs().maxInMemorySize(5 * 1024 * 1024)) // 5 MB
@@ -18,8 +18,20 @@ public class WebClientConfig {
 
         return WebClient.builder()
                 .exchangeStrategies(strategies)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+    }
+
+    @Bean("acCountriesWebClient")
+    public WebClient webClient(WebClient.Builder webClientBuilder) {
+        return webClientBuilder.clone()
                 .baseUrl("https://www.apicountries.com")
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
+
+    @Bean("worldBankWebClient")
+    public WebClient webClientWorldBank(WebClient.Builder webClientBuilder) {
+        return webClientBuilder.clone()
+                .baseUrl("https://api.worldbank.org/v2")
                 .build();
     }
 }

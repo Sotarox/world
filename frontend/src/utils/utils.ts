@@ -42,3 +42,19 @@ export const concatStringsWithComma = (values: string[] | undefined) => {
     return values.join(', ');
   }
 };
+
+export const formatGdpValue = (
+  value: number,
+  showUnitShort: boolean = true
+): string => {
+  if (value >= 1_000_000_000_000) {
+    return `${Math.round(value / 1_000_000_000_000).toFixed(1)} ${showUnitShort ? 'T' : 'Trillion'}`;
+  } else if (value >= 1_000_000_000) {
+    return `${Math.round(value / 1_000_000_000)} ${showUnitShort ? 'B' : 'Billion'}`;
+  } else if (value >= 1_000_000) {
+    return `${Math.round(value / 1_000_000)} ${showUnitShort ? 'M' : 'Million'}`;
+  } else if (value >= 1_000) {
+    return `${Math.round(value / 1_000)} ${showUnitShort ? 'K' : 'Thousand'}`;
+  }
+  return `${Math.round(value)}`;
+};

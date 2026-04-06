@@ -1,6 +1,7 @@
 package io.sotaro.backend.dao;
 
 import io.sotaro.backend.model.AcCountry;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.List;
 @Service
 public class AcCountryDAO {
     private final WebClient webClient;
-    public AcCountryDAO(WebClient webClient) {
+        public AcCountryDAO(@Qualifier("acCountriesWebClient") WebClient webClient) {
         this.webClient = webClient;
     }
 

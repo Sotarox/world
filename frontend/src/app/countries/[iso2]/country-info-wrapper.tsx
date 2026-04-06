@@ -1,110 +1,63 @@
 'use client';
 
-import React from 'react';
-import { type Country } from '@/model/country';
-import { AirportList } from '@/app/countries/[iso2]/airport-list';
-import { CountryInfo } from '@/components/world/country-info';
-import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
-import { IconButton } from '@mui/material';
-import { ArrowLeft, ArrowRight } from '@mui/icons-material';
-import {
-  previousCountryNav,
-  nextCountryNav,
-} from '@/model/country-iso2-name-map';
-import { CircleFlag } from 'react-circle-flags';
-import 'flag-icons/css/flag-icons.min.css';
-import { type ACCountry } from '@/model/ac-country';
-import { PopulationChart } from '@/components/world/population-chart';
-import { Card } from '@/components/shadcn/card';
-import { Separator } from '@/components/shadcn/separator';
 import { useApi } from '@/api/use-api';
+import { AirportList } from '@/app/countries/[iso2]/airport-list';
+import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
+import { Separator } from '@/components/shadcn/separator';
+import { CountryInfo } from '@/components/world/country-info';
+import { EconomyInfo } from '@/components/world/economy-info';
+import { type ACCountry } from '@/model/ac-country';
+import { type Country } from '@/model/country';
 import { useCountryNav } from '@/store/country-nav-store';
-import { useRouter } from 'next/navigation';
 import { useTopicStore } from '@/store/topic-store';
+import 'flag-icons/css/flag-icons.min.css';
+import { useMemo } from 'react';
+import { PrevNext } from './prev-next';
 
-export default function CountryInfoWrapper({ iso2 }: { iso2: string }) {
-  const currentIso2 = iso2.toUpperCase();
-
-  const country: Country | null = useApi<Country>(`/countries/${currentIso2}`);
-  const acCountry: ACCountry | null = useApi<ACCountry>(
-    `/accountries/${currentIso2}`
+function CountryInfoWrapper({ iso2 }: { iso2: string }) {
+  const { data: countryData, error: countryError } = useApi<Country>(
+    `/countries/${iso2}`
   );
-  const countryNavs = useCountryNav((s) => s.countries);
+  const { data: accountryData, error: accountryError } = useApi<ACCountry>(
+    `/accountries/${iso2}`
+  );
+
   const { currentTopic } = useTopicStore();
-  const countryNavsSortedByPopulation = React.useMemo(
+  const countryNavs = useCountryNav((s) => s.countries);
+  const countryNavsSortedByPopulation = useMemo(
     () =>
       [...countryNavs].sort(
         (a, b) => (b.population ?? 0) - (a.population ?? 0)
       ),
     [countryNavs]
   );
-
-  const previousNav = previousCountryNav(currentIso2, countryNavs);
-  const nextNav = nextCountryNav(currentIso2, countryNavs);
-  const router = useRouter();
-
-  if (country) {
+  if (countryError || accountryError) {
+    return <span className='pl-2'>Error loading country data</span>;
+  }
+  if (countryData && accountryData) {
     return (
       <div className='pb-2 sm:pb-0 flex flex-col gap-3'>
         <CountryInfo
-          acCountry={acCountry}
-          country={country}
-          sizeAirports={country.totalNumberOfAirports}
+          iso2={iso2}
+          acCountry={accountryData}
+          country={countryData}
         />
-        <div className='flex w-full justify-center'>
-          {previousNav && (
-            <IconButton
-              onClick={() =>
-                router.push(
-                  `/countries/${previousNav.alpha2Code.toLowerCase()}`
-                )
-              }
-            >
-              <CircleFlag
-                countryCode={previousNav.alpha2Code.toLowerCase() || ''}
-                height='20'
-                width='20'
-                title={previousNav.name || ''}
-              />
-              <ArrowLeft />
-            </IconButton>
-          )}
-          {nextNav && (
-            <IconButton
-              onClick={() =>
-                router.push(`/countries/${nextNav.alpha2Code.toLowerCase()}`)
-              }
-            >
-              <ArrowRight />
-              <CircleFlag
-                countryCode={nextNav.alpha2Code.toLowerCase() || ''}
-                height='20'
-                width='20'
-                title={nextNav.name || ''}
-              />
-            </IconButton>
-          )}
-        </div>
+        <PrevNext iso2={iso2} />
         <Separator />
-        <AirportList
-          countryIso2={country.countryIso2}
-          isVisible={currentTopic === 'airports'}
+        <PopulationInfo
+          iso2={iso2}
+          continentCode={countryData.continent}
+          data={countryNavsSortedByPopulation}
+          isVisible={currentTopic === 'population'}
         />
-        {currentTopic === 'population' && (
-          <Card className='p-4'>
-            <PopulationInfo
-              countryIso2={currentIso2}
-              continentCode={country.continent}
-            />
-            <PopulationChart
-              data={countryNavsSortedByPopulation}
-              selectedIso2={currentIso2}
-            />
-          </Card>
-        )}
+        <AirportList iso2={iso2} isVisible={currentTopic === 'airports'} />
+        <EconomyInfo iso2={iso2} isVisible={currentTopic === 'economy'} />
       </div>
     );
   } else {
     return <></>;
   }
 }
+
+CountryInfoWrapper.displayName = 'CountryInfoWrapper';
+export { CountryInfoWrapper };

@@ -1,4 +1,4 @@
-import CountryInfoWrapper from './country-info-wrapper';
+import { CountryInfoWrapper } from './country-info-wrapper';
 import { Suspense } from 'react';
 import { countryIso2NameMap } from '@/model/country-iso2-name-map';
 

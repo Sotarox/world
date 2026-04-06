@@ -34,7 +34,7 @@ public class CountryController {
 
     @GetMapping("/countries/{countryIso2}")
     public ResponseEntity<CountryDto> getCountryByCountryIso2(@PathVariable @Size(min=2, max=2) String countryIso2) {
-        return ResponseEntity.ok(countryService.getCountryByIso2(countryIso2));
+        return ResponseEntity.ok(countryService.getCountryByIso2(countryIso2.toUpperCase()));
     }
 
     @GetMapping("/countries/rank/population/world")
@@ -44,11 +44,11 @@ public class CountryController {
 
     @GetMapping("/countries/rank/population/world/{countryIso2}")
     public ResponseEntity<PopulationRankDto> getPopulationRankWorld(@PathVariable @Size(min=2, max=2) String countryIso2){
-        return ResponseEntity.ok(populationRankService.getPopulationRankWorld(countryIso2));
+        return ResponseEntity.ok(populationRankService.getPopulationRankWorld(countryIso2.toUpperCase()));
     }
 
     @GetMapping("/countries/rank/population/continent/{continentCode}/country/{countryIso2}")
     public ResponseEntity<PopulationRankDto> getPopulationRankContinent(@PathVariable String continentCode, @PathVariable @Size(min=2, max=2) String countryIso2){
-        return ResponseEntity.ok(populationRankService.getPopulationRankContinent(continentCode, countryIso2));
+        return ResponseEntity.ok(populationRankService.getPopulationRankContinent(continentCode, countryIso2.toUpperCase()));
     }
 }
