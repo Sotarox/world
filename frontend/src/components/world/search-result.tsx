@@ -18,7 +18,9 @@ const resultItem = (
             'size-6 shrink-0'
           )}
         />
-        <span>{result.countryName}</span>
+        <span>
+          {result.countryName} ({result.countryIso2})
+        </span>
       </>
     ),
     onClick: () => push(`/countries/${result.countryIso2.toLowerCase()}`),
@@ -29,13 +31,14 @@ interface SearchResultProps {
   results: CountryIso2NameMap[];
 }
 
-function SearchResult(props: SearchResultProps) {
+const SearchResult = React.memo((props: SearchResultProps) => {
   const { results } = props;
   const router = useRouter();
 
   if (results.length === 0) return null;
   const resultItems = results.map((result) => resultItem(result, router.push));
   return <KeyboardNavigableList items={resultItems} />;
-}
+});
 
-export default React.memo(SearchResult);
+SearchResult.displayName = 'SearchResult';
+export { SearchResult };
