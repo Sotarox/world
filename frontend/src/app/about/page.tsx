@@ -31,7 +31,7 @@ function About() {
       <ul>
         <li>
           ⚛️ <s>Migration from React to Next.js</s>
-          <span className='text-gray-500 dark:text-gray-300'>
+          <span className='text-quiet'>
             {' '}
             ... Now running in Next.js&apos;s SSG mode
           </span>
@@ -39,8 +39,7 @@ function About() {
         <li>🗺️ Map by OpenLayers or Leaflet</li>
         <li>✨ More data from public APIs</li>
         <li>
-          ✅ <s>End2End Test</s>{' '}
-          <span className='text-gray-500 dark:text-gray-300'> ... Done</span>
+          ✅ <s>End2End Test</s> <span className='text-quiet'> ... Done</span>
         </li>
       </ul>
     </Card>
