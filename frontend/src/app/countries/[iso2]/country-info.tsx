@@ -8,32 +8,39 @@ import {
   concatStringsWithComma,
 } from '@/utils/utils';
 import InfoCardClickable from '@/components/world/info-card-clickable';
-import type { ACCountry } from '@/model/ac-country';
+import type { ACCountry, ACCountryNav } from '@/model/ac-country';
 import CountryInfoHeader from './country-info-header';
 import InfoCard from '@/components/world/info-card';
 import { Card } from '@/components/shadcn/card';
 import { useTopicStore } from '@/store/topic-store';
 import { CountryShape } from '@/components/world/country-shape';
+import { AdjacentNavigation } from './adjacent-navigation';
 
 interface CountryInfoProps {
   iso2: string;
   acCountry: ACCountry | null;
   country: Country;
+  previousNav: ACCountryNav | undefined;
+  nextNav: ACCountryNav | undefined;
 }
 function CountryInfo(props: CountryInfoProps) {
-  const { iso2, acCountry, country } = props;
+  const { iso2, acCountry, country, previousNav, nextNav } = props;
   const { currentTopic, toggleCurrentTopic } = useTopicStore();
 
   return (
     <>
       <Card className='p-4 gap-3'>
         <CountryInfoHeader country={country} />
-        <CountryShape
-          iso2={iso2}
-          width={200}
-          height={200}
-          className='self-center'
-        />
+        <div className='flex justify-between items-center gap-4'>
+          <AdjacentNavigation order='previous' nav={previousNav} />
+          <CountryShape
+            iso2={iso2}
+            width={200}
+            height={200}
+            className='self-center'
+          />
+          <AdjacentNavigation order='next' nav={nextNav} />
+        </div>
         <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
           <InfoCard
             title='Continent'

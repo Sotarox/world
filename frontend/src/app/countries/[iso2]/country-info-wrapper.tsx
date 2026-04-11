@@ -4,7 +4,7 @@ import { useApi } from '@/api/use-api';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
 import { Separator } from '@/components/shadcn/separator';
-import { CountryInfo } from '@/components/world/country-info';
+import { CountryInfo } from './country-info';
 import { EconomyInfo } from '@/components/world/economy-info';
 import { type ACCountry } from '@/model/ac-country';
 import { type Country } from '@/model/country';
@@ -12,7 +12,10 @@ import { useCountryNav } from '@/store/country-nav-store';
 import { useTopicStore } from '@/store/topic-store';
 import 'flag-icons/css/flag-icons.min.css';
 import { useMemo } from 'react';
-import { PrevNext } from './prev-next';
+import {
+  nextCountryNav,
+  previousCountryNav,
+} from '@/model/country-iso2-name-map';
 
 function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   const { data: countryData, error: countryError } = useApi<Country>(
@@ -31,6 +34,9 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
       ),
     [countryNavs]
   );
+  const previousNav = previousCountryNav(iso2.toUpperCase(), countryNavs);
+  const nextNav = nextCountryNav(iso2.toUpperCase(), countryNavs);
+
   if (countryError || accountryError) {
     return <span className='pl-2'>Error loading country data</span>;
   }
@@ -41,8 +47,9 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
           iso2={iso2}
           acCountry={accountryData}
           country={countryData}
+          previousNav={previousNav}
+          nextNav={nextNav}
         />
-        <PrevNext iso2={iso2} />
         <Separator />
         <PopulationInfo
           iso2={iso2}
