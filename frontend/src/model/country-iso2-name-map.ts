@@ -1017,8 +1017,10 @@ export const countryIso2NameMap: CountryIso2NameMap[] = [
 ];
 
 export const searchCountryName = (query: string) => {
-  return countryIso2NameMap.filter((c) =>
-    c.countryName.toLowerCase().includes(query.toLowerCase())
+  return countryIso2NameMap.filter(
+    (c) =>
+      c.countryName.toLowerCase().includes(query.toLowerCase()) ||
+      c.countryIso2.toLowerCase().includes(query.toLowerCase())
   );
 };
 

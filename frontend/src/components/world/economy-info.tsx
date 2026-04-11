@@ -37,7 +37,7 @@ function EconomyInfo({ iso2, isVisible }: EconomyInfoProps) {
           sx={{ display: 'flex', paddingX: 1, justifyContent: 'space-between' }}
         >
           <span className='text-lg font-extralight'>Economy</span>
-          <span className='text-base text-gray-300 dark:text-gray-700'>
+          <span className='text-base text-quiet'>
             {`Year: ${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year}`}
           </span>
         </Grid>
