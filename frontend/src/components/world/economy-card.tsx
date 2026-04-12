@@ -1,23 +1,28 @@
-import { useApi } from '@/api/use-api';
-import { WbEconomyInfo, WbEconomyWrapper } from '@/model/wb-economy';
+import { useEffect, useState } from 'react';
+import { Card } from '@/components/shadcn/card';
 import {
   Accordion,
-  AccordionTrigger,
   AccordionContent,
   AccordionItem,
+  AccordionTrigger,
 } from '@/components/shadcn/accordion';
-import { formatGdpValue } from '@/utils/utils';
+import { cn } from '@/lib/utils';
+import { WbEconomyInfo, WbEconomyWrapper } from '@/model/wb-economy';
+import { useApi } from '@/api/use-api';
 import InfoCard from './info-card';
-import { Card } from '../shadcn/card';
+import { formatGdpValue } from '@/utils/utils';
 import { GdpChart } from '@/components/world/gdp-chart';
-import { useEffect, useState } from 'react';
+import { useTopicStore } from '@/store/topic-store';
 
-interface EconomyInfoProps {
+interface EconomyCardProps {
   iso2: string;
 }
 
-function CountryInfoEconomy({ iso2 }: EconomyInfoProps) {
+function EconomyCard(props: EconomyCardProps) {
+  const { iso2 } = props;
   const [gdpData, setGdpData] = useState<WbEconomyInfo[]>([]);
+  const { currentTopic, toggleCurrentTopic } = useTopicStore();
+
   const { data: economyWrapper } = useApi<WbEconomyWrapper>(`/economy/${iso2}`);
 
   useEffect(() => {
@@ -28,9 +33,23 @@ function CountryInfoEconomy({ iso2 }: EconomyInfoProps) {
     }
   }, [economyWrapper]);
 
+  const onValueChange = () => {
+    if (currentTopic === 'economy') {
+      toggleCurrentTopic('');
+    } else {
+      toggleCurrentTopic('economy');
+    }
+  };
+
   return (
-    <Card className='p-4'>
-      <Accordion type='single' collapsible className='w-full'>
+    <Card className={cn('p-4', currentTopic === 'economy' && 'col-span-full')}>
+      <Accordion
+        type='single'
+        collapsible
+        value={currentTopic}
+        onValueChange={onValueChange}
+        className='w-full'
+      >
         <AccordionItem value='economy'>
           <AccordionTrigger>
             <span className='text-lg'>{`Economy (${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year})`}</span>
@@ -66,5 +85,4 @@ function CountryInfoEconomy({ iso2 }: EconomyInfoProps) {
   );
 }
 
-CountryInfoEconomy.displayName = 'CountryInfoEconomy';
-export { CountryInfoEconomy };
+export default EconomyCard;
