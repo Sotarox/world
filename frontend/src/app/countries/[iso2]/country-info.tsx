@@ -42,7 +42,7 @@ function CountryInfo(props: CountryInfoProps) {
           />
           <AdjacentNavigation order='next' nav={nextNav} />
         </div>
-        <div className='grid grid-cols-2 sm:grid-cols-4 gap-2'>
+        <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 [&>*]:min-w-0'>
           <InfoCard
             title='Continent'
             value={convertContinentCodeToName(country.continent)}
@@ -82,7 +82,7 @@ function CountryInfo(props: CountryInfoProps) {
           />
         </div>
       </Card>
-      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 items-start'>
+      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 items-start [&>*]:min-w-0'>
         <InfoCardClickable
           title='Population'
           value={
