@@ -17,9 +17,11 @@ interface EconomyCardProps {
 function EconomyCard(props: EconomyCardProps) {
   const { iso2 } = props;
   const [economyData, setEconomyData] = useState<WbEconomyInfo[]>([]);
-  const [actualGdp, setActualGdp] = useState<string>('N/A');
-  const [actualGrowthRate, setActualGrowthRate] = useState<string>('N/A');
-  const [actualYear, setActualYear] = useState<string>('N/A');
+  const [newestAnnualData, setNewestAnnualData] = useState<{
+    year: string;
+    gdpValue: string;
+    growthRate: string;
+  }>({ year: 'N/A', gdpValue: 'N/A', growthRate: 'N/A' });
   const { currentTopic, toggleCurrentTopic } = useTopicStore();
   const isSelected = currentTopic === 'economy';
 
@@ -35,17 +37,15 @@ function EconomyCard(props: EconomyCardProps) {
         economyWrapper.data.sort((a, b) => parseInt(a.year) - parseInt(b.year))
       );
       const latestData = economyWrapper.data[economyWrapper.data.length - 1];
-      if (latestData) {
-        setActualGdp(
-          latestData.gdpValue
-            ? `$${formatGdpValue(latestData.gdpValue, false)} USD`
-            : 'N/A'
-        );
-        setActualGrowthRate(
-          latestData.growthRate ? `${latestData.growthRate.toFixed(2)}%` : 'N/A'
-        );
-        setActualYear(latestData.year ?? 'N/A');
-      }
+      setNewestAnnualData({
+        year: latestData.year,
+        gdpValue: latestData.gdpValue
+          ? `$${formatGdpValue(latestData.gdpValue, false)} USD`
+          : 'N/A',
+        growthRate: latestData.growthRate
+          ? `${latestData.growthRate.toFixed(2)}%`
+          : 'N/A',
+      });
     }
   }, [economyWrapper]);
 
@@ -75,13 +75,13 @@ function EconomyCard(props: EconomyCardProps) {
               <span className='block truncate text-base'>
                 {!isSelected && error && 'Error'}
                 {!isSelected && loading && 'Loading...'}
-                {!isSelected && !loading && !error && actualGdp}
+                {!isSelected && !loading && !error && newestAnnualData.gdpValue}
               </span>
             </div>
           </div>
           {isSelected && !loading && !error && (
             <span className='min-w-0 truncate pr-1 text-base text-quiet'>
-              {`Year: ${actualYear}`}
+              {`Year: ${newestAnnualData.year}`}
             </span>
           )}
         </div>
@@ -99,12 +99,16 @@ function EconomyCard(props: EconomyCardProps) {
           ) : (
             <>
               <Grid size={{ xs: 6, md: 3 }}>
-                <InfoCard title='GDP' value={actualGdp} className='p-0 px-2' />
+                <InfoCard
+                  title='GDP'
+                  value={newestAnnualData.gdpValue}
+                  className='p-0 px-2'
+                />
               </Grid>
               <Grid size={{ xs: 6, md: 3 }}>
                 <InfoCard
                   title='Growth rate'
-                  value={actualGrowthRate}
+                  value={newestAnnualData.growthRate}
                   className='p-0 px-2'
                 />
               </Grid>
