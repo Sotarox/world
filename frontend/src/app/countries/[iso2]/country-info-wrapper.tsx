@@ -3,9 +3,7 @@
 import { useApi } from '@/api/use-api';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
-import { Separator } from '@/components/shadcn/separator';
 import { CountryInfo } from './country-info';
-import { EconomyInfo } from '@/components/world/economy-info';
 import { type ACCountry } from '@/model/ac-country';
 import { type Country } from '@/model/country';
 import { useCountryNav } from '@/store/country-nav-store';
@@ -50,7 +48,6 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
           previousNav={previousNav}
           nextNav={nextNav}
         />
-        <Separator />
         <PopulationInfo
           iso2={iso2}
           continentCode={countryData.continent}
@@ -58,7 +55,6 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
           isVisible={currentTopic === 'population'}
         />
         <AirportList iso2={iso2} isVisible={currentTopic === 'airports'} />
-        <EconomyInfo iso2={iso2} isVisible={currentTopic === 'economy'} />
       </div>
     );
   } else {

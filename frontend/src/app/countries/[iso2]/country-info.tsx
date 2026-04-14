@@ -15,7 +15,7 @@ import { Card } from '@/components/shadcn/card';
 import { useTopicStore } from '@/store/topic-store';
 import { CountryShape } from '@/components/world/country-shape';
 import { AdjacentNavigation } from './adjacent-navigation';
-import EconomyCard from '@/components/world/economy-card';
+import { EconomyCard } from '@/components/world/economy-card';
 
 interface CountryInfoProps {
   iso2: string;
@@ -93,12 +93,12 @@ function CountryInfo(props: CountryInfoProps) {
           isSelected={currentTopic === 'population'}
           onClick={() => toggleCurrentTopic('population')}
         />
-        <InfoCardClickable
+        {/* <InfoCardClickable
           title='Economy'
           value='GDP'
           isSelected={currentTopic === 'economy'}
           onClick={() => toggleCurrentTopic('economy')}
-        />
+        /> */}
         <EconomyCard iso2={iso2} />
         <InfoCardClickable
           title='Airports'

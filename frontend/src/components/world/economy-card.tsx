@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Card } from '@/components/shadcn/card';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-} from '@/components/shadcn/accordion';
-import { AccordionTrigger } from '@/components/custom/accordion';
 import { cn } from '@/lib/utils';
 import { WbEconomyInfo, WbEconomyWrapper } from '@/model/wb-economy';
 import { useApi } from '@/api/use-api';
@@ -14,6 +8,7 @@ import { formatGdpValue } from '@/utils/utils';
 import { GdpChart } from '@/components/world/gdp-chart';
 import { useTopicStore } from '@/store/topic-store';
 import Grid from '@mui/material/Grid';
+import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
 
 interface EconomyCardProps {
   iso2: string;
@@ -47,87 +42,83 @@ function EconomyCard(props: EconomyCardProps) {
     }
   };
 
+  const getGdpValue = () => {
+    return economyWrapper?.data?.[economyWrapper.data.length - 1]?.gdpValue
+      ? `$${formatGdpValue(economyWrapper.data[economyWrapper.data.length - 1].gdpValue, false)} USD`
+      : 'N/A';
+  };
+
+  const Icon = isSelected ? <KeyboardArrowDown /> : <KeyboardArrowRight />;
   return (
     <Card
       className={cn(
-        'min-w-0 overflow-hidden p-2',
+        'w-full min-w-0 overflow-hidden p-2 gap-1',
         isSelected && 'col-span-full'
       )}
     >
-      <Accordion
-        type='single'
-        collapsible
-        value={currentTopic}
-        onValueChange={onValueChange}
-        className='w-full px-2 py-0'
-      >
-        <AccordionItem value='economy'>
-          <AccordionTrigger>
-            <div className='flex min-w-0 flex-col'>
-              <span className='text-lg font-extralight block truncate'>
+      <button className='w-full min-w-0' onClick={() => onValueChange()}>
+        <div className='flex w-full min-w-0 items-center justify-between rounded-sm text-left hover:bg-neutral-500/5 dark:hover:bg-gt-subtle/70'>
+          <div className='flex min-w-0 flex-1'>
+            {Icon}
+            <div className='flex min-w-0 flex-1 flex-col'>
+              <span className='block truncate text-lg font-extralight'>
                 Economy
               </span>
-              {!isSelected && (
-                <span className='text-base block truncate'>
-                  {economyWrapper?.data?.[economyWrapper.data.length - 1]
-                    ?.gdpValue
-                    ? `$${formatGdpValue(economyWrapper.data[economyWrapper.data.length - 1].gdpValue, false)} USD`
-                    : 'N/A'}
-                </span>
-              )}
+              <span className='block truncate text-base'>
+                {!isSelected && error && 'Error'}
+                {!isSelected && loading && 'Loading...'}
+                {!isSelected && !loading && !error && getGdpValue()}
+              </span>
             </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <Grid container spacing={1}>
-              {loading ? (
-                <Grid size={{ xs: 12 }}>
-                  <span className='pl-2'>Loading...</span>
-                </Grid>
-              ) : error ? (
-                <Grid size={{ xs: 12 }}>
-                  <span className='pl-2'>Error loading economy data</span>
-                </Grid>
-              ) : (
-                <>
-                  <Grid size={{ xs: 12 }}>
-                    <span className='text-base p-2 text-quiet col-span-full'>
-                      {`Year: ${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year}`}
-                    </span>
-                  </Grid>
-                  <Grid size={{ xs: 6, md: 3 }}>
-                    <InfoCard
-                      title='GDP'
-                      value={
-                        economyWrapper?.data?.[economyWrapper.data.length - 1]
-                          ?.gdpValue
-                          ? `$${formatGdpValue(economyWrapper.data[economyWrapper.data.length - 1].gdpValue, false)} USD`
-                          : 'N/A'
-                      }
-                    />
-                  </Grid>
-                  <Grid size={{ xs: 6, md: 3 }}>
-                    <InfoCard
-                      title='Growth rate'
-                      value={
-                        economyWrapper?.data?.[economyWrapper.data.length - 1]
-                          ?.growthRate
-                          ? `${economyWrapper.data[economyWrapper.data.length - 1].growthRate.toFixed(2)}%`
-                          : 'N/A'
-                      }
-                    />
-                  </Grid>
-                  <Grid size={{ xs: 12 }}>
-                    <GdpChart data={gdpData} />
-                  </Grid>
-                </>
-              )}
+          </div>
+          {isSelected && !loading && !error && (
+            <span className='min-w-0 truncate pr-1 text-base text-quiet'>
+              {`Year: ${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year}`}
+            </span>
+          )}
+        </div>
+      </button>
+      {isSelected && (
+        <Grid container spacing={1}>
+          {loading ? (
+            <Grid size={{ xs: 12 }}>
+              <span className='pl-2'>Loading...</span>
             </Grid>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+          ) : error ? (
+            <Grid size={{ xs: 12 }}>
+              <span className='pl-2'>Error loading economy data</span>
+            </Grid>
+          ) : (
+            <>
+              <Grid size={{ xs: 6, md: 3 }}>
+                <InfoCard
+                  title='GDP'
+                  value={getGdpValue()}
+                  className='p-0 px-2'
+                />
+              </Grid>
+              <Grid size={{ xs: 6, md: 3 }}>
+                <InfoCard
+                  title='Growth rate'
+                  value={
+                    economyWrapper?.data?.[economyWrapper.data.length - 1]
+                      ?.growthRate
+                      ? `${economyWrapper.data[economyWrapper.data.length - 1].growthRate.toFixed(2)}%`
+                      : 'N/A'
+                  }
+                  className='p-0 px-2'
+                />
+              </Grid>
+              <Grid size={{ xs: 12 }}>
+                <GdpChart data={gdpData} />
+              </Grid>
+            </>
+          )}
+        </Grid>
+      )}
     </Card>
   );
 }
 
 EconomyCard.displayName = 'EconomyCard';
-export default EconomyCard;
+export { EconomyCard };
