@@ -16,7 +16,10 @@ interface EconomyCardProps {
 
 function EconomyCard(props: EconomyCardProps) {
   const { iso2 } = props;
-  const [gdpData, setGdpData] = useState<WbEconomyInfo[]>([]);
+  const [economyData, setEconomyData] = useState<WbEconomyInfo[]>([]);
+  const [actualGdp, setActualGdp] = useState<string>('N/A');
+  const [actualGrowthRate, setActualGrowthRate] = useState<string>('N/A');
+  const [actualYear, setActualYear] = useState<string>('N/A');
   const { currentTopic, toggleCurrentTopic } = useTopicStore();
   const isSelected = currentTopic === 'economy';
 
@@ -28,13 +31,25 @@ function EconomyCard(props: EconomyCardProps) {
 
   useEffect(() => {
     if (economyWrapper?.data) {
-      setGdpData(
+      setEconomyData(
         economyWrapper.data.sort((a, b) => parseInt(a.year) - parseInt(b.year))
       );
+      const latestData = economyWrapper.data[economyWrapper.data.length - 1];
+      if (latestData) {
+        setActualGdp(
+          latestData.gdpValue
+            ? `$${formatGdpValue(latestData.gdpValue, false)} USD`
+            : 'N/A'
+        );
+        setActualGrowthRate(
+          latestData.growthRate ? `${latestData.growthRate.toFixed(2)}%` : 'N/A'
+        );
+        setActualYear(latestData.year ?? 'N/A');
+      }
     }
   }, [economyWrapper]);
 
-  const onValueChange = () => {
+  const onClick = () => {
     if (isSelected) {
       toggleCurrentTopic('');
     } else {
@@ -42,13 +57,6 @@ function EconomyCard(props: EconomyCardProps) {
     }
   };
 
-  const getGdpValue = () => {
-    return economyWrapper?.data?.[economyWrapper.data.length - 1]?.gdpValue
-      ? `$${formatGdpValue(economyWrapper.data[economyWrapper.data.length - 1].gdpValue, false)} USD`
-      : 'N/A';
-  };
-
-  const Icon = isSelected ? <KeyboardArrowDown /> : <KeyboardArrowRight />;
   return (
     <Card
       className={cn(
@@ -56,10 +64,10 @@ function EconomyCard(props: EconomyCardProps) {
         isSelected && 'col-span-full'
       )}
     >
-      <button className='w-full min-w-0' onClick={() => onValueChange()}>
+      <button className='w-full min-w-0' onClick={() => onClick()}>
         <div className='flex w-full min-w-0 items-center justify-between rounded-sm text-left hover:bg-neutral-500/5 dark:hover:bg-gt-subtle/70'>
           <div className='flex min-w-0 flex-1'>
-            {Icon}
+            {isSelected ? <KeyboardArrowDown /> : <KeyboardArrowRight />}
             <div className='flex min-w-0 flex-1 flex-col'>
               <span className='block truncate text-lg font-extralight'>
                 Economy
@@ -67,13 +75,13 @@ function EconomyCard(props: EconomyCardProps) {
               <span className='block truncate text-base'>
                 {!isSelected && error && 'Error'}
                 {!isSelected && loading && 'Loading...'}
-                {!isSelected && !loading && !error && getGdpValue()}
+                {!isSelected && !loading && !error && actualGdp}
               </span>
             </div>
           </div>
           {isSelected && !loading && !error && (
             <span className='min-w-0 truncate pr-1 text-base text-quiet'>
-              {`Year: ${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year}`}
+              {`Year: ${actualYear}`}
             </span>
           )}
         </div>
@@ -91,26 +99,17 @@ function EconomyCard(props: EconomyCardProps) {
           ) : (
             <>
               <Grid size={{ xs: 6, md: 3 }}>
-                <InfoCard
-                  title='GDP'
-                  value={getGdpValue()}
-                  className='p-0 px-2'
-                />
+                <InfoCard title='GDP' value={actualGdp} className='p-0 px-2' />
               </Grid>
               <Grid size={{ xs: 6, md: 3 }}>
                 <InfoCard
                   title='Growth rate'
-                  value={
-                    economyWrapper?.data?.[economyWrapper.data.length - 1]
-                      ?.growthRate
-                      ? `${economyWrapper.data[economyWrapper.data.length - 1].growthRate.toFixed(2)}%`
-                      : 'N/A'
-                  }
+                  value={actualGrowthRate}
                   className='p-0 px-2'
                 />
               </Grid>
               <Grid size={{ xs: 12 }}>
-                <GdpChart data={gdpData} />
+                <GdpChart data={economyData} />
               </Grid>
             </>
           )}
