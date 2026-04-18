@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEconomyApi } from '@/api/use-economy-api';
 import { Card } from '@/components/shadcn/card';
-import { cn } from '@/lib/utils';
-import { WbEconomyInfo, WbEconomyWrapper } from '@/model/wb-economy';
-import { useApi } from '@/api/use-api';
-import InfoCard from './info-card';
-import { formatGdpValue } from '@/utils/utils';
 import { GdpChart } from '@/components/world/gdp-chart';
+import { cn } from '@/lib/utils';
 import { useTopicStore } from '@/store/topic-store';
+import { KeyboardArrowDown, KeyboardArrowRight } from '@mui/icons-material';
 import Grid from '@mui/material/Grid';
-import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
+import InfoCard from './info-card';
 
 interface EconomyCardProps {
   iso2: string;
@@ -16,38 +13,10 @@ interface EconomyCardProps {
 
 function EconomyCard(props: EconomyCardProps) {
   const { iso2 } = props;
-  const [economyData, setEconomyData] = useState<WbEconomyInfo[]>([]);
-  const [newestAnnualData, setNewestAnnualData] = useState<{
-    year: string;
-    gdpValue: string;
-    growthRate: string;
-  }>({ year: 'N/A', gdpValue: 'N/A', growthRate: 'N/A' });
+  const { seriesData, newestAnnualData, error, loading } = useEconomyApi(iso2);
+
   const { currentTopic, toggleCurrentTopic } = useTopicStore();
   const isSelected = currentTopic === 'economy';
-
-  const {
-    data: economyWrapper,
-    error,
-    loading,
-  } = useApi<WbEconomyWrapper>(`/economy/${iso2}`);
-
-  useEffect(() => {
-    if (economyWrapper?.data) {
-      setEconomyData(
-        economyWrapper.data.sort((a, b) => parseInt(a.year) - parseInt(b.year))
-      );
-      const latestData = economyWrapper.data[economyWrapper.data.length - 1];
-      setNewestAnnualData({
-        year: latestData.year,
-        gdpValue: latestData.gdpValue
-          ? `$${formatGdpValue(latestData.gdpValue, false)} USD`
-          : 'N/A',
-        growthRate: latestData.growthRate
-          ? `${latestData.growthRate.toFixed(2)}%`
-          : 'N/A',
-      });
-    }
-  }, [economyWrapper]);
 
   const onClick = () => {
     if (isSelected) {
@@ -113,7 +82,7 @@ function EconomyCard(props: EconomyCardProps) {
                 />
               </Grid>
               <Grid size={{ xs: 12 }}>
-                <GdpChart data={economyData} />
+                <GdpChart data={seriesData} />
               </Grid>
             </>
           )}
