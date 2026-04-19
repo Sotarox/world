@@ -43,7 +43,12 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
       ? Math.floor(selectedTopicIndex / 2) + 2
       : Math.floor(selectedTopicIndex / 4) + 2;
     return (
-      <div className={cn('col-span-full')} style={{ gridRow: targetRowNumber }}>
+      <div
+        className={cn(
+          'col-span-full animate-in fade-in zoom-in-90 duration-300'
+        )}
+        style={{ gridRow: targetRowNumber }}
+      >
         {currentTopic === 'population' && (
           <PopulationInfo iso2={iso2} continentCode={country.continent} />
         )}
