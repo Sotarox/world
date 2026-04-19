@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from '@/components/shadcn/card';
-import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
+import { KeyboardArrowRight } from '@mui/icons-material';
 import { cn } from '@/lib/utils';
 
 interface InfoCardClickableProps {
@@ -12,7 +12,6 @@ interface InfoCardClickableProps {
 
 function InfoCardClickable(props: InfoCardClickableProps) {
   const { isSelected, title, value, onClick } = props;
-  const Icon = isSelected ? <KeyboardArrowDown /> : <KeyboardArrowRight />;
   return (
     <button onClick={() => onClick && onClick()}>
       <Card
@@ -21,7 +20,13 @@ function InfoCardClickable(props: InfoCardClickableProps) {
         )}
       >
         <div className='flex flex-start'>
-          {Icon}
+          <KeyboardArrowRight
+            className='shrink-0'
+            style={{
+              transform: isSelected ? 'rotate(90deg)' : 'rotate(0deg)',
+              transition: 'transform 200ms ease',
+            }}
+          />
           <div className='flex flex-col min-w-0'>
             <span className='text-lg font-extralight truncate'>{title}</span>
             <span className='text-base truncate'>{value}</span>
