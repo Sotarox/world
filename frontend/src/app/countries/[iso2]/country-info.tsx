@@ -1,21 +1,17 @@
-import React from 'react';
+import { Card } from '@/components/shadcn/card';
+import { CountryShape } from '@/components/world/country-shape';
+import InfoCard from '@/components/world/info-card';
+import type { ACCountry, ACCountryNav } from '@/model/ac-country';
 import { type Country } from '@/model/country';
-import 'flag-icons/css/flag-icons.min.css';
 import {
+  concatStringsWithComma,
   convertContinentCodeToName,
   formatCoordinate,
   formatNumberWithComma,
-  concatStringsWithComma,
 } from '@/utils/utils';
-import InfoCardClickable from '@/components/world/info-card-clickable';
-import type { ACCountry, ACCountryNav } from '@/model/ac-country';
-import CountryInfoHeader from './country-info-header';
-import InfoCard from '@/components/world/info-card';
-import { Card } from '@/components/shadcn/card';
-import { useTopicStore } from '@/store/topic-store';
-import { CountryShape } from '@/components/world/country-shape';
+import 'flag-icons/css/flag-icons.min.css';
 import { AdjacentNavigation } from './adjacent-navigation';
-import { EconomyCard } from '@/components/world/economy-card';
+import CountryInfoHeader from './country-info-header';
 
 interface CountryInfoProps {
   iso2: string;
@@ -26,88 +22,60 @@ interface CountryInfoProps {
 }
 function CountryInfo(props: CountryInfoProps) {
   const { iso2, acCountry, country, previousNav, nextNav } = props;
-  const { currentTopic, toggleCurrentTopic } = useTopicStore();
 
   return (
-    <>
-      <Card className='p-4 gap-3'>
-        <CountryInfoHeader country={country} />
-        <div className='flex justify-between items-center gap-4'>
-          <AdjacentNavigation order='previous' nav={previousNav} />
-          <CountryShape
-            iso2={iso2}
-            width={200}
-            height={200}
-            className='self-center'
-          />
-          <AdjacentNavigation order='next' nav={nextNav} />
-        </div>
-        <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 [&>*]:min-w-0'>
-          <InfoCard
-            title='Continent'
-            value={convertContinentCodeToName(country.continent)}
-          />
-          <InfoCard
-            title='Region'
-            value={acCountry?.region.toString() ?? 'N/A'}
-          />
-          <InfoCard
-            title='Subregion'
-            value={acCountry?.subregion.toString() ?? 'N/A'}
-          />
-          <InfoCard
-            title='Coordinate'
-            value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
-          />
-          <InfoCard title='Capital' value={country.capital} />
-          <InfoCard title='Country ISO2' value={country.countryIso2} />
-          <InfoCard title='Country ISO3' value={country.countryIso3} />
-          <InfoCard title='Currency' value={country.currencyName} />
-          <InfoCard title='Phone prefix' value={country.phonePrefix} />
-          <InfoCard
-            title='Area'
-            value={
-              acCountry?.area
-                ? `${formatNumberWithComma(acCountry.area)} \u33A2`
-                : 'N/A'
-            }
-          />
-          <InfoCard
-            title='Top domain'
-            value={concatStringsWithComma(acCountry?.topLevelDomain)}
-          />
-          <InfoCard
-            title='Time zone'
-            value={concatStringsWithComma(acCountry?.timezones)}
-          />
-        </div>
-      </Card>
-      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 items-start [&>*]:min-w-0'>
-        <InfoCardClickable
-          title='Population'
+    <Card className='p-4 gap-3'>
+      <CountryInfoHeader country={country} />
+      <div className='flex justify-between items-center gap-4'>
+        <AdjacentNavigation order='previous' nav={previousNav} />
+        <CountryShape
+          iso2={iso2}
+          width={200}
+          height={200}
+          className='self-center'
+        />
+        <AdjacentNavigation order='next' nav={nextNav} />
+      </div>
+      <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 [&>*]:min-w-0'>
+        <InfoCard
+          title='Continent'
+          value={convertContinentCodeToName(country.continent)}
+        />
+        <InfoCard
+          title='Region'
+          value={acCountry?.region.toString() ?? 'N/A'}
+        />
+        <InfoCard
+          title='Subregion'
+          value={acCountry?.subregion.toString() ?? 'N/A'}
+        />
+        <InfoCard
+          title='Coordinate'
+          value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
+        />
+        <InfoCard title='Capital' value={country.capital} />
+        <InfoCard title='Country ISO2' value={country.countryIso2} />
+        <InfoCard title='Country ISO3' value={country.countryIso3} />
+        <InfoCard title='Currency' value={country.currencyName} />
+        <InfoCard title='Phone prefix' value={country.phonePrefix} />
+        <InfoCard
+          title='Area'
           value={
-            country.population
-              ? formatNumberWithComma(country.population)
+            acCountry?.area
+              ? `${formatNumberWithComma(acCountry.area)} \u33A2`
               : 'N/A'
           }
-          isSelected={currentTopic === 'population'}
-          onClick={() => toggleCurrentTopic('population')}
         />
-        {/* <InfoCardClickable
-          title='Economy'
-          value='GDP'
-          isSelected={currentTopic === 'economy'}
-          onClick={() => toggleCurrentTopic('economy')}
-        /> */}
-        <EconomyCard iso2={iso2} />
-        <InfoCardClickable
-          title='Airports'
-          value={country.totalNumberOfAirports.toString()}
-          isSelected={currentTopic === 'airports'}
-          onClick={() => toggleCurrentTopic('airports')}
+        <InfoCard
+          title='Top domain'
+          value={concatStringsWithComma(acCountry?.topLevelDomain)}
+        />
+        <InfoCard
+          title='Time zone'
+          value={concatStringsWithComma(acCountry?.timezones)}
         />
       </div>
-    </>
+    </Card>
   );
 }
 

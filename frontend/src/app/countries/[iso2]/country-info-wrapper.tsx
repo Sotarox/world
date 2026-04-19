@@ -1,19 +1,17 @@
 'use client';
 
 import { useApi } from '@/api/use-api';
-import { AirportList } from '@/app/countries/[iso2]/airport-list';
-import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
-import { CountryInfo } from './country-info';
 import { type ACCountry } from '@/model/ac-country';
 import { type Country } from '@/model/country';
-import { useCountryNav } from '@/store/country-nav-store';
-import { useTopicStore } from '@/store/topic-store';
-import 'flag-icons/css/flag-icons.min.css';
-import { useMemo } from 'react';
 import {
   nextCountryNav,
   previousCountryNav,
 } from '@/model/country-iso2-name-map';
+import { useCountryNav } from '@/store/country-nav-store';
+import 'flag-icons/css/flag-icons.min.css';
+import { useMemo } from 'react';
+import { CountryInfo } from './country-info';
+import { CountryInfoTopics } from './country-info-topics';
 
 function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   const { data: countryData, error: countryError } = useApi<Country>(
@@ -23,7 +21,6 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
     `/accountries/${iso2}`
   );
 
-  const { currentTopic } = useTopicStore();
   const countryNavs = useCountryNav((s) => s.countries);
   const countryNavsSortedByPopulation = useMemo(
     () =>
@@ -48,13 +45,11 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
           previousNav={previousNav}
           nextNav={nextNav}
         />
-        <PopulationInfo
+        <CountryInfoTopics
           iso2={iso2}
-          continentCode={countryData.continent}
-          data={countryNavsSortedByPopulation}
-          isVisible={currentTopic === 'population'}
+          country={countryData}
+          countryNavsSortedByPopulation={countryNavsSortedByPopulation}
         />
-        <AirportList iso2={iso2} isVisible={currentTopic === 'airports'} />
       </div>
     );
   } else {
