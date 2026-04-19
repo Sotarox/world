@@ -9,7 +9,6 @@ import {
 } from '@/model/country-iso2-name-map';
 import { useCountryNav } from '@/store/country-nav-store';
 import 'flag-icons/css/flag-icons.min.css';
-import { useMemo } from 'react';
 import { CountryInfo } from './country-info';
 import { CountryInfoTopics } from './country-info-topics';
 
@@ -22,13 +21,6 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   );
 
   const countryNavs = useCountryNav((s) => s.countries);
-  const countryNavsSortedByPopulation = useMemo(
-    () =>
-      [...countryNavs].sort(
-        (a, b) => (b.population ?? 0) - (a.population ?? 0)
-      ),
-    [countryNavs]
-  );
   const previousNav = previousCountryNav(iso2.toUpperCase(), countryNavs);
   const nextNav = nextCountryNav(iso2.toUpperCase(), countryNavs);
 
@@ -45,11 +37,7 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
           previousNav={previousNav}
           nextNav={nextNav}
         />
-        <CountryInfoTopics
-          iso2={iso2}
-          country={countryData}
-          countryNavsSortedByPopulation={countryNavsSortedByPopulation}
-        />
+        <CountryInfoTopics iso2={iso2} country={countryData} />
       </div>
     );
   } else {

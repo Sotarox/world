@@ -4,7 +4,6 @@ import { EconomyInfo } from '@/components/world/economy-info';
 import InfoCardClickable from '@/components/world/info-card-clickable';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
-import type { ACCountryNav } from '@/model/ac-country';
 import { type Country } from '@/model/country';
 import { TopicType } from '@/model/misc';
 import { useTopicStore } from '@/store/topic-store';
@@ -15,10 +14,9 @@ import { useState } from 'react';
 interface CountryInfoTopicsProps {
   iso2: string;
   country: Country;
-  countryNavsSortedByPopulation: ACCountryNav[];
 }
 function CountryInfoTopics(props: CountryInfoTopicsProps) {
-  const { iso2, country, countryNavsSortedByPopulation } = props;
+  const { iso2, country } = props;
   const { currentTopic, toggleCurrentTopic } = useTopicStore();
   const [selectedTopicIndex, setSelectedTopicIndex] = useState(-1);
   const isMobile = useIsMobile();
@@ -43,19 +41,10 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
     return (
       <div className={cn('col-span-full')} style={{ gridRow: targetRowNumber }}>
         {currentTopic === 'population' && (
-          <PopulationInfo
-            iso2={iso2}
-            continentCode={country.continent}
-            data={countryNavsSortedByPopulation}
-            isVisible={true}
-          />
+          <PopulationInfo iso2={iso2} continentCode={country.continent} />
         )}
-        {currentTopic === 'economy' && (
-          <EconomyInfo iso2={iso2} isVisible={true} />
-        )}
-        {currentTopic === 'airports' && (
-          <AirportList iso2={iso2} isVisible={true} />
-        )}
+        {currentTopic === 'economy' && <EconomyInfo iso2={iso2} />}
+        {currentTopic === 'airports' && <AirportList iso2={iso2} />}
       </div>
     );
   };

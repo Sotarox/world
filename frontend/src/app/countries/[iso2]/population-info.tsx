@@ -1,22 +1,18 @@
-import React from 'react';
-import Grid from '@mui/material/Grid';
-import InfoCard from '@/components/world/info-card';
-import { type PopulationRank } from '@/model/misc';
 import { useApi } from '@/api/use-api';
 import { Card } from '@/components/shadcn/card';
-import { PopulationChart } from '@/components/world/population-chart';
-import { ACCountryNav } from '@/model/ac-country';
+import InfoCard from '@/components/world/info-card';
+import { PopulationChartLoad } from '@/components/world/population-chart-load';
+import { type PopulationRank } from '@/model/misc';
+import { formatRankInfo } from '@/utils/utils';
+import Grid from '@mui/material/Grid';
 
 interface PopulationInfoProps {
   iso2: string;
   continentCode: string;
-  data: ACCountryNav[];
-  isVisible: boolean;
 }
 
 function PopulationInfo(props: PopulationInfoProps) {
-  const { iso2, continentCode, data, isVisible } = props;
-  if (!isVisible) return null;
+  const { iso2, continentCode } = props;
   const { data: populationRankWorld } = useApi<PopulationRank>(
     `/countries/rank/population/world/${iso2}`
   );
@@ -57,15 +53,9 @@ function PopulationInfo(props: PopulationInfoProps) {
           />
         </Grid>
       </Grid>
-      <PopulationChart data={data} selectedIso2={iso2} />
+      <PopulationChartLoad iso2={iso2} />
     </Card>
   );
 }
-
-const formatRankInfo = (rank: number, countCountries: number): string => {
-  const order =
-    rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th';
-  return `${rank}${order} in ${countCountries} countries`;
-};
 
 export { PopulationInfo };

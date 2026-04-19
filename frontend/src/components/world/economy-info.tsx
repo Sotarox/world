@@ -9,10 +9,9 @@ import Grid from '@mui/material/Grid';
 
 interface EconomyInfoProps {
   iso2: string;
-  isVisible: boolean;
 }
 
-function EconomyInfo({ iso2, isVisible }: EconomyInfoProps) {
+function EconomyInfo({ iso2 }: EconomyInfoProps) {
   const [gdpData, setGdpData] = useState<WbEconomyInfo[]>([]);
   const {
     data: economyWrapper,
@@ -28,7 +27,6 @@ function EconomyInfo({ iso2, isVisible }: EconomyInfoProps) {
     }
   }, [economyWrapper]);
 
-  if (!isVisible) return null;
   return (
     <Card className='p-4'>
       <Grid container spacing={1}>
