@@ -1,6 +1,8 @@
+import { useEconomyApi } from '@/api/use-economy-api';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
 import { EconomyInfo } from '@/components/world/economy-info';
+import { EconomyCard } from '@/components/world/economy-card';
 import InfoCardClickable from '@/components/world/info-card-clickable';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -19,6 +21,8 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
   const { iso2, country } = props;
   const { currentTopic, toggleCurrentTopic } = useTopicStore();
   const [selectedTopicIndex, setSelectedTopicIndex] = useState(-1);
+  const economyApiResult = useEconomyApi(iso2);
+
   const isMobile = useIsMobile();
 
   const onClickTopic = (topic: TopicType, index: number) => {
@@ -43,7 +47,9 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
         {currentTopic === 'population' && (
           <PopulationInfo iso2={iso2} continentCode={country.continent} />
         )}
-        {currentTopic === 'economy' && <EconomyInfo iso2={iso2} />}
+        {currentTopic === 'economy' && (
+          <EconomyInfo economyApiResult={economyApiResult} />
+        )}
         {currentTopic === 'airports' && <AirportList iso2={iso2} />}
       </div>
     );
@@ -59,9 +65,8 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
         isSelected={currentTopic === 'population'}
         onClick={() => onClickTopic('population', 0)}
       />
-      <InfoCardClickable
-        title='Economy'
-        value='GDP'
+      <EconomyCard
+        economyApiResult={economyApiResult}
         isSelected={currentTopic === 'economy'}
         onClick={() => onClickTopic('economy', 1)}
       />

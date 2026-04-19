@@ -1,31 +1,15 @@
-import { useApi } from '@/api/use-api';
-import { WbEconomyInfo, WbEconomyWrapper } from '@/model/wb-economy';
-import { formatGdpValue } from '@/utils/utils';
 import InfoCard from './info-card';
 import { Card } from '../shadcn/card';
 import { GdpChart } from '@/components/world/gdp-chart';
-import { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
+import { EconomyApiResult } from '@/api/use-economy-api';
 
 interface EconomyInfoProps {
-  iso2: string;
+  economyApiResult: EconomyApiResult;
 }
 
-function EconomyInfo({ iso2 }: EconomyInfoProps) {
-  const [gdpData, setGdpData] = useState<WbEconomyInfo[]>([]);
-  const {
-    data: economyWrapper,
-    error,
-    loading,
-  } = useApi<WbEconomyWrapper>(`/economy/${iso2}`);
-
-  useEffect(() => {
-    if (economyWrapper?.data) {
-      setGdpData(
-        economyWrapper.data.sort((a, b) => parseInt(a.year) - parseInt(b.year))
-      );
-    }
-  }, [economyWrapper]);
+function EconomyInfo({ economyApiResult }: EconomyInfoProps) {
+  const { seriesData, newestAnnualData, error, loading } = economyApiResult;
 
   return (
     <Card className='p-4'>
@@ -36,7 +20,7 @@ function EconomyInfo({ iso2 }: EconomyInfoProps) {
         >
           <span className='text-lg font-extralight'>Economy</span>
           <span className='text-base text-quiet'>
-            {`Year: ${economyWrapper?.data?.[economyWrapper.data.length - 1]?.year}`}
+            {`Year: ${newestAnnualData.year}`}
           </span>
         </Grid>
         {loading ? (
@@ -50,29 +34,16 @@ function EconomyInfo({ iso2 }: EconomyInfoProps) {
         ) : (
           <>
             <Grid size={{ xs: 6, md: 3 }}>
-              <InfoCard
-                title='GDP'
-                value={
-                  economyWrapper?.data?.[economyWrapper.data.length - 1]
-                    ?.gdpValue
-                    ? `$${formatGdpValue(economyWrapper.data[economyWrapper.data.length - 1].gdpValue, false)} USD`
-                    : 'N/A'
-                }
-              />
+              <InfoCard title='GDP' value={newestAnnualData.gdpValue} />
             </Grid>
             <Grid size={{ xs: 6, md: 3 }}>
               <InfoCard
                 title='Growth rate'
-                value={
-                  economyWrapper?.data?.[economyWrapper.data.length - 1]
-                    ?.growthRate
-                    ? `${economyWrapper.data[economyWrapper.data.length - 1].growthRate.toFixed(2)}%`
-                    : 'N/A'
-                }
+                value={newestAnnualData.growthRate}
               />
             </Grid>
             <Grid size={{ xs: 12 }}>
-              <GdpChart data={gdpData} />
+              <GdpChart data={seriesData} />
             </Grid>
           </>
         )}

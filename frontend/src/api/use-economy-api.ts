@@ -47,4 +47,4 @@ function useEconomyApi(iso2: string): EconomyApiResult {
   return { seriesData, newestAnnualData, error, loading };
 }
 
-export { useEconomyApi };
+export { useEconomyApi, type EconomyApiResult };
