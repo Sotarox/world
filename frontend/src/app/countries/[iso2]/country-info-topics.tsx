@@ -1,8 +1,8 @@
 import { useEconomyApi } from '@/api/use-economy-api';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
-import { EconomyInfo } from '@/components/world/economy-info';
 import { EconomyCard } from '@/components/world/economy-card';
+import { EconomyInfo } from '@/components/world/economy-info';
 import InfoCardClickable from '@/components/world/info-card-clickable';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -11,7 +11,6 @@ import { TopicType } from '@/model/misc';
 import { useTopicStore } from '@/store/topic-store';
 import { formatNumberWithComma } from '@/utils/utils';
 import 'flag-icons/css/flag-icons.min.css';
-import { useState } from 'react';
 
 interface CountryInfoTopicsProps {
   iso2: string;
@@ -19,19 +18,17 @@ interface CountryInfoTopicsProps {
 }
 function CountryInfoTopics(props: CountryInfoTopicsProps) {
   const { iso2, country } = props;
-  const { currentTopic, toggleCurrentTopic } = useTopicStore();
-  const [selectedTopicIndex, setSelectedTopicIndex] = useState(-1);
+  const { currentTopic, toggleCurrentTopic, selectedTopicIndex } =
+    useTopicStore();
   const economyApiResult = useEconomyApi(iso2);
 
   const isMobile = useIsMobile();
 
   const onClickTopic = (topic: TopicType, index: number) => {
     if (currentTopic === topic) {
-      toggleCurrentTopic('');
-      setSelectedTopicIndex(-1);
+      toggleCurrentTopic('', -1);
     } else {
-      toggleCurrentTopic(topic);
-      setSelectedTopicIndex(index);
+      toggleCurrentTopic(topic, index);
     }
   };
 
