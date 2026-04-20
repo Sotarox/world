@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class CacheConfig {
     private static final int MAX_CACHE_SIZE = 300;
-        private static final String[] WEEKLY_CACHES = {"country", "countries", "countryNavs", "economy"};
+        private static final String[] WEEKLY_CACHES = {"country", "countries", "countryNavs"};
         private static final String[] MONTHLY_CACHES = {""};
 
     @Bean
