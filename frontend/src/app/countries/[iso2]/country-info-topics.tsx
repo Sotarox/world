@@ -7,10 +7,50 @@ import InfoCardClickable from '@/components/world/info-card-clickable';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 import { type Country } from '@/model/country';
+import { type EconomyApiResult } from '@/api/use-economy-api';
 import { TopicType } from '@/model/misc';
 import { useTopicStore } from '@/store/topic-store';
 import { formatNumberWithComma } from '@/utils/utils';
 import 'flag-icons/css/flag-icons.min.css';
+import { memo } from 'react';
+
+interface DetailInfoProps {
+  iso2: string;
+  currentTopic: TopicType;
+  selectedTopicIndex: number;
+  continentCode: string;
+  economyApiResult: EconomyApiResult;
+  isMobile: boolean;
+}
+
+// since memo is used, this component doesn't re-render when economyApiResult changes
+const DetailInfo = memo(function DetailInfo({
+  iso2,
+  currentTopic,
+  selectedTopicIndex,
+  continentCode,
+  economyApiResult,
+  isMobile,
+}: DetailInfoProps) {
+  if (currentTopic === '') return null;
+  const targetRowNumber = isMobile
+    ? Math.floor(selectedTopicIndex / 2) + 2
+    : Math.floor(selectedTopicIndex / 4) + 2;
+  return (
+    <div
+      className={cn('col-span-full animate-in fade-in zoom-in-90 duration-300')}
+      style={{ gridRow: targetRowNumber }}
+    >
+      {currentTopic === 'population' && (
+        <PopulationInfo iso2={iso2} continentCode={continentCode} />
+      )}
+      {currentTopic === 'economy' && (
+        <EconomyInfo economyApiResult={economyApiResult} />
+      )}
+      {currentTopic === 'airports' && <AirportList iso2={iso2} />}
+    </div>
+  );
+});
 
 interface CountryInfoTopicsProps {
   iso2: string;
@@ -30,31 +70,6 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
     } else {
       toggleCurrentTopic(topic, index);
     }
-  };
-
-  const DetailInfo = () => {
-    if (currentTopic === '') {
-      return null;
-    }
-    const targetRowNumber = isMobile
-      ? Math.floor(selectedTopicIndex / 2) + 2
-      : Math.floor(selectedTopicIndex / 4) + 2;
-    return (
-      <div
-        className={cn(
-          'col-span-full animate-in fade-in zoom-in-90 duration-300'
-        )}
-        style={{ gridRow: targetRowNumber }}
-      >
-        {currentTopic === 'population' && (
-          <PopulationInfo iso2={iso2} continentCode={country.continent} />
-        )}
-        {currentTopic === 'economy' && (
-          <EconomyInfo economyApiResult={economyApiResult} />
-        )}
-        {currentTopic === 'airports' && <AirportList iso2={iso2} />}
-      </div>
-    );
   };
 
   return (
@@ -78,9 +93,16 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
         isSelected={currentTopic === 'airports'}
         onClick={() => onClickTopic('airports', 2)}
       />
-      <DetailInfo />
+      <DetailInfo
+        currentTopic={currentTopic}
+        selectedTopicIndex={selectedTopicIndex}
+        iso2={iso2}
+        continentCode={country.continent}
+        economyApiResult={economyApiResult}
+        isMobile={isMobile}
+      />
     </div>
   );
 }
-
+CountryInfoTopics.displayName = 'CountryInfoTopics';
 export { CountryInfoTopics };

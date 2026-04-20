@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import InfoCard from './info-card';
 import { Card } from '../shadcn/card';
 import { GdpChart } from '@/components/world/gdp-chart';
@@ -8,7 +9,9 @@ interface EconomyInfoProps {
   economyApiResult: EconomyApiResult;
 }
 
-function EconomyInfo({ economyApiResult }: EconomyInfoProps) {
+const EconomyInfo = memo(function EconomyInfo({
+  economyApiResult,
+}: EconomyInfoProps) {
   const { seriesData, newestAnnualData, error, loading } = economyApiResult;
 
   return (
@@ -50,7 +53,7 @@ function EconomyInfo({ economyApiResult }: EconomyInfoProps) {
       </Grid>
     </Card>
   );
-}
+});
 
 EconomyInfo.displayName = 'CountryInfoEconomy';
 export { EconomyInfo };

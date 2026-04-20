@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { EconomyApiResult } from '@/api/use-economy-api';
 import InfoCardClickable from '@/components/world/info-card-clickable';
 
@@ -7,7 +8,7 @@ interface EconomyCardProps {
   onClick: () => void;
 }
 
-function EconomyCard(props: EconomyCardProps) {
+const EconomyCard = memo(function EconomyCard(props: EconomyCardProps) {
   const { economyApiResult, isSelected, onClick } = props;
   const { newestAnnualData, error, loading } = economyApiResult;
 
@@ -25,7 +26,7 @@ function EconomyCard(props: EconomyCardProps) {
       onClick={onClick}
     />
   );
-}
+});
 
 EconomyCard.displayName = 'EconomyCard';
 export { EconomyCard };
