@@ -1,15 +1,14 @@
 import { memo } from 'react';
 import { EconomyApiResult } from '@/api/use-economy-api';
-import InfoCardClickable from '@/components/world/info-card-clickable';
+import InfoCardSelectable from '@/components/world/info-card-selectable';
 
 interface EconomyCardProps {
   economyApiResult: EconomyApiResult;
   isSelected: boolean;
-  onClick: () => void;
 }
 
 const EconomyCard = memo(function EconomyCard(props: EconomyCardProps) {
-  const { economyApiResult, isSelected, onClick } = props;
+  const { economyApiResult, isSelected } = props;
   const { newestAnnualData, error, loading } = economyApiResult;
 
   const getValue = () => {
@@ -19,11 +18,10 @@ const EconomyCard = memo(function EconomyCard(props: EconomyCardProps) {
   };
 
   return (
-    <InfoCardClickable
+    <InfoCardSelectable
       title='Economy'
       value={getValue()}
       isSelected={isSelected}
-      onClick={onClick}
     />
   );
 });
