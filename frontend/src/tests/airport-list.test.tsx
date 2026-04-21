@@ -1,7 +1,6 @@
-import React from 'react';
-import { render, screen, within } from '@testing-library/react';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import type { Airport } from '@/model/airport';
+import { render, screen, within } from '@testing-library/react';
 
 const mockAirports: Airport[] = [
   {
@@ -26,7 +25,7 @@ jest.mock('../api/use-api', () => ({
 
 describe('AirportList Component', () => {
   it('renders airports when isVisible is true and airports are available', () => {
-    render(<AirportList iso2='DE' isVisible={true} />);
+    render(<AirportList iso2='DE' />);
 
     expect(screen.getByText('Augsburg - Muehlhausen')).toBeInTheDocument();
     expect(screen.getByText('Bremen')).toBeInTheDocument();
@@ -50,11 +49,5 @@ describe('AirportList Component', () => {
     expect(
       cityIataCodeParentDivs.find((div) => within(div).queryByText('BRE'))
     ).toBeTruthy();
-  });
-
-  it('renders no airport when isVisible is false', () => {
-    render(<AirportList iso2='DE' isVisible={false} />);
-
-    expect(screen.queryByText('Augsburg - Muehlhausen')).toBeNull();
   });
 });
