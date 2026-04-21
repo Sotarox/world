@@ -58,3 +58,12 @@ export const formatGdpValue = (
   }
   return `${Math.round(value)}`;
 };
+
+export const formatRankInfo = (
+  rank: number,
+  countCountries: number
+): string => {
+  const order =
+    rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th';
+  return `${rank}${order} in ${countCountries} countries`;
+};

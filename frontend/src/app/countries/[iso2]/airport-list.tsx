@@ -4,18 +4,15 @@ import { AirportInfo } from './airport-info';
 import { useApi } from '@/api/use-api';
 
 interface AirportListProps {
-  iso2: string | null;
-  isVisible: boolean;
+  iso2: string;
 }
 
 function AirportList(props: AirportListProps) {
-  const { iso2, isVisible } = props;
+  const { iso2 } = props;
   const { data, error, loading } = useApi<Airport[]>(`/airports/${iso2}`);
 
-  if (!isVisible) return null;
-
   return (
-    <div className='mt-4 space-y-3'>
+    <div className='mt-1 space-y-3'>
       {loading ? (
         <span className='pl-2'>Loading...</span>
       ) : error ? (

@@ -1,22 +1,7 @@
-import { CountryInfo } from '@/components/world/country-info';
+import { CountryInfo } from '@/app/countries/[iso2]/country-info';
 import { Country } from '@/model/country';
 import { ACCountry } from '@/model/ac-country';
 import { render, screen } from '@testing-library/react';
-import { useTopicStore } from '../store/topic-store';
-
-jest.mock('../store/topic-store', () => ({
-  useTopicStore: jest.fn(),
-}));
-
-const mockedUseTopicStore = jest.mocked(useTopicStore);
-
-beforeEach(() => {
-  mockedUseTopicStore.mockReturnValue({
-    currentTopic: '',
-    setCurrentTopic: jest.fn(),
-    toggleCurrentTopic: jest.fn(),
-  });
-});
 
 global.fetch = jest.fn(() =>
   Promise.resolve({
@@ -100,16 +85,13 @@ const mockAcCountry: ACCountry = {
 
 describe('CountryInfo Component', () => {
   it('renders country information correctly', () => {
-    mockedUseTopicStore.mockReturnValue({
-      currentTopic: '',
-      setCurrentTopic: jest.fn(),
-      toggleCurrentTopic: jest.fn(),
-    });
     render(
       <CountryInfo
+        iso2='JP'
         acCountry={mockAcCountry}
         country={mockCountry}
-        sizeAirports={1}
+        previousNav={undefined}
+        nextNav={undefined}
       />
     );
     expect(screen.getByText('Japan')).toBeInTheDocument();
