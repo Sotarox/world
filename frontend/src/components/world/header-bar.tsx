@@ -17,27 +17,31 @@ const HeaderBar = React.memo(() => {
   return (
     <div
       className={cn(
-        'w-full bg-primary dark:bg-gt-header flex items-center shadow-md',
+        'w-full bg-primary dark:bg-gt-header grid grid-cols-3 justify-between content-center shadow-md',
         // On small screen, Header is fixed at the bottom
         'fixed bottom-0 h-15 top-auto px-3',
         // On larger screen, Header is sticky at the top
-        'sm:sticky sm:top-0 sm:min-h-16 sm:px-6'
+        'sm:sticky sm:top-0 sm:min-h-16 sm:px-4'
       )}
       style={{ zIndex: useTheme().zIndex.drawer + 1 }}
     >
-      <HeaderLogo />
-      {/* When sidebar is open on mobile, click on Trigger opens sidebar twice flashingly.
-       * As a workaround, dummy button is shown */}
-      {openMobile && isMobile ? (
-        <DummySidebarTrigger />
-      ) : (
-        <SidebarTrigger className='size-10' />
-      )}
-      <div className='flex-1' />
-      <SearchButton />
-      <div className='flex-1' />
-      <ThemeSwitch />
-      <BurgerMenu />
+      <div className='flex items-center gap-1'>
+        <HeaderLogo />
+        {/* When sidebar is open on mobile, click on Trigger opens sidebar twice flashingly.
+         * As a workaround, dummy button is shown */}
+        {openMobile && isMobile ? (
+          <DummySidebarTrigger />
+        ) : (
+          <SidebarTrigger className='size-10' />
+        )}
+      </div>
+      <div className='flex justify-center items-center gap-1'>
+        <SearchButton />
+      </div>
+      <div className='flex justify-end items-center gap-1'>
+        <ThemeSwitch />
+        <BurgerMenu />
+      </div>
     </div>
   );
 });
