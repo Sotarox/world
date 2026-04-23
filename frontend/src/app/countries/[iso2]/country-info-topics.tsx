@@ -1,8 +1,8 @@
 import { useEconomyApi } from '@/api/use-economy-api';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
-import { EconomyCard } from '@/components/world/economy-card';
-import { EconomyInfo } from '@/components/world/economy-info';
+// import { EconomyCard } from '@/components/world/economy-card';
+// import { EconomyInfo } from '@/components/world/economy-info';
 import InfoCardSelectable from '@/components/world/info-card-selectable';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -29,7 +29,7 @@ const DetailInfo = memo(function DetailInfo({
   currentTopic,
   selectedTopicIndex,
   continentCode,
-  economyApiResult,
+  // economyApiResult,
   isMobile,
 }: DetailInfoProps) {
   if (currentTopic === '') return null;
@@ -44,9 +44,9 @@ const DetailInfo = memo(function DetailInfo({
       {currentTopic === 'population' && (
         <PopulationInfo iso2={iso2} continentCode={continentCode} />
       )}
-      {currentTopic === 'economy' && (
+      {/* {currentTopic === 'economy' && (
         <EconomyInfo economyApiResult={economyApiResult} />
-      )}
+      )} */}
       {currentTopic === 'airports' && <AirportList iso2={iso2} />}
     </div>
   );
@@ -72,7 +72,9 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
     }
   };
 
-  const elements: { [key in Exclude<TopicType, ''>]: React.ReactElement } = {
+  const elements: {
+    [key in Exclude<TopicType, '' | 'economy'>]: React.ReactElement;
+  } = {
     population: (
       <InfoCardSelectable
         title='Population'
@@ -82,12 +84,12 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
         isSelected={currentTopic === 'population'}
       />
     ),
-    economy: (
-      <EconomyCard
-        economyApiResult={economyApiResult}
-        isSelected={currentTopic === 'economy'}
-      />
-    ),
+    // economy: (
+    // <EconomyCard
+    //   economyApiResult={economyApiResult}
+    //   isSelected={currentTopic === 'economy'}
+    // />
+    // ),
     airports: (
       <InfoCardSelectable
         title='Airports'
