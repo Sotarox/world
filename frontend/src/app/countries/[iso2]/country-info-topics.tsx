@@ -1,13 +1,13 @@
-import { useEconomyApi } from '@/api/use-economy-api';
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
+// import { useEconomyApi } from '@/api/use-economy-api';
 // import { EconomyCard } from '@/components/world/economy-card';
 // import { EconomyInfo } from '@/components/world/economy-info';
+// import { type EconomyApiResult } from '@/api/use-economy-api';
 import InfoCardSelectable from '@/components/world/info-card-selectable';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 import { type Country } from '@/model/country';
-import { type EconomyApiResult } from '@/api/use-economy-api';
 import { TopicType } from '@/model/misc';
 import { useTopicStore } from '@/store/topic-store';
 import { formatNumberWithComma } from '@/utils/utils';
@@ -19,7 +19,7 @@ interface DetailInfoProps {
   currentTopic: TopicType;
   selectedTopicIndex: number;
   continentCode: string;
-  economyApiResult: EconomyApiResult;
+  // economyApiResult: EconomyApiResult;
   isMobile: boolean;
 }
 
@@ -60,7 +60,7 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
   const { iso2, country } = props;
   const { currentTopic, toggleCurrentTopic, selectedTopicIndex } =
     useTopicStore();
-  const economyApiResult = useEconomyApi(iso2);
+  // const economyApiResult = useEconomyApi(iso2);
 
   const isMobile = useIsMobile();
 
@@ -111,7 +111,7 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
         selectedTopicIndex={selectedTopicIndex}
         iso2={iso2}
         continentCode={country.continent}
-        economyApiResult={economyApiResult}
+        // economyApiResult={economyApiResult}
         isMobile={isMobile}
       />
     </div>
