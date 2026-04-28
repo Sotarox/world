@@ -21,8 +21,8 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
       <div
         className={cn(
           'sm:pb-0 flex flex-col gap-3',
-          'transition-all duration-800 ease-in-out absolute w-full',
-          visible ? 'left-0 opacity-100' : '-left-80 opacity-0'
+          'transition-all duration-700 ease-in-out absolute w-full',
+          visible ? 'left-0 opacity-100' : '-left-60 opacity-0'
         )}
       >
         <CountryInfo iso2={iso2} />

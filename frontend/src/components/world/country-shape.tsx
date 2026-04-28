@@ -13,7 +13,7 @@ interface CountryShapeProps {
 function CountryShape({ iso2, width, height, className }: CountryShapeProps) {
   const [isExist, setExist] = useState(false);
   const path = `/country-shapes/${iso2}.svg`;
-  const noDataCountries = ['ps'];
+  const noDataCountries = ['ps', 'um'];
 
   useEffect(() => {
     if (noDataCountries.includes(iso2)) {
