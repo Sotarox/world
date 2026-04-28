@@ -27,7 +27,6 @@ public class EconomyService {
         dto.setSourceId(entity.getMetaInfo().getSourceid());
         dto.setLastUpdated(entity.getMetaInfo().getLastupdated());
         if (entity.getData() == null) {
-            dto.setData(null);
             return dto;
         }
         entity.getData().forEach(atomicInfoEntity -> {

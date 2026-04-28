@@ -1,31 +1,23 @@
 import { CountryInfo } from '@/app/countries/[iso2]/country-info';
-import { Country } from '@/model/country';
 import { ACCountry } from '@/model/ac-country';
 import { render, screen } from '@testing-library/react';
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve({ data: null }),
-  })
-) as jest.Mock;
+// Mock next/navigation (used by AdjacentNavigation internally)
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({ push: jest.fn() }),
+  usePathname: () => '/',
+}));
 
-const mockCountry: Country = {
-  dbId: 116,
-  id: '86048',
-  capital: 'Tokyo',
-  currencyCode: 'JPY',
-  fipsCode: 'JA',
-  countryIso2: 'JP',
-  countryIso3: 'JPN',
-  continent: 'AS',
-  countryId: '116',
-  countryName: 'Japan',
-  currencyName: 'Yen',
-  countryIsoNumeric: '392',
-  phonePrefix: '81',
-  population: 127288000,
-  totalNumberOfAirports: 92,
-};
+// Mock useApi — controls what the component "receives" from the API
+const mockUseApi = jest.fn();
+jest.mock('../api/use-api', () => ({
+  useApi: (...args: unknown[]) => mockUseApi(...args),
+}));
+
+// Mock CountryShape to avoid SVG fetch in tests
+jest.mock('../components/world/country-shape', () => ({
+  CountryShape: () => null,
+}));
 
 const mockAcCountry: ACCountry = {
   name: 'Japan',
@@ -84,16 +76,45 @@ const mockAcCountry: ACCountry = {
 };
 
 describe('CountryInfo Component', () => {
-  it('renders country information correctly', () => {
-    render(
-      <CountryInfo
-        iso2='JP'
-        acCountry={mockAcCountry}
-        country={mockCountry}
-        previousNav={undefined}
-        nextNav={undefined}
-      />
-    );
-    expect(screen.getByText('Japan')).toBeInTheDocument();
+  beforeEach(() => {
+    mockUseApi.mockReturnValue({ data: null, error: null, loading: false });
+  });
+
+  it('renders country information when data is loaded', () => {
+    mockUseApi.mockReturnValue({
+      data: mockAcCountry,
+      error: null,
+      loading: false,
+    });
+
+    render(<CountryInfo iso2='JP' />);
+
+    expect(screen.getByText('Tokyo')).toBeInTheDocument();
+    expect(screen.getByText('JP')).toBeInTheDocument();
+    expect(screen.getByText('JPN')).toBeInTheDocument();
+    expect(screen.getByText('Asia')).toBeInTheDocument();
+    expect(screen.getByText('Eastern Asia')).toBeInTheDocument();
+    expect(screen.getByText('Japanese yen')).toBeInTheDocument();
+    expect(screen.getByText('Japanese')).toBeInTheDocument();
+  });
+
+  it('renders N/A values when data is loading', () => {
+    mockUseApi.mockReturnValue({ data: null, error: null, loading: true });
+
+    render(<CountryInfo iso2='JP' />);
+
+    expect(screen.getAllByText('N/A').length).toBeGreaterThan(0);
+  });
+
+  it('shows error message when API fails', () => {
+    mockUseApi.mockReturnValue({
+      data: null,
+      error: new Error('Network error'),
+      loading: false,
+    });
+
+    render(<CountryInfo iso2='JP' />);
+
+    expect(screen.getByTestId('country-info-error')).toBeInTheDocument();
   });
 });

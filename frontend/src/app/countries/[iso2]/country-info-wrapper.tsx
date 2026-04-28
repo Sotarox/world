@@ -1,48 +1,35 @@
 'use client';
 
-import { useApi } from '@/api/use-api';
-import { type ACCountry } from '@/model/ac-country';
-import { type Country } from '@/model/country';
-import {
-  nextCountryNav,
-  previousCountryNav,
-} from '@/model/country-iso2-name-map';
-import { useCountryNav } from '@/store/country-nav-store';
 import 'flag-icons/css/flag-icons.min.css';
 import { CountryInfo } from './country-info';
-import { CountryInfoTopics } from './country-info-topics';
+import { CountryInfoTopicsLoad } from './country-info-topics-load';
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
+
+const switchVisibility = (callback: () => void) => {
+  setTimeout(() => {
+    callback();
+  }, 400);
+};
 
 function CountryInfoWrapper({ iso2 }: { iso2: string }) {
-  const { data: countryData, error: countryError } = useApi<Country>(
-    `/countries/${iso2}`
-  );
-  const { data: accountryData, error: accountryError } = useApi<ACCountry>(
-    `/accountries/${iso2}`
-  );
+  const [visible, setVisible] = useState(false);
+  switchVisibility(() => setVisible(true));
 
-  const countryNavs = useCountryNav((s) => s.countries);
-  const previousNav = previousCountryNav(iso2.toUpperCase(), countryNavs);
-  const nextNav = nextCountryNav(iso2.toUpperCase(), countryNavs);
-
-  if (countryError || accountryError) {
-    return <span className='pl-2'>Error loading country data</span>;
-  }
-  if (countryData && accountryData) {
-    return (
-      <div className='pb-2 sm:pb-0 flex flex-col gap-3'>
-        <CountryInfo
-          iso2={iso2}
-          acCountry={accountryData}
-          country={countryData}
-          previousNav={previousNav}
-          nextNav={nextNav}
-        />
-        <CountryInfoTopics iso2={iso2} country={countryData} />
+  return (
+    <div className='p-2 relative'>
+      <div
+        className={cn(
+          'sm:pb-0 flex flex-col gap-3',
+          'transition-all duration-700 ease-in-out absolute w-full',
+          visible ? 'left-0 opacity-100' : '-left-60 opacity-0'
+        )}
+      >
+        <CountryInfo iso2={iso2} />
+        <CountryInfoTopicsLoad iso2={iso2} />
       </div>
-    );
-  } else {
-    return <></>;
-  }
+    </div>
+  );
 }
 
 CountryInfoWrapper.displayName = 'CountryInfoWrapper';

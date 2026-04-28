@@ -13,8 +13,13 @@ interface CountryShapeProps {
 function CountryShape({ iso2, width, height, className }: CountryShapeProps) {
   const [isExist, setExist] = useState(false);
   const path = `/country-shapes/${iso2}.svg`;
+  const noDataCountries = ['ps', 'um', 'fm', 'mp', 'tv', 'xk'];
 
   useEffect(() => {
+    if (noDataCountries.includes(iso2)) {
+      setExist(false);
+      return;
+    }
     fetch(path, { method: 'HEAD' }).then((res) => {
       if (res.status === 200 || res.status === 204) {
         setExist(true);
@@ -22,11 +27,7 @@ function CountryShape({ iso2, width, height, className }: CountryShapeProps) {
     });
   }, [iso2]);
 
-  if (!isExist) {
-    return null;
-  }
-
-  return (
+  return isExist ? (
     <Image
       src={path}
       alt={iso2}
@@ -34,6 +35,8 @@ function CountryShape({ iso2, width, height, className }: CountryShapeProps) {
       height={height}
       className={cn('dark:invert', className)}
     />
+  ) : (
+    <div style={{ width, height }} />
   );
 }
 
