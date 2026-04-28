@@ -17,9 +17,10 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   switchVisibility(() => setVisible(true));
 
   return (
-    <div className='p-2 sm:pb-0 flex flex-col gap-3 relative'>
+    <div className='p-2 relative'>
       <div
         className={cn(
+          'sm:pb-0 flex flex-col gap-3',
           'transition-all duration-800 ease-in-out absolute w-full',
           visible ? 'left-0 opacity-100' : '-left-80 opacity-0'
         )}
