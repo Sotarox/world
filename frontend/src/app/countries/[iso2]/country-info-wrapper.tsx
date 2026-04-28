@@ -25,24 +25,21 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   const nextNav = nextCountryNav(iso2.toUpperCase(), countryNavs);
 
   if (countryError || accountryError) {
-    return <span className='pl-2'>Error loading country data</span>;
+    // return <span className='pl-2'>Error loading country data</span>;
   }
-  if (countryData && accountryData) {
-    return (
-      <div className='pb-2 sm:pb-0 flex flex-col gap-3'>
+  return (
+    <div className='pb-2 sm:pb-0 flex flex-col gap-3'>
+      {accountryData && (
         <CountryInfo
           iso2={iso2}
           acCountry={accountryData}
-          country={countryData}
           previousNav={previousNav}
           nextNav={nextNav}
         />
-        <CountryInfoTopics iso2={iso2} country={countryData} />
-      </div>
-    );
-  } else {
-    return <></>;
-  }
+      )}
+      {countryData && <CountryInfoTopics iso2={iso2} country={countryData} />}
+    </div>
+  );
 }
 
 CountryInfoWrapper.displayName = 'CountryInfoWrapper';

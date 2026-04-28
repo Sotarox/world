@@ -2,10 +2,8 @@ import { Card } from '@/components/shadcn/card';
 import { CountryShape } from '@/components/world/country-shape';
 import InfoCard from '@/components/world/info-card';
 import type { ACCountry, ACCountryNav } from '@/model/ac-country';
-import { type Country } from '@/model/country';
 import {
   concatStringsWithComma,
-  convertContinentCodeToName,
   formatCoordinate,
   formatNumberWithComma,
 } from '@/utils/utils';
@@ -15,17 +13,16 @@ import CountryInfoHeader from './country-info-header';
 
 interface CountryInfoProps {
   iso2: string;
-  acCountry: ACCountry | null;
-  country: Country;
+  acCountry: ACCountry;
   previousNav: ACCountryNav | undefined;
   nextNav: ACCountryNav | undefined;
 }
 function CountryInfo(props: CountryInfoProps) {
-  const { iso2, acCountry, country, previousNav, nextNav } = props;
+  const { iso2, acCountry, previousNav, nextNav } = props;
 
   return (
     <Card className='p-4 gap-3'>
-      <CountryInfoHeader country={country} />
+      <CountryInfoHeader country={acCountry} />
       <div className='flex justify-between items-center gap-4'>
         <AdjacentNavigation order='previous' nav={previousNav} />
         <CountryShape
@@ -38,10 +35,6 @@ function CountryInfo(props: CountryInfoProps) {
       </div>
       <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 [&>*]:min-w-0'>
         <InfoCard
-          title='Continent'
-          value={convertContinentCodeToName(country.continent)}
-        />
-        <InfoCard
           title='Region'
           value={acCountry?.region.toString() ?? 'N/A'}
         />
@@ -53,11 +46,18 @@ function CountryInfo(props: CountryInfoProps) {
           title='Coordinate'
           value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
         />
-        <InfoCard title='Capital' value={country.capital} />
-        <InfoCard title='Country ISO2' value={country.countryIso2} />
-        <InfoCard title='Country ISO3' value={country.countryIso3} />
-        <InfoCard title='Currency' value={country.currencyName} />
-        <InfoCard title='Phone prefix' value={country.phonePrefix} />
+        <InfoCard title='Capital' value={acCountry.capital} />
+        <InfoCard title='Country ISO2' value={acCountry.alpha2Code} />
+        <InfoCard title='Country ISO3' value={acCountry.alpha3Code} />
+        <InfoCard
+          title='Top domain'
+          value={concatStringsWithComma(acCountry?.topLevelDomain)}
+        />
+        <InfoCard title='Phone prefix' value={acCountry.callingCodes[0]} />
+        <InfoCard
+          title='Currency'
+          value={acCountry.currencies[0]?.name ?? 'N/A'}
+        />
         <InfoCard
           title='Area'
           value={
@@ -67,8 +67,10 @@ function CountryInfo(props: CountryInfoProps) {
           }
         />
         <InfoCard
-          title='Top domain'
-          value={concatStringsWithComma(acCountry?.topLevelDomain)}
+          title='Language'
+          value={concatStringsWithComma(
+            acCountry?.languages?.map((lang) => lang.name)
+          )}
         />
         <InfoCard
           title='Time zone'
