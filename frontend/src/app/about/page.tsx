@@ -11,7 +11,7 @@ import { Card } from '@/components/shadcn/card';
 
 function About() {
   return (
-    <Card className='p-4'>
+    <Card className='p-4 animate-in fade-in zoom-in-90 duration-300'>
       <Typography variant='h4'>About</Typography>
       <div className='flex flex-col gap-4 w-full sm:w-fit'>
         <Typography variant='h5'>Sotaro Shirai</Typography>
