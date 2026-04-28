@@ -4,7 +4,7 @@ import { CircleFlag } from 'react-circle-flags';
 import { ACCountry } from '@/model/ac-country';
 
 interface CountryInfoHeaderProps {
-  country: ACCountry;
+  country: ACCountry | null;
 }
 function CountryInfoHeader(props: CountryInfoHeaderProps) {
   const { country } = props;
@@ -12,12 +12,12 @@ function CountryInfoHeader(props: CountryInfoHeaderProps) {
   return (
     <div className='flex items-center justify-center gap-2 w-full'>
       <CircleFlag
-        countryCode={country.alpha2Code.toLowerCase()}
+        countryCode={country?.alpha2Code.toLowerCase() || 'XX'}
         height='50'
         width='50'
       />
       <h3 className='text-6xl max-w-full overflow-hidden text-ellipsis leading-normal'>
-        {country.name}
+        {country?.name || 'N/A'}
       </h3>
     </div>
   );
