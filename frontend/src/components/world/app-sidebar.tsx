@@ -54,7 +54,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar className={cn('pb-15 sm:pt-15 sm:pb-0', sidebarColor)}>
-      <SidebarHeader className={cn('flex-row')}>
+      <SidebarHeader className={cn('flex-row pt-1.5 pb-1')}>
         <CountryFilter />
         <Button variant='ghost' onClick={() => setReversed(!reversed)}>
           {reversed ? (
@@ -66,7 +66,7 @@ export function AppSidebar() {
         </Button>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
+        <SidebarGroup className='py-0'>
           <SidebarMenu>
             {countryNavs.map((obj) => (
               <SidebarMenuItem key={obj.name} className='cursor-default'>

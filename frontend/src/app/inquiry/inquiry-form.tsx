@@ -72,7 +72,7 @@ export function InquiryForm() {
   }
 
   return (
-    <Card className='w-full'>
+    <Card className='w-full animate-in fade-in zoom-in-90 duration-300'>
       <CardHeader>
         <CardTitle>Inquiry</CardTitle>
         <CardDescription>Send your feedback/question</CardDescription>

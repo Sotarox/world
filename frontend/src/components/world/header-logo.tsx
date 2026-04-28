@@ -13,7 +13,7 @@ const HeaderLogo: React.FC = React.memo(() => {
         onClick={() => {
           router.push('/');
         }}
-        className='text-lg uppercase hidden sm:inline-flex nowrap'
+        className='text-lg uppercase hidden sm:inline-flex nowrap px-0'
       >
         <Image src='/world-logo.svg' alt='World Logo' width={128} height={32} />
       </Button>
