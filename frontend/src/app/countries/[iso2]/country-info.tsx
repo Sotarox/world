@@ -30,7 +30,11 @@ function CountryInfo(props: CountryInfoProps) {
 
   return (
     <Card className='p-4 gap-3'>
-      {error && <span className='pl-2'>Error loading country data</span>}
+      {error && (
+        <span className='pl-2' data-testid='country-info-error'>
+          Error loading country data
+        </span>
+      )}
       <>
         <CountryInfoHeader country={acCountry} />
         <div className='flex justify-between items-center gap-4'>
