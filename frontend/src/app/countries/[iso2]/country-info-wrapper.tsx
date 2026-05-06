@@ -3,7 +3,7 @@
 import 'flag-icons/css/flag-icons.min.css';
 import { CountryInfo } from './country-info';
 import { CountryInfoTopicsLoad } from './country-info-topics-load';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 const switchVisibility = (callback: () => void) => {
@@ -14,15 +14,18 @@ const switchVisibility = (callback: () => void) => {
 
 function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   const [visible, setVisible] = useState(false);
-  switchVisibility(() => setVisible(true));
+
+  useEffect(() => {
+    switchVisibility(() => setVisible(true));
+  }, []);
 
   return (
-    <div className='p-2 relative'>
+    <div className='p-2'>
       <div
         className={cn(
           'sm:pb-0 flex flex-col gap-3',
-          'transition-all duration-700 ease-in-out absolute w-full',
-          visible ? 'left-0 opacity-100' : '-left-60 opacity-0'
+          'transition-all duration-700 ease-in-out w-full',
+          visible ? 'translate-x-0 opacity-100' : '-translate-x-16 opacity-0'
         )}
       >
         <CountryInfo iso2={iso2} />
