@@ -13,12 +13,12 @@ function LayoutHelper({ children }: { children: React.ReactNode }) {
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
       {/* when mode is dark, tailwind applies corresponding styles to underlying elements */}
       <div
-        className={`bg-neutral-100 dark:bg-gt-background font-display min-h-screen`}
+        className={`bg-neutral-100 dark:bg-gt-background font-display h-dvh overflow-y-auto overscroll-y-none`}
       >
         <SidebarProvider>
           <div className='flex flex-col'>
             <HeaderBar />
-            <div className='flex w-svw'>
+            <div className='flex w-svw sm:pt-16'>
               <AppSidebar />
               <div className='min-w-0 p-4 flex-1'>{children}</div>
             </div>

@@ -20,8 +20,8 @@ const HeaderBar = React.memo(() => {
         'w-full bg-primary dark:bg-gt-header grid grid-cols-3 justify-between content-center shadow-md',
         // On small screen, Header is fixed at the bottom
         'fixed bottom-0 h-15 top-auto px-3',
-        // On larger screen, Header is sticky at the top
-        'sm:sticky sm:top-0 sm:min-h-16 sm:px-4'
+        // On larger screen, keep header fixed so edge overscroll does not pull it
+        'sm:bottom-auto sm:fixed sm:top-0 sm:min-h-16 sm:px-4'
       )}
       style={{ zIndex: useTheme().zIndex.drawer + 1 }}
     >
