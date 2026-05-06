@@ -20,7 +20,15 @@ function LayoutHelper({ children }: { children: React.ReactNode }) {
             <HeaderBar />
             <div className='flex w-svw sm:pt-16'>
               <AppSidebar />
-              <div className='min-w-0 p-4 flex-1'>{children}</div>
+              <div
+                className='min-w-0 p-4 flex-1 sm:pb-4'
+                style={{
+                  paddingBottom:
+                    'calc(var(--bottom-bar-height) + env(safe-area-inset-bottom, 0px) + 1rem)',
+                }}
+              >
+                {children}
+              </div>
             </div>
             <FloatingRandomButton />
             <Toaster />
