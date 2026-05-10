@@ -62,7 +62,7 @@ export function AppSidebar() {
           ) : (
             <ArrowDownAZIcon className='size-5' />
           )}
-          <span className='text-base'>Reverse</span>
+          <span className='text-base font-normal'>Reverse</span>
         </Button>
       </SidebarHeader>
       <SidebarContent>
