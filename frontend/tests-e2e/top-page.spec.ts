@@ -9,6 +9,6 @@ test('has title logo image', async ({ page }) => {
 test('view welcome header', async ({ page }) => {
   await page.goto('/');
 
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Welcome' })).toBeVisible();
+  // Expects page to have a heading
+  await expect(page.getByRole('heading', { name: 'World App' })).toBeVisible();
 });
