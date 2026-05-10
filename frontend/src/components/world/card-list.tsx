@@ -1,4 +1,4 @@
-import { Card } from '@/components/shadcn/card';
+import { Card } from '@/components/world/card';
 import { cn } from '@/lib/utils';
 
 interface CardListProps {

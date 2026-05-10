@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import InfoCard from '@/components/world/info-card';
 import { formatCoordinate } from '@/utils/utils';
 import LocalAirportIcon from '@mui/icons-material/LocalAirport';
-import { Card } from '@/components/shadcn/card';
+import { Card } from '@/components/world/card';
 import { type Airport } from '@/model/airport';
 
 interface AirportInfoProps {

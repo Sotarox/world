@@ -1,5 +1,5 @@
 import { useApi } from '@/api/use-api';
-import { Card } from '@/components/shadcn/card';
+import { Card } from '@/components/world/card';
 import { CountryShape } from '@/components/world/country-shape';
 import InfoCard from '@/components/world/info-card';
 import type { ACCountry } from '@/model/ac-country';

@@ -5,7 +5,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@/components/shadcn/avatar';
-import { Card } from '@/components/shadcn/card';
+import { Card } from '@/components/world/card';
 import { CardList } from '@/components/world/card-list';
 
 function About() {
