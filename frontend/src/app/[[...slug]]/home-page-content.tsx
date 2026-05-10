@@ -28,8 +28,7 @@ function HomePageContent() {
       {/* Background */}
       <div aria-hidden className='pointer-events-none absolute inset-0 -z-10'>
         <div className='absolute inset-0 bg-gradient-to-b from-transparent via-teal-50/40 to-transparent dark:via-slate-900/30' />
-        <div className='absolute inset-0 bg-[linear-gradient(to_right,rgba(20,45,80,0.11)_1px,transparent_1px),linear-gradient(to_bottom,rgba(20,45,80,0.11)_1px,transparent_1px)] bg-[size:42px_42px] opacity-70 dark:bg-[linear-gradient(to_right,rgba(180,220,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(180,220,255,0.12)_1px,transparent_1px)]' />
-        <div className='absolute inset-0 [mask-image:radial-gradient(ellipse_at_65%_20%,black_25%,transparent_78%)] bg-white dark:bg-black/20' />
+        <div className='absolute inset-0 bg-[linear-gradient(to_right,rgba(20,45,80,0.11)_1px,transparent_1px),linear-gradient(to_bottom,rgba(20,45,80,0.11)_1px,transparent_1px)] bg-[size:42px_42px] opacity-70 [mask-image:radial-gradient(ellipse_at_55%_20%,black_42%,transparent_95%)] dark:bg-[linear-gradient(to_right,rgba(180,220,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(180,220,255,0.12)_1px,transparent_1px)]' />
       </div>
       {/* Content */}
       <div className='flex flex-col gap-14'>
@@ -37,7 +36,7 @@ function HomePageContent() {
           <h1 className={cn('text-8xl font-bold', gradientTextStyle)}>
             World App
           </h1>
-          <span className='text-3xl font-bold text-gray-500'>
+          <span className='text-3xl font-bold text-gray-400 dark:text-gray-500'>
             Demo web application for an explorative information system
           </span>
         </div>
@@ -53,7 +52,7 @@ function HomePageContent() {
           <Button
             onClick={toggleSidebar}
             variant='secondary'
-            className='rounded-xl'
+            className='rounded-xl border-1'
           >
             List all countries
           </Button>
