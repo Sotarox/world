@@ -1,5 +1,5 @@
 import { useApi } from '@/api/use-api';
-import { Card } from '@/components/shadcn/card';
+import { Card } from '@/components/world/card';
 import InfoCard from '@/components/world/info-card';
 import { PopulationChartLoad } from '@/components/world/population-chart-load';
 import { type PopulationRank } from '@/model/misc';

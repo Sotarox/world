@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import InfoCard from './info-card';
-import { Card } from '../shadcn/card';
+import { Card } from '@/components/world/card';
 import { GdpChart } from '@/components/world/gdp-chart';
 import Grid from '@mui/material/Grid';
 import { EconomyApiResult } from '@/api/use-economy-api';

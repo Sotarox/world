@@ -61,7 +61,7 @@ export function CountryFilter() {
       <DialogTrigger asChild>
         <Button variant='ghost' aria-label='Open filter dialog'>
           <FilterIcon className={cn('size-5', isFiltered && 'text-primary')} />
-          <span className='text-base'>Filter</span>
+          <span className='text-base font-normal'>Filter</span>
         </Button>
       </DialogTrigger>
       <DialogContent className='w-[400px]'>

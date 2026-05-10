@@ -25,6 +25,13 @@ const BurgerMenu = React.memo(() => {
       <DropdownMenuContent className='z-[1202]'>
         <DropdownMenuItem
           onClick={() => {
+            router.push('/');
+          }}
+        >
+          Home
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
             router.push('/about');
           }}
         >

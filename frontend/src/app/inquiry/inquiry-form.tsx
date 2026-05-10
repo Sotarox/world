@@ -144,11 +144,11 @@ export function InquiryForm() {
       </CardContent>
       <CardFooter>
         <Field orientation='horizontal'>
-          <Button type='button' variant='outline' onClick={() => form.reset()}>
-            Reset
-          </Button>
           <Button type='submit' form='inquiry-form'>
             Submit
+          </Button>
+          <Button type='button' variant='outline' onClick={() => form.reset()}>
+            Reset
           </Button>
         </Field>
       </CardFooter>
