@@ -74,8 +74,8 @@ function HomePageContent() {
           </Button>
         </div>
         {/* Appeal points */}
-        <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
-          <Card className={cn('col-span-full sm:col-span-1', cardStyle)}>
+        <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
+          <Card className={cn(cardStyle)}>
             <CardTitle>
               <span
                 className={cn('text-3xl font-bold truncate', gradientTextStyle)}
