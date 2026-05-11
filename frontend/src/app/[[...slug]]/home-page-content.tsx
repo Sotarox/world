@@ -9,9 +9,6 @@ import { randomCountryIso2 } from '@/model/country-iso2-name-map';
 import { Link } from '@mui/material';
 import { useRouter } from 'next/dist/client/components/navigation';
 
-const gradientTextStyle =
-  'bg-gradient-to-r from-green-500 via-teal-500 to-blue-400 inline-block text-transparent bg-clip-text';
-const animationStyle = 'animate-in fade-in zoom-in-90 duration-300';
 const cardStyle = 'px-4 gap-2';
 
 function HomePageContent() {
@@ -36,7 +33,7 @@ function HomePageContent() {
   }, []);
 
   return (
-    <div className={cn('relative isolate overflow-hidden p-4', animationStyle)}>
+    <div className='relative isolate overflow-hidden p-4 animate-zoom-in'>
       {/* Background */}
       <div aria-hidden className='pointer-events-none absolute inset-0 -z-10'>
         <div className='absolute inset-0 bg-gradient-to-b from-transparent via-teal-50/40 to-transparent dark:via-slate-900/30' />
@@ -44,14 +41,13 @@ function HomePageContent() {
           className='absolute left-0 right-0 top-0 h-[420px] md:h-[520px] bg-teal-700/20 dark:bg-sky-100/12'
           style={mapMaskStyle}
         />
+        {/* Grid */}
         <div className='absolute inset-0 bg-[linear-gradient(to_right,rgba(20,45,80,0.11)_1px,transparent_1px),linear-gradient(to_bottom,rgba(20,45,80,0.11)_1px,transparent_1px)] bg-[size:42px_42px] opacity-70 [mask-image:radial-gradient(ellipse_at_55%_20%,black_42%,transparent_95%)] dark:bg-[linear-gradient(to_right,rgba(180,220,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(180,220,255,0.12)_1px,transparent_1px)]' />
       </div>
       {/* Content */}
       <div className='flex flex-col gap-14'>
         <div className='grid grid-cols-1 gap-4 mt-14 md:justify-items-center'>
-          <h1 className={cn('text-8xl font-bold', gradientTextStyle)}>
-            World App
-          </h1>
+          <h1 className='text-8xl font-bold gradient-text'>World App</h1>
           <span className='text-3xl font-bold text-gray-400 dark:text-gray-500'>
             Demo web application for an explorative information system
           </span>
@@ -77,9 +73,7 @@ function HomePageContent() {
         <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
           <Card className={cn(cardStyle)}>
             <CardTitle>
-              <span
-                className={cn('text-3xl font-bold truncate', gradientTextStyle)}
-              >
+              <span className='text-3xl font-bold truncate gradient-text'>
                 250+
               </span>
             </CardTitle>
@@ -89,9 +83,7 @@ function HomePageContent() {
           </Card>
           <Card className={cn(cardStyle)}>
             <CardTitle className='truncate'>
-              <span
-                className={cn('text-3xl font-bold truncate', gradientTextStyle)}
-              >
+              <span className='text-3xl font-bold truncate gradient-text'>
                 Responsive
               </span>
             </CardTitle>
@@ -101,7 +93,7 @@ function HomePageContent() {
           </Card>
           <Card className={cn(cardStyle)}>
             <CardTitle className='truncate'>
-              <span className={cn('text-3xl font-bold', gradientTextStyle)}>
+              <span className='text-3xl font-bold truncate gradient-text'>
                 Graphical
               </span>
             </CardTitle>

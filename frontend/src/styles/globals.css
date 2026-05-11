@@ -48,6 +48,15 @@
   }
 }
 
+@layer components {
+  .animate-zoom-in {
+    @apply animate-in fade-in zoom-in-90 duration-300;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-green-500 via-teal-500 to-blue-400 inline-block text-transparent bg-clip-text;
+  }
+}
+
 /* Ensure the root html element matches the app background so overscroll
    gaps don't reveal white default background in some browsers/devices */
 html,

@@ -10,7 +10,7 @@ import { CardList } from '@/components/world/card-list';
 
 function About() {
   return (
-    <Card className='p-4 animate-in fade-in zoom-in-90 duration-300 flex flex-col w-full'>
+    <Card className='p-4 flex flex-col w-full animate-zoom-in'>
       <h1>About</h1>
       <div className='flex flex-col gap-1 w-full'>
         <h2>Author</h2>
