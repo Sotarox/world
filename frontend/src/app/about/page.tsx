@@ -14,8 +14,8 @@ function About() {
     <PageBackground>
       <div className='p-4 flex flex-col gap-10 w-full animate-zoom-in'>
         <h1>About</h1>
-        <div className='flex flex-col gap-1 w-full'>
-          <h2>Author</h2>
+        <div className='flex flex-col gap-2 w-full'>
+          <h2 className='font-bold gradient-text'>Author</h2>
           <Card className='w-full p-3 gap-2'>
             <Avatar className='size-18 self-center'>
               <AvatarImage src='/sotaro_profile.jpg' alt='Sotaro' />
@@ -33,8 +33,10 @@ function About() {
             </p>
           </Card>
         </div>
-        <div className='flex flex-col gap-1 w-full'>
-          <h2>Technologies in this web service</h2>
+        <div className='flex flex-col gap-2 w-full'>
+          <h2 className='font-bold gradient-text'>
+            Technologies in this web service
+          </h2>
           <div className='grid grid-cols-2 sm:grid-cols-4 gap-3 items-stretch w-full'>
             <CardList
               title='Frontend'
@@ -67,8 +69,8 @@ function About() {
             />
           </div>
         </div>
-        <div className='flex flex-col gap-1 w-full'>
-          <h2>Upcoming Features</h2>
+        <div className='flex flex-col gap-2 w-full'>
+          <h2 className='font-bold gradient-text'>Upcoming Features</h2>
           <Card className='p-3'>
             <ul>
               <li>📈 Visualize data e.g. chart and graph</li>
