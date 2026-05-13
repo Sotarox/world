@@ -28,7 +28,7 @@ function HomePageContent() {
     <PageBackground showMap>
       <div className='p-4 flex flex-col gap-14 animate-zoom-in'>
         <div className='grid grid-cols-1 gap-4 mt-14 md:justify-items-center'>
-          <h1 className='text-8xl font-bold gradient-text'>World App</h1>
+          <h1 className='text-8xl font-bold text-gradient'>World App</h1>
           <span className='text-3xl font-bold text-gray-400 dark:text-gray-500'>
             Demo web application for an explorative information system
           </span>

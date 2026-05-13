@@ -36,7 +36,7 @@ function AuthorPage() {
         <section className='flex w-full flex-col'>
           <div className='grid grid-cols-1 items-start gap-3 sm:gap-1 md:grid-cols-[minmax(0,1fr)_auto] md:items-center'>
             <div>
-              <h2 className='font-bold gradient-text'>Hi, I&#39;m Sotaro</h2>
+              <h2 className='font-bold text-gradient'>Hi, I&#39;m Sotaro</h2>
               <p className='text-lg leading-relaxed text-gray-700 dark:text-gray-200'>
                 {`passionate web developer to build a user-centric application. I believe that the best solution is achieved by communication and iteration.
                 Borned in Japan 🇯🇵, living in Germany 🇩🇪.
@@ -57,7 +57,7 @@ function AuthorPage() {
         </section>
 
         <section className='flex w-full flex-col gap-2'>
-          <h2 className='font-bold gradient-text'>Skills</h2>
+          <h2 className='font-bold text-gradient'>Skills</h2>
           <div className='grid w-full grid-cols-2 sm:grid-cols-3 items-stretch gap-3'>
             <CardBadges
               icon={<MonitorSmartphoneIcon />}
@@ -98,7 +98,7 @@ function AuthorPage() {
           </div>
         </section>
         <section className='flex w-full flex-col gap-2'>
-          <h2 className='font-bold gradient-text'>Why I built this App</h2>
+          <h2 className='font-bold text-gradient'>Why I built this App</h2>
           <Card className='w-full p-3 gap-2'>
             <p className='whitespace-pre-line'>
               {`The main reason is "Learning by doing" — I learn best by hands-on experience, not just by reading or watching videos. Actually country information is a good size to experiment with - not too big, not too small, and there are many interesting public APIs to get data from.
@@ -110,7 +110,7 @@ function AuthorPage() {
         </section>
         <section>
           <div className='flex flex-col gap-2 w-full'>
-            <h2 className='font-bold gradient-text'>Upcoming Features</h2>
+            <h2 className='font-bold text-gradient'>Upcoming Features</h2>
             <Card className='p-3'>
               <ul>
                 <li>📈 Visualize data more e.g. chart and graph</li>

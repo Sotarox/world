@@ -52,7 +52,7 @@
   .animate-zoom-in {
     @apply animate-in fade-in zoom-in-90 duration-300;
   }
-  .gradient-text {
+  .text-gradient {
     @apply bg-gradient-to-r from-green-500 via-teal-500 to-blue-400 inline-block text-transparent bg-clip-text;
   }
 }

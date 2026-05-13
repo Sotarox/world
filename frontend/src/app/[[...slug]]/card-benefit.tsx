@@ -37,7 +37,7 @@ function CardBenefit({
           {sizedIcon}
         </span>
         <CardTitle>
-          <span className='text-3xl font-bold truncate gradient-text'>
+          <span className='text-3xl font-bold truncate text-gradient'>
             {title}
           </span>
         </CardTitle>
