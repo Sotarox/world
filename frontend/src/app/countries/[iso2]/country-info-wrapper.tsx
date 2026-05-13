@@ -20,17 +20,15 @@ function CountryInfoWrapper({ iso2 }: { iso2: string }) {
   }, []);
 
   return (
-    <div className='p-2'>
-      <div
-        className={cn(
-          'sm:pb-0 flex flex-col gap-3',
-          'transition-all duration-700 ease-in-out w-full',
-          visible ? 'translate-x-0 opacity-100' : '-translate-x-16 opacity-0'
-        )}
-      >
-        <CountryInfo iso2={iso2} />
-        <CountryInfoTopicsLoad iso2={iso2} />
-      </div>
+    <div
+      className={cn(
+        'p-2 sm:pb-0 flex flex-col gap-3',
+        'transition-all duration-700 ease-in-out w-full',
+        visible ? 'translate-x-0 opacity-100' : '-translate-x-16 opacity-0'
+      )}
+    >
+      <CountryInfo iso2={iso2} />
+      <CountryInfoTopicsLoad iso2={iso2} />
     </div>
   );
 }
