@@ -57,7 +57,7 @@ function AuthorPage() {
         </section>
 
         <section className='flex w-full flex-col gap-2'>
-          <h2 className='font-bold text-gradient'>Skills</h2>
+          <h2>Skills</h2>
           <div className='grid w-full grid-cols-2 sm:grid-cols-3 items-stretch gap-3'>
             <CardBadges
               icon={<MonitorSmartphoneIcon />}
@@ -98,7 +98,7 @@ function AuthorPage() {
           </div>
         </section>
         <section className='flex w-full flex-col gap-2'>
-          <h2 className='font-bold text-gradient'>Why I built this App</h2>
+          <h2>Why I built this App</h2>
           <Card className='w-full p-3 gap-2'>
             <p className='whitespace-pre-line'>
               {`The main reason is "Learning by doing" — I learn best by hands-on experience, not just by reading or watching videos. Actually country information is a good size to experiment with - not too big, not too small, and there are many interesting public APIs to get data from.
@@ -110,7 +110,7 @@ function AuthorPage() {
         </section>
         <section>
           <div className='flex flex-col gap-2 w-full'>
-            <h2 className='font-bold text-gradient'>Upcoming Features</h2>
+            <h2>Upcoming Features</h2>
             <Card className='p-3'>
               <ul>
                 <li>📈 Visualize data more e.g. chart and graph</li>

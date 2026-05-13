@@ -53,7 +53,8 @@
     @apply animate-in fade-in zoom-in-90 duration-300;
   }
   .text-gradient {
-    @apply bg-gradient-to-r from-green-500 via-teal-500 to-blue-400 inline-block text-transparent bg-clip-text;
+    @apply inline-block w-fit bg-gradient-to-r from-green-500 via-teal-500 to-blue-400 bg-clip-text text-transparent bg-no-repeat;
+    background-size: 100% 100%;
   }
 }
 
