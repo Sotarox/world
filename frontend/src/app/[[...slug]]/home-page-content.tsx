@@ -70,7 +70,13 @@ function HomePageContent() {
         </div>
         <div className='flex flex-col items-end self-end'>
           <span className='text-lg font-bold text-gray-500'>
-            Created by Sotaro Shirai
+            developed by{' '}
+            <Link
+              href='/author'
+              className='text-teal-600 underline-offset-4 transition-colors hover:text-teal-500 hover:underline dark:text-teal-300 dark:hover:text-teal-200'
+            >
+              Sotaro Shirai
+            </Link>
           </span>
           <Link
             href='https://github.com/Sotarox/world'
