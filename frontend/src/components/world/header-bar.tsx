@@ -38,7 +38,7 @@ const HeaderBar = React.memo(() => {
       <div className='flex justify-center items-center gap-1'>
         <SearchButton />
       </div>
-      <div className='flex justify-end items-center gap-1'>
+      <div className='flex justify-end items-center gap-2'>
         <ModeToggle />
         <BurgerMenu />
       </div>

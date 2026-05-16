@@ -11,7 +11,7 @@ interface KeyboardNavigableListProps {
 const KeyboardNavigableList = (props: KeyboardNavigableListProps) => {
   const { items } = props;
   return (
-    <ul className='w-full flex flex-col p-1'>
+    <ul className='w-full flex flex-col p-1 gap-2 sm:gap-0'>
       {items.map((item, idx) => (
         <li key={idx} className='w-full'>
           <Button
