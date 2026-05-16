@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import LayoutHelper from './layout-helper';
 import { Geist } from 'next/font/google';
+import { NewThemeProvider } from '@/contexts/new-theme-provider';
 
 export const metadata: Metadata = {
   title: 'World',
@@ -20,11 +21,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className={geist.className}>
+    <html lang='en' suppressHydrationWarning className={geist.className}>
       <body>
-        <div id='root'>
-          <LayoutHelper>{children}</LayoutHelper>
-        </div>
+        <NewThemeProvider
+          attribute='class'
+          defaultTheme='dark'
+          disableTransitionOnChange
+        >
+          <div id='root'>
+            <LayoutHelper>{children}</LayoutHelper>
+          </div>
+        </NewThemeProvider>
       </body>
     </html>
   );
