@@ -73,7 +73,14 @@ function AuthorPage() {
             <CardBadges
               icon={<SquareTerminalIcon />}
               title='Backend'
-              items={['Java', 'Spring Boot', 'Maven', 'REST', 'OpenAPI']}
+              items={[
+                'Java',
+                'Spring Boot',
+                'Maven',
+                'REST',
+                'OpenAPI',
+                'Microservice',
+              ]}
             />
             <CardBadges
               icon={<BugOffIcon />}

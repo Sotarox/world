@@ -4,7 +4,7 @@ import { Button } from '@/components/custom/button';
 import { useSidebar } from '@/components/custom/sidebar';
 import { PageBackground } from '@/components/world/page-background';
 import { randomCountryIso2 } from '@/model/country-iso2-name-map';
-import { Link } from '@mui/material';
+import Link from 'next/link';
 import {
   ChartNoAxesCombinedIcon,
   MapPinnedIcon,
@@ -60,7 +60,7 @@ function HomePageContent() {
           <CardBenefit
             icon={<TabletSmartphoneIcon />}
             title='Responsive'
-            description='Design by TailwindCSS + shadcn/ui'
+            description='Design by React + TailwindCSS + shadcn/ui'
           />
           <CardBenefit
             icon={<ChartNoAxesCombinedIcon />}
@@ -73,7 +73,7 @@ function HomePageContent() {
             developed by{' '}
             <Link
               href='/author'
-              className='text-teal-600 underline-offset-4 transition-colors hover:text-teal-500 hover:underline dark:text-teal-300 dark:hover:text-teal-200'
+              className='text-teal-500 underline-offset-4 transition-colors hover:text-teal-600 hover:underline dark:text-teal-400 dark:hover:text-teal-200'
             >
               Sotaro Shirai
             </Link>
@@ -82,6 +82,7 @@ function HomePageContent() {
             href='https://github.com/Sotarox/world'
             target='_blank'
             rel='noopener'
+            className='text-gray-500 font-medium underline-offset-4 hover:underline'
           >
             Source Code (GitHub)
           </Link>
