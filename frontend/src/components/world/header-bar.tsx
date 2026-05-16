@@ -1,5 +1,5 @@
 import React from 'react';
-import ThemeSwitch from './theme-switch';
+import { ModeToggle } from './mode-toggle';
 import SearchButton from './search-button';
 import HeaderLogo from './header-logo';
 import BurgerMenu from './burger-menu';
@@ -38,8 +38,8 @@ const HeaderBar = React.memo(() => {
       <div className='flex justify-center items-center gap-1'>
         <SearchButton />
       </div>
-      <div className='flex justify-end items-center gap-1'>
-        <ThemeSwitch />
+      <div className='flex justify-end items-center gap-2'>
+        <ModeToggle />
         <BurgerMenu />
       </div>
     </div>

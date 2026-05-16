@@ -67,7 +67,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup className='py-0'>
-          <SidebarMenu>
+          <SidebarMenu className='gap-3 sm:gap-1'>
             {countryNavs.map((obj) => (
               <SidebarMenuItem key={obj.name} className='cursor-default'>
                 <SidebarMenuButton

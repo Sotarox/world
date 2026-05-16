@@ -1,9 +1,11 @@
+'use client';
+
 import * as React from 'react';
 import Switch from '@mui/material/Switch';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import { styled } from '@mui/material/styles';
-import { useTheme } from '@/contexts/theme-provider';
+import { useTheme } from 'next-themes';
 
 export default function ThemeSwitch() {
   const { theme, setTheme } = useTheme();

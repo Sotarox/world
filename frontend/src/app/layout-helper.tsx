@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import HeaderBar from '@/components/world/header-bar';
-import FloatingRandomButton from '../components/world/floating-random-button';
 import { Toaster } from '@/components/shadcn/sonner';
 import { SidebarProvider } from '@/components/custom/sidebar';
 import { AppSidebar } from '@/components/world/app-sidebar';
@@ -10,8 +9,11 @@ import { ThemeProvider } from '@/contexts/theme-provider';
 
 function LayoutHelper({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-      {/* when mode is dark, tailwind applies corresponding styles to underlying elements */}
+    <ThemeProvider
+      attribute='class'
+      defaultTheme='dark'
+      disableTransitionOnChange
+    >
       <div
         className={`bg-neutral-100 dark:bg-gt-background font-display h-dvh overflow-y-auto overscroll-y-none`}
       >
@@ -30,7 +32,6 @@ function LayoutHelper({ children }: { children: React.ReactNode }) {
                 {children}
               </div>
             </div>
-            <FloatingRandomButton />
             <Toaster />
           </div>
         </SidebarProvider>
