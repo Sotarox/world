@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import HeaderBar from '@/components/world/header-bar';
-import FloatingRandomButton from '../components/world/floating-random-button';
 import { Toaster } from '@/components/shadcn/sonner';
 import { SidebarProvider } from '@/components/custom/sidebar';
 import { AppSidebar } from '@/components/world/app-sidebar';
@@ -30,7 +29,6 @@ function LayoutHelper({ children }: { children: React.ReactNode }) {
                 {children}
               </div>
             </div>
-            <FloatingRandomButton />
             <Toaster />
           </div>
         </SidebarProvider>
