@@ -1,5 +1,5 @@
 import { Card } from '@/components/world/card';
-import { AreaChartLoad } from '@/components/world/population-chart-load copy';
+import { AreaChartLoad } from '@/components/world/area-chart-load';
 import Grid from '@mui/material/Grid';
 
 interface AreaInfoProps {

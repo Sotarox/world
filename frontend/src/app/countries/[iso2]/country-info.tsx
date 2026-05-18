@@ -78,6 +78,10 @@ function CountryInfo(props: CountryInfoProps) {
             value={acCountry?.currencies ? acCountry.currencies[0].name : 'N/A'}
           />
           <InfoCard
+            title='Independent'
+            value={acCountry?.independent ? 'Yes' : 'No'}
+          />
+          <InfoCard
             title='Language'
             value={concatStringsWithComma(
               acCountry?.languages?.map((lang) => lang.name) ?? ['N/A']
@@ -93,4 +97,5 @@ function CountryInfo(props: CountryInfoProps) {
   );
 }
 
+CountryInfo.displayName = 'CountryInfo';
 export { CountryInfo };
