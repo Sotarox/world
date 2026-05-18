@@ -11,7 +11,7 @@ import { useCountryNav } from '@/store/country-nav-store';
 import {
   concatStringsWithComma,
   formatCoordinate,
-  isCountryIndependent,
+  getIndependentLabel,
 } from '@/utils/utils';
 import 'flag-icons/css/flag-icons.min.css';
 import { AdjacentNavigation } from './adjacent-navigation';
@@ -83,7 +83,7 @@ function CountryInfo(props: CountryInfoProps) {
           />
           <InfoCard
             title='Independent'
-            value={isCountryIndependent(acCountry)}
+            value={getIndependentLabel(acCountry)}
           />
           <InfoCard
             title='Language'

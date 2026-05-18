@@ -60,7 +60,7 @@ export const formatChartValue = (value: number, maxValue: number): string => {
   return value.toString();
 };
 
-export const isCountryIndependent = (country: ACCountry | null): string => {
+export const getIndependentLabel = (country: ACCountry | null): string => {
   // If the 'independent' property exists, use it
   if (country && typeof country.independent === 'boolean') {
     if (country.independent) {
