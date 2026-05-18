@@ -8,7 +8,11 @@ import {
   previousCountryNav,
 } from '@/model/country-iso2-name-map';
 import { useCountryNav } from '@/store/country-nav-store';
-import { concatStringsWithComma, formatCoordinate } from '@/utils/utils';
+import {
+  concatStringsWithComma,
+  formatCoordinate,
+  isCountryIndependent,
+} from '@/utils/utils';
 import 'flag-icons/css/flag-icons.min.css';
 import { AdjacentNavigation } from './adjacent-navigation';
 import CountryInfoHeader from './country-info-header';
@@ -79,7 +83,7 @@ function CountryInfo(props: CountryInfoProps) {
           />
           <InfoCard
             title='Independent'
-            value={acCountry?.independent ? 'Yes' : 'No'}
+            value={isCountryIndependent(acCountry)}
           />
           <InfoCard
             title='Language'

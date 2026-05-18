@@ -1,3 +1,5 @@
+import { ACCountry } from '@/model/ac-country';
+
 // Format a number with commas as thousands separators e.g. 1234567 -> 1,234,567
 export const formatNumberWithComma = (num: number) => {
   const numStr = num.toString();
@@ -45,4 +47,16 @@ export const formatRankInfo = (
   const order =
     rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th';
   return `${rank}${order} in ${countCountries} countries`;
+};
+
+export const isCountryIndependent = (country: ACCountry | null): string => {
+  // If the 'independent' property exists, use it
+  if (country && typeof country.independent === 'boolean') {
+    if (country.independent) {
+      return 'Yes';
+    } else {
+      return 'No';
+    }
+  }
+  return 'N/A';
 };
