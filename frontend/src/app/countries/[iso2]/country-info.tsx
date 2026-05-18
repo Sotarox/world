@@ -8,11 +8,7 @@ import {
   previousCountryNav,
 } from '@/model/country-iso2-name-map';
 import { useCountryNav } from '@/store/country-nav-store';
-import {
-  concatStringsWithComma,
-  formatCoordinate,
-  formatNumberWithComma,
-} from '@/utils/utils';
+import { concatStringsWithComma, formatCoordinate } from '@/utils/utils';
 import 'flag-icons/css/flag-icons.min.css';
 import { AdjacentNavigation } from './adjacent-navigation';
 import CountryInfoHeader from './country-info-header';
@@ -80,14 +76,6 @@ function CountryInfo(props: CountryInfoProps) {
           <InfoCard
             title='Currency'
             value={acCountry?.currencies ? acCountry.currencies[0].name : 'N/A'}
-          />
-          <InfoCard
-            title='Area'
-            value={
-              acCountry?.area
-                ? `${formatNumberWithComma(acCountry.area)} \u33A2`
-                : 'N/A'
-            }
           />
           <InfoCard
             title='Language'

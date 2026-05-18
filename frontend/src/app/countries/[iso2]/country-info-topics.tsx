@@ -1,5 +1,6 @@
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
+import { AreaInfo } from '@/app/countries/[iso2]/area-info';
 // import { useEconomyApi } from '@/api/use-economy-api';
 // import { EconomyCard } from '@/components/world/economy-card';
 // import { EconomyInfo } from '@/components/world/economy-info';
@@ -13,6 +14,7 @@ import { useTopicStore } from '@/store/topic-store';
 import { formatNumberWithComma } from '@/utils/utils';
 import 'flag-icons/css/flag-icons.min.css';
 import { memo } from 'react';
+import { ACCountry } from '@/model/ac-country';
 
 interface DetailInfoProps {
   iso2: string;
@@ -44,6 +46,7 @@ const DetailInfo = memo(function DetailInfo({
       {currentTopic === 'population' && (
         <PopulationInfo iso2={iso2} continentCode={continentCode} />
       )}
+      {currentTopic === 'area' && <AreaInfo iso2={iso2} />}
       {/* {currentTopic === 'economy' && (
         <EconomyInfo economyApiResult={economyApiResult} />
       )} */}
@@ -55,9 +58,10 @@ const DetailInfo = memo(function DetailInfo({
 interface CountryInfoTopicsProps {
   iso2: string;
   country: Country;
+  acCountry: ACCountry;
 }
 function CountryInfoTopics(props: CountryInfoTopicsProps) {
-  const { iso2, country } = props;
+  const { iso2, country, acCountry } = props;
   const { currentTopic, toggleCurrentTopic, selectedTopicIndex } =
     useTopicStore();
   // const economyApiResult = useEconomyApi(iso2);
@@ -82,6 +86,17 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
           country.population ? formatNumberWithComma(country.population) : 'N/A'
         }
         isSelected={currentTopic === 'population'}
+      />
+    ),
+    area: (
+      <InfoCardSelectable
+        title='Area'
+        value={
+          acCountry?.area
+            ? `${formatNumberWithComma(acCountry.area)} \u33A2`
+            : 'N/A'
+        }
+        isSelected={currentTopic === 'area'}
       />
     ),
     // economy: (
