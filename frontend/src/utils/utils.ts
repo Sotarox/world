@@ -49,6 +49,17 @@ export const formatRankInfo = (
   return `${rank}${order} in ${countCountries} countries`;
 };
 
+export const formatChartValue = (value: number, maxValue: number): string => {
+  if (maxValue >= 1_000_000_000) {
+    return `${(value / 1_000_000_000).toFixed(1)}B`;
+  } else if (maxValue >= 1_000_000) {
+    return `${(value / 1_000_000).toFixed(1)}M`;
+  } else if (maxValue >= 1_000) {
+    return `${(value / 1_000).toFixed(1)}K`;
+  }
+  return value.toString();
+};
+
 export const isCountryIndependent = (country: ACCountry | null): string => {
   // If the 'independent' property exists, use it
   if (country && typeof country.independent === 'boolean') {

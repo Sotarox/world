@@ -1,5 +1,6 @@
 import { CountryNavChart } from './country-nav-chart';
 import { useCountryNav } from '@/store/country-nav-store';
+import { formatChartValue } from '@/utils/utils';
 import { useMemo } from 'react';
 import { ChartConfig } from '../shadcn/chart';
 
@@ -21,14 +22,7 @@ function PopulationChartLoad(props: PopulationChartLoadProps) {
     const largestPopulation = Math.max(
       ...countryNavsSortedByPopulation.map((country) => country.population ?? 0)
     );
-    if (largestPopulation >= 1_000_000_000) {
-      return `${(value / 1_000_000_000).toFixed(1)}B`;
-    } else if (largestPopulation >= 1_000_000) {
-      return `${(value / 1_000_000).toFixed(1)}M`;
-    } else if (largestPopulation >= 1_000) {
-      return `${(value / 1_000).toFixed(1)}K`;
-    }
-    return value.toString();
+    return formatChartValue(value, largestPopulation);
   };
 
   return (

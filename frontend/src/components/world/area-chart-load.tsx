@@ -1,5 +1,6 @@
 import { CountryNavChart } from '@/components/world/country-nav-chart';
 import { useCountryNav } from '@/store/country-nav-store';
+import { formatChartValue } from '@/utils/utils';
 import { useMemo } from 'react';
 import { ChartConfig } from '../shadcn/chart';
 
@@ -18,14 +19,7 @@ function AreaChartLoad(props: AreaChartLoadProps) {
     const largestArea = Math.max(
       ...countryNavsSortedByArea.map((country) => country.area ?? 0)
     );
-    if (largestArea >= 1_000_000_000) {
-      return `${(value / 1_000_000_000).toFixed(1)}B`;
-    } else if (largestArea >= 1_000_000) {
-      return `${(value / 1_000_000).toFixed(1)}M`;
-    } else if (largestArea >= 1_000) {
-      return `${(value / 1_000).toFixed(1)}K`;
-    }
-    return largestArea.toString();
+    return formatChartValue(value, largestArea);
   };
 
   return (
