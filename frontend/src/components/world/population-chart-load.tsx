@@ -28,7 +28,7 @@ function PopulationChartLoad(props: PopulationChartLoadProps) {
     } else if (largestPopulation >= 1_000) {
       return `${(value / 1_000).toFixed(1)}K`;
     }
-    return largestPopulation.toString();
+    return value.toString();
   };
 
   return (
