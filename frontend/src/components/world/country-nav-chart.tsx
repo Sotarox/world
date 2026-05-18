@@ -11,36 +11,26 @@ import {
 import { ChartContainer, type ChartConfig } from '@/components/shadcn/chart';
 import { ACCountryNav } from '@/model/ac-country';
 
-const chartConfig = {
-  population: {
-    label: 'Population',
-  },
-} satisfies ChartConfig;
-
-interface PopulationChartProps {
-  data: ACCountryNav[];
-  selectedIso2: string;
-}
-
 const BAR_HEIGHT = 40;
 const MINIMUM_BAR_HEIGHT = 200;
 const SPLIT_NAME_LENGTH = 25;
 
-export function PopulationChart({ data, selectedIso2 }: PopulationChartProps) {
+interface CountryNavChartProps {
+  data: ACCountryNav[];
+  selectedIso2: string;
+  chartConfig: ChartConfig;
+  xAxisDataKey: string;
+  xAxisFormatter?: (value: number) => string;
+}
+
+function CountryNavChart({
+  data,
+  selectedIso2,
+  chartConfig,
+  xAxisDataKey,
+  xAxisFormatter,
+}: CountryNavChartProps) {
   const chartHeight = Math.max(data.length * BAR_HEIGHT, MINIMUM_BAR_HEIGHT);
-  const formatPopulation = (value: number): string => {
-    const largestPopulation = Math.max(
-      ...data.map((country) => country.population)
-    );
-    if (largestPopulation >= 1_000_000_000) {
-      return `${(value / 1_000_000_000).toFixed(1)}B`;
-    } else if (largestPopulation >= 1_000_000) {
-      return `${(value / 1_000_000).toFixed(1)}M`;
-    } else if (largestPopulation >= 1_000) {
-      return `${(value / 1_000).toFixed(1)}K`;
-    }
-    return largestPopulation.toString();
-  };
   // Custom function to set bar color
   const getBarColor = (entry: ACCountryNav) => {
     if (
@@ -65,10 +55,10 @@ export function PopulationChart({ data, selectedIso2 }: PopulationChartProps) {
       >
         <CartesianGrid stroke='var(--color-gray-500)' strokeDasharray='3 3' />
         <XAxis
-          dataKey='population'
+          dataKey={xAxisDataKey}
           type='number'
           orientation='top'
-          tickFormatter={(value) => formatPopulation(value)}
+          tickFormatter={xAxisFormatter}
         />
         <YAxis
           dataKey='name'
@@ -125,7 +115,7 @@ export function PopulationChart({ data, selectedIso2 }: PopulationChartProps) {
           }}
         />
         <Bar
-          dataKey='population'
+          dataKey={xAxisDataKey}
           radius={[0, 4, 4, 0]}
           isAnimationActive={false}
           fill='var(--color-slate-600)'
@@ -138,3 +128,6 @@ export function PopulationChart({ data, selectedIso2 }: PopulationChartProps) {
     </ChartContainer>
   );
 }
+
+CountryNavChart.displayName = 'CountryNavChart';
+export { CountryNavChart };

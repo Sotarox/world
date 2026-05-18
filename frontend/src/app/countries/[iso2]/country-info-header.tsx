@@ -16,7 +16,7 @@ function CountryInfoHeader(props: CountryInfoHeaderProps) {
         height='50'
         width='50'
       />
-      <h3 className='text-6xl max-w-full overflow-hidden text-ellipsis leading-normal'>
+      <h3 className='text-6xl max-w-full overflow-hidden text-ellipsis leading-none'>
         {country?.name || 'N/A'}
       </h3>
     </div>

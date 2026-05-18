@@ -1,6 +1,8 @@
-import { PopulationChart } from '@/components/world/population-chart';
+import { CountryNavChart } from './country-nav-chart';
 import { useCountryNav } from '@/store/country-nav-store';
+import { formatChartValue } from '@/utils/utils';
 import { useMemo } from 'react';
+import { ChartConfig } from '../shadcn/chart';
 
 interface PopulationChartLoadProps {
   iso2: string;
@@ -16,9 +18,23 @@ function PopulationChartLoad(props: PopulationChartLoadProps) {
       ),
     [countryNavs]
   );
+  const formatPopulation = (value: number): string => {
+    const largestPopulation = Math.max(
+      ...countryNavsSortedByPopulation.map((country) => country.population ?? 0)
+    );
+    return formatChartValue(value, largestPopulation);
+  };
 
   return (
-    <PopulationChart data={countryNavsSortedByPopulation} selectedIso2={iso2} />
+    <CountryNavChart
+      data={countryNavsSortedByPopulation}
+      selectedIso2={iso2}
+      chartConfig={
+        { population: { label: 'Population' } } satisfies ChartConfig
+      }
+      xAxisDataKey='population'
+      xAxisFormatter={formatPopulation}
+    />
   );
 }
 

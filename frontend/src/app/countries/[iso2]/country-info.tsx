@@ -11,7 +11,7 @@ import { useCountryNav } from '@/store/country-nav-store';
 import {
   concatStringsWithComma,
   formatCoordinate,
-  formatNumberWithComma,
+  getIndependentLabel,
 } from '@/utils/utils';
 import 'flag-icons/css/flag-icons.min.css';
 import { AdjacentNavigation } from './adjacent-navigation';
@@ -82,12 +82,8 @@ function CountryInfo(props: CountryInfoProps) {
             value={acCountry?.currencies ? acCountry.currencies[0].name : 'N/A'}
           />
           <InfoCard
-            title='Area'
-            value={
-              acCountry?.area
-                ? `${formatNumberWithComma(acCountry.area)} \u33A2`
-                : 'N/A'
-            }
+            title='Independent'
+            value={getIndependentLabel(acCountry)}
           />
           <InfoCard
             title='Language'
@@ -105,4 +101,5 @@ function CountryInfo(props: CountryInfoProps) {
   );
 }
 
+CountryInfo.displayName = 'CountryInfo';
 export { CountryInfo };
