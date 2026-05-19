@@ -18,6 +18,7 @@ import {
   NotebookTextIcon,
 } from 'lucide-react';
 import { useEffect } from 'react';
+import Image from 'next/image';
 
 function AuthorPage() {
   const { state, stateMobile, toggleSidebar } = useSidebar();
@@ -105,7 +106,7 @@ function AuthorPage() {
           </div>
         </section>
         <section className='flex w-full flex-col gap-2'>
-          <h2>Why I built this App</h2>
+          <h2>Why I build this App</h2>
           <Card className='w-full p-3 gap-2'>
             <p className='whitespace-pre-line'>
               {`The main reason is "Learning by doing" — I learn best by hands-on experience, not just by reading or watching videos. Actually country information is a good size to experiment with - not too big, not too small, and there are many interesting public APIs to get data from.
@@ -114,6 +115,31 @@ function AuthorPage() {
             `}
             </p>
           </Card>
+        </section>
+        <section>
+          <div className='flex flex-col gap-2 w-full'>
+            <h2>App structure</h2>
+            <Card className='px-3 py-5'>
+              <div className='relative w-full h-56 sm:h-72'>
+                <Image src='/structure1.svg' alt='App structure' fill={true} />
+              </div>
+              <ul className='list-disc list-inside mt-2'>
+                <li>
+                  Frontend&#40;Next.js&#41; is statically generated and served
+                  by the backend.
+                </li>
+                <li>
+                  Database is used mainly to store gathered data from online,
+                  which is not available by public APIs.
+                </li>
+                <li>
+                  As this app is experimental for private usage, currently
+                  everything runs in a single server instance. If scaling is
+                  necessary, database should be separated in another instance.
+                </li>
+              </ul>
+            </Card>
+          </div>
         </section>
         <section>
           <div className='flex flex-col gap-2 w-full'>
