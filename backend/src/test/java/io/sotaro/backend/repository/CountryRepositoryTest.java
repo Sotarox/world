@@ -16,7 +16,7 @@ public class CountryRepositoryTest {
 
     @Test
     void givenSingleCountryInDB_whenFindByCorrectId_thenReturnCorrectEntity(){
-        CountryEntity countryEntity = buildCountryEntity("GER");
+        CountryEntity countryEntity = buildCountryEntity("US");
         countryRepository.saveAndFlush(countryEntity);
         Optional<CountryEntity> optionalCountryEntity = countryRepository.findByCountryIso2(countryEntity.getCountryIso2());
         assertTrue(optionalCountryEntity.isPresent());
@@ -26,7 +26,7 @@ public class CountryRepositoryTest {
 
     @Test
     void givenSingleCountryInDB_whenFindByNonExistingId_thenReturnEmptyEntity(){
-        CountryEntity countryEntity = buildCountryEntity("GER");
+        CountryEntity countryEntity = buildCountryEntity("US");
         countryRepository.saveAndFlush(countryEntity);
         Optional<CountryEntity> optionalCountryEntity = countryRepository.findByCountryIso2("USA");
         assertTrue(optionalCountryEntity.isEmpty());
