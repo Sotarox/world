@@ -26,9 +26,9 @@ public class CountryRepositoryTest {
 
     @Test
     void givenSingleCountryInDB_whenFindByNonExistingId_thenReturnEmptyEntity(){
-        CountryEntity countryEntity = buildCountryEntity("US");
+        CountryEntity countryEntity = buildCountryEntity("DE");
         countryRepository.saveAndFlush(countryEntity);
-        Optional<CountryEntity> optionalCountryEntity = countryRepository.findByCountryIso2("USA");
+        Optional<CountryEntity> optionalCountryEntity = countryRepository.findByCountryIso2("US");
         assertTrue(optionalCountryEntity.isEmpty());
     }
 
