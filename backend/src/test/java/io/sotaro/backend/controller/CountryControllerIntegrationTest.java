@@ -44,7 +44,7 @@ public class CountryControllerIntegrationTest {
             assertEquals("US", resultDto.countryIso2());
             assertEquals("United States", resultDto.countryName());
             assertEquals("Washington", resultDto.capital());
-            assertEquals(1472, resultDto.totalNumberOfAirports());
+            assertEquals(3, resultDto.totalNumberOfAirports());
         }
 
         @Test

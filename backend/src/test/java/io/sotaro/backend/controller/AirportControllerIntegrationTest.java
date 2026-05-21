@@ -13,12 +13,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -28,6 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AirportControllerIntegrationTest {
 
     private static final String BASE_URI = "/api/airports";
+
+    private static final Set<String> US_AIRPORT_IATA_CODES = Set.of("AAF", "ABE", "ABQ");
+    private static final Set<String> DE_AIRPORT_IATA_CODES = Set.of("AAH", "AGB");
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,54 +42,62 @@ class AirportControllerIntegrationTest {
     class GetAirportsByCountryIso2 {
 
         @Test
-        void whenCountryHasAirports_thenReturnAirportDtos() throws Exception {
-            MvcResult result = mockMvc.perform(get(BASE_URI + "/US"))
-                    .andDo(print())
-                    .andExpect(status().isOk())
-                    .andReturn();
+        void whenCountryHasAirports_thenReturnAllAirportsForThatCountry() throws Exception {
+            List<AirportDto> airports = performGetAndParse(BASE_URI + "/US");
 
-            List<AirportDto> airports = objectMapper.readValue(
-                    result.getResponse().getContentAsString(),
-                    new TypeReference<>() {}
-            );
+            assertEquals(3, airports.size());
+            assertEquals(US_AIRPORT_IATA_CODES, iataCodes(airports));
+            assertTrue(airports.stream().allMatch(airport -> "US".equals(airport.countryIso2())));
+            assertTrue(airports.stream().allMatch(airport -> "United States".equals(airport.countryName())));
 
-            assertEquals(1472, airports.size());
-            assertTrue(airports.stream().anyMatch(airport ->
-                    "AAF".equals(airport.iataCode())
-                            && "US".equals(airport.countryIso2())
-                            && "Apalachicola Regional".equals(airport.airportName())
-                            && "United States".equals(airport.countryName())
-            ));
+            AirportDto apalachicola = airports.stream()
+                    .filter(airport -> "AAF".equals(airport.iataCode()))
+                    .findFirst()
+                    .orElseThrow();
+            assertEquals("Apalachicola Regional", apalachicola.airportName());
+            assertEquals("KAAF", apalachicola.icaoCode());
         }
 
         @Test
         void whenIso2IsLowerCase_thenNormalizeToUpperCase() throws Exception {
-            MvcResult result = mockMvc.perform(get(BASE_URI + "/us"))
-                    .andExpect(status().isOk())
-                    .andReturn();
+            List<AirportDto> airports = performGetAndParse(BASE_URI + "/us");
 
-            List<AirportDto> airports = objectMapper.readValue(
-                    result.getResponse().getContentAsString(),
-                    new TypeReference<>() {}
-            );
-
-            assertFalse(airports.isEmpty());
-            assertTrue(airports.stream().allMatch(airport -> "US".equals(airport.countryIso2())));
+            assertEquals(3, airports.size());
+            assertEquals(US_AIRPORT_IATA_CODES, iataCodes(airports));
         }
 
         @Test
-        void whenCountryHasNoAirports_thenReturnEmptyList() throws Exception {
-            MvcResult result = mockMvc.perform(get(BASE_URI + "/ZZ"))
-                    .andDo(print())
-                    .andExpect(status().isOk())
-                    .andReturn();
+        void whenGermanyHasAirports_thenReturnTwoGermanAirports() throws Exception {
+            List<AirportDto> airports = performGetAndParse(BASE_URI + "/DE");
 
-            List<AirportDto> airports = objectMapper.readValue(
-                    result.getResponse().getContentAsString(),
-                    new TypeReference<>() {}
-            );
+            assertEquals(2, airports.size());
+            assertEquals(DE_AIRPORT_IATA_CODES, iataCodes(airports));
+            assertTrue(airports.stream().allMatch(airport -> "DE".equals(airport.countryIso2())));
+            assertTrue(airports.stream().allMatch(airport -> "Germany".equals(airport.countryName())));
+        }
+
+        @Test
+        void whenCountryNotExists_thenReturnEmptyList() throws Exception {
+            List<AirportDto> airports = performGetAndParse(BASE_URI + "/XY");
 
             assertTrue(airports.isEmpty());
         }
+    }
+
+    private List<AirportDto> performGetAndParse(String uri) throws Exception {
+        MvcResult result = mockMvc.perform(get(uri))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        return objectMapper.readValue(
+                result.getResponse().getContentAsString(),
+                new TypeReference<>() {}
+        );
+    }
+
+    private static Set<String> iataCodes(List<AirportDto> airports) {
+        return airports.stream()
+                .map(AirportDto::iataCode)
+                .collect(Collectors.toSet());
     }
 }
