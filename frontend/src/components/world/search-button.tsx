@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { searchCountryName } from '../../model/country-iso2-name-map';
 import { SearchResult } from './search-result';
 import { SearchIcon } from 'lucide-react';
@@ -19,6 +19,15 @@ import {
 } from '@/components/shadcn/input-group';
 import { Separator } from '@/components/shadcn/separator';
 
+const SEARCH_KEYBOARD_SHORTCUT = 'k';
+
+function getSearchShortcutLabel(): string {
+  if (typeof navigator === 'undefined') {
+    return 'Ctrl+K';
+  }
+  return /Mac|iPhone|iPad|iPod/.test(navigator.platform) ? '⌘K' : 'Ctrl+K';
+}
+
 function SearchButton() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -26,24 +35,47 @@ function SearchButton() {
     () => (query.length > 1 ? searchCountryName(query) : []),
     [query]
   );
+  const shortcutLabel = useMemo(() => getSearchShortcutLabel(), []);
 
   const pathname = usePathname();
+
+  const openSearch = useCallback(() => {
+    setQuery('');
+    setOpen(true);
+  }, []);
+
   // when url changes, close the dialog
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.key.toLowerCase() === SEARCH_KEYBOARD_SHORTCUT &&
+        (event.metaKey || event.ctrlKey)
+      ) {
+        event.preventDefault();
+        openSearch();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [openSearch]);
+
   return (
     <>
       <Button
         variant='ghost'
-        onClick={() => {
-          setQuery('');
-          setOpen(true);
-        }}
+        onClick={openSearch}
         aria-label='open search dialog'
+        aria-keyshortcuts='Control+K Meta+K'
       >
         <SearchIcon className='size-6' />
+        <span className='hidden sm:inline text-xs text-muted-foreground ml-1'>
+          {shortcutLabel}
+        </span>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className='h-4/5'>
