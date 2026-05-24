@@ -18,6 +18,7 @@ import {
   InputGroupInput,
 } from '@/components/shadcn/input-group';
 import { Separator } from '@/components/shadcn/separator';
+import { Kbd } from '@/components/shadcn/kbd';
 
 const SEARCH_KEYBOARD_SHORTCUT = 'k';
 
@@ -71,10 +72,13 @@ function SearchButton() {
         onClick={openSearch}
         aria-label='open search dialog'
         aria-keyshortcuts='Control+K Meta+K'
+        className='rounded-xl sm:border sm:border-muted/50 sm:dark:border-white/50'
       >
-        <SearchIcon className='size-6' />
+        <SearchIcon className='size-5' />
         <span className='hidden sm:inline text-xs text-muted-foreground ml-1'>
-          {shortcutLabel}
+          <Kbd className='bg-transparent dark:text-white/50'>
+            {shortcutLabel}
+          </Kbd>
         </span>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
