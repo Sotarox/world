@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { searchCountryName } from '../../model/country-iso2-name-map';
 import { SearchResult } from './search-result';
 import { SearchIcon } from 'lucide-react';
@@ -19,6 +19,8 @@ import {
 } from '@/components/shadcn/input-group';
 import { Separator } from '@/components/shadcn/separator';
 
+const SEARCH_KEYBOARD_SHORTCUT = 'k';
+
 function SearchButton() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -33,15 +35,36 @@ function SearchButton() {
     setOpen(false);
   }, [pathname]);
 
+  const openSearchDialog = useCallback(() => {
+    setQuery('');
+    setOpen(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.key.toLowerCase() === SEARCH_KEYBOARD_SHORTCUT &&
+        (event.ctrlKey || event.metaKey)
+      ) {
+        event.preventDefault();
+        openSearchDialog();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [openSearchDialog]);
+
   return (
     <>
       <Button
         variant='ghost'
-        onClick={() => {
-          setQuery('');
-          setOpen(true);
-        }}
+        onClick={openSearchDialog}
         aria-label='open search dialog'
+        aria-keyshortcuts='Control+K Meta+K'
       >
         <SearchIcon className='size-6' />
       </Button>
