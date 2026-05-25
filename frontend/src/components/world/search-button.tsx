@@ -75,7 +75,10 @@ function SearchButton() {
         className='rounded-xl sm:border sm:border-muted/50 sm:dark:border-white/50'
       >
         <SearchIcon className='size-5' />
-        <span className='hidden sm:inline text-xs text-muted-foreground ml-1'>
+        <span
+          className='hidden sm:inline text-xs text-muted-foreground ml-1'
+          data-testid='search-button-keyboard-shortcut'
+        >
           <Kbd className='bg-transparent dark:text-white/50'>
             {shortcutLabel}
           </Kbd>

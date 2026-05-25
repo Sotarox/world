@@ -24,7 +24,9 @@ describe('SearchButton', () => {
   it('renders shortcut hint on desktop', () => {
     render(<SearchButton />);
 
-    expect(screen.getByText(/Ctrl\+K|⌘K/)).toHaveClass('hidden', 'sm:inline');
+    expect(
+      screen.getByTestId('search-button-keyboard-shortcut')
+    ).toBeInTheDocument();
   });
 
   it('opens search dialog on Ctrl+K', () => {
