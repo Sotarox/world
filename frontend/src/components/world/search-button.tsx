@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { searchCountryName } from '../../model/country-iso2-name-map';
 import { SearchResult } from './search-result';
 import { SearchIcon } from 'lucide-react';
@@ -18,6 +18,16 @@ import {
   InputGroupInput,
 } from '@/components/shadcn/input-group';
 import { Separator } from '@/components/shadcn/separator';
+import { Kbd } from '@/components/shadcn/kbd';
+
+const SEARCH_KEYBOARD_SHORTCUT = 'k';
+
+function getSearchShortcutLabel(): string {
+  if (typeof navigator === 'undefined') {
+    return 'Ctrl+K';
+  }
+  return /Mac|iPhone|iPad|iPod/.test(navigator.platform) ? '⌘K' : 'Ctrl+K';
+}
 
 function SearchButton() {
   const [open, setOpen] = useState(false);
@@ -26,24 +36,53 @@ function SearchButton() {
     () => (query.length > 1 ? searchCountryName(query) : []),
     [query]
   );
+  const shortcutLabel = useMemo(() => getSearchShortcutLabel(), []);
 
   const pathname = usePathname();
+
+  const openSearch = useCallback(() => {
+    setQuery('');
+    setOpen(true);
+  }, []);
+
   // when url changes, close the dialog
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.key.toLowerCase() === SEARCH_KEYBOARD_SHORTCUT &&
+        (event.metaKey || event.ctrlKey)
+      ) {
+        event.preventDefault();
+        openSearch();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [openSearch]);
+
   return (
     <>
       <Button
         variant='ghost'
-        onClick={() => {
-          setQuery('');
-          setOpen(true);
-        }}
+        onClick={openSearch}
         aria-label='open search dialog'
+        aria-keyshortcuts='Control+K Meta+K'
+        className='rounded-xl sm:border sm:border-muted/50 sm:dark:border-white/50'
       >
-        <SearchIcon className='size-6' />
+        <SearchIcon className='size-5' />
+        <span
+          className='hidden sm:inline text-xs text-muted-foreground ml-1'
+          data-testid='search-button-keyboard-shortcut'
+        >
+          <Kbd className='bg-transparent dark:text-white/50'>
+            {shortcutLabel}
+          </Kbd>
+        </span>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className='h-4/5'>

@@ -17,7 +17,7 @@ const HeaderBar = React.memo(() => {
   return (
     <div
       className={cn(
-        'w-full bg-primary dark:bg-gt-header grid grid-cols-3 justify-between content-center shadow-md',
+        'w-full bg-primary dark:bg-gt-header grid grid-cols-2 justify-between content-center shadow-md',
         // On small screen, Header is fixed at the bottom
         'fixed bottom-0 h-15 top-auto px-3',
         // On larger screen, keep header fixed so edge overscroll does not pull it
@@ -35,10 +35,8 @@ const HeaderBar = React.memo(() => {
           <SidebarTrigger className='size-10' />
         )}
       </div>
-      <div className='flex justify-center items-center gap-1'>
-        <SearchButton />
-      </div>
       <div className='flex justify-end items-center gap-2'>
+        <SearchButton />
         <ModeToggle />
         <BurgerMenu />
       </div>
