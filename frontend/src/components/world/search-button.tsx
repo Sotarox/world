@@ -79,7 +79,7 @@ function SearchButton() {
           className='hidden sm:inline text-xs text-muted-foreground ml-1'
           data-testid='search-button-keyboard-shortcut'
         >
-          <Kbd className='bg-transparent dark:text-white/50'>
+          <Kbd className='bg-transparent text-white/80 dark:text-white/50'>
             {shortcutLabel}
           </Kbd>
         </span>
@@ -97,7 +97,7 @@ function SearchButton() {
               <div className='flex flex-col px-2 h-full overflow-y-auto pt-1 basis-4/5'>
                 <InputGroup>
                   <InputGroupAddon>
-                    <SearchIcon className='h-4 w-4 text-muted-foreground' />
+                    <SearchIcon className='size-4 text-muted-foreground' />
                   </InputGroupAddon>
                   <InputGroupInput
                     placeholder='Country Name'
