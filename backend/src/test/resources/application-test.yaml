@@ -11,6 +11,16 @@ spring:
   h2:
     console:
       enabled: true
+  mail:
+    host: localhost
+    port: 1025
+    username: test
+    password: test
+security:
+  jwt:
+    token:
+      secret-key: test-secret-key
+      expiration-length: 300000
 # custom properties for world app
 custom:
   mail:
