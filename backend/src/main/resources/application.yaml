@@ -14,16 +14,19 @@ spring:
           auth: true
           starttls:
             enable: true
-security:
-  jwt:
-    token:
-      secret-key: ${JWT_SECRET:secret-key}
-      expiration-length: ${JWT_EXPIRATION:300000}
 # custom properties for world app
 custom:
   mail:
     enabled: true
     forward: ${MAIL_FORWARD}
+  jwt:
+    token:
+      secret: ${JWT_SECRET:secret-key}
+      expiration: ${JWT_EXPIRATION:300000}
+logging:
+  level:
+    org.springframework: DEBUG
+    io.sotaro.backend: DEBUG
 ---
 
 spring:

@@ -1,6 +1,7 @@
 package io.sotaro.backend.security;
 
 import io.sotaro.backend.service.CustomUserDetailsService;
+import io.sotaro.backend.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ import java.io.IOException;
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
-    private JwtUtil jwtUtils;
+    private JwtUtil jwtUtil;
     @Autowired
     private CustomUserDetailsService userDetailsService;
     @Override
@@ -28,8 +29,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
-            if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                String username = jwtUtils.getUsernameFromToken(jwt);
+            if (jwt != null && jwtUtil.validateJwtToken(jwt)) {
+                String username = jwtUtil.getUsernameFromToken(jwt);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(

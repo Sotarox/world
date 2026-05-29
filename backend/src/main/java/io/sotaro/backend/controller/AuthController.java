@@ -1,8 +1,8 @@
 package io.sotaro.backend.controller;
 
 import io.sotaro.backend.repository.UserRepository;
-import io.sotaro.backend.security.JwtUtil;
 import io.sotaro.backend.model.User;
+import io.sotaro.backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -14,20 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
-    private final PasswordEncoder encoder;
-    private final JwtUtil jwtUtils;
-
-    public AuthController (AuthenticationManager authenticationManager,
-                           UserRepository userRepository,
-                           PasswordEncoder passwordEncoder,
-                           JwtUtil jwtUtils) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.encoder = passwordEncoder;
-        this.jwtUtils = jwtUtils;
-    }
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    PasswordEncoder encoder;
+    @Autowired
+    JwtUtil jwtUtil;
 
     @PostMapping("/signin")
     public String authenticateUser(@RequestBody User user) {
@@ -38,7 +32,7 @@ public class AuthController {
                 )
         );
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return jwtUtils.generateToken(userDetails.getUsername());
+        return jwtUtil.generateToken(userDetails.getUsername());
     }
     @PostMapping("/signup")
     public String registerUser(@RequestBody User user) {

@@ -16,12 +16,15 @@ spring:
     port: 1025
     username: test
     password: test
-security:
-  jwt:
-    token:
-      secret-key: test-secret-key
-      expiration-length: 300000
 # custom properties for world app
 custom:
   mail:
     enabled: false
+  jwt:
+    token:
+      secret: test-secret-key
+      expiration: 300000
+#logging:
+#  level:
+#    org.springframework: DEBUG
+#    io.sotaro.backend: DEBUG

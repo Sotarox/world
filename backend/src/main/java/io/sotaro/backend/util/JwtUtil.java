@@ -1,43 +1,45 @@
-package io.sotaro.backend.security;
+package io.sotaro.backend.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-//    @Value("${security.jwt.token.secret-key}")
-//    private String jwtSecret;
-//    @Value("${security.jwt.token.expiration-length}")
-//    private int jwtExpirationMs;
-    private final String jwtSecret = "mySecretKeymySecretKeymySecretKeymySecretKey"; // 256-bit key for HS256
-    private final int jwtExpirationMs = 3600000; // 1 hour
-
+    @Value("${custom.jwt.token.secret}")
+    private String jwtSecret;
+    @Value("${custom.jwt.token.expiration}")
+    private int jwtExpirationMs;
     private SecretKey key;
+    private static final String SECRET_KEY = "my-secret-key";
     // Initializes the key after the class is instantiated and the jwtSecret is injected,
     // preventing the repeated creation of the key and enhancing performance
-    @PostConstruct
-    public void init() {
-        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-    }
+//    @PostConstruct
+//    public void init() {
+//        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+//    }
     // Generate JWT token
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(key, SignatureAlgorithm.HS256)
+//                .signWith(key.getBytes(), SignatureAlgorithm.HS256)
+                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
                 .compact();
     }
     // Get username from JWT token
     public String getUsernameFromToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(key).build()
+        return Jwts.parserBuilder()
+//                .setSigningKey(key)
+                .setSigningKey(SECRET_KEY.getBytes())
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
@@ -45,7 +47,10 @@ public class JwtUtil {
     // Validate JWT token
     public boolean validateJwtToken(String token) {
         try {
-            Jwts.parser().setSigningKey(key).build().parseClaimsJws(token);
+            Jwts.parserBuilder()
+//                    .setSigningKey(key)
+                    .setSigningKey(SECRET_KEY.getBytes())
+                    .build().parseClaimsJws(token);
             return true;
         } catch (SecurityException e) {
             System.out.println("Invalid JWT signature: " + e.getMessage());

@@ -5,13 +5,20 @@ import io.sotaro.backend.configuration.CustomCorsConfiguration;
 import io.sotaro.backend.configuration.SecurityConfig;
 import io.sotaro.backend.exception.ResourceNotFoundException;
 import io.sotaro.backend.model.CountryDto;
+import io.sotaro.backend.repository.UserRepository;
+import io.sotaro.backend.security.AuthEntryPointJwt;
+import io.sotaro.backend.security.AuthTokenFilter;
 import io.sotaro.backend.service.CountryService;
+import io.sotaro.backend.service.CustomUserDetailsService;
 import io.sotaro.backend.service.PopulationRankService;
+import io.sotaro.backend.util.JwtUtil;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -24,7 +31,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CountryController.class)
-@Import({SecurityConfig.class, CustomCorsConfiguration.class})
+@Import({SecurityConfig.class,
+        CustomCorsConfiguration.class,
+        JwtUtil.class,
+        AuthTokenFilter.class,
+        CustomUserDetailsService.class,
+        AuthEntryPointJwt.class
+})
+@AutoConfigureMockMvc(addFilters = false)
 public class CountryControllerTest {
 
     @Autowired
@@ -35,6 +49,9 @@ public class CountryControllerTest {
 
     @MockitoBean
     private CountryService countryService;
+
+    @MockitoBean
+    private UserRepository userRepository;
 
     @MockitoBean
     private PopulationRankService populationRankService;
