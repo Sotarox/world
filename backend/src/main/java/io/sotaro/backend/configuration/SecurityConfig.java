@@ -19,18 +19,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    CustomCorsConfiguration customCorsConfiguration;
+    private final CustomCorsConfiguration customCorsConfiguration;
+    private final AuthEntryPointJwt unauthorizedHandler;
+    private final AuthTokenFilter authTokenFilter;
 
-    @Autowired
-    CustomUserDetailsService userDetailsService;
-
-    @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
-
-    @Autowired
-    private AuthTokenFilter authTokenFilter;
-
+    public SecurityConfig(
+            CustomCorsConfiguration customCorsConfiguration,
+            AuthEntryPointJwt unauthorizedHandler,
+            AuthTokenFilter authTokenFilter
+    ) {
+        this.customCorsConfiguration = customCorsConfiguration;
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.authTokenFilter = authTokenFilter;
+    }
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authenticationConfiguration
