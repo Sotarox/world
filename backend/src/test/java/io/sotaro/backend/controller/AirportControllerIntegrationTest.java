@@ -24,24 +24,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-@Import(TestMailConfig.class)
-@AutoConfigureMockMvc(addFilters = false)
 @Sql(scripts = "/test_populate_airports.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(scripts = "/clean_up.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-class AirportControllerIntegrationTest {
+class AirportControllerIntegrationTest extends BaseIntegrationTest {
 
     private static final String BASE_URI = "/api/airports";
 
     private static final Set<String> US_AIRPORT_IATA_CODES = Set.of("AAF", "ABE", "ABQ");
     private static final Set<String> DE_AIRPORT_IATA_CODES = Set.of("AAH", "AGB");
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Nested
     class GetAirportsByCountryIso2 {

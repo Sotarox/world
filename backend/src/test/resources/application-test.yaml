@@ -22,9 +22,5 @@ custom:
     enabled: false
   jwt:
     token:
-      secret: test-secret-key
+      secret: thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd
       expiration: 300000
-#logging:
-#  level:
-#    org.springframework: DEBUG
-#    io.sotaro.backend: DEBUG
