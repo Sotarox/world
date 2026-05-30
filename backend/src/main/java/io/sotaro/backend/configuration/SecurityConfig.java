@@ -58,8 +58,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/auth/**", "/api/test/all").permitAll() // Use 'requestMatchers' instead of 'antMatchers'
-                                .anyRequest().authenticated()
+                                .requestMatchers("api/auth/test/user").authenticated()
+                                .anyRequest().permitAll()
                 );
         // Add the JWT Token filter before the UsernamePasswordAuthenticationFilter
         httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
