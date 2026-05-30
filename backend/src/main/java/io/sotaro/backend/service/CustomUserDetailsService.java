@@ -1,11 +1,11 @@
 package io.sotaro.backend.service;
 
+import io.sotaro.backend.model.UserEntity;
 import io.sotaro.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
-import io.sotaro.backend.model.User;
 
 @Service
 public class CustomUserDetailsService  implements UserDetailsService {
@@ -13,13 +13,13 @@ public class CustomUserDetailsService  implements UserDetailsService {
     private UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) {
             throw new UsernameNotFoundException("User Not Found with username: " + username);
         }
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
-                user.getPassword(),
+                userEntity.getUsername(),
+                userEntity.getPassword(),
                 Collections.emptyList()
         );
     }

@@ -29,9 +29,7 @@ public class SecurityConfig {
     private AuthEntryPointJwt unauthorizedHandler;
 
     @Autowired
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
-    }
+    private AuthTokenFilter authTokenFilter;
 
     @Bean
     public AuthenticationManager authenticationManager(
@@ -62,7 +60,7 @@ public class SecurityConfig {
                                 .anyRequest().permitAll()
                 );
         // Add the JWT Token filter before the UsernamePasswordAuthenticationFilter
-        httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 }

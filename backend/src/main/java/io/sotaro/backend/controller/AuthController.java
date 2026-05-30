@@ -1,8 +1,9 @@
 package io.sotaro.backend.controller;
 
+import io.sotaro.backend.model.UserEntity;
+import io.sotaro.backend.model.UserSignInDto;
 import io.sotaro.backend.repository.UserRepository;
-import io.sotaro.backend.model.User;
-import io.sotaro.backend.util.JwtUtil;
+import io.sotaro.backend.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -24,37 +25,33 @@ public class AuthController {
     JwtUtil jwtUtil;
 
     @PostMapping("/signin")
-    public String authenticateUser(@RequestBody User user) {
+    public String authenticateUser(@RequestBody UserSignInDto user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        user.getUsername(),
-                        user.getPassword()
+                        user.username(),
+                        user.password()
                 )
         );
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return jwtUtil.generateToken(userDetails.getUsername());
     }
     @PostMapping("/signup")
-    public String registerUser(@RequestBody User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
+    public String registerUser(@RequestBody UserSignInDto user) {
+        if (userRepository.existsByUsername(user.username())) {
             return "Error: Username is already taken!";
         }
         // Create new user's account
-        User newUser = new User(
+        UserEntity newUserEntity = new UserEntity(
                 null,
-                user.getUsername(),
-                encoder.encode(user.getPassword())
+                user.username(),
+                encoder.encode(user.password())
         );
-        userRepository.save(newUser);
+        userRepository.save(newUserEntity);
         return "User registered successfully!";
     }
 
-    @GetMapping("/test/all")
-    public String allAccess() {
-        return "Public Content.";
-    }
     @GetMapping("/test/user")
     public String userAccess() {
-        return "User Content.";
+        return "Only authenticated users can see this.";
     }
 }

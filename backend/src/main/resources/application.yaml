@@ -21,7 +21,7 @@ custom:
     forward: ${MAIL_FORWARD}
   jwt:
     token:
-      secret: ${JWT_SECRET:secret-key}
+      secret: ${JWT_SECRET:thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd}
       expiration: ${JWT_EXPIRATION:300000}
 
 ---

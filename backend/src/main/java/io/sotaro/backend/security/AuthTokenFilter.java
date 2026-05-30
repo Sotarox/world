@@ -1,7 +1,6 @@
 package io.sotaro.backend.security;
 
 import io.sotaro.backend.service.CustomUserDetailsService;
-import io.sotaro.backend.util.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

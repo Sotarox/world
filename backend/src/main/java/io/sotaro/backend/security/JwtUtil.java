@@ -1,4 +1,4 @@
-package io.sotaro.backend.util;
+package io.sotaro.backend.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -17,28 +17,25 @@ public class JwtUtil {
     @Value("${custom.jwt.token.expiration}")
     private int jwtExpirationMs;
     private SecretKey key;
-    private static final String SECRET_KEY = "my-secret-key";
     // Initializes the key after the class is instantiated and the jwtSecret is injected,
     // preventing the repeated creation of the key and enhancing performance
-//    @PostConstruct
-//    public void init() {
-//        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
-//    }
+    @PostConstruct
+    public void init() {
+        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+    }
     // Generate JWT token
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-//                .signWith(key.getBytes(), SignatureAlgorithm.HS256)
-                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
     // Get username from JWT token
     public String getUsernameFromToken(String token) {
         return Jwts.parserBuilder()
-//                .setSigningKey(key)
-                .setSigningKey(SECRET_KEY.getBytes())
+                .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
@@ -47,10 +44,10 @@ public class JwtUtil {
     // Validate JWT token
     public boolean validateJwtToken(String token) {
         try {
-            Jwts.parserBuilder()
-//                    .setSigningKey(key)
-                    .setSigningKey(SECRET_KEY.getBytes())
-                    .build().parseClaimsJws(token);
+            Jwts
+                .parserBuilder()
+                .setSigningKey(key)
+                .build().parseClaimsJws(token);
             return true;
         } catch (SecurityException e) {
             System.out.println("Invalid JWT signature: " + e.getMessage());
