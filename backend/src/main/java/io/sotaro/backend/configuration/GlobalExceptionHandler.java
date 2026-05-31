@@ -34,11 +34,11 @@ public class GlobalExceptionHandler {
     }
 
     private ResponseEntity<Map<String, Object>> buildResponseBody(HttpServletRequest req, Exception ex, HttpStatus httpStatus, String errorMessage) {
-        Map<String, Object> body = new HashMap<>();
-        body.put("Timestamp", LocalDateTime.now());
-        body.put("Endpoint", String.join(" ", req.getMethod(), req.getRequestURI()));
-        body.put("Error overview", errorMessage);
-        body.put("Exception message", ex.getMessage());
+        final Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("endpoint", String.join(" ", req.getMethod(), req.getRequestURI()));
+        body.put("error-message", errorMessage);
+        body.put("exception", ex.getMessage());
         return ResponseEntity
                 .status(httpStatus)
                 .body(body);

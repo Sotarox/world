@@ -1,10 +1,13 @@
 package io.sotaro.backend.controller;
 
+import io.sotaro.backend.model.MessageDto;
+import io.sotaro.backend.model.TokenDto;
 import io.sotaro.backend.model.UserEntity;
 import io.sotaro.backend.model.UserSignInDto;
 import io.sotaro.backend.repository.UserRepository;
 import io.sotaro.backend.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +28,7 @@ public class AuthController {
     JwtUtil jwtUtil;
 
     @PostMapping("/signin")
-    public String authenticateUser(@RequestBody UserSignInDto user) {
+    public ResponseEntity<TokenDto> authenticateUser(@RequestBody UserSignInDto user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.username(),
@@ -33,12 +36,18 @@ public class AuthController {
                 )
         );
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return jwtUtil.generateToken(userDetails.getUsername());
+        TokenDto tokenDto = new TokenDto(
+                jwtUtil.generateToken(userDetails.getUsername()),
+                "Bearer",
+                userDetails.getUsername()
+                );
+        return ResponseEntity.ok(tokenDto);
     }
     @PostMapping("/signup")
-    public String registerUser(@RequestBody UserSignInDto user) {
+    public ResponseEntity<MessageDto> registerUser(@RequestBody UserSignInDto user) {
         if (userRepository.existsByUsername(user.username())) {
-            return "Error: Username is already taken!";
+            MessageDto messageDto = new MessageDto("Error: Username is already taken!");
+            return ResponseEntity.badRequest().body(messageDto);
         }
         // Create new user's account
         UserEntity newUserEntity = new UserEntity(
@@ -47,11 +56,13 @@ public class AuthController {
                 encoder.encode(user.password())
         );
         userRepository.save(newUserEntity);
-        return "User registered successfully!";
+        MessageDto messageDto = new MessageDto("User registered successfully!");
+        return ResponseEntity.ok(messageDto);
     }
 
     @GetMapping("/test/user")
-    public String userAccess() {
-        return "Only authenticated users can see this.";
+    public ResponseEntity<MessageDto> userAccess() {
+        MessageDto messageDto = new MessageDto("Only authenticated users can see this.");
+        return ResponseEntity.ok(messageDto);
     }
 }
