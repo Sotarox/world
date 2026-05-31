@@ -6,6 +6,7 @@ import io.sotaro.backend.model.UserEntity;
 import io.sotaro.backend.model.UserSignInDto;
 import io.sotaro.backend.repository.UserRepository;
 import io.sotaro.backend.security.JwtUtil;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
@@ -28,7 +29,7 @@ public class AuthController {
     JwtUtil jwtUtil;
 
     @PostMapping("/signin")
-    public ResponseEntity<TokenDto> authenticateUser(@RequestBody UserSignInDto user) {
+    public ResponseEntity<TokenDto> authenticateUser(@Valid @RequestBody UserSignInDto user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.username(),
@@ -44,7 +45,7 @@ public class AuthController {
         return ResponseEntity.ok(tokenDto);
     }
     @PostMapping("/signup")
-    public ResponseEntity<MessageDto> registerUser(@RequestBody UserSignInDto user) {
+    public ResponseEntity<MessageDto> registerUser(@Valid @RequestBody UserSignInDto user) {
         if (userRepository.existsByUsername(user.username())) {
             MessageDto messageDto = new MessageDto("Error: Username is already taken!");
             return ResponseEntity.badRequest().body(messageDto);
