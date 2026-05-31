@@ -1,6 +1,7 @@
 package io.sotaro.backend.configuration;
 
 import io.sotaro.backend.exception.ResourceNotFoundException;
+import io.sotaro.backend.model.ErrorDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -12,15 +13,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleResourceNotFoundException(HttpServletRequest req, ResourceNotFoundException ex) {
+    public ResponseEntity<ErrorDto> handleResourceNotFoundException(HttpServletRequest req, ResourceNotFoundException ex) {
         return buildResponseBody(req, ex, HttpStatus.NOT_FOUND,
                 "Resource Not Found");
     }
@@ -28,19 +27,20 @@ public class GlobalExceptionHandler {
     // For path/query/request-body parameter validation
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ MethodArgumentNotValidException.class, HandlerMethodValidationException.class, ConstraintViolationException.class })
-    public ResponseEntity<Map<String, Object>> handleValidationException(HttpServletRequest req, Exception ex){
+    public ResponseEntity<ErrorDto> handleValidationException(HttpServletRequest req, Exception ex){
         return buildResponseBody(req, ex, HttpStatus.BAD_REQUEST,
                 "Invalid format is used in request parameter");
     }
 
-    private ResponseEntity<Map<String, Object>> buildResponseBody(HttpServletRequest req, Exception ex, HttpStatus httpStatus, String errorMessage) {
-        final Map<String, Object> body = new HashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("endpoint", String.join(" ", req.getMethod(), req.getRequestURI()));
-        body.put("error-message", errorMessage);
-        body.put("exception", ex.getMessage());
+    private ResponseEntity<ErrorDto> buildResponseBody(HttpServletRequest req, Exception ex, HttpStatus httpStatus, String errorMessage) {
+        ErrorDto errorDto = new ErrorDto(
+                errorMessage,
+                String.join(" ", req.getMethod(), req.getRequestURI()),
+                ex.getMessage(),
+                LocalDateTime.now().toString()
+        );
         return ResponseEntity
                 .status(httpStatus)
-                .body(body);
+                .body(errorDto);
     }
 }
