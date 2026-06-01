@@ -31,4 +31,10 @@ CREATE TABLE Airports (
     country_name TEXT NOT NULL,
     phone_number TEXT NOT NULL,
     timezone TEXT NOT NULL
-)
+);
+
+CREATE TABLE Users (
+  id SERIAL PRIMARY KEY,
+  username TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL
+);

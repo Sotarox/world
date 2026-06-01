@@ -19,6 +19,10 @@ custom:
   mail:
     enabled: true
     forward: ${MAIL_FORWARD}
+  jwt:
+    token:
+      expiration: ${JWT_EXPIRATION:300000}
+
 ---
 
 spring:
@@ -32,9 +36,11 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
+jwt:
+  token:
+    secret: ${JWT_SECRET:thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd}
 
 ---
-# currently setting is all the same with local.
 spring:
   config:
     activate:
@@ -47,6 +53,9 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false
+jwt:
+  token:
+    secret: ${JWT_SECRET}
 
 ---
 

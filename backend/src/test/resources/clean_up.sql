@@ -1,2 +1,3 @@
 DELETE FROM Countries;
 DELETE FROM Airports;
+DELETE FROM Users;
