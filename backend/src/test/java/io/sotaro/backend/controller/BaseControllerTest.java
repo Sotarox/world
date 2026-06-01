@@ -9,8 +9,10 @@ import io.sotaro.backend.security.JwtUtil;
 import io.sotaro.backend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+@ActiveProfiles("test")
 @Import({SecurityConfig.class,
         CustomCorsConfiguration.class,
         JwtUtil.class,
