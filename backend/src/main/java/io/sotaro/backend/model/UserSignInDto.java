@@ -10,7 +10,7 @@ public record UserSignInDto (
         @Pattern(regexp = "^[\\x20-\\x7E]+$", message = "Username must contain only ASCII characters")
         String username,
         @NotBlank
-        @Size(min = 3, max = 72)
+        @Size(min = 3, max = 100)
         @Pattern(regexp = "^[\\x20-\\x7E]+$", message = "Password must contain only ASCII characters")
         String password
 ){}

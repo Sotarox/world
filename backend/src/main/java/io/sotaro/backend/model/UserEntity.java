@@ -9,11 +9,16 @@ import lombok.*;
 @Entity
 @Table(name = "users")
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, unique = true, length = 20)
     private String username;
-    @Column(nullable = false, length = 72)
+
+    @Column(nullable = false, length = 100)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private String password;
 }
