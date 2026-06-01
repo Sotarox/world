@@ -23,7 +23,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
     @Nested
     class Signup {
         @Test
-        void whenSignupWithValidCredentials_thenReturnCreated() throws Exception {
+        void whenSignupWithValidCredentials_thenReturnOk() throws Exception {
             String requestBody = """
                     {
                         "username": "newuser",
