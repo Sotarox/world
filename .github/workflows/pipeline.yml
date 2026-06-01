@@ -42,7 +42,9 @@ jobs:
     - name: Set up Node.js 24
       uses: actions/setup-node@v6
       with:
-        node-version: 24
+        # Workaround to fix version to avoid handing up
+        # https://github.com/nodejs/node/issues/63487
+        node-version: 24.15.0
         cache: 'npm'
         cache-dependency-path: frontend/package-lock.json
     - name: Install dependencies
