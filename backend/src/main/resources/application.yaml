@@ -14,6 +14,8 @@ spring:
           auth: true
           starttls:
             enable: true
+  config:
+    import: optional:file:.env[.properties]
 # custom properties for world app
 custom:
   mail:
@@ -36,9 +38,10 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
-jwt:
-  token:
-    secret: ${JWT_SECRET:thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd}
+custom:
+  jwt:
+    token:
+      secret: ${JWT_SECRET:thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd}
 
 ---
 spring:

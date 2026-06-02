@@ -21,13 +21,16 @@ Development machine is Apple M1 Pro. Other than macOS, the app behavior is not c
 ## First time set up
 - cd to `backend` folder
   - Run `mvn package`
-  - Add .env file under backend folder, write the following Email information:
+  - Add .env file under backend folder, write the following Email and JWT information:
   ```
   MAIL_HOST=smtp.gmail.com
   MAIL_PORT=587
   MAIL_USERNAME=youremail@gmail.com
   MAIL_PASSWORD=
   MAIL_FORWARD=bl@gmail.com
+  
+  JWT_SECRET=thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd
+  JWT_EXPIRATION=3600000
   ```
   - This setting is when using gmail.  
   - MAIL_FORWARD is used to forward email to developer when form is submitted by user.
