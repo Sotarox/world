@@ -19,9 +19,8 @@ Docker, Amazon Lightsail, nginx, Ubuntu, Jenkins
 Development machine is Apple M1 Pro. Other than macOS, the app behavior is not checked. 
 
 ## First time set up
-- cd to `backend` folder
-  - Run `mvn package`
-  - Add .env file under backend folder, write the following Email and JWT information:
+- cd to project root i.e. `world` folder
+  - Add .env file under world folder, write the following Email and JWT information:
   ```
   MAIL_HOST=smtp.gmail.com
   MAIL_PORT=587
@@ -34,6 +33,7 @@ Development machine is Apple M1 Pro. Other than macOS, the app behavior is not c
   ```
   - This setting is when using gmail.  
   - MAIL_FORWARD is used to forward email to developer when form is submitted by user.
+- Run `mvn package`
 - cd to `frontend` folder
   - Run `npm install`
 
