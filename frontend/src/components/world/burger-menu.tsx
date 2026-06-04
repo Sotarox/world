@@ -11,16 +11,20 @@ import {
   HomeIcon,
   UserRoundIcon,
   MessageCircleHeartIcon,
+  LogOutIcon,
+  LogInIcon,
 } from 'lucide-react';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '../custom/button';
+import { useAuthStore } from '@/store/auth-store';
 
 const iconStyle = 'size-5 mr-2';
 const textStyle = 'text-lg';
 
 const BurgerMenu = React.memo(() => {
   const router = useRouter();
+  const { isLoggedIn, logout } = useAuthStore();
 
   return (
     <DropdownMenu>
@@ -56,6 +60,29 @@ const BurgerMenu = React.memo(() => {
           <MessageCircleHeartIcon className={iconStyle} />
           Inquiry
         </DropdownMenuItem>
+        {isLoggedIn && (
+          <DropdownMenuItem
+            onClick={() => {
+              router.push('/');
+              logout();
+            }}
+            className={textStyle}
+          >
+            <LogOutIcon className={iconStyle} />
+            Logout
+          </DropdownMenuItem>
+        )}
+        {!isLoggedIn && (
+          <DropdownMenuItem
+            onClick={() => {
+              router.push('/login');
+            }}
+            className={textStyle}
+          >
+            <LogInIcon className={iconStyle} />
+            Login
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
