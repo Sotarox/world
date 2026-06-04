@@ -15,8 +15,9 @@ api.interceptors.request.use(
     if (token) {
       if (isTokenExpired(token)) {
         useAuthStore.getState().logout();
+      } else {
+        config.headers.Authorization = `Bearer ${token}`;
       }
-      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },

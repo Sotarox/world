@@ -65,7 +65,9 @@ export function LoginForm({ formType }: LoginFormProps) {
     api
       .post(endpoint, data)
       .then((response) => {
-        login(response.data.token);
+        if (formType === 'login') {
+          login(response.data.token);
+        }
         toast.success(
           `${formType === 'login' ? 'Login' : 'Sign Up'} successful`
         );

@@ -1,3 +1,4 @@
+'use client';
 import { useApi } from '@/api/use-api';
 
 function ProtectedContent() {
