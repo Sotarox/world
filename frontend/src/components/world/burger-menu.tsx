@@ -50,6 +50,15 @@ const BurgerMenu = React.memo(() => {
           Author
         </DropdownMenuItem>
         <DropdownMenuItem
+          onClick={() => {
+            router.push('/login');
+          }}
+          className={textStyle}
+        >
+          <UserRoundIcon className={iconStyle} />
+          Login
+        </DropdownMenuItem>
+        <DropdownMenuItem
           onClick={() => router.push('/inquiry')}
           className={textStyle}
         >
