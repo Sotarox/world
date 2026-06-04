@@ -44,7 +44,13 @@ const formSchema = z.object({
     ),
 });
 
-export function LoginForm() {
+type AuthFormType = 'login' | 'signup';
+
+interface LoginFormProps {
+  formType: AuthFormType;
+}
+
+export function LoginForm({ formType }: LoginFormProps) {
   const { login } = useAuthStore();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -69,23 +75,32 @@ export function LoginForm() {
         '--border-radius': 'calc(var(--radius)  + 4px)',
       } as React.CSSProperties,
     });
+    const endpoint = formType === 'login' ? '/auth/signin' : '/auth/signup';
     api
-      .post('/auth/signin', data)
+      .post(endpoint, data)
       .then((response) => {
         console.log(data);
         login(response.data.token);
-        toast.success('Login successful');
+        toast.success(
+          `${formType === 'login' ? 'Login' : 'Sign Up'} successful`
+        );
       })
       .catch((error) => {
-        toast.error(`Failed to submit login: ${error.message}`);
+        toast.error(
+          `Failed to submit ${formType === 'login' ? 'login' : 'sign up'}: ${error.message}`
+        );
       });
   }
 
   return (
     <Card className='w-full animate-zoom-in'>
       <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>Enter your credentials to log in</CardDescription>
+        <CardTitle>{formType === 'login' ? 'Login' : 'Sign Up'}</CardTitle>
+        <CardDescription>
+          {formType === 'login'
+            ? 'Login enables you to access additional features (WIP).'
+            : 'Create a new account'}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form id='login-form' onSubmit={form.handleSubmit(onSubmit)}>

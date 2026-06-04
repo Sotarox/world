@@ -3,6 +3,7 @@
 import { useAuthStore } from '@/store/auth-store';
 import { useState } from 'react';
 import { LoginForm } from './login-form';
+import { Button } from '@/components/custom/button';
 
 function FormsWrapper() {
   const { isLoggedIn } = useAuthStore();
@@ -12,18 +13,37 @@ function FormsWrapper() {
     return <p>Already logged in</p>;
   }
 
-  return showSignUp ? (
-    <div>
-      <h2>Sign Up</h2>
-    </div>
-  ) : (
-    <div>
-      <h2>Login</h2>
-      <LoginForm />
-      <p>
-        Don&apos;t have an account?{' '}
-        <button onClick={() => setShowSignUp(true)}>Sign Up</button>
-      </p>
+  return (
+    <div className='flex flex-col gap-2'>
+      {showSignUp ? (
+        <div>
+          <LoginForm formType='signup' />
+          <div className='flex items-center gap-2'>
+            <p>Already have an account? </p>
+            <Button
+              variant='link'
+              className='p-0'
+              onClick={() => setShowSignUp(false)}
+            >
+              Login
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <LoginForm formType='login' />
+          <div className='flex items-center gap-2'>
+            <p>Don&apos;t have an account? </p>
+            <Button
+              variant='link'
+              className='p-0'
+              onClick={() => setShowSignUp(true)}
+            >
+              Sign Up
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
