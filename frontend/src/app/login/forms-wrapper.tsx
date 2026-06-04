@@ -4,13 +4,14 @@ import { useAuthStore } from '@/store/auth-store';
 import { useState } from 'react';
 import { LoginForm } from './login-form';
 import { Button } from '@/components/custom/button';
+import { ProtectedContent } from './protected-content';
 
 function FormsWrapper() {
   const { isLoggedIn } = useAuthStore();
   const [showSignUp, setShowSignUp] = useState(false);
 
   if (isLoggedIn) {
-    return <p>Already logged in</p>;
+    return <ProtectedContent />;
   }
 
   return (
