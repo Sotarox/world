@@ -15,6 +15,9 @@ public class UserEntity {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 20)
+    private String mail;
+
+    @Column(unique = true, length = 20)
     private String username;
 
     @Column(nullable = false, length = 100)

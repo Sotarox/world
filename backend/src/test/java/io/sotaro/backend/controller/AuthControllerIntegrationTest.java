@@ -26,8 +26,8 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
         void whenSignupWithValidCredentials_thenReturnOk() throws Exception {
             String requestBody = """
                     {
-                        "username": "newuser",
-                        "password": "newpassword"
+                        "mail": "new@test.com",
+                        "password": "new-password"
                     }
                     """;
             mockMvc.perform(post(SIGNUP_URI)
@@ -37,10 +37,10 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
         }
 
         @Test
-        void whenSignupWithExistingUsername_thenReturnBadRequest() throws Exception {
+        void whenSignupWithExistingMail_thenReturnBadRequest() throws Exception {
             String requestBody = """
                     {
-                        "username": "user1",
+                        "mail": "example1@test.com",
                         "password": "password1"
                     }
                     """;
@@ -57,7 +57,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
         void whenSigninWithValidCredentials_thenReturnJwtToken() throws Exception {
             String requestBody = """
                     {
-                        "username": "user1",
+                        "mail": "example1@test.com",
                         "password": "password1"
                     }
                     """;
@@ -75,7 +75,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
         void whenSigninWithInvalidCredentials_thenReturnUnauthorized() throws Exception {
             String requestBody = """
                     {
-                        "username": "testuser",
+                        "mail": "example1@test.com",
                         "password": "wrongpassword"
                     }
                     """;
@@ -99,7 +99,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
             // First, sign in to get a valid JWT token
             String requestBody = """
                     {
-                        "username": "user1",
+                        "mail": "example1@test.com",
                         "password": "password1"
                     }
                     """;

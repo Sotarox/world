@@ -35,6 +35,7 @@ CREATE TABLE Airports (
 
 CREATE TABLE Users (
   id SERIAL PRIMARY KEY,
-  username TEXT NOT NULL UNIQUE,
+  mail TEXT NOT NULL UNIQUE,
+  username TEXT UNIQUE,
   password TEXT NOT NULL
 );

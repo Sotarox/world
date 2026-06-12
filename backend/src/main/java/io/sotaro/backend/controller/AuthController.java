@@ -32,7 +32,8 @@ public class AuthController {
     public ResponseEntity<TokenDto> authenticateUser(@Valid @RequestBody UserSignInDto user) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        user.username(),
+                        // Use mail address instead of username
+                        user.mail(),
                         user.password()
                 )
         );
@@ -40,20 +41,21 @@ public class AuthController {
         TokenDto tokenDto = new TokenDto(
                 jwtUtil.generateToken(userDetails.getUsername()),
                 "Bearer",
-                userDetails.getUsername()
+                userDetails.getUsername() // Return mail address instead of username
                 );
         return ResponseEntity.ok(tokenDto);
     }
     @PostMapping("/signup")
     public ResponseEntity<MessageDto> registerUser(@Valid @RequestBody UserSignInDto user) {
-        if (userRepository.existsByUsername(user.username())) {
-            MessageDto messageDto = new MessageDto("Error: Username is already taken!");
+        if (userRepository.existsByMail(user.mail())) {
+            MessageDto messageDto = new MessageDto("Error: Mail address is already taken!");
             return ResponseEntity.badRequest().body(messageDto);
         }
         // Create new user's account
         UserEntity newUserEntity = new UserEntity(
                 null,
-                user.username(),
+                user.mail(),
+                null,
                 encoder.encode(user.password())
         );
         userRepository.save(newUserEntity);
