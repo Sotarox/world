@@ -20,6 +20,7 @@ public class SecurityConfig {
     private final CustomCorsConfiguration customCorsConfiguration;
     private final AuthEntryPointJwt unauthorizedHandler;
     private final AuthTokenFilter authTokenFilter;
+    private final String[] PROTECTED_ENDPOINTS = {"/api/auth/test/user", "/api/user/**"};
 
     public SecurityConfig(
             CustomCorsConfiguration customCorsConfiguration,
@@ -55,7 +56,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/auth/test/user").authenticated()
+                                .requestMatchers(PROTECTED_ENDPOINTS).authenticated()
                                 .anyRequest().permitAll()
                 );
         // Add the JWT Token filter before the UsernamePasswordAuthenticationFilter
