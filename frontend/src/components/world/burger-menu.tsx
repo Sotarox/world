@@ -18,6 +18,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '../custom/button';
 import { useAuthStore } from '@/store/auth-store';
+import { toast } from 'sonner';
 
 const iconStyle = 'size-5 mr-2';
 const textStyle = 'text-lg';
@@ -65,6 +66,7 @@ const BurgerMenu = React.memo(() => {
             onClick={() => {
               router.push('/');
               logout();
+              toast.success('Logout successful');
             }}
             className={textStyle}
           >

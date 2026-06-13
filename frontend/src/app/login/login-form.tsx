@@ -2,7 +2,6 @@
 
 import api from '@/api/axios';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -26,14 +25,7 @@ import { Input } from '@/components/shadcn/input';
 import { useAuthStore } from '@/store/auth-store';
 
 const formSchema = z.object({
-  username: z
-    .string()
-    .min(3, 'Username must be at least 3 characters.')
-    .max(20, 'Username must be at most 20 characters.')
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      'Username can only contain letters, numbers, and underscores.'
-    ),
+  mail: z.email('Invalid email address'),
   password: z
     .string()
     .min(3, 'Password must be at least 3 characters.')
@@ -55,13 +47,13 @@ export function LoginForm({ formType }: LoginFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      mail: '',
       password: '',
     },
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    const endpoint = formType === 'login' ? '/auth/signin' : '/auth/signup';
+    const endpoint = formType === 'login' ? '/auth/login' : '/auth/signup';
     api
       .post(endpoint, data)
       .then((response) => {
@@ -93,23 +85,22 @@ export function LoginForm({ formType }: LoginFormProps) {
         <form id='login-form' onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <Controller
-              name='username'
+              name='mail'
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='login-form-username'>
-                    Username
-                  </FieldLabel>
+                  <FieldLabel htmlFor='login-form-mail'>Email</FieldLabel>
                   <Input
                     {...field}
-                    id='login-form-username'
+                    id='login-form-mail'
+                    type='email'
                     aria-invalid={fieldState.invalid}
-                    placeholder='Enter your username'
+                    placeholder='Enter your email address'
                     autoComplete='off'
                   />
                   {fieldState.invalid && (
                     <FieldError
-                      data-testid='login-form-username-error'
+                      data-testid='login-form-mail-error'
                       errors={[fieldState.error]}
                     />
                   )}

@@ -1,24 +1,28 @@
 package io.sotaro.backend.service;
 
+import io.sotaro.backend.exception.MailNotFoundException;
 import io.sotaro.backend.model.UserEntity;
 import io.sotaro.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.*;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+
 import java.util.Collections;
 
 @Service
-public class CustomUserDetailsService  implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String mail) throws MailNotFoundException {
+        UserEntity userEntity = userRepository.findByMail(mail);
         if (userEntity == null) {
-            throw new UsernameNotFoundException("User Not Found with username: " + username);
+            throw new MailNotFoundException("User Not Found by mail address: " + mail);
         }
-        return new org.springframework.security.core.userdetails.User(
-                userEntity.getUsername(),
+        return new User(
+                userEntity.getMail(),
                 userEntity.getPassword(),
                 Collections.emptyList()
         );

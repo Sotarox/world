@@ -17,7 +17,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
 
     private final String BASE_URI = "/api/auth";
     private final String SIGNUP_URI = BASE_URI + "/signup";
-    private final String SIGNIN_URI = BASE_URI + "/signin";
+    private final String LOGIN_URI = BASE_URI + "/login";
     private final String AUTH_TEST_URI = BASE_URI + "/test/user";
 
     @Nested
@@ -26,8 +26,8 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
         void whenSignupWithValidCredentials_thenReturnOk() throws Exception {
             String requestBody = """
                     {
-                        "username": "newuser",
-                        "password": "newpassword"
+                        "mail": "new@test.com",
+                        "password": "new-password"
                     }
                     """;
             mockMvc.perform(post(SIGNUP_URI)
@@ -37,10 +37,10 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
         }
 
         @Test
-        void whenSignupWithExistingUsername_thenReturnBadRequest() throws Exception {
+        void whenSignupWithExistingMail_thenReturnBadRequest() throws Exception {
             String requestBody = """
                     {
-                        "username": "user1",
+                        "mail": "example1@test.com",
                         "password": "password1"
                     }
                     """;
@@ -52,16 +52,16 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
     }
 
     @Nested
-    class Signin {
+    class Login {
         @Test
-        void whenSigninWithValidCredentials_thenReturnJwtToken() throws Exception {
+        void whenLoginWithValidCredentials_thenReturnJwtToken() throws Exception {
             String requestBody = """
                     {
-                        "username": "user1",
+                        "mail": "example1@test.com",
                         "password": "password1"
                     }
                     """;
-            MvcResult result = mockMvc.perform(post(SIGNIN_URI)
+            MvcResult result = mockMvc.perform(post(LOGIN_URI)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(requestBody))
                     .andExpect(status().isOk())
@@ -72,14 +72,14 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
         }
 
         @Test
-        void whenSigninWithInvalidCredentials_thenReturnUnauthorized() throws Exception {
+        void whenLoginWithInvalidCredentials_thenReturnUnauthorized() throws Exception {
             String requestBody = """
                     {
-                        "username": "testuser",
+                        "mail": "example1@test.com",
                         "password": "wrongpassword"
                     }
                     """;
-            mockMvc.perform(post(SIGNIN_URI)
+            mockMvc.perform(post(LOGIN_URI)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(requestBody))
                     .andExpect(status().isUnauthorized());
@@ -96,14 +96,14 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
 
         @Test
         void whenAccessProtectedEndpointWithValidToken_thenReturnOk() throws Exception {
-            // First, sign in to get a valid JWT token
+            // First, log in to get a valid JWT token
             String requestBody = """
                     {
-                        "username": "user1",
+                        "mail": "example1@test.com",
                         "password": "password1"
                     }
                     """;
-            MvcResult result = mockMvc.perform(post(SIGNIN_URI)
+            MvcResult result = mockMvc.perform(post(LOGIN_URI)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(requestBody))
                     .andExpect(status().isOk())
