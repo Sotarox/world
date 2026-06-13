@@ -53,7 +53,7 @@ export function LoginForm({ formType }: LoginFormProps) {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    const endpoint = formType === 'login' ? '/auth/signin' : '/auth/signup';
+    const endpoint = formType === 'login' ? '/auth/login' : '/auth/signup';
     api
       .post(endpoint, data)
       .then((response) => {
