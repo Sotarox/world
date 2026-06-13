@@ -1,14 +1,19 @@
 package io.sotaro.backend.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record UserSignInDto (
-        // Email regex from OWASP Validation Regex Repository
+
+        @Schema(description = "User's email address", example = "test@test.com")
         @NotBlank
-        @Pattern(regexp = "^[a-zA-Z0-9_+&*-] + (?:\\\\.[a-zA-Z0-9_+&*-] + )*@(?:[a-zA-Z0-9-]+\\\\.) + [a-zA-Z]{2,7}", message = "Invalid email format")
+        @Email()
         String mail,
+
+        @Schema(description = "User's password", example = "test1")
         @NotBlank
         @Size(min = 3, max = 100)
         @Pattern(regexp = "^[\\x20-\\x7E]+$", message = "Password must contain only ASCII characters")
