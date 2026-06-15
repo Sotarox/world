@@ -1,5 +1,6 @@
 package io.sotaro.backend.controller;
 
+import io.sotaro.backend.model.JwtLifespanDto;
 import io.sotaro.backend.model.MessageDto;
 import io.sotaro.backend.model.UserEntity;
 import io.sotaro.backend.model.UserSignInDto;
@@ -31,7 +32,7 @@ public class AuthController {
     JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<MessageDto> authenticateUser(@Valid @RequestBody UserSignInDto user, HttpServletResponse response) {
+    public ResponseEntity<JwtLifespanDto> authenticateUser(@Valid @RequestBody UserSignInDto user, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         // Use mail address instead of username
@@ -47,7 +48,7 @@ public class AuthController {
         cookie.setPath("/");
         cookie.setMaxAge(60 * 60 * 24); // 1 day
         response.addCookie(cookie);
-        return ResponseEntity.ok(new MessageDto("User login successfully!"));
+        return ResponseEntity.ok(new JwtLifespanDto(jwtUtil.getExpireAtEpochMs(token)));
     }
 
     @GetMapping("/logout")

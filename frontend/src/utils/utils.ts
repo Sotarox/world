@@ -72,21 +72,6 @@ export const getIndependentLabel = (country: ACCountry | null): string => {
   return 'N/A';
 };
 
-export const isTokenExpired = (token: string): boolean => {
-  try {
-    const payload = decodeJwtToPayload(token);
-    if (typeof payload.exp !== 'number') return true;
-    // exp is in seconds, convert to milliseconds for comparison
-    return payload.exp * 1000 < Date.now();
-  } catch {
-    return true;
-  }
+export const isTokenExpired = (expiresAtEpochMs: number): boolean => {
+  return expiresAtEpochMs < Date.now();
 };
-
-function decodeJwtToPayload(token: string) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-
-  const bytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
-  return JSON.parse(new TextDecoder().decode(bytes));
-}

@@ -43,6 +43,16 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
+    public long getExpireAtEpochMs(String token) {
+        long issuedAt = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getIssuedAt()
+                .toInstant().toEpochMilli();
+        return issuedAt + jwtExpirationMs;
+    }
     // Validate JWT token
     public boolean validateJwtToken(String token) {
         try {
