@@ -19,7 +19,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
     private final String BASE_URI = "/api/auth";
     private final String SIGNUP_URI = BASE_URI + "/signup";
     private final String LOGIN_URI = BASE_URI + "/login";
-    private final String AUTH_TEST_URI = BASE_URI + "/test/user";
+    private final String AUTH_TEST_URI = BASE_URI + "/test/protected";
 
     @Nested
     class Signup {

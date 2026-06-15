@@ -21,7 +21,7 @@ public class SecurityConfig {
     private final AuthEntryPointJwt unauthorizedHandler;
     private final AuthTokenFilter authTokenFilter;
     private final String[] CSRF_DEACTIVATED_ENDPOINTS = {"/api/auth/login", "/api/auth/signup"};
-    private final String[] PROTECTED_ENDPOINTS = {"/api/auth/test/user", "/api/user/**"};
+    private final String[] PROTECTED_ENDPOINTS = {"/api/auth/test/protected", "/api/user/**"};
 
     public SecurityConfig(
             CustomCorsConfiguration customCorsConfiguration,

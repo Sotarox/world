@@ -3,7 +3,7 @@ import { useApi } from '@/api/use-api';
 
 function ProtectedContent() {
   const { data, error, loading } = useApi<{ message: string }>(
-    `/auth/test/user`
+    `/auth/test/protected`
   );
 
   return loading ? (

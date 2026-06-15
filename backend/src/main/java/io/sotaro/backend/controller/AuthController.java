@@ -82,7 +82,7 @@ public class AuthController {
         return ResponseEntity.ok(messageDto);
     }
 
-    @GetMapping("/test/user")
+    @GetMapping("/test/protected")
     public ResponseEntity<MessageDto> userAccess() {
         MessageDto messageDto = new MessageDto("Only authenticated users can see this.");
         return ResponseEntity.ok(messageDto);
