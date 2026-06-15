@@ -53,6 +53,9 @@ public class JwtUtil {
                 .toInstant().toEpochMilli();
         return issuedAt + jwtExpirationMs;
     }
+    public int getExpirationInSecond() {
+        return jwtExpirationMs / 1000;
+    }
     // Validate JWT token
     public boolean validateJwtToken(String token) {
         try {

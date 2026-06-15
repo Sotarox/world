@@ -46,7 +46,8 @@ public class AuthController {
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setPath("/");
-        cookie.setMaxAge(60 * 60 * 24); // 1 day
+        // Set cookie max age slightly longer than JWT expiration time to ensure the cookie is removed after JWT expires
+        cookie.setMaxAge(jwtUtil.getExpirationInSecond() + 60);
         response.addCookie(cookie);
         return ResponseEntity.ok(new JwtLifespanDto(jwtUtil.getExpireAtEpochMs(token)));
     }
