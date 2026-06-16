@@ -73,5 +73,5 @@ export const getIndependentLabel = (country: ACCountry | null): string => {
 };
 
 export const isTokenExpired = (expiresAtEpochMs: number): boolean => {
-  return expiresAtEpochMs < Date.now();
+  return Number.isNaN(expiresAtEpochMs) || expiresAtEpochMs < Date.now();
 };

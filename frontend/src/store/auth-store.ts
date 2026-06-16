@@ -14,11 +14,9 @@ export const useAuthStore = create<AuthState>()(
       expiresAtEpochMs: null,
       isLoggedIn: false,
       login: (expiresAtEpochMs) => {
-        localStorage.setItem('expiresAtEpochMs', expiresAtEpochMs.toString());
         set({ expiresAtEpochMs, isLoggedIn: true });
       },
       logout: () => {
-        localStorage.removeItem('expiresAtEpochMs');
         set({ expiresAtEpochMs: null, isLoggedIn: false });
       },
     }),
