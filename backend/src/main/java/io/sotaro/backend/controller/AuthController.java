@@ -17,10 +17,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
+    @Value("${custom.cookie.secure:true}")
+    private boolean isCookieSecure;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -44,7 +48,7 @@ public class AuthController {
         String token = jwtUtil.generateToken(userDetails.getUsername());
         Cookie cookie = new Cookie("jwtToken", token);
         cookie.setHttpOnly(true);
-        cookie.setSecure(true);
+        if (isCookieSecure) { cookie.setSecure(true);}
         cookie.setPath("/");
         // Set cookie max age slightly longer than JWT expiration time to ensure the cookie is removed after JWT expires
         cookie.setMaxAge(jwtUtil.getExpirationInSecond() + 60);
