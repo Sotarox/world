@@ -44,14 +44,14 @@ public class JwtUtil {
                 .getSubject();
     }
     public long getExpireAtEpochMs(String token) {
-        long issuedAt = Jwts.parserBuilder()
+        return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
-                .getIssuedAt()
-                .toInstant().toEpochMilli();
-        return issuedAt + jwtExpirationMs;
+                .getExpiration()
+                .toInstant()
+                .toEpochMilli();
     }
     public int getExpirationInSecond() {
         return jwtExpirationMs / 1000;
