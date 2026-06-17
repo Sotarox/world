@@ -13,8 +13,8 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const expiresAtEpochMs = localStorage.getItem('expiresAtEpochMs');
-    if (expiresAtEpochMs && isTokenExpired(Number(expiresAtEpochMs))) {
+    const { expiresAtEpochMs } = useAuthStore.getState();
+    if (expiresAtEpochMs != null && isTokenExpired(expiresAtEpochMs)) {
       useAuthStore.getState().logout();
       toast.error('Session expired. Please log in again.');
     }
