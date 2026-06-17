@@ -43,7 +43,7 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
-    public long getExpireAtEpochMs(String token) {
+    public long getExpiresAtEpochMs(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

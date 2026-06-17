@@ -50,15 +50,17 @@ public class AuthController {
         cookie.setHttpOnly(true);
         if (isCookieSecure) { cookie.setSecure(true);}
         cookie.setPath("/");
-        // Set cookie max age slightly longer than JWT expiration time to ensure the cookie is removed after JWT expires
-        cookie.setMaxAge(jwtUtil.getExpirationInSecond() + 60);
+        // Align cookie max age with JWT expiration time (in seconds)
+        cookie.setMaxAge(jwtUtil.getExpirationInSecond());
         response.addCookie(cookie);
-        return ResponseEntity.ok(new JwtLifespanDto(jwtUtil.getExpireAtEpochMs(token)));
+        return ResponseEntity.ok(new JwtLifespanDto(jwtUtil.getExpiresAtEpochMs(token)));
     }
 
     @GetMapping("/logout")
     public ResponseEntity<MessageDto> logout(HttpServletResponse response) {
         Cookie cookie = new Cookie("jwtToken", "");
+        cookie.setHttpOnly(true);
+        if (isCookieSecure) { cookie.setSecure(true); }
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
