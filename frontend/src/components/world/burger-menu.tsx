@@ -33,13 +33,11 @@ const BurgerMenu = React.memo(() => {
       .get('/auth/logout')
       .then(() => {
         toast.success('Logout successful');
+        logout();
+        router.push('/'); // Redirect to home page after logout
       })
       .catch((error) => {
         toast.error(`Failed to logout: ${error.message}`);
-      })
-      .finally(() => {
-        logout();
-        router.push('/'); // Redirect to home page after logout
       });
   }
 
