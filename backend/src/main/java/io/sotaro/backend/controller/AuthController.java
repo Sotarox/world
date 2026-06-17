@@ -53,7 +53,7 @@ public class AuthController {
         // Align cookie max age with JWT expiration time (in seconds)
         cookie.setMaxAge(jwtUtil.getExpirationInSecond());
         response.addCookie(cookie);
-        return ResponseEntity.ok(new JwtLifespanDto(jwtUtil.getExpireAtEpochMs(token)));
+        return ResponseEntity.ok(new JwtLifespanDto(jwtUtil.getExpiresAtEpochMs(token)));
     }
 
     @GetMapping("/logout")
