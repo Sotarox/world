@@ -57,11 +57,10 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<MessageDto> logout(@CookieValue(value = "jwtToken", required = false) String jwtToken, HttpServletResponse response) {
-        if (jwtToken == null) {
-            return ResponseEntity.badRequest().body(new MessageDto("Log out failed, since you are not logged in!"));
-        }
+    public ResponseEntity<MessageDto> logout(HttpServletResponse response) {
         Cookie cookie = new Cookie("jwtToken", "");
+        cookie.setHttpOnly(true);
+        if (isCookieSecure) { cookie.setSecure(true); }
         cookie.setPath("/");
         cookie.setMaxAge(0);
         response.addCookie(cookie);
