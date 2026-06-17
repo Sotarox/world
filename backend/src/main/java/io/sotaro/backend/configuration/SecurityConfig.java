@@ -47,9 +47,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // CSRF protection is required for POST, PUT, DELETE requests
-                .csrf(csrf -> csrf
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                // CSRF cookie is required for POST, PUT, DELETE requests
+                .csrf(csrf ->
+                        csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .ignoringRequestMatchers(CSRF_DEACTIVATED_ENDPOINTS)
                 )
                 .cors(c -> c.configurationSource(customCorsConfiguration))

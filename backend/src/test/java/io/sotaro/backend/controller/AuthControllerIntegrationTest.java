@@ -63,12 +63,13 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
                     }
                     """;
             MvcResult result = mockMvc.perform(post(LOGIN_URI)
+                            .secure(true)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(requestBody))
                     .andExpect(status().isOk())
                     .andExpect(cookie().exists("jwtToken"))
-                    .andExpect(cookie().secure("jwtToken", true))
                     .andExpect(cookie().httpOnly("jwtToken", true))
+                    .andExpect(cookie().secure("jwtToken", true))
                     .andReturn();
 
             String responseContent = result.getResponse().getContentAsString();
@@ -113,7 +114,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
                     .andExpect(status().isOk())
                     .andReturn();
 
-            // Now, access the protected endpoint with the token
+            // Now, access the protected endpoint with the token in cookie
             mockMvc.perform(get(AUTH_TEST_URI)
                             .cookie(result.getResponse().getCookie("jwtToken")))
                             .andExpect(status().isOk());
