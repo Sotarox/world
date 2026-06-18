@@ -42,6 +42,8 @@ custom:
   jwt:
     token:
       secret: ${JWT_SECRET:thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd}
+  cookie:
+    secure: false
 
 ---
 spring:
@@ -56,9 +58,12 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false
-jwt:
-  token:
-    secret: ${JWT_SECRET}
+custom:
+  jwt:
+    token:
+      secret: ${JWT_SECRET}
+  cookie:
+    secure: true
 
 ---
 

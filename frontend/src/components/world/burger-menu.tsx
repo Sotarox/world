@@ -19,6 +19,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '../custom/button';
 import { useAuthStore } from '@/store/auth-store';
 import { toast } from 'sonner';
+import api from '@/api/axios';
 
 const iconStyle = 'size-5 mr-2';
 const textStyle = 'text-lg';
@@ -26,6 +27,19 @@ const textStyle = 'text-lg';
 const BurgerMenu = React.memo(() => {
   const router = useRouter();
   const { isLoggedIn, logout } = useAuthStore();
+
+  function onLogout() {
+    api
+      .get('/auth/logout')
+      .then(() => {
+        toast.success('Logout successful');
+        logout();
+        router.push('/'); // Redirect to home page after logout
+      })
+      .catch((error) => {
+        toast.error(`Failed to logout: ${error.message}`);
+      });
+  }
 
   return (
     <DropdownMenu>
@@ -62,14 +76,7 @@ const BurgerMenu = React.memo(() => {
           Inquiry
         </DropdownMenuItem>
         {isLoggedIn && (
-          <DropdownMenuItem
-            onClick={() => {
-              router.push('/');
-              logout();
-              toast.success('Logout successful');
-            }}
-            className={textStyle}
-          >
+          <DropdownMenuItem onClick={onLogout} className={textStyle}>
             <LogOutIcon className={iconStyle} />
             Logout
           </DropdownMenuItem>

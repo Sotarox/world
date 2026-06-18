@@ -24,3 +24,5 @@ custom:
     token:
       secret: thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd
       expiration: 300000
+  cookie:
+    secure: true

@@ -1,23 +1,22 @@
 import { isTokenExpired } from '@/utils/utils';
 import axios from 'axios';
 import { useAuthStore } from '@/store/auth-store';
+import { toast } from 'sonner';
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || '/api',
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      if (isTokenExpired(token)) {
-        useAuthStore.getState().logout();
-      } else {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+    const { expiresAtEpochMs } = useAuthStore.getState();
+    if (expiresAtEpochMs != null && isTokenExpired(expiresAtEpochMs)) {
+      useAuthStore.getState().logout();
+      toast.error('Session expired. Please log in again.');
     }
     return config;
   },

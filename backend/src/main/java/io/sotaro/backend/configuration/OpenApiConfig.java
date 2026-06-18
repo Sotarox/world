@@ -11,14 +11,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(title = "World API", version = "v1"),
-        security = @SecurityRequirement(name = "bearerAuth") // global default
+        security = @SecurityRequirement(name = "cookieAuth")
 )
 @SecurityScheme(
-        name = "bearerAuth",
-        type = SecuritySchemeType.HTTP,
-        scheme = "bearer",
-        bearerFormat = "JWT",
-        in = SecuritySchemeIn.HEADER
+        name = "cookieAuth",
+        type = SecuritySchemeType.APIKEY,
+        in = SecuritySchemeIn.COOKIE,
+        paramName = "jwtToken"
 )
 public class OpenApiConfig {
 }

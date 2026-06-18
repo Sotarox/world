@@ -2,24 +2,22 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 type AuthState = {
-  token: string | null;
+  expiresAtEpochMs: number | null;
   isLoggedIn: boolean;
-  login: (token: string) => void;
+  login: (expiresAtEpochMs: number) => void;
   logout: () => void;
 };
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      token: null,
+      expiresAtEpochMs: null,
       isLoggedIn: false,
-      login: (token) => {
-        localStorage.setItem('authToken', token);
-        set({ token, isLoggedIn: true });
+      login: (expiresAtEpochMs) => {
+        set({ expiresAtEpochMs, isLoggedIn: true });
       },
       logout: () => {
-        localStorage.removeItem('authToken');
-        set({ token: null, isLoggedIn: false });
+        set({ expiresAtEpochMs: null, isLoggedIn: false });
       },
     }),
     { name: 'auth-storage' } // persists to localStorage automatically

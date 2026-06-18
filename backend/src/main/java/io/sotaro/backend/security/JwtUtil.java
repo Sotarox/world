@@ -43,6 +43,19 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
+    public long getExpiresAtEpochMs(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration()
+                .toInstant()
+                .toEpochMilli();
+    }
+    public int getExpirationInSecond() {
+        return Math.toIntExact(Math.floorDiv((long) jwtExpirationMs + 999, 1000));
+    }
     // Validate JWT token
     public boolean validateJwtToken(String token) {
         try {

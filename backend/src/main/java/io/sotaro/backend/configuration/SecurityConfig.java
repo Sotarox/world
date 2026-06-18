@@ -7,12 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 public class SecurityConfig {
@@ -20,7 +20,8 @@ public class SecurityConfig {
     private final CustomCorsConfiguration customCorsConfiguration;
     private final AuthEntryPointJwt unauthorizedHandler;
     private final AuthTokenFilter authTokenFilter;
-    private final String[] PROTECTED_ENDPOINTS = {"/api/auth/test/user", "/api/user/**"};
+    private final String[] CSRF_DEACTIVATED_ENDPOINTS = {"/api/auth/login", "/api/auth/signup"};
+    private final String[] PROTECTED_ENDPOINTS = {"/api/auth/test/protected", "/api/user/**"};
 
     public SecurityConfig(
             CustomCorsConfiguration customCorsConfiguration,
@@ -46,7 +47,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
+                // CSRF cookie is required for POST, PUT, DELETE requests
+                .csrf(csrf ->
+                        csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .ignoringRequestMatchers(CSRF_DEACTIVATED_ENDPOINTS)
+                )
                 .cors(c -> c.configurationSource(customCorsConfiguration))
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling.authenticationEntryPoint(unauthorizedHandler)

@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Sql(scripts = "/test_populate_users.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
@@ -18,7 +19,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
     private final String BASE_URI = "/api/auth";
     private final String SIGNUP_URI = BASE_URI + "/signup";
     private final String LOGIN_URI = BASE_URI + "/login";
-    private final String AUTH_TEST_URI = BASE_URI + "/test/user";
+    private final String AUTH_TEST_URI = BASE_URI + "/test/protected";
 
     @Nested
     class Signup {
@@ -54,7 +55,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
     @Nested
     class Login {
         @Test
-        void whenLoginWithValidCredentials_thenReturnJwtToken() throws Exception {
+        void whenLoginWithValidCredentials_thenReturnJwtTokenInCookie() throws Exception {
             String requestBody = """
                     {
                         "mail": "example1@test.com",
@@ -62,13 +63,17 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
                     }
                     """;
             MvcResult result = mockMvc.perform(post(LOGIN_URI)
+                            .secure(true)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(requestBody))
                     .andExpect(status().isOk())
+                    .andExpect(cookie().exists("jwtToken"))
+                    .andExpect(cookie().httpOnly("jwtToken", true))
+                    .andExpect(cookie().secure("jwtToken", true))
                     .andReturn();
 
             String responseContent = result.getResponse().getContentAsString();
-            assertTrue(responseContent.contains("token"));
+            assertTrue(responseContent.contains("expiresAtEpochMs"));
         }
 
         @Test
@@ -109,13 +114,10 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
                     .andExpect(status().isOk())
                     .andReturn();
 
-            String contentAsString = result.getResponse().getContentAsString();
-            String token = objectMapper.readTree(contentAsString).get("token").asText();
-
-            // Now, access the protected endpoint with the token
+            // Now, access the protected endpoint with the token in cookie
             mockMvc.perform(get(AUTH_TEST_URI)
-                            .header("Authorization", "Bearer " + token))
-                    .andExpect(status().isOk());
+                            .cookie(result.getResponse().getCookie("jwtToken")))
+                            .andExpect(status().isOk());
 
         }
 

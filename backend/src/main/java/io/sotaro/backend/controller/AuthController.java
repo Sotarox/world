@@ -1,23 +1,30 @@
 package io.sotaro.backend.controller;
 
+import io.sotaro.backend.model.JwtLifespanDto;
 import io.sotaro.backend.model.MessageDto;
-import io.sotaro.backend.model.TokenDto;
 import io.sotaro.backend.model.UserEntity;
 import io.sotaro.backend.model.UserSignInDto;
 import io.sotaro.backend.repository.UserRepository;
 import io.sotaro.backend.security.JwtUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
+    @Value("${custom.cookie.secure:true}")
+    private boolean isCookieSecure;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -29,7 +36,7 @@ public class AuthController {
     JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> authenticateUser(@Valid @RequestBody UserSignInDto user) {
+    public ResponseEntity<JwtLifespanDto> authenticateUser(@Valid @RequestBody UserSignInDto user, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         // Use mail address instead of username
@@ -38,13 +45,28 @@ public class AuthController {
                 )
         );
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        TokenDto tokenDto = new TokenDto(
-                jwtUtil.generateToken(userDetails.getUsername()),
-                "Bearer",
-                userDetails.getUsername() // Return mail address instead of username
-                );
-        return ResponseEntity.ok(tokenDto);
+        String token = jwtUtil.generateToken(userDetails.getUsername());
+        Cookie cookie = new Cookie("jwtToken", token);
+        cookie.setHttpOnly(true);
+        if (isCookieSecure) { cookie.setSecure(true);}
+        cookie.setPath("/");
+        // Align cookie max age with JWT expiration time (in seconds)
+        cookie.setMaxAge(jwtUtil.getExpirationInSecond());
+        response.addCookie(cookie);
+        return ResponseEntity.ok(new JwtLifespanDto(jwtUtil.getExpiresAtEpochMs(token)));
     }
+
+    @GetMapping("/logout")
+    public ResponseEntity<MessageDto> logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("jwtToken", "");
+        cookie.setHttpOnly(true);
+        if (isCookieSecure) { cookie.setSecure(true); }
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return ResponseEntity.ok(new MessageDto("Log out successfully!"));
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<MessageDto> registerUser(@Valid @RequestBody UserSignInDto user) {
         if (userRepository.existsByMail(user.mail())) {
@@ -63,7 +85,7 @@ public class AuthController {
         return ResponseEntity.ok(messageDto);
     }
 
-    @GetMapping("/test/user")
+    @GetMapping("/test/protected")
     public ResponseEntity<MessageDto> userAccess() {
         MessageDto messageDto = new MessageDto("Only authenticated users can see this.");
         return ResponseEntity.ok(messageDto);

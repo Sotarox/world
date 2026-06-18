@@ -16,6 +16,7 @@ public class CustomCorsConfiguration implements CorsConfigurationSource {
                 "http://localhost:3000", "https://world.sotaro.dev"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
         return config;
     }
 }

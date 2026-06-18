@@ -8,12 +8,12 @@ import jakarta.validation.constraints.Size;
 
 public record UserSignInDto (
 
-        @Schema(description = "User's email address", example = "test@test.com")
+        @Schema(description = "User's email address", example = "user@test.com")
         @NotBlank
         @Email()
         String mail,
 
-        @Schema(description = "User's password", example = "test1")
+        @Schema(description = "User's password", example = "user")
         @NotBlank
         @Size(min = 3, max = 100)
         @Pattern(regexp = "^[\\x20-\\x7E]+$", message = "Password must contain only ASCII characters")
