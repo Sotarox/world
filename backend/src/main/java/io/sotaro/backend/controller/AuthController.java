@@ -74,12 +74,13 @@ public class AuthController {
             return ResponseEntity.badRequest().body(messageDto);
         }
         // Create new user's account
-        UserEntity newUserEntity = new UserEntity(
-                null,
-                user.mail(),
-                null,
-                encoder.encode(user.password())
-        );
+        UserEntity newUserEntity = UserEntity.builder()
+                .id(null)
+                .mail(user.mail())
+                .username(null)
+                .password(encoder.encode(user.password()))
+                .isVerified(false)
+                .build();
         userRepository.save(newUserEntity);
         MessageDto messageDto = new MessageDto("User registered successfully!");
         return ResponseEntity.ok(messageDto);

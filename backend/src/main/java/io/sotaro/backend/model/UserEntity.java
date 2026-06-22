@@ -7,6 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "users")
 public class UserEntity {
 
@@ -24,4 +25,7 @@ public class UserEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private String password;
+
+    @Column(name = "is_verified")
+    private boolean isVerified;
 }
