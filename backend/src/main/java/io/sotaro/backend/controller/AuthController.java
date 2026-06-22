@@ -6,6 +6,7 @@ import io.sotaro.backend.model.UserEntity;
 import io.sotaro.backend.model.UserSignInDto;
 import io.sotaro.backend.repository.UserRepository;
 import io.sotaro.backend.security.JwtUtil;
+import io.sotaro.backend.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -29,6 +30,8 @@ public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
+    UserService userService;
+    @Autowired
     UserRepository userRepository;
     @Autowired
     PasswordEncoder encoder;
@@ -36,7 +39,7 @@ public class AuthController {
     JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtLifespanDto> authenticateUser(@Valid @RequestBody UserSignInDto user, HttpServletResponse response) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserSignInDto user, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         // Use mail address instead of username
@@ -45,6 +48,10 @@ public class AuthController {
                 )
         );
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if (!userRepository.findByMail(user.mail()).isVerified()) {
+            MessageDto messageDto = new MessageDto("Email is not verified. Please check your inbox.");
+            return ResponseEntity.badRequest().body(messageDto);
+        }
         String token = jwtUtil.generateToken(userDetails.getUsername());
         Cookie cookie = new Cookie("jwtToken", token);
         cookie.setHttpOnly(true);
@@ -82,8 +89,18 @@ public class AuthController {
                 .isVerified(false)
                 .build();
         userRepository.save(newUserEntity);
+        userService.sendVerificationEmail(user.mail());
         MessageDto messageDto = new MessageDto("User registered successfully!");
         return ResponseEntity.ok(messageDto);
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<MessageDto> verifyEmail(@RequestParam String token) {
+        if (!jwtUtil.validateJwtToken(token)) {
+            MessageDto messageDto = new MessageDto("Invalid or expired verification token");
+            return ResponseEntity.badRequest().body(messageDto);
+        }
+        return userService.handleVerification(token);
     }
 
     @GetMapping("/test/protected")
