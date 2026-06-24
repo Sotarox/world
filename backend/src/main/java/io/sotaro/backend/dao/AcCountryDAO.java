@@ -30,7 +30,7 @@ public class AcCountryDAO {
     }
     public AcCountry getAcCountry(String iso2) {
         return webClient.get()
-                .uri("/alpha/{iso2}", iso2)
+                .uri("/countries/alpha/{iso2}", iso2)
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, response ->
                         Mono.error(new RuntimeException("Client Error: " + response.statusCode())))

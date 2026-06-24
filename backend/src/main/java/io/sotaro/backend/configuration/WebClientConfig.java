@@ -24,7 +24,7 @@ public class WebClientConfig {
     @Bean("acCountriesWebClient")
     public WebClient webClient(WebClient.Builder webClientBuilder) {
         return webClientBuilder.clone()
-                .baseUrl("https://www.apicountries.com")
+                .baseUrl("https://countries.dev")
                 .build();
     }
 
