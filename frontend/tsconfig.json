@@ -8,10 +8,9 @@
     "strict": true /* Enable all strict type-checking options. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "outDir": "dist",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "module": "esnext",
     "sourceMap": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
