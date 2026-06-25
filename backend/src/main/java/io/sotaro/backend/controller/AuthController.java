@@ -94,7 +94,7 @@ public class AuthController {
         return ResponseEntity.ok(messageDto);
     }
 
-    @PostMapping("/verify")
+    @PostMapping("/verify-email")
     public ResponseEntity<MessageDto> verifyEmail(@RequestParam String token) {
         if (!jwtUtil.validateJwtToken(token)) {
             MessageDto messageDto = new MessageDto("Invalid or expired verification token");

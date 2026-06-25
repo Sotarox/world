@@ -38,7 +38,7 @@ public class UserService {
 
     public void sendVerificationEmail(String mail) {
         String token = jwtUtil.generateVerificationToken(mail);
-        String verifyUrl = baseUrl + "/api/auth/verify?token=" +
+        String verifyUrl = baseUrl + "/verify-email?token=" +
                 URLEncoder.encode(token, StandardCharsets.UTF_8);
 
         String message = "Click below to verify your email:\n" + verifyUrl;
