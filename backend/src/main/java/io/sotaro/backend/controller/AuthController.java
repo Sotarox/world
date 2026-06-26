@@ -1,16 +1,16 @@
 package io.sotaro.backend.controller;
 
-import io.sotaro.backend.model.JwtLifespanDto;
-import io.sotaro.backend.model.MessageDto;
-import io.sotaro.backend.model.UserEntity;
-import io.sotaro.backend.model.UserSignInDto;
+import io.sotaro.backend.model.*;
 import io.sotaro.backend.repository.UserRepository;
 import io.sotaro.backend.security.JwtUtil;
 import io.sotaro.backend.service.UserService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Value;
+
+import static io.sotaro.backend.util.ErrorDtoBuilder.buildErrorResponse;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -39,7 +40,7 @@ public class AuthController {
     JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserSignInDto user, HttpServletResponse response) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserSignInDto user, HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         // Use mail address instead of username
@@ -49,8 +50,11 @@ public class AuthController {
         );
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (!userRepository.findByMail(user.mail()).isVerified()) {
-            MessageDto messageDto = new MessageDto("Email is not verified. Please check your inbox.");
-            return ResponseEntity.badRequest().body(messageDto);
+            return buildErrorResponse(
+                    request,
+                    HttpStatus.FORBIDDEN,
+                    "Email is not yet verified. Please check your inbox for the verification email."
+            );
         }
         String token = jwtUtil.generateToken(userDetails.getUsername());
         Cookie cookie = new Cookie("jwtToken", token);
