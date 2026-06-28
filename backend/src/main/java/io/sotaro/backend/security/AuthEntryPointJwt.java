@@ -1,6 +1,7 @@
 package io.sotaro.backend.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.sotaro.backend.exception.ErrorCode;
 import io.sotaro.backend.model.ErrorDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,12 +31,13 @@ public class AuthEntryPointJwt  implements AuthenticationEntryPoint {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
-        ErrorDto errorDto = new ErrorDto(
-                "Unauthorized",
-                String.join(" ", request.getMethod(), request.getRequestURI()),
-                authException.getMessage(),
-                LocalDateTime.now().toString()
-        );
+        ErrorDto errorDto = ErrorDto.builder()
+                .errorCode(ErrorCode.UNAUTHENTICATED)
+                .errorMessage(authException.getMessage())
+                .endpoint(String.join(" ", request.getMethod(), request.getRequestURI()))
+                .timestamp(LocalDateTime.now().toString())
+                .build();
+
         objectMapper.writeValue(response.getOutputStream(), errorDto);
     }
 }

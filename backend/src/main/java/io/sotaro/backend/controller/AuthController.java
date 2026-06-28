@@ -1,5 +1,6 @@
 package io.sotaro.backend.controller;
 
+import io.sotaro.backend.exception.ErrorCode;
 import io.sotaro.backend.model.*;
 import io.sotaro.backend.repository.UserRepository;
 import io.sotaro.backend.security.JwtUtil;
@@ -53,7 +54,8 @@ public class AuthController {
             return buildErrorResponse(
                     request,
                     HttpStatus.FORBIDDEN,
-                    "Email is not yet verified. Please check your inbox for the verification email."
+                    ErrorCode.EMAIL_NOT_VERIFIED,
+                    "Email address is not yet verified. Please check your inbox for the verification email."
             );
         }
         String token = jwtUtil.generateToken(userDetails.getUsername());

@@ -1,5 +1,6 @@
 package io.sotaro.backend.configuration;
 
+import io.sotaro.backend.exception.ErrorCode;
 import io.sotaro.backend.exception.ResourceNotFoundException;
 import io.sotaro.backend.model.ErrorDto;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDto> handleResourceNotFoundException(HttpServletRequest req, ResourceNotFoundException ex) {
-        return buildErrorResponse(req, ex, HttpStatus.NOT_FOUND,
+        return buildErrorResponse(req, HttpStatus.NOT_FOUND, ErrorCode.NOT_FOUND,
                 "Resource Not Found");
     }
 
@@ -28,7 +29,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({ MethodArgumentNotValidException.class, HandlerMethodValidationException.class, ConstraintViolationException.class })
     public ResponseEntity<ErrorDto> handleValidationException(HttpServletRequest req, Exception ex){
-        return buildErrorResponse(req, ex, HttpStatus.BAD_REQUEST,
+        return buildErrorResponse(req, HttpStatus.BAD_REQUEST, ErrorCode.BAD_REQUEST,
                 "Invalid format is used in request parameter");
     }
 
