@@ -1,13 +1,11 @@
 package io.sotaro.backend.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-@ConditionalOnProperty(name = "custom.mail.enabled", havingValue = "true")
 public class MailService {
 
     private final String forwardTo;

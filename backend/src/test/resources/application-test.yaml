@@ -20,7 +20,6 @@ spring:
 custom:
   base-url: http://localhost:3000
   mail:
-    enabled: true
     forward: dummy@test.com
   jwt:
     token:

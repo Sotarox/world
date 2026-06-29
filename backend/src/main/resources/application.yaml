@@ -19,7 +19,6 @@ spring:
 # custom properties for world app
 custom:
   mail:
-    enabled: true
     forward: ${MAIL_FORWARD}
   jwt:
     token:
