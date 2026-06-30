@@ -44,7 +44,7 @@ Development machine is Apple M1 Pro. Other than macOS, the app behavior is not c
 - Run `BackendApplication` in IDE 
 - cd to `frontend`
   - Run `npm run dev`
-- Open `http://localhost:5173` in browser
+- Open `http://localhost:3000` in browser
 
 ## Open API Docs
 In local development, you can see endpoint's information under:
@@ -62,10 +62,8 @@ Architecture is simple. Compiled frontend is served by Backend. Backend and Data
   - cd to `backend`
   - Build a docker image by `docker build --platform linux/amd64 . -t ghcr.io/sotarox/world-app:0.0.1` 
     - NOTE: `0.0.1` is the newest version number, which must be incremented each time manually. 
-  - After that create a latest tag with the same image: `docker tag ghcr.io/sotarox/world-app:0.0.1 ghcr.io/sotarox/world-app:latest`
   - Push both docker image to GitHub package registry: 
     - `docker push ghcr.io/sotarox/world-app:0.0.1` 
-    - `docker push ghcr.io/sotarox/world-app:latest` // this one override the old world-app:latest in registry 
     - NOTE: Docker login with GitHub's Personal Access Token (PAT) is necessary for push.
 
 ## Debug Frontend (Next.js)
