@@ -4,7 +4,6 @@ import io.sotaro.backend.model.MailRequestDto;
 import io.sotaro.backend.service.MailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/mail")
-@ConditionalOnProperty(name = "custom.mail.enabled", havingValue = "true")
 public class MailController {
 
     private final MailService mailService;

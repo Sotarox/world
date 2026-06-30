@@ -19,7 +19,6 @@ spring:
 # custom properties for world app
 custom:
   mail:
-    enabled: true
     forward: ${MAIL_FORWARD}
   jwt:
     token:
@@ -39,6 +38,7 @@ spring:
   jpa:
     show-sql: true
 custom:
+  base-url: http://localhost:3000
   jwt:
     token:
       secret: ${JWT_SECRET:thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd}
@@ -59,6 +59,7 @@ spring:
   jpa:
     show-sql: false
 custom:
+  base-url: https://world.sotaro.dev
   jwt:
     token:
       secret: ${JWT_SECRET}

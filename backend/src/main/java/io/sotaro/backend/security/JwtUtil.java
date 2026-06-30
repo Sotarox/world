@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Date;
 
 @Slf4j
@@ -34,7 +36,8 @@ public class JwtUtil {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
-    // Get mail address from JWT token
+
+    // Get mail address from JWT auth token
     public String getMailFromToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
@@ -77,4 +80,14 @@ public class JwtUtil {
         }
         return false;
     }
+
+    public String generateVerificationToken(String mail) {
+        return Jwts.builder()
+                .setSubject(mail)
+                .setIssuedAt(new Date())
+                .setExpiration(Date.from(Instant.now().plus(Duration.ofMinutes(15))))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
+
 }

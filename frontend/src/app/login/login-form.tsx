@@ -65,8 +65,16 @@ export function LoginForm({ formType }: LoginFormProps) {
         );
       })
       .catch((error) => {
+        console.log(
+          'Error submitting form:',
+          error.response?.data?.errorMessage || error.message
+        );
         toast.error(
-          `Failed to submit ${formType === 'login' ? 'login' : 'sign up'}: ${error.message}`
+          `Failed to submit ${formType === 'login' ? 'login' : 'sign up'}: ${error.response?.data?.errorMessage || error.message}`,
+          {
+            closeButton: true,
+            duration: Infinity,
+          }
         );
       });
   }

@@ -18,8 +18,9 @@ spring:
     password: test
 # custom properties for world app
 custom:
+  base-url: http://localhost:3000
   mail:
-    enabled: false
+    forward: dummy@test.com
   jwt:
     token:
       secret: thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd

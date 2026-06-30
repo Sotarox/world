@@ -37,5 +37,6 @@ CREATE TABLE Users (
   id SERIAL PRIMARY KEY,
   mail TEXT NOT NULL UNIQUE,
   username TEXT UNIQUE,
-  password TEXT NOT NULL
+  password TEXT NOT NULL,
+  is_verified BOOLEAN NOT NULL
 );
