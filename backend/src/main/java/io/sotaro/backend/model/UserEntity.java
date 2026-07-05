@@ -1,5 +1,6 @@
 package io.sotaro.backend.model;
 
+import io.sotaro.backend.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,4 +29,7 @@ public class UserEntity {
 
     @Column(name = "is_verified")
     private boolean isVerified;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 }

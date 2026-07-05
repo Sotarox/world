@@ -33,10 +33,13 @@ CREATE TABLE Airports (
     timezone TEXT NOT NULL
 );
 
+CREATE TYPE user_role AS ENUM('ADMIN', 'USER');
+
 CREATE TABLE Users (
   id SERIAL PRIMARY KEY,
   mail TEXT NOT NULL UNIQUE,
   username TEXT UNIQUE,
   password TEXT NOT NULL,
-  is_verified BOOLEAN NOT NULL
+  is_verified BOOLEAN NOT NULL,
+  role user_role NOT NULL DEFAULT 'USER'
 );
