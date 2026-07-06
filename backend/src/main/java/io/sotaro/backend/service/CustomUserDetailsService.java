@@ -22,12 +22,20 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (userEntity == null) {
             throw new MailNotFoundException("User Not Found by mail address: " + mail);
         }
-        SimpleGrantedAuthority authority =
-                new SimpleGrantedAuthority("ROLE_".concat(userEntity.getRole().name()));
+        List<SimpleGrantedAuthority> authorities = switch (userEntity.getRole()) {
+            // Admin's role is superset of User's role
+            case ADMIN -> List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+            case USER -> List.of(
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+        };
         return new User(
                 userEntity.getMail(),
                 userEntity.getPassword(),
-                List.of(authority)
+                authorities
         );
     }
 }
