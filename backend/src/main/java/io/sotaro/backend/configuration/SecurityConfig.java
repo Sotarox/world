@@ -2,6 +2,7 @@ package io.sotaro.backend.configuration;
 
 import io.sotaro.backend.security.AuthEntryPointJwt;
 import io.sotaro.backend.security.AuthTokenFilter;
+import io.sotaro.backend.util.Utility;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,8 +21,10 @@ public class SecurityConfig {
     private final CustomCorsConfiguration customCorsConfiguration;
     private final AuthEntryPointJwt unauthorizedHandler;
     private final AuthTokenFilter authTokenFilter;
-    private final String[] CSRF_DEACTIVATED_ENDPOINTS = {"/api/auth/login", "/api/auth/signup", "/api/auth/verify-email"};
-    private final String[] PROTECTED_ENDPOINTS = {"/api/auth/test/protected", "/api/user/**"};
+    private final String[] SWAGGER_URIS = {"/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"};
+    private final String[] AUTH_ENDPOINTS = {"/api/auth/login", "/api/auth/signup", "/api/auth/verify-email"};
+    private final String[] CSRF_DEACTIVATED_ENDPOINTS = Utility.concatWithArrayCopy(AUTH_ENDPOINTS, SWAGGER_URIS);
+    private final String[] AUTHENTICATE_REQUIRED_ENDPOINTS = {"/api/auth/test/protected", "/api/user/**"};
 
     public SecurityConfig(
             CustomCorsConfiguration customCorsConfiguration,
@@ -47,7 +50,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // CSRF cookie is required for POST, PUT, DELETE requests
+                // Send CSRF token as a cookie. It is required for POST, PUT, DELETE requests
                 .csrf(csrf ->
                         csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .ignoringRequestMatchers(CSRF_DEACTIVATED_ENDPOINTS)
@@ -62,7 +65,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                                .requestMatchers(PROTECTED_ENDPOINTS).authenticated()
+                                .requestMatchers(AUTHENTICATE_REQUIRED_ENDPOINTS).authenticated()
                                 .anyRequest().permitAll()
                 );
         // Add the JWT Token filter before the UsernamePasswordAuthenticationFilter
