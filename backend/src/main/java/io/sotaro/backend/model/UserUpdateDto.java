@@ -17,7 +17,7 @@ public record UserUpdateDto(
         @Nullable
         String username,
 
-        @Schema(description = "User's password", example = "user-passoword")
+        @Schema(description = "User's password", example = "user")
         @Nullable
         @Size(min = 3, max = 100)
         @Pattern(regexp = "^[\\x20-\\x7E]+$", message = "Password must contain only ASCII characters")

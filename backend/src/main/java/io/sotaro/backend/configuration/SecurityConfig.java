@@ -2,7 +2,6 @@ package io.sotaro.backend.configuration;
 
 import io.sotaro.backend.security.AuthEntryPointJwt;
 import io.sotaro.backend.security.AuthTokenFilter;
-import io.sotaro.backend.util.Utility;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -21,9 +22,7 @@ public class SecurityConfig {
     private final CustomCorsConfiguration customCorsConfiguration;
     private final AuthEntryPointJwt unauthorizedHandler;
     private final AuthTokenFilter authTokenFilter;
-    private final String[] SWAGGER_URIS = {"/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"};
     private final String[] AUTH_ENDPOINTS = {"/api/auth/login", "/api/auth/signup", "/api/auth/verify-email"};
-    private final String[] CSRF_DEACTIVATED_ENDPOINTS = Utility.concatWithArrayCopy(AUTH_ENDPOINTS, SWAGGER_URIS);
     private final String[] AUTHENTICATE_REQUIRED_ENDPOINTS = {"/api/auth/test/protected", "/api/user/**"};
 
     public SecurityConfig(
@@ -49,18 +48,27 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        // Configure the request handler to use the standard, unmasked token format for Swagger-UI
+        CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
+        requestHandler.setCsrfRequestAttributeName("_csrf");
+
         httpSecurity
-                // Send CSRF token as a cookie. It is required for POST, PUT, DELETE requests
+                .securityContext(securityContext -> securityContext
+                        .securityContextRepository(new RequestAttributeSecurityContextRepository())
+                )
+                // Send CSRF token as a cookie. It is required for POST, PUT, PATCH, DELETE requests
                 .csrf(csrf ->
                         csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers(CSRF_DEACTIVATED_ENDPOINTS)
+                        .csrfTokenRequestHandler(requestHandler)
+                        .ignoringRequestMatchers(AUTH_ENDPOINTS)
                 )
                 .cors(c -> c.configurationSource(customCorsConfiguration))
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling.authenticationEntryPoint(unauthorizedHandler)
                 )
                 .sessionManagement(sessionManagement ->
-                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        sessionManagement
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
