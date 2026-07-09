@@ -1,6 +1,5 @@
 package io.sotaro.backend.service;
 
-import io.sotaro.backend.enums.UserRole;
 import io.sotaro.backend.exception.MailAlreadyTakenException;
 import io.sotaro.backend.exception.MailNotVerifiedException;
 import io.sotaro.backend.model.*;
@@ -83,7 +82,7 @@ public class UserService {
                 .username(null)
                 .password(encoder.encode(user.password()))
                 .isVerified(false)
-                .role(UserRole.USER)
+                .role("USER")
                 .build();
         userRepository.save(newUserEntity);
         sendVerificationEmail(user.mail());

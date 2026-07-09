@@ -1,9 +1,7 @@
 package io.sotaro.backend.model;
 
-import io.sotaro.backend.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnTransformer;
 
 @Data
 @AllArgsConstructor
@@ -31,8 +29,7 @@ public class UserEntity {
     @Column(name = "is_verified")
     private boolean isVerified;
 
+    // Role can be "USER" or "ADMIN"
     @Column(name = "role", nullable = false)
-    @Enumerated(EnumType.STRING)
-    @ColumnTransformer(write="?::user_role")
-    private UserRole role;
+    private String role;
 }
