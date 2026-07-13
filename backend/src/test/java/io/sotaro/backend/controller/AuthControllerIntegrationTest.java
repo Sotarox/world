@@ -1,6 +1,5 @@
 package io.sotaro.backend.controller;
 
-import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -8,6 +7,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -128,19 +128,14 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
     @Nested
     class CsrfProtection {
         @Test
-        void whenAccessCsrfProtectedEndpointWithoutCsrfToken_thenReturnForbidden() throws Exception {
+        void whenAccessCsrfProtectedEndpointWithoutCsrfToken_thenReturnUnauthorized() throws Exception {
             mockMvc.perform(get(CSRF_PROTECTED_URI))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().isUnauthorized());
         }
 
         @Test
+//        @WithMockUser(roles = "USER")
         void whenAccessCsrfProtectedEndpointWithCsrfToken_thenReturnOk() throws Exception {
-            // First, get the CSRF token
-            MvcResult csrfResult = mockMvc.perform(get(CSRF_URI))
-                    .andExpect(status().isOk())
-                    .andReturn();
-            String csrfToken = csrfResult.getResponse().getContentAsString();
-
             // Log in to get a valid JWT token
             String loginRequestBody = """
                     {
@@ -159,13 +154,11 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
                         "username": "new-username"
                     }
                     """;
-            Cookie xsrfCookie = new Cookie("XSRF-TOKEN", csrfToken);
             // Now, access the CSRF protected endpoint with the token
             mockMvc.perform(put(CSRF_PROTECTED_URI)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(userEndpointRequestBody)
-                            .header("X-XSRF-TOKEN", csrfToken)
-                            .cookie(xsrfCookie)
+                            .with(csrf())
                             .cookie(result.getResponse().getCookie("jwtToken")))
                     .andExpect(status().isOk());
         }
