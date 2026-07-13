@@ -1,5 +1,6 @@
 package io.sotaro.backend.controller;
 
+import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -7,8 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.cookie;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -20,6 +20,8 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
     private final String SIGNUP_URI = BASE_URI + "/signup";
     private final String LOGIN_URI = BASE_URI + "/login";
     private final String AUTH_TEST_URI = BASE_URI + "/test/protected";
+    private final String CSRF_URI = "/api/csrf";
+    private final String CSRF_PROTECTED_URI = "/api/user";
 
     @Nested
     class Signup {
@@ -121,5 +123,51 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
 
         }
 
+    }
+
+    @Nested
+    class CsrfProtection {
+        @Test
+        void whenAccessCsrfProtectedEndpointWithoutCsrfToken_thenReturnForbidden() throws Exception {
+            mockMvc.perform(get(CSRF_PROTECTED_URI))
+                    .andExpect(status().isForbidden());
+        }
+
+        @Test
+        void whenAccessCsrfProtectedEndpointWithCsrfToken_thenReturnOk() throws Exception {
+            // First, get the CSRF token
+            MvcResult csrfResult = mockMvc.perform(get(CSRF_URI))
+                    .andExpect(status().isOk())
+                    .andReturn();
+            String csrfToken = csrfResult.getResponse().getContentAsString();
+
+            // Log in to get a valid JWT token
+            String loginRequestBody = """
+                    {
+                        "mail": "example1@test.com",
+                        "password": "password1"
+                    }
+                    """;
+            MvcResult result = mockMvc.perform(post(LOGIN_URI)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(loginRequestBody))
+                    .andExpect(status().isOk())
+                    .andReturn();
+
+            String userEndpointRequestBody = """
+                    {
+                        "username": "new-username"
+                    }
+                    """;
+            Cookie xsrfCookie = new Cookie("XSRF-TOKEN", csrfToken);
+            // Now, access the CSRF protected endpoint with the token
+            mockMvc.perform(put(CSRF_PROTECTED_URI)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(userEndpointRequestBody)
+                            .header("X-XSRF-TOKEN", csrfToken)
+                            .cookie(xsrfCookie)
+                            .cookie(result.getResponse().getCookie("jwtToken")))
+                    .andExpect(status().isOk());
+        }
     }
 }
