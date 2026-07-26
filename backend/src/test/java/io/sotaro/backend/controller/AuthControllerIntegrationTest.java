@@ -1,5 +1,6 @@
 package io.sotaro.backend.controller;
 
+import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -20,7 +21,6 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
     private final String SIGNUP_URI = BASE_URI + "/signup";
     private final String LOGIN_URI = BASE_URI + "/login";
     private final String AUTH_TEST_URI = BASE_URI + "/test/protected";
-    private final String CSRF_URI = "/api/csrf";
     private final String CSRF_PROTECTED_URI = "/api/user";
 
     @Nested
@@ -103,24 +103,11 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
 
         @Test
         void whenAccessProtectedEndpointWithValidToken_thenReturnOk() throws Exception {
-            // First, log in to get a valid JWT token
-            String requestBody = """
-                    {
-                        "mail": "example1@test.com",
-                        "password": "password1"
-                    }
-                    """;
-            MvcResult result = mockMvc.perform(post(LOGIN_URI)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(requestBody))
-                    .andExpect(status().isOk())
-                    .andReturn();
+            String jwtToken = jwtUtil.generateToken("example1@test.com");
 
-            // Now, access the protected endpoint with the token in cookie
             mockMvc.perform(get(AUTH_TEST_URI)
-                            .cookie(result.getResponse().getCookie("jwtToken")))
-                            .andExpect(status().isOk());
-
+                            .cookie(new Cookie("jwtToken", jwtToken)))
+                    .andExpect(status().isOk());
         }
 
     }
@@ -134,20 +121,9 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
         }
 
         @Test
-//        @WithMockUser(roles = "USER")
         void whenAccessCsrfProtectedEndpointWithCsrfToken_thenReturnOk() throws Exception {
             // Log in to get a valid JWT token
-            String loginRequestBody = """
-                    {
-                        "mail": "example1@test.com",
-                        "password": "password1"
-                    }
-                    """;
-            MvcResult result = mockMvc.perform(post(LOGIN_URI)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(loginRequestBody))
-                    .andExpect(status().isOk())
-                    .andReturn();
+            String jwtToken = jwtUtil.generateToken("example1@test.com");
 
             String userEndpointRequestBody = """
                     {
@@ -159,7 +135,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(userEndpointRequestBody)
                             .with(csrf())
-                            .cookie(result.getResponse().getCookie("jwtToken")))
+                            .cookie(new Cookie("jwtToken", jwtToken)))
                     .andExpect(status().isOk());
         }
     }

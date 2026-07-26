@@ -2,6 +2,7 @@ package io.sotaro.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.sotaro.backend.config.TestMailConfig;
+import io.sotaro.backend.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,4 +21,7 @@ public abstract class BaseSecurityIntegrationTest {
 
     @Autowired
     protected ObjectMapper objectMapper;
+
+    @Autowired
+    protected JwtUtil jwtUtil;
 }
