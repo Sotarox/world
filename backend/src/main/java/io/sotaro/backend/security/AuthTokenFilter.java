@@ -9,9 +9,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -24,6 +26,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
     @Autowired
     private CustomUserDetailsService userDetailsService;
+
+    private final RequestAttributeSecurityContextRepository securityContextRepository =
+            new RequestAttributeSecurityContextRepository();
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -45,7 +51,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                                 userDetails.getAuthorities()
                         );
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                log.info("Authenticated user: {}", authentication.getName());
+
+                SecurityContext context = SecurityContextHolder.createEmptyContext();
+                context.setAuthentication(authentication);
+                SecurityContextHolder.setContext(context);
+
+                securityContextRepository.saveContext(context, request, response);
             }
         } catch (Exception e) {
             log.warn("Cannot set user authentication", e);

@@ -2,10 +2,7 @@ package io.sotaro.backend.service;
 
 import io.sotaro.backend.exception.MailAlreadyTakenException;
 import io.sotaro.backend.exception.MailNotVerifiedException;
-import io.sotaro.backend.model.MessageDto;
-import io.sotaro.backend.model.UserDto;
-import io.sotaro.backend.model.UserEntity;
-import io.sotaro.backend.model.UserSignInDto;
+import io.sotaro.backend.model.*;
 import io.sotaro.backend.repository.UserRepository;
 import io.sotaro.backend.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
@@ -85,6 +82,7 @@ public class UserService {
                 .username(null)
                 .password(encoder.encode(user.password()))
                 .isVerified(false)
+                .role("USER")
                 .build();
         userRepository.save(newUserEntity);
         sendVerificationEmail(user.mail());
@@ -92,4 +90,14 @@ public class UserService {
         return ResponseEntity.ok(messageDto);
     }
 
+    public void updateUser(String mail, UserUpdateDto userUpdateDto){
+        UserEntity userEntity = userRepository.findByMail(mail);
+        if (userUpdateDto.username() != null) {
+            userEntity.setUsername(userUpdateDto.username());
+        }
+        if (userUpdateDto.password() != null) {
+            userEntity.setPassword(encoder.encode(userUpdateDto.password()));
+        }
+        userRepository.save(userEntity);
+    }
 }

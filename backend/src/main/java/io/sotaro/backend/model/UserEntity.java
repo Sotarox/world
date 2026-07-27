@@ -28,4 +28,8 @@ public class UserEntity {
 
     @Column(name = "is_verified")
     private boolean isVerified;
+
+    // Role can be "USER" or "ADMIN"
+    @Column(name = "role", nullable = false)
+    private String role;
 }

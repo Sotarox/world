@@ -38,5 +38,6 @@ CREATE TABLE Users (
   mail TEXT NOT NULL UNIQUE,
   username TEXT UNIQUE,
   password TEXT NOT NULL,
-  is_verified BOOLEAN NOT NULL
+  is_verified BOOLEAN NOT NULL,
+  role TEXT NOT NULL DEFAULT 'USER'
 );

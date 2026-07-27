@@ -40,10 +40,12 @@ public class AuthController {
         return ResponseEntity.ok(new JwtLifespanDto(jwtUtil.getExpiresAtEpochMs(token)));
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public ResponseEntity<MessageDto> logout(HttpServletResponse response) {
-        Cookie cookie = cookieService.createLogoutCookie();
-        response.addCookie(cookie);
+        Cookie logoutJwtCookie = cookieService.createLogoutJwtCookie();
+        response.addCookie(logoutJwtCookie);
+        Cookie logoutCsrfCookie = cookieService.createLogoutCSRFTokenCookie();
+        response.addCookie(logoutCsrfCookie);
         return ResponseEntity.ok(new MessageDto("Log out successfully!"));
     }
 

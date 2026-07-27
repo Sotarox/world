@@ -44,6 +44,11 @@ custom:
       secret: ${JWT_SECRET:thisIsMysecregtfrdesww233eggtffeeddgkjjhhtdhttebd54ndhdhfhhhshs8877465sbbdd}
   cookie:
     secure: false
+springdoc:
+  swagger-ui:
+    # swagger-ui attach XSRF(CSRF) token in request cookie
+    csrf:
+      enabled: true
 
 ---
 spring:

@@ -1,13 +1,13 @@
 package io.sotaro.backend.controller;
 
+import io.sotaro.backend.model.MessageDto;
 import io.sotaro.backend.model.UserDto;
+import io.sotaro.backend.model.UserUpdateDto;
 import io.sotaro.backend.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -24,5 +24,12 @@ public class UserController {
         String mail = userDetails.getUsername();
         UserDto userDto = userService.getCurrentUser(mail);
         return ResponseEntity.ok(userDto);
+    }
+
+    @PutMapping("/user")
+    public ResponseEntity<MessageDto> updateCurrentUser(@AuthenticationPrincipal UserDetails userDetails, @RequestBody UserUpdateDto userUpdateDto) {
+        String mail = userDetails.getUsername();
+        userService.updateUser(mail, userUpdateDto);
+        return ResponseEntity.ok(new MessageDto("User updated successfully"));
     }
 }
