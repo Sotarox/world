@@ -27,14 +27,21 @@ public class CookieService {
         return cookie;
     }
 
-    public Cookie createLogoutCookie(){
-        Cookie cookie = new Cookie("jwtToken", "");
+    public Cookie createLogoutJwtCookie(){
+        return createLogoutCookie("jwtToken");
+    }
+
+    public Cookie createLogoutCSRFTokenCookie(){
+        return createLogoutCookie("XSRF-TOKEN");
+    }
+
+    public Cookie createLogoutCookie(String cookieName) {
+        Cookie cookie = new Cookie(cookieName, "");
         cookie.setHttpOnly(true);
         if (isCookieSecure) { cookie.setSecure(true); }
         cookie.setPath("/");
         cookie.setMaxAge(0);
         return cookie;
     }
-
 
 }

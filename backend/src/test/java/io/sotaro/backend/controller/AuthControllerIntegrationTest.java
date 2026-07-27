@@ -20,6 +20,7 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
     private final String BASE_URI = "/api/auth";
     private final String SIGNUP_URI = BASE_URI + "/signup";
     private final String LOGIN_URI = BASE_URI + "/login";
+    private final String LOGOUT_URI = BASE_URI + "/logout";
     private final String AUTH_TEST_URI = BASE_URI + "/test/protected";
     private final String CSRF_PROTECTED_URI = "/api/user";
 
@@ -90,6 +91,34 @@ public class AuthControllerIntegrationTest extends BaseSecurityIntegrationTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(requestBody))
                     .andExpect(status().isUnauthorized());
+        }
+    }
+
+    @Nested
+    class Logout {
+        @Test
+        void whenLogout_thenJwtTokenCookieIsCleared() throws Exception {
+            MvcResult result = mockMvc.perform(post(LOGIN_URI)
+                            .secure(true)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                    {
+                                        "mail": "example1@test.com",
+                                        "password": "password1"
+                                    }
+                                    """))
+                    .andExpect(status().isOk())
+                    .andExpect(cookie().exists("jwtToken"))
+                    .andExpect(cookie().httpOnly("jwtToken", true))
+                    .andExpect(cookie().secure("jwtToken", true))
+                    .andReturn();
+
+            mockMvc.perform(post(LOGOUT_URI)
+                            .secure(true)
+                            .with(csrf())
+                            .cookie(result.getResponse().getCookie("jwtToken")))
+                    .andExpect(status().isOk())
+                    .andExpect(cookie().maxAge("jwtToken", 0));
         }
     }
 

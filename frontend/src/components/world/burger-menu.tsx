@@ -30,7 +30,7 @@ const BurgerMenu = React.memo(() => {
 
   function onLogout() {
     api
-      .get('/auth/logout')
+      .post('/auth/logout')
       .then(() => {
         toast.success('Logout successful');
         logout();
