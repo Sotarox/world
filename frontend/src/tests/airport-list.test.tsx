@@ -1,24 +1,7 @@
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import type { Airport } from '@/model/airport';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, within } from '@testing-library/react';
-import type { ReactNode } from 'react';
-
-function createWrapper() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
-
-  return function Wrapper({ children }: { children: ReactNode }) {
-    return (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
-  };
-}
+import { createWrapper } from './test-utils';
 
 const mockAirports: Airport[] = [
   {

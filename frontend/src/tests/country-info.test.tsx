@@ -1,8 +1,7 @@
 import { CountryInfo } from '@/app/countries/[iso2]/country-info';
 import { ACCountry } from '@/model/ac-country';
 import { render, screen } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import type { ReactNode } from 'react';
+import { createWrapper } from './test-utils';
 
 // Mock next/navigation (used by AdjacentNavigation internally)
 jest.mock('next/navigation', () => ({
@@ -17,22 +16,6 @@ jest.mock('@/api/axios', () => ({
     get: (...args: unknown[]) => mockUseApi(...args),
   },
 }));
-
-function createWrapper() {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
-
-  return function Wrapper({ children }: { children: ReactNode }) {
-    return (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
-  };
-}
 
 // Mock CountryShape to avoid SVG fetch in tests
 jest.mock('../components/world/country-shape', () => ({

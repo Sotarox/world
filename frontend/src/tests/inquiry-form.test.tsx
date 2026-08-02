@@ -1,28 +1,28 @@
-import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { InquiryForm } from '@/app/inquiry/inquiry-form';
-import api from '../api/axios';
+import api from '@/api/axios';
+import { createWrapper } from './test-utils';
 
-jest.mock('../api/axios', () => ({
+jest.mock('@/api/axios', () => ({
   __esModule: true,
   default: {
     post: jest.fn(),
   },
 }));
 
+const mockPost = jest.mocked(api.post);
+mockPost.mockResolvedValue({ success: true });
+
 jest.mock('sonner', () => ({
   toast: jest.fn(),
 }));
-
-const mockPost = jest.mocked(api.post);
-mockPost.mockResolvedValue({ success: true });
 
 afterEach(() => {
   mockPost.mockClear();
 });
 
 it('submits with valid data should fire API call', async () => {
-  render(<InquiryForm />);
+  render(<InquiryForm />, { wrapper: createWrapper() });
   fireEvent.change(screen.getByLabelText('Inquiry Title'), {
     target: { value: 'Test title' },
   });
@@ -40,7 +40,7 @@ it('submits with valid data should fire API call', async () => {
 });
 
 it('submits with empty title field should not fire API call', async () => {
-  render(<InquiryForm />);
+  render(<InquiryForm />, { wrapper: createWrapper() });
   fireEvent.change(screen.getByLabelText('Description'), {
     target: { value: 'Test description' },
   });
@@ -53,7 +53,7 @@ it('submits with empty title field should not fire API call', async () => {
 });
 
 it('submits with empty description field should not fire API call', async () => {
-  render(<InquiryForm />);
+  render(<InquiryForm />, { wrapper: createWrapper() });
   fireEvent.change(screen.getByLabelText('Inquiry Title'), {
     target: { value: 'Test title' },
   });
