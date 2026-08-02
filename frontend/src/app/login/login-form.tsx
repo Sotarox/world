@@ -23,6 +23,7 @@ import {
 } from '@/components/shadcn/field';
 import { Input } from '@/components/shadcn/input';
 import { useAuthStore } from '@/store/auth-store';
+import { useMutation } from '@tanstack/react-query';
 
 const formSchema = z.object({
   mail: z.email('Invalid email address'),
@@ -45,28 +46,21 @@ function LoginForm() {
       password: '',
     },
   });
-
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    api
-      .post('/auth/login', data)
-      .then((response) => {
-        login(response.data.expiresAtEpochMs);
-        toast.success('Login successful');
-      })
-      .catch((error) => {
-        console.log(
-          'Error submitting form:',
-          error.response?.data?.errorMessage || error.message
-        );
-        toast.error(
-          `Failed to submit login: ${error.response?.data?.errorMessage || error.message}`,
-          {
-            closeButton: true,
-            duration: Infinity,
-          }
-        );
+  const mutation = useMutation({
+    mutationFn: (credential: z.infer<typeof formSchema>) => {
+      return api.post('/auth/login', credential);
+    },
+    onError: (error) => {
+      toast.error(`Failed to submit login: ${error.message}`, {
+        closeButton: true,
+        duration: Infinity,
       });
-  }
+    },
+    onSuccess: (data) => {
+      login(data.data.expiresAtEpochMs);
+      toast.success('Login successful');
+    },
+  });
 
   return (
     <Card className='w-full animate-zoom-in'>
@@ -77,7 +71,10 @@ function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form id='login-form' onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          id='login-form'
+          onSubmit={form.handleSubmit((data) => mutation.mutate(data))}
+        >
           <FieldGroup>
             <Controller
               name='mail'

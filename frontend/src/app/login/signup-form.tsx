@@ -22,6 +22,7 @@ import {
   FieldLabel,
 } from '@/components/shadcn/field';
 import { Input } from '@/components/shadcn/input';
+import { useMutation } from '@tanstack/react-query';
 
 const formSchema = z.object({
   mail: z.email('Invalid email address'),
@@ -43,27 +44,20 @@ function SignupForm() {
       password: '',
     },
   });
-
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    api
-      .post('auth/signup', data)
-      .then(() => {
-        toast.success('Sign Up successful');
-      })
-      .catch((error) => {
-        console.log(
-          'Error submitting form:',
-          error.response?.data?.errorMessage || error.message
-        );
-        toast.error(
-          `Failed to submit sign up: ${error.response?.data?.errorMessage || error.message}`,
-          {
-            closeButton: true,
-            duration: Infinity,
-          }
-        );
+  const mutation = useMutation({
+    mutationFn: (credential: z.infer<typeof formSchema>) => {
+      return api.post('/auth/signup', credential);
+    },
+    onError: (error) => {
+      toast.error(`Failed to submit sign up: ${error.message}`, {
+        closeButton: true,
+        duration: Infinity,
       });
-  }
+    },
+    onSuccess: () => {
+      toast.success('Sign Up successful');
+    },
+  });
 
   return (
     <Card className='w-full animate-zoom-in'>
@@ -72,7 +66,10 @@ function SignupForm() {
         <CardDescription>Create a new account</CardDescription>
       </CardHeader>
       <CardContent>
-        <form id='signup-form' onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          id='signup-form'
+          onSubmit={form.handleSubmit((data) => mutation.mutate(data))}
+        >
           <FieldGroup>
             <Controller
               name='mail'
