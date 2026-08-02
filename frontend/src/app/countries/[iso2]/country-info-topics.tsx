@@ -1,10 +1,10 @@
 import { AirportList } from '@/app/countries/[iso2]/airport-list';
 import { PopulationInfo } from '@/app/countries/[iso2]/population-info';
 import { AreaInfo } from '@/app/countries/[iso2]/area-info';
-// import { useEconomyApi } from '@/api/use-economy-api';
-// import { EconomyCard } from '@/components/world/economy-card';
-// import { EconomyInfo } from '@/components/world/economy-info';
-// import { type EconomyApiResult } from '@/api/use-economy-api';
+import { useEconomyApi } from '@/api/use-economy-api';
+import { EconomyCard } from '@/components/world/economy-card';
+import { EconomyInfo } from '@/components/world/economy-info';
+import { type EconomyApiResult } from '@/api/use-economy-api';
 import InfoCardSelectable from '@/components/world/info-card-selectable';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
@@ -21,7 +21,7 @@ interface DetailInfoProps {
   currentTopic: TopicType;
   selectedTopicIndex: number;
   continentCode: string;
-  // economyApiResult: EconomyApiResult;
+  economyApiResult: EconomyApiResult;
   isMobile: boolean;
 }
 
@@ -31,7 +31,7 @@ const DetailInfo = memo(function DetailInfo({
   currentTopic,
   selectedTopicIndex,
   continentCode,
-  // economyApiResult,
+  economyApiResult,
   isMobile,
 }: DetailInfoProps) {
   if (currentTopic === '') return null;
@@ -47,9 +47,9 @@ const DetailInfo = memo(function DetailInfo({
         <PopulationInfo iso2={iso2} continentCode={continentCode} />
       )}
       {currentTopic === 'area' && <AreaInfo iso2={iso2} />}
-      {/* {currentTopic === 'economy' && (
+      {currentTopic === 'economy' && (
         <EconomyInfo economyApiResult={economyApiResult} />
-      )} */}
+      )}
       {currentTopic === 'airports' && <AirportList iso2={iso2} />}
     </div>
   );
@@ -64,7 +64,7 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
   const { iso2, country, acCountry } = props;
   const { currentTopic, toggleCurrentTopic, selectedTopicIndex } =
     useTopicStore();
-  // const economyApiResult = useEconomyApi(iso2);
+  const economyApiResult = useEconomyApi(iso2);
 
   const isMobile = useIsMobile();
 
@@ -77,7 +77,7 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
   };
 
   const elements: {
-    [key in Exclude<TopicType, '' | 'economy'>]: React.ReactElement;
+    [key in Exclude<TopicType, ''>]: React.ReactElement;
   } = {
     population: (
       <InfoCardSelectable
@@ -99,12 +99,12 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
         isSelected={currentTopic === 'area'}
       />
     ),
-    // economy: (
-    // <EconomyCard
-    //   economyApiResult={economyApiResult}
-    //   isSelected={currentTopic === 'economy'}
-    // />
-    // ),
+    economy: (
+      <EconomyCard
+        economyApiResult={economyApiResult}
+        isSelected={currentTopic === 'economy'}
+      />
+    ),
     airports: (
       <InfoCardSelectable
         title='Airports'
@@ -126,7 +126,7 @@ function CountryInfoTopics(props: CountryInfoTopicsProps) {
         selectedTopicIndex={selectedTopicIndex}
         iso2={iso2}
         continentCode={country.continent}
-        // economyApiResult={economyApiResult}
+        economyApiResult={economyApiResult}
         isMobile={isMobile}
       />
     </div>
