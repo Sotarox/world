@@ -1,15 +1,21 @@
 'use client';
-import { useApi } from '@/api/use-api';
+import api from '@/api/axios';
+import { useQuery } from '@tanstack/react-query';
 
 function ProtectedContent() {
-  const { data, error, loading } = useApi<{ message: string }>(
-    `/auth/test/protected`
-  );
+  const { data, error, isPending, isError } = useQuery({
+    queryKey: ['auth', 'test', 'protected'],
+    queryFn: () =>
+      api
+        .get<{ message: string }>('/auth/test/protected')
+        .then((res) => res.data),
+    retry: false,
+  });
 
-  return loading ? (
+  return isPending ? (
     <p>Loading...</p>
-  ) : error ? (
-    <p>Error: {error.message}</p>
+  ) : isError ? (
+    <p>Error: {error?.message}</p>
   ) : (
     <div>
       <h2>Login Successful</h2>
