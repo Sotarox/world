@@ -11,7 +11,7 @@ jest.mock('next/navigation', () => ({
 }));
 
 const mockUseApi = jest.fn();
-jest.mock('../api/axios', () => ({
+jest.mock('@/api/axios', () => ({
   __esModule: true,
   default: {
     get: (...args: unknown[]) => mockUseApi(...args),

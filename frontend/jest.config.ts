@@ -15,6 +15,10 @@ const config: Config = {
     '**/__tests__/**/*.test.(ts|tsx)',
     '**/?(*.)+(test).(ts|tsx)', // Exclude spec files, as they are used for e2e in this project
   ],
+  // Enable TypeScript path alias resolution
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
