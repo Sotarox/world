@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { ACCountryNav } from '@/model/ac-country';
 import { useRegionFilter } from '@/store/region-filter-store';
 import { CountryFilter } from './country-filter';
 import { useCountryNav } from '@/store/country-nav-store';
-import api from '../../api/axios';
+import api from '@/api/axios';
 import { Button } from '@/components/shadcn/button';
 import { ArrowDownAZIcon, ArrowDownZAIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -31,26 +32,29 @@ export function AppSidebar() {
   const countryNavs = useCountryNav((s) => s.countries);
   const setCountryNavs = useCountryNav((s) => s.setCountries);
   const [reversed, setReversed] = useState(false);
+  const { data } = useQuery({
+    queryKey: ['accountries', 'nav'],
+    queryFn: () =>
+      api
+        .get<ACCountryNav[]>('/accountries/nav')
+        .then((res) => (Array.isArray(res.data) ? res.data : [])),
+  });
+
+  const navData = useMemo(() => {
+    if (data == null) {
+      return [] as ACCountryNav[];
+    }
+
+    const filteredNavs = data.filter((obj) =>
+      filteredRegions.includes(obj.region)
+    );
+
+    return reversed ? [...filteredNavs].reverse() : filteredNavs;
+  }, [data, filteredRegions, reversed]);
 
   useEffect(() => {
-    api
-      .get<ACCountryNav[]>(`/accountries/nav`)
-      .then((res) => {
-        const data = Array.isArray(res.data) ? res.data : [];
-        const filteredNavs = data.filter((obj) =>
-          filteredRegions.includes(obj.region)
-        );
-        if (reversed) {
-          filteredNavs.reverse();
-        }
-        setCountryNavs(filteredNavs);
-      })
-      .catch((error) => {
-        if (error.name !== 'CanceledError') {
-          console.error(error);
-        }
-      });
-  }, [filteredRegions, setCountryNavs, reversed]);
+    setCountryNavs(navData);
+  }, [navData, setCountryNavs]);
 
   return (
     <Sidebar className={cn('pb-15 sm:pt-15 sm:pb-0', sidebarColor)}>
