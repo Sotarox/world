@@ -9,11 +9,11 @@ jest.mock('next/navigation', () => ({
   usePathname: () => '/',
 }));
 
-const mockUseApi = jest.fn();
+const mockUseQuery = jest.fn();
 jest.mock('@/api/axios', () => ({
   __esModule: true,
   default: {
-    get: (...args: unknown[]) => mockUseApi(...args),
+    get: (...args: unknown[]) => mockUseQuery(...args),
   },
 }));
 
@@ -80,11 +80,11 @@ const mockAcCountry: ACCountry = {
 
 describe('CountryInfo Component', () => {
   beforeEach(() => {
-    mockUseApi.mockReset();
+    mockUseQuery.mockReset();
   });
 
   it('renders country information when data is loaded', async () => {
-    mockUseApi.mockResolvedValueOnce({ data: mockAcCountry });
+    mockUseQuery.mockResolvedValueOnce({ data: mockAcCountry });
     const Wrapper = createWrapper();
     render(
       <Wrapper>
@@ -102,7 +102,7 @@ describe('CountryInfo Component', () => {
   });
 
   it('renders Loading text when data is loading', async () => {
-    mockUseApi.mockImplementationOnce(() => {});
+    mockUseQuery.mockImplementationOnce(() => {});
 
     const Wrapper = createWrapper();
     render(
@@ -115,7 +115,9 @@ describe('CountryInfo Component', () => {
   });
 
   it('shows error message when API fails', async () => {
-    mockUseApi.mockRejectedValueOnce(new Error('Test to simulate API failure'));
+    mockUseQuery.mockRejectedValueOnce(
+      new Error('Test to simulate API failure')
+    );
 
     const Wrapper = createWrapper();
     render(

@@ -20,7 +20,7 @@ const mockAirports: Airport[] = [
   },
 ] as Airport[];
 
-jest.mock('../api/axios', () => ({
+jest.mock('@/api/axios', () => ({
   __esModule: true,
   default: {
     get: jest.fn(() => Promise.resolve({ data: mockAirports })),
