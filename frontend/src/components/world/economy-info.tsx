@@ -12,7 +12,8 @@ interface EconomyInfoProps {
 const EconomyInfo = memo(function EconomyInfo({
   economyApiResult,
 }: EconomyInfoProps) {
-  const { seriesData, newestAnnualData, error, loading } = economyApiResult;
+  const { seriesData, newestAnnualData, error, isPending, isError } =
+    economyApiResult;
 
   return (
     <Card className='p-4'>
@@ -26,13 +27,15 @@ const EconomyInfo = memo(function EconomyInfo({
             {`Year: ${newestAnnualData.year}`}
           </span>
         </Grid>
-        {loading ? (
+        {isPending ? (
           <Grid size={{ xs: 12 }}>
             <span className='pl-2'>Loading...</span>
           </Grid>
-        ) : error ? (
+        ) : isError ? (
           <Grid size={{ xs: 12 }}>
-            <span className='pl-2'>Error loading economy data</span>
+            <span className='pl-2'>
+              Error loading economy data {error?.message}
+            </span>
           </Grid>
         ) : (
           <>

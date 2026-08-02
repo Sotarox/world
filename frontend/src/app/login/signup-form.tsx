@@ -22,7 +22,6 @@ import {
   FieldLabel,
 } from '@/components/shadcn/field';
 import { Input } from '@/components/shadcn/input';
-import { useAuthStore } from '@/store/auth-store';
 import { useMutation } from '@tanstack/react-query';
 
 const formSchema = z.object({
@@ -37,8 +36,7 @@ const formSchema = z.object({
     ),
 });
 
-function LoginForm() {
-  const { login } = useAuthStore();
+function SignupForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,31 +46,28 @@ function LoginForm() {
   });
   const mutation = useMutation({
     mutationFn: (credential: z.infer<typeof formSchema>) => {
-      return api.post('/auth/login', credential);
+      return api.post('/auth/signup', credential);
     },
     onError: (error) => {
-      toast.error(`Failed to submit login: ${error.message}`, {
+      toast.error(`Failed to submit sign up: ${error.message}`, {
         closeButton: true,
         duration: Infinity,
       });
     },
-    onSuccess: (data) => {
-      login(data.data.expiresAtEpochMs);
-      toast.success('Login successful');
+    onSuccess: () => {
+      toast.success('Sign Up successful');
     },
   });
 
   return (
     <Card className='w-full animate-zoom-in'>
       <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>
-          Login enables you to access additional features (WIP).
-        </CardDescription>
+        <CardTitle>Sign Up</CardTitle>
+        <CardDescription>Create a new account</CardDescription>
       </CardHeader>
       <CardContent>
         <form
-          id='login-form'
+          id='signup-form'
           onSubmit={form.handleSubmit((data) => mutation.mutate(data))}
         >
           <FieldGroup>
@@ -81,10 +76,10 @@ function LoginForm() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='login-form-mail'>Email</FieldLabel>
+                  <FieldLabel htmlFor='signup-form-mail'>Email</FieldLabel>
                   <Input
                     {...field}
-                    id='login-form-mail'
+                    id='signup-form-mail'
                     type='email'
                     aria-invalid={fieldState.invalid}
                     placeholder='Enter your email address'
@@ -92,7 +87,7 @@ function LoginForm() {
                   />
                   {fieldState.invalid && (
                     <FieldError
-                      data-testid='login-form-mail-error'
+                      data-testid='signup-form-mail-error'
                       errors={[fieldState.error]}
                     />
                   )}
@@ -104,12 +99,12 @@ function LoginForm() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor='login-form-password'>
+                  <FieldLabel htmlFor='signup-form-password'>
                     Password
                   </FieldLabel>
                   <Input
                     {...field}
-                    id='login-form-password'
+                    id='signup-form-password'
                     type='password'
                     aria-invalid={fieldState.invalid}
                     placeholder='••••••••'
@@ -117,7 +112,7 @@ function LoginForm() {
                   />
                   {fieldState.invalid && (
                     <FieldError
-                      data-testid='login-form-password-error'
+                      data-testid='signup-form-password-error'
                       errors={[fieldState.error]}
                     />
                   )}
@@ -129,7 +124,7 @@ function LoginForm() {
       </CardContent>
       <CardFooter>
         <Field orientation='horizontal'>
-          <Button type='submit' form='login-form'>
+          <Button type='submit' form='signup-form'>
             Submit
           </Button>
           <Button type='button' variant='outline' onClick={() => form.reset()}>
@@ -141,5 +136,5 @@ function LoginForm() {
   );
 }
 
-LoginForm.displayName = 'LoginForm';
-export { LoginForm };
+SignupForm.displayName = 'SignupForm';
+export { SignupForm };

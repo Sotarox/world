@@ -9,10 +9,10 @@ interface EconomyCardProps {
 
 const EconomyCard = memo(function EconomyCard(props: EconomyCardProps) {
   const { economyApiResult, isSelected } = props;
-  const { newestAnnualData, error, loading } = economyApiResult;
+  const { newestAnnualData, error, isPending } = economyApiResult;
 
   const getValue = () => {
-    if (loading) return 'Loading...';
+    if (isPending) return 'Loading...';
     if (error) return 'Error';
     return newestAnnualData.gdpValue;
   };

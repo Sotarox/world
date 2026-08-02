@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
-import { useApi } from './use-api';
 import { WbEconomyInfo, WbEconomyWrapper } from '@/model/wb-economy';
 import { formatGdpValue } from '@/utils/utils';
+import api from '@/api/axios';
+import { useQuery } from '@tanstack/react-query';
 
 interface EconomyApiResult {
   seriesData: WbEconomyInfo[];
@@ -11,15 +12,23 @@ interface EconomyApiResult {
     growthRate: string;
   };
   error: Error | null;
-  loading: boolean;
+  isPending: boolean;
+  isError: boolean;
 }
 
 function useEconomyApi(iso2: string): EconomyApiResult {
   const {
     data: economyWrapper,
     error,
-    loading,
-  } = useApi<WbEconomyWrapper>(`/economy/${iso2}`);
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ['economy', iso2],
+    queryFn: () =>
+      api.get<WbEconomyWrapper>(`/economy/${iso2}`).then((res) => res.data),
+    retry: false,
+    enabled: iso2 !== '',
+  });
 
   const seriesData = useMemo(
     () =>
@@ -44,7 +53,7 @@ function useEconomyApi(iso2: string): EconomyApiResult {
     };
   }, [economyWrapper]);
 
-  return { seriesData, newestAnnualData, error, loading };
+  return { seriesData, newestAnnualData, error, isPending, isError };
 }
 
 export { useEconomyApi, type EconomyApiResult };

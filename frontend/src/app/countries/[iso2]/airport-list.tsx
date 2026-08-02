@@ -1,7 +1,7 @@
-import React from 'react';
 import { type Airport } from '@/model/airport';
 import { AirportInfo } from './airport-info';
-import { useApi } from '@/api/use-api';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/api/axios';
 
 interface AirportListProps {
   iso2: string;
@@ -9,14 +9,20 @@ interface AirportListProps {
 
 function AirportList(props: AirportListProps) {
   const { iso2 } = props;
-  const { data, error, loading } = useApi<Airport[]>(`/airports/${iso2}`);
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ['airports'],
+    queryFn: () =>
+      api.get<Airport[]>(`/airports/${iso2}`).then((res) => res.data),
+  });
 
   return (
     <div className='mt-1 space-y-3'>
-      {loading ? (
+      {isPending ? (
         <span className='pl-2'>Loading...</span>
-      ) : error ? (
-        <span className='pl-2'>Error loading airport data</span>
+      ) : isError ? (
+        <span className='pl-2'>
+          Error loading airport data. {error?.message}
+        </span>
       ) : data && data.length > 0 ? (
         data.map((airport) => (
           <AirportInfo key={airport.dbId} airport={airport} />

@@ -1,6 +1,7 @@
 import { CountryInfo } from '@/app/countries/[iso2]/country-info';
 import { ACCountry } from '@/model/ac-country';
 import { render, screen } from '@testing-library/react';
+import { createWrapper } from './test-utils';
 
 // Mock next/navigation (used by AdjacentNavigation internally)
 jest.mock('next/navigation', () => ({
@@ -8,10 +9,12 @@ jest.mock('next/navigation', () => ({
   usePathname: () => '/',
 }));
 
-// Mock useApi — controls what the component "receives" from the API
-const mockUseApi = jest.fn();
-jest.mock('../api/use-api', () => ({
-  useApi: (...args: unknown[]) => mockUseApi(...args),
+const mockUseQuery = jest.fn();
+jest.mock('@/api/axios', () => ({
+  __esModule: true,
+  default: {
+    get: (...args: unknown[]) => mockUseQuery(...args),
+  },
 }));
 
 // Mock CountryShape to avoid SVG fetch in tests
@@ -77,19 +80,19 @@ const mockAcCountry: ACCountry = {
 
 describe('CountryInfo Component', () => {
   beforeEach(() => {
-    mockUseApi.mockReturnValue({ data: null, error: null, loading: false });
+    mockUseQuery.mockReset();
   });
 
-  it('renders country information when data is loaded', () => {
-    mockUseApi.mockReturnValue({
-      data: mockAcCountry,
-      error: null,
-      loading: false,
-    });
+  it('renders country information when data is loaded', async () => {
+    mockUseQuery.mockResolvedValueOnce({ data: mockAcCountry });
+    const Wrapper = createWrapper();
+    render(
+      <Wrapper>
+        <CountryInfo iso2='JP' />
+      </Wrapper>
+    );
 
-    render(<CountryInfo iso2='JP' />);
-
-    expect(screen.getByText('Tokyo')).toBeInTheDocument();
+    expect(await screen.findByText('Tokyo')).toBeInTheDocument();
     expect(screen.getByText('JP')).toBeInTheDocument();
     expect(screen.getByText('JPN')).toBeInTheDocument();
     expect(screen.getByText('Asia')).toBeInTheDocument();
@@ -98,23 +101,31 @@ describe('CountryInfo Component', () => {
     expect(screen.getByText('Japanese')).toBeInTheDocument();
   });
 
-  it('renders N/A values when data is loading', () => {
-    mockUseApi.mockReturnValue({ data: null, error: null, loading: true });
+  it('renders Loading text when data is loading', async () => {
+    mockUseQuery.mockImplementationOnce(() => {});
 
-    render(<CountryInfo iso2='JP' />);
+    const Wrapper = createWrapper();
+    render(
+      <Wrapper>
+        <CountryInfo iso2='JP' />
+      </Wrapper>
+    );
 
-    expect(screen.getAllByText('N/A').length).toBeGreaterThan(0);
+    expect(await screen.findByText('Loading...')).toBeInTheDocument();
   });
 
-  it('shows error message when API fails', () => {
-    mockUseApi.mockReturnValue({
-      data: null,
-      error: new Error('Network error'),
-      loading: false,
-    });
+  it('shows error message when API fails', async () => {
+    mockUseQuery.mockRejectedValueOnce(
+      new Error('Test to simulate API failure')
+    );
 
-    render(<CountryInfo iso2='JP' />);
+    const Wrapper = createWrapper();
+    render(
+      <Wrapper>
+        <CountryInfo iso2='JP' />
+      </Wrapper>
+    );
 
-    expect(screen.getByTestId('country-info-error')).toBeInTheDocument();
+    expect(await screen.findByTestId('country-info-error')).toBeInTheDocument();
   });
 });

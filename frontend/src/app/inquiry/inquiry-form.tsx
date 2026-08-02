@@ -30,6 +30,7 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from '@/components/shadcn/input-group';
+import { useMutation } from '@tanstack/react-query';
 
 const formSchema = z.object({
   title: z
@@ -43,6 +44,11 @@ const formSchema = z.object({
 });
 
 export function InquiryForm() {
+  const mutation = useMutation({
+    mutationFn: (newInquiry: z.infer<typeof formSchema>) => {
+      return api.post('/mail/inquiry', newInquiry);
+    },
+  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,9 +72,8 @@ export function InquiryForm() {
         '--border-radius': 'calc(var(--radius)  + 4px)',
       } as React.CSSProperties,
     });
-    api.post('/mail/inquiry', data).catch((error) => {
-      toast.error(`Failed to submit inquiry: ${error.message}`);
-    });
+    // TODO: loading and error handling
+    mutation.mutate(data);
   }
 
   return (

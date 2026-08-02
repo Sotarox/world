@@ -1,4 +1,3 @@
-import { useApi } from '@/api/use-api';
 import { Card } from '@/components/world/card';
 import { CountryShape } from '@/components/world/country-shape';
 import InfoCard from '@/components/world/info-card';
@@ -16,13 +15,24 @@ import {
 import 'flag-icons/css/flag-icons.min.css';
 import { AdjacentNavigation } from './adjacent-navigation';
 import CountryInfoHeader from './country-info-header';
+import { useQuery } from '@tanstack/react-query';
+import api from '@/api/axios';
 
 interface CountryInfoProps {
   iso2: string;
 }
 function CountryInfo(props: CountryInfoProps) {
   const { iso2 } = props;
-  const { data: acCountry, error } = useApi<ACCountry>(`/accountries/${iso2}`);
+  const {
+    isPending,
+    isError,
+    data: acCountry,
+    error,
+  } = useQuery({
+    queryKey: ['accountries', iso2],
+    queryFn: () =>
+      api.get<ACCountry>(`/accountries/${iso2}`).then((res) => res.data),
+  });
 
   const countryNavs = useCountryNav((s) => s.countries);
   const previousNav = previousCountryNav(iso2.toUpperCase(), countryNavs);
@@ -30,73 +40,80 @@ function CountryInfo(props: CountryInfoProps) {
 
   return (
     <Card className='p-4 gap-3'>
-      {error && (
+      {isPending ? (
+        <span className='pl-2'>Loading...</span>
+      ) : isError ? (
         <span className='pl-2' data-testid='country-info-error'>
-          Error loading country data
+          Error loading country data. {error?.message}
         </span>
+      ) : (
+        acCountry && (
+          <>
+            <CountryInfoHeader country={acCountry} />
+            <div className='flex justify-between items-center gap-4'>
+              <AdjacentNavigation order='previous' nav={previousNav} />
+              <CountryShape
+                iso2={iso2}
+                width={200}
+                height={200}
+                className='self-center'
+              />
+              <AdjacentNavigation order='next' nav={nextNav} />
+            </div>
+            <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 [&>*]:min-w-0'>
+              <InfoCard
+                title='Region'
+                value={acCountry?.region.toString() ?? 'N/A'}
+              />
+              <InfoCard
+                title='Subregion'
+                value={acCountry?.subregion.toString() ?? 'N/A'}
+              />
+              <InfoCard
+                title='Coordinate'
+                value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
+              />
+              <InfoCard title='Capital' value={acCountry?.capital ?? 'N/A'} />
+              <InfoCard
+                title='Country ISO2'
+                value={acCountry?.alpha2Code ?? 'N/A'}
+              />
+              <InfoCard
+                title='Country ISO3'
+                value={acCountry?.alpha3Code ?? 'N/A'}
+              />
+              <InfoCard
+                title='Top domain'
+                value={concatStringsWithComma(acCountry?.topLevelDomain)}
+              />
+              <InfoCard
+                title='Phone prefix'
+                value={acCountry?.callingCodes[0] ?? 'N/A'}
+              />
+              <InfoCard
+                title='Currency'
+                value={
+                  acCountry?.currencies ? acCountry.currencies[0].name : 'N/A'
+                }
+              />
+              <InfoCard
+                title='Independent'
+                value={getIndependentLabel(acCountry)}
+              />
+              <InfoCard
+                title='Language'
+                value={concatStringsWithComma(
+                  acCountry?.languages?.map((lang) => lang.name) ?? ['N/A']
+                )}
+              />
+              <InfoCard
+                title='Time zone'
+                value={concatStringsWithComma(acCountry?.timezones ?? ['N/A'])}
+              />
+            </div>
+          </>
+        )
       )}
-      <>
-        <CountryInfoHeader country={acCountry} />
-        <div className='flex justify-between items-center gap-4'>
-          <AdjacentNavigation order='previous' nav={previousNav} />
-          <CountryShape
-            iso2={iso2}
-            width={200}
-            height={200}
-            className='self-center'
-          />
-          <AdjacentNavigation order='next' nav={nextNav} />
-        </div>
-        <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 [&>*]:min-w-0'>
-          <InfoCard
-            title='Region'
-            value={acCountry?.region.toString() ?? 'N/A'}
-          />
-          <InfoCard
-            title='Subregion'
-            value={acCountry?.subregion.toString() ?? 'N/A'}
-          />
-          <InfoCard
-            title='Coordinate'
-            value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
-          />
-          <InfoCard title='Capital' value={acCountry?.capital ?? 'N/A'} />
-          <InfoCard
-            title='Country ISO2'
-            value={acCountry?.alpha2Code ?? 'N/A'}
-          />
-          <InfoCard
-            title='Country ISO3'
-            value={acCountry?.alpha3Code ?? 'N/A'}
-          />
-          <InfoCard
-            title='Top domain'
-            value={concatStringsWithComma(acCountry?.topLevelDomain)}
-          />
-          <InfoCard
-            title='Phone prefix'
-            value={acCountry?.callingCodes[0] ?? 'N/A'}
-          />
-          <InfoCard
-            title='Currency'
-            value={acCountry?.currencies ? acCountry.currencies[0].name : 'N/A'}
-          />
-          <InfoCard
-            title='Independent'
-            value={getIndependentLabel(acCountry)}
-          />
-          <InfoCard
-            title='Language'
-            value={concatStringsWithComma(
-              acCountry?.languages?.map((lang) => lang.name) ?? ['N/A']
-            )}
-          />
-          <InfoCard
-            title='Time zone'
-            value={concatStringsWithComma(acCountry?.timezones ?? ['N/A'])}
-          />
-        </div>
-      </>
     </Card>
   );
 }

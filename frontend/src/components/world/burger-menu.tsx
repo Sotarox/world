@@ -20,6 +20,7 @@ import { Button } from '../custom/button';
 import { useAuthStore } from '@/store/auth-store';
 import { toast } from 'sonner';
 import api from '@/api/axios';
+import { useMutation } from '@tanstack/react-query';
 
 const iconStyle = 'size-5 mr-2';
 const textStyle = 'text-lg';
@@ -27,19 +28,19 @@ const textStyle = 'text-lg';
 const BurgerMenu = React.memo(() => {
   const router = useRouter();
   const { isLoggedIn, logout } = useAuthStore();
-
-  function onLogout() {
-    api
-      .post('/auth/logout')
-      .then(() => {
-        toast.success('Logout successful');
-        logout();
-        router.push('/'); // Redirect to home page after logout
-      })
-      .catch((error) => {
-        toast.error(`Failed to logout: ${error.message}`);
-      });
-  }
+  const mutation = useMutation({
+    mutationFn: () => {
+      return api.post('/auth/logout');
+    },
+    onError: (error) => {
+      toast.error(`Failed to logout: ${error.message}`);
+    },
+    onSuccess: () => {
+      toast.success('Logout successful');
+      logout();
+      router.push('/'); // Redirect to home page after logout
+    },
+  });
 
   return (
     <DropdownMenu>
@@ -76,7 +77,10 @@ const BurgerMenu = React.memo(() => {
           Inquiry
         </DropdownMenuItem>
         {isLoggedIn && (
-          <DropdownMenuItem onClick={onLogout} className={textStyle}>
+          <DropdownMenuItem
+            onClick={() => mutation.mutate()}
+            className={textStyle}
+          >
             <LogOutIcon className={iconStyle} />
             Logout
           </DropdownMenuItem>

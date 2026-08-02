@@ -3,6 +3,7 @@
 import { useAuthStore } from '@/store/auth-store';
 import { useState } from 'react';
 import { LoginForm } from './login-form';
+import { SignupForm } from './signup-form';
 import { Button } from '@/components/custom/button';
 import { ProtectedContent } from './protected-content';
 
@@ -18,7 +19,7 @@ function FormsWrapper() {
     <div className='flex flex-col gap-2'>
       {showSignUp ? (
         <div>
-          <LoginForm formType='signup' />
+          <SignupForm />
           <div className='flex items-center gap-2'>
             <p>Already have an account? </p>
             <Button
@@ -32,7 +33,7 @@ function FormsWrapper() {
         </div>
       ) : (
         <div>
-          <LoginForm formType='login' />
+          <LoginForm />
           <div className='flex items-center gap-2'>
             <p>Don&apos;t have an account? </p>
             <Button
