@@ -16,7 +16,8 @@ import {
 } from 'lucide-react';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '../custom/button';
+import { Button } from '@/components/custom/button';
+import { VersionInfo } from '@/components/world/version-info';
 import { useAuthStore } from '@/store/auth-store';
 import { toast } from 'sonner';
 import api from '@/api/axios';
@@ -75,6 +76,12 @@ const BurgerMenu = React.memo(() => {
         >
           <MessageCircleHeartIcon className={iconStyle} />
           Inquiry
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className={textStyle}
+          onClick={(e) => e.preventDefault()}
+        >
+          <VersionInfo />
         </DropdownMenuItem>
         {isLoggedIn && (
           <DropdownMenuItem
