@@ -18,7 +18,7 @@ import {
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/custom/button';
-import { VersionInfo } from '@/components/world/version-info';
+import { VersionInfoDialog } from '@/components/world/version-info-dialog';
 import { useAuthStore } from '@/store/auth-store';
 import { toast } from 'sonner';
 import api from '@/api/axios';
@@ -109,7 +109,7 @@ const BurgerMenu = React.memo(() => {
           )}
         </DropdownMenuContent>
       </DropdownMenu>
-      <VersionInfo open={open} onOpenChange={onOpenChange} />
+      <VersionInfoDialog open={open} onOpenChange={onOpenChange} />
     </>
   );
 });

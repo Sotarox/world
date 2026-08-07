@@ -12,12 +12,12 @@ import {
 } from '@/components/custom/dialog';
 import { Button } from '@/components/shadcn/button';
 
-interface VersionInfoProps {
+interface VersionInfoDialogProps {
   open: boolean;
   onOpenChange: (isOpen: boolean) => void;
 }
 
-function VersionInfo({ open, onOpenChange }: VersionInfoProps) {
+function VersionInfoDialog({ open, onOpenChange }: VersionInfoDialogProps) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['commit'],
     queryFn: () => api.get<CommitInfo>(`/commit`).then((res) => res.data),
@@ -27,9 +27,9 @@ function VersionInfo({ open, onOpenChange }: VersionInfoProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild></DialogTrigger>
       <DialogContent className='w-[400px]'>
-        <DialogHeader>
+        <DialogHeader className='flex items-center'>
           <DialogTitle>Version Info</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className='sr-only'>
             Information about the last commit
           </DialogDescription>
         </DialogHeader>
@@ -40,11 +40,20 @@ function VersionInfo({ open, onOpenChange }: VersionInfoProps) {
             Error loading version info. {error?.message}
           </span>
         ) : data ? (
-          <div className='space-y-2'>
-            <div>Branch: {data.branch}</div>
-            <div>ID: {data.shortCommitId}</div>
-            <div>Build Time: {data.buildTime}</div>
-            <div>Message: {data.shortCommitMessage}</div>
+          <div className='flex flex-col space-y-2'>
+            <div>
+              <span>Branch: </span>
+              <span className='font-mono text-sm'>{data.branch}</span>
+            </div>
+            <div>
+              <span>Hash: </span>
+              <span className='font-mono text-sm'>{data.shortCommitId}</span>
+            </div>
+            <div>
+              <span>Time: </span>
+              <span className='font-mono text-sm'>{data.buildTime}</span>
+            </div>
+            <span className='font-mono text-sm'>{data.shortCommitMessage}</span>
           </div>
         ) : (
           <span className='pl-2'>No version info available</span>
@@ -60,5 +69,5 @@ function VersionInfo({ open, onOpenChange }: VersionInfoProps) {
   );
 }
 
-VersionInfo.displayName = 'VersionInfo';
-export { VersionInfo };
+VersionInfoDialog.displayName = 'VersionInfoDialog';
+export { VersionInfoDialog };
