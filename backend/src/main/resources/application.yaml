@@ -16,6 +16,11 @@ spring:
             enable: true
   config:
     import: optional:file:.env[.properties]
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
 # custom properties for world app
 custom:
   mail:
