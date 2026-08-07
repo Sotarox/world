@@ -22,10 +22,10 @@ public class CommitInfoController {
     @GetMapping("/")
     public Map<String, String> getCommitInfo() {
         return Map.of(
+                "shortCommitId", gitProperties.getShortCommitId(),
                 "branch", gitProperties.getBranch(),
                 "buildTime", gitProperties.getCommitTime().toString(),
-                "shortCommitMessage", gitProperties.get("commit.message.short"),
-                "shortCommitId", gitProperties.getShortCommitId()
+                "shortCommitMessage", gitProperties.get("commit.message.short")
         );
     }
 }
