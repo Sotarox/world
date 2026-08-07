@@ -10,7 +10,7 @@ interface AirportListProps {
 function AirportList(props: AirportListProps) {
   const { iso2 } = props;
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ['airports'],
+    queryKey: ['airports', iso2],
     queryFn: () =>
       api.get<Airport[]>(`/airports/${iso2}`).then((res) => res.data),
   });

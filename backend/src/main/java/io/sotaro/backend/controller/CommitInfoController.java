@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/commit")
+@RequestMapping("/api")
 public class CommitInfoController {
 
     // Spring Boot automatically populates this bean
@@ -19,7 +19,7 @@ public class CommitInfoController {
         this.gitProperties = gitProperties;
     }
 
-    @GetMapping("/")
+    @GetMapping("/commit")
     public Map<String, String> getCommitInfo() {
         return Map.of(
                 "shortCommitId", gitProperties.getShortCommitId(),
