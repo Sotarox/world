@@ -23,7 +23,9 @@ public class CommitInfoController {
     public Map<String, String> getCommitInfo() {
         return Map.of(
                 "branch", gitProperties.getBranch(),
-                "commitId", gitProperties.getShortCommitId()
+                "buildTime", gitProperties.getCommitTime().toString(),
+                "shortCommitMessage", gitProperties.get("commit.message.short"),
+                "shortCommitId", gitProperties.getShortCommitId()
         );
     }
 }
