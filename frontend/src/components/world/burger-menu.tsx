@@ -13,8 +13,9 @@ import {
   MessageCircleHeartIcon,
   LogOutIcon,
   LogInIcon,
+  GitBranchIcon,
 } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/custom/button';
 import { VersionInfo } from '@/components/world/version-info';
@@ -42,69 +43,74 @@ const BurgerMenu = React.memo(() => {
       router.push('/'); // Redirect to home page after logout
     },
   });
+  const [open, setOpen] = useState(false);
+  const onOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+  };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon' aria-label='open dropdown menu'>
-          <MenuIcon className='size-6' />
-        </Button>
-      </DropdownMenuTrigger>
-      {/* Since AppBar has z-index 1201 */}
-      <DropdownMenuContent className='z-[1202] w-50 flex flex-col gap-3 sm:gap-0'>
-        <DropdownMenuItem
-          onClick={() => {
-            router.push('/');
-          }}
-          className={textStyle}
-        >
-          <HomeIcon className={iconStyle} />
-          Home
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
-            router.push('/author');
-          }}
-          className={textStyle}
-        >
-          <UserRoundIcon className={iconStyle} />
-          Author
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => router.push('/inquiry')}
-          className={textStyle}
-        >
-          <MessageCircleHeartIcon className={iconStyle} />
-          Inquiry
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className={textStyle}
-          onClick={(e) => e.preventDefault()}
-        >
-          <VersionInfo />
-        </DropdownMenuItem>
-        {isLoggedIn && (
-          <DropdownMenuItem
-            onClick={() => mutation.mutate()}
-            className={textStyle}
-          >
-            <LogOutIcon className={iconStyle} />
-            Logout
-          </DropdownMenuItem>
-        )}
-        {!isLoggedIn && (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' size='icon' aria-label='open dropdown menu'>
+            <MenuIcon className='size-6' />
+          </Button>
+        </DropdownMenuTrigger>
+        {/* Since AppBar has z-index 1201 */}
+        <DropdownMenuContent className='z-[1202] w-50 flex flex-col gap-3 sm:gap-0'>
           <DropdownMenuItem
             onClick={() => {
-              router.push('/login');
+              router.push('/');
             }}
             className={textStyle}
           >
-            <LogInIcon className={iconStyle} />
-            Login
+            <HomeIcon className={iconStyle} />
+            Home
           </DropdownMenuItem>
-        )}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuItem
+            onClick={() => {
+              router.push('/author');
+            }}
+            className={textStyle}
+          >
+            <UserRoundIcon className={iconStyle} />
+            Author
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => router.push('/inquiry')}
+            className={textStyle}
+          >
+            <MessageCircleHeartIcon className={iconStyle} />
+            Inquiry
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setOpen(true)} className={textStyle}>
+            <GitBranchIcon className={iconStyle} />
+            Version
+          </DropdownMenuItem>
+          {isLoggedIn && (
+            <DropdownMenuItem
+              onClick={() => mutation.mutate()}
+              className={textStyle}
+            >
+              <LogOutIcon className={iconStyle} />
+              Logout
+            </DropdownMenuItem>
+          )}
+          {!isLoggedIn && (
+            <DropdownMenuItem
+              onClick={() => {
+                router.push('/login');
+              }}
+              className={textStyle}
+            >
+              <LogInIcon className={iconStyle} />
+              Login
+            </DropdownMenuItem>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <VersionInfo open={open} onOpenChange={onOpenChange} />
+    </>
   );
 });
 BurgerMenu.displayName = 'BurgerMenu';

@@ -8,25 +8,16 @@ import {
   DialogTrigger,
 } from '@/components/custom/dialog';
 import { Button } from '@/components/shadcn/button';
-import { cn } from '@/lib/utils';
-import { GitBranchIcon } from 'lucide-react';
-import { useState } from 'react';
 
-function VersionInfo() {
-  const [open, setOpen] = useState(false);
+interface VersionInfoProps {
+  open: boolean;
+  onOpenChange: (isOpen: boolean) => void;
+}
 
-  const onOpenChange = (isOpen: boolean) => {
-    setOpen(isOpen);
-  };
-
+function VersionInfo({ open, onOpenChange }: VersionInfoProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger asChild>
-        <div className='flex items-center gap-2 w-full'>
-          <GitBranchIcon className={cn('size-5 mr-2')} />
-          <span className='text-lg'>Version</span>
-        </div>
-      </DialogTrigger>
+      <DialogTrigger asChild></DialogTrigger>
       <DialogContent className='w-[400px]'>
         <DialogHeader>
           <DialogTitle>Version Info</DialogTitle>
