@@ -1,6 +1,6 @@
 import { Card } from '@/components/world/card';
 import { CountryShape } from '@/components/world/country-shape';
-import InfoCard from '@/components/world/info-card';
+import SortableInfoCard from '@/components/world/sortable-info-card';
 import type { ACCountry } from '@/model/ac-country';
 import {
   nextCountryNav,
@@ -61,52 +61,67 @@ function CountryInfo(props: CountryInfoProps) {
               <AdjacentNavigation order='next' nav={nextNav} />
             </div>
             <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 [&>*]:min-w-0'>
-              <InfoCard
+              <SortableInfoCard
+                index={0}
                 title='Region'
                 value={acCountry?.region.toString() ?? 'N/A'}
               />
-              <InfoCard
+              <SortableInfoCard
+                index={1}
                 title='Subregion'
                 value={acCountry?.subregion.toString() ?? 'N/A'}
               />
-              <InfoCard
+              <SortableInfoCard
+                index={2}
                 title='Coordinate'
                 value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
               />
-              <InfoCard title='Capital' value={acCountry?.capital ?? 'N/A'} />
-              <InfoCard
+              <SortableInfoCard
+                index={3}
+                title='Capital'
+                value={acCountry?.capital ?? 'N/A'}
+              />
+              <SortableInfoCard
+                index={4}
                 title='Country ISO2'
                 value={acCountry?.alpha2Code ?? 'N/A'}
               />
-              <InfoCard
+              <SortableInfoCard
+                index={5}
                 title='Country ISO3'
                 value={acCountry?.alpha3Code ?? 'N/A'}
               />
-              <InfoCard
+              <SortableInfoCard
+                index={6}
                 title='Top domain'
                 value={concatStringsWithComma(acCountry?.topLevelDomain)}
               />
-              <InfoCard
+              <SortableInfoCard
+                index={7}
                 title='Phone prefix'
                 value={acCountry?.callingCodes[0] ?? 'N/A'}
               />
-              <InfoCard
+              <SortableInfoCard
+                index={8}
                 title='Currency'
                 value={
                   acCountry?.currencies ? acCountry.currencies[0].name : 'N/A'
                 }
               />
-              <InfoCard
+              <SortableInfoCard
+                index={9}
                 title='Independent'
                 value={getIndependentLabel(acCountry)}
               />
-              <InfoCard
+              <SortableInfoCard
+                index={10}
                 title='Language'
                 value={concatStringsWithComma(
                   acCountry?.languages?.map((lang) => lang.name) ?? ['N/A']
                 )}
               />
-              <InfoCard
+              <SortableInfoCard
+                index={11}
                 title='Time zone'
                 value={concatStringsWithComma(acCountry?.timezones ?? ['N/A'])}
               />
