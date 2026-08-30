@@ -1,5 +1,6 @@
 import SortableInfoCard from '@/components/world/sortable-info-card';
 import type { ACCountry } from '@/model/ac-country';
+import { useSortableInfoCard } from '@/store/sortable-country-info-store';
 import {
   concatStringsWithComma,
   formatCoordinate,
@@ -13,82 +14,51 @@ interface CountryInfoTableProps {
 }
 function CountryInfoTable(props: CountryInfoTableProps) {
   const { acCountry } = props;
+  const { infoCards, setInfoCards } = useSortableInfoCard();
+  const infoCardTable: Record<string, string> = {
+    Region: acCountry.region.toString() ?? 'N/A',
+    Subregion: acCountry.subregion.toString() ?? 'N/A',
+    Coordinate: acCountry ? formatCoordinate(acCountry.latlng) : 'N/A',
+    Capital: acCountry.capital ?? 'N/A',
+    'Country ISO2': acCountry.alpha2Code ?? 'N/A',
+    'Country ISO3': acCountry.alpha3Code ?? 'N/A',
+    'Top domain': concatStringsWithComma(acCountry.topLevelDomain),
+    'Phone prefix': acCountry.callingCodes[0] ?? 'N/A',
+    Currency: acCountry.currencies ? acCountry.currencies[0].name : 'N/A',
+    Independent: getIndependentLabel(acCountry),
+    Language: concatStringsWithComma(
+      acCountry.languages.map((lang) => lang.name) ?? ['N/A']
+    ),
+    'Time zone': concatStringsWithComma(acCountry.timezones ?? ['N/A']),
+  };
+  const resortInfoCards = (fromIndex: number, toIndex: number) => {
+    const updatedInfoCards = [...infoCards];
+    const [movedCard] = updatedInfoCards.splice(fromIndex, 1);
+    updatedInfoCards.splice(toIndex, 0, movedCard);
+    return updatedInfoCards;
+  };
 
   return (
     <DragDropProvider
       onDragEnd={(event) => {
         const { source, target } = event.operation;
-        if (isSortable(source)) {
-          console.log('source.index', source.index);
-          console.log('source.initialIndex', source.initialIndex);
-        }
-        if (isSortable(target)) {
-          console.log('target.index', target.index);
+        if (isSortable(source) && isSortable(target)) {
+          const updatedInfoCards = resortInfoCards(
+            source.initialIndex,
+            target.index
+          );
+          setInfoCards(updatedInfoCards);
         }
       }}
     >
-      <SortableInfoCard
-        index={0}
-        title='Region'
-        value={acCountry.region.toString() ?? 'N/A'}
-      />
-      <SortableInfoCard
-        index={1}
-        title='Subregion'
-        value={acCountry.subregion.toString() ?? 'N/A'}
-      />
-      <SortableInfoCard
-        index={2}
-        title='Coordinate'
-        value={acCountry ? formatCoordinate(acCountry.latlng) : 'N/A'}
-      />
-      <SortableInfoCard
-        index={3}
-        title='Capital'
-        value={acCountry.capital ?? 'N/A'}
-      />
-      <SortableInfoCard
-        index={4}
-        title='Country ISO2'
-        value={acCountry.alpha2Code ?? 'N/A'}
-      />
-      <SortableInfoCard
-        index={5}
-        title='Country ISO3'
-        value={acCountry.alpha3Code ?? 'N/A'}
-      />
-      <SortableInfoCard
-        index={6}
-        title='Top domain'
-        value={concatStringsWithComma(acCountry.topLevelDomain)}
-      />
-      <SortableInfoCard
-        index={7}
-        title='Phone prefix'
-        value={acCountry.callingCodes[0] ?? 'N/A'}
-      />
-      <SortableInfoCard
-        index={8}
-        title='Currency'
-        value={acCountry.currencies ? acCountry.currencies[0].name : 'N/A'}
-      />
-      <SortableInfoCard
-        index={9}
-        title='Independent'
-        value={getIndependentLabel(acCountry)}
-      />
-      <SortableInfoCard
-        index={10}
-        title='Language'
-        value={concatStringsWithComma(
-          acCountry.languages.map((lang) => lang.name) ?? ['N/A']
-        )}
-      />
-      <SortableInfoCard
-        index={11}
-        title='Time zone'
-        value={concatStringsWithComma(acCountry.timezones ?? ['N/A'])}
-      />
+      {infoCards.map((card) => (
+        <SortableInfoCard
+          key={card.index}
+          index={card.index}
+          title={card.title}
+          value={infoCardTable[card.title]}
+        />
+      ))}
     </DragDropProvider>
   );
 }
