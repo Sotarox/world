@@ -1,5 +1,6 @@
 import SortableInfoCard from '@/components/world/sortable-info-card';
 import type { ACCountry } from '@/model/ac-country';
+import type { InfoCardTitles } from '@/model/country';
 import { useSortableInfoCard } from '@/store/sortable-country-info-store';
 import {
   concatStringsWithComma,
@@ -8,7 +9,19 @@ import {
 } from '@/utils/utils';
 import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
-import type { InfoCardTitles } from '@/model/country';
+import {
+  ALargeSmallIcon,
+  AtSignIcon,
+  BuildingIcon,
+  CircleDollarSignIcon,
+  Clock4Icon,
+  CompassIcon,
+  FlagIcon,
+  HashIcon,
+  LandPlotIcon,
+  MapPinnedIcon,
+  PhoneIcon,
+} from 'lucide-react';
 
 interface CountryInfoGridProps {
   acCountry: ACCountry;
@@ -16,21 +29,54 @@ interface CountryInfoGridProps {
 function CountryInfoGrid(props: CountryInfoGridProps) {
   const { acCountry } = props;
   const { infoCards, setInfoCards } = useSortableInfoCard();
-  const infoCardValues: Record<(typeof InfoCardTitles)[number], string> = {
-    Region: acCountry.region.toString() ?? 'N/A',
-    Subregion: acCountry.subregion.toString() ?? 'N/A',
-    Coordinate: acCountry ? formatCoordinate(acCountry.latlng) : 'N/A',
-    Capital: acCountry.capital ?? 'N/A',
-    'Country ISO2': acCountry.alpha2Code ?? 'N/A',
-    'Country ISO3': acCountry.alpha3Code ?? 'N/A',
-    'Top domain': concatStringsWithComma(acCountry.topLevelDomain),
-    'Phone prefix': acCountry.callingCodes[0] ?? 'N/A',
-    Currency: acCountry.currencies ? acCountry.currencies[0].name : 'N/A',
-    Independent: getIndependentLabel(acCountry),
-    Language: concatStringsWithComma(
-      acCountry.languages.map((lang) => lang.name) ?? ['N/A']
-    ),
-    'Time zone': concatStringsWithComma(acCountry.timezones ?? ['N/A']),
+  const infoCardValues: Record<
+    (typeof InfoCardTitles)[number],
+    { value: string; icon: React.ReactNode }
+  > = {
+    Region: {
+      value: acCountry.region.toString() ?? 'N/A',
+      icon: <LandPlotIcon />,
+    },
+    Subregion: {
+      value: acCountry.subregion.toString() ?? 'N/A',
+      icon: <MapPinnedIcon />,
+    },
+    Coordinate: {
+      value: formatCoordinate(acCountry.latlng),
+      icon: <CompassIcon />,
+    },
+    Capital: { value: acCountry.capital ?? 'N/A', icon: <BuildingIcon /> },
+    'Country ISO2': {
+      value: acCountry.alpha2Code ?? 'N/A',
+      icon: <HashIcon />,
+    },
+    'Country ISO3': {
+      value: acCountry.alpha3Code ?? 'N/A',
+      icon: <HashIcon />,
+    },
+    'Top domain': {
+      value: concatStringsWithComma(acCountry.topLevelDomain),
+      icon: <AtSignIcon />,
+    },
+    'Phone prefix': {
+      value: acCountry.callingCodes[0] ?? 'N/A',
+      icon: <PhoneIcon />,
+    },
+    Currency: {
+      value: acCountry.currencies ? acCountry.currencies[0].name : 'N/A',
+      icon: <CircleDollarSignIcon />,
+    },
+    Independent: { value: getIndependentLabel(acCountry), icon: <FlagIcon /> },
+    Language: {
+      value: concatStringsWithComma(
+        acCountry.languages.map((lang) => lang.name) ?? ['N/A']
+      ),
+      icon: <ALargeSmallIcon />,
+    },
+    'Time zone': {
+      value: concatStringsWithComma(acCountry.timezones ?? ['N/A']),
+      icon: <Clock4Icon />,
+    },
   };
   const resortInfoCards = (fromIndex: number, toIndex: number) => {
     const updatedInfoCards = [...infoCards];
@@ -57,7 +103,8 @@ function CountryInfoGrid(props: CountryInfoGridProps) {
           key={card.title}
           index={card.index}
           title={card.title}
-          value={infoCardValues[card.title]}
+          value={infoCardValues[card.title].value}
+          icon={infoCardValues[card.title].icon}
         />
       ))}
     </DragDropProvider>
