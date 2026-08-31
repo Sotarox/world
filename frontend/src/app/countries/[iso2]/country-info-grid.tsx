@@ -36,7 +36,7 @@ function CountryInfoGrid(props: CountryInfoGridProps) {
     const updatedInfoCards = [...infoCards];
     const [movedCard] = updatedInfoCards.splice(fromIndex, 1);
     updatedInfoCards.splice(toIndex, 0, movedCard);
-    return updatedInfoCards;
+    return updatedInfoCards.map((card, idx) => ({ ...card, index: idx }));
   };
 
   return (
@@ -54,7 +54,7 @@ function CountryInfoGrid(props: CountryInfoGridProps) {
     >
       {infoCards.map((card) => (
         <SortableInfoCard
-          key={card.index}
+          key={card.title}
           index={card.index}
           title={card.title}
           value={infoCardValues[card.title]}
