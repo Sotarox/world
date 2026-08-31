@@ -1,10 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-export interface InfoCardEntry {
-  index: number;
-  title: string;
-}
+import type { InfoCardEntry } from '@/model/country';
 
 const defaultInfoCards: InfoCardEntry[] = [
   { index: 0, title: 'Region' },

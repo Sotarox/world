@@ -8,6 +8,7 @@ import {
 } from '@/utils/utils';
 import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
+import type { InfoCardTitles } from '@/model/country';
 
 interface CountryInfoGridProps {
   acCountry: ACCountry;
@@ -15,7 +16,7 @@ interface CountryInfoGridProps {
 function CountryInfoGrid(props: CountryInfoGridProps) {
   const { acCountry } = props;
   const { infoCards, setInfoCards } = useSortableInfoCard();
-  const infoCardTable: Record<string, string> = {
+  const infoCardValues: Record<(typeof InfoCardTitles)[number], string> = {
     Region: acCountry.region.toString() ?? 'N/A',
     Subregion: acCountry.subregion.toString() ?? 'N/A',
     Coordinate: acCountry ? formatCoordinate(acCountry.latlng) : 'N/A',
@@ -56,7 +57,7 @@ function CountryInfoGrid(props: CountryInfoGridProps) {
           key={card.index}
           index={card.index}
           title={card.title}
-          value={infoCardTable[card.title]}
+          value={infoCardValues[card.title]}
         />
       ))}
     </DragDropProvider>
