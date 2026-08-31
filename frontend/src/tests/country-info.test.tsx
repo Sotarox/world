@@ -22,6 +22,32 @@ jest.mock('../components/world/country-shape', () => ({
   CountryShape: () => null,
 }));
 
+jest.mock('@dnd-kit/react', () => ({
+  __esModule: true,
+  DragDropProvider: ({ children }: { children: React.ReactNode }) => children,
+}));
+
+jest.mock('@dnd-kit/react/sortable', () => ({
+  __esModule: true,
+  isSortable: () => false,
+  useSortable: () => ({
+    ref: jest.fn(),
+    handleRef: jest.fn(),
+  }),
+}));
+
+jest.mock('@/store/sortable-country-info-store', () => {
+  const actual = jest.requireActual('@/store/sortable-country-info-store');
+  return {
+    __esModule: true,
+    ...actual,
+    useSortableInfoCard: () => ({
+      infoCards: actual.defaultInfoCards,
+      setInfoCards: jest.fn(),
+    }),
+  };
+});
+
 const mockAcCountry: ACCountry = {
   name: 'Japan',
   topLevelDomain: ['.jp'],

@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { InfoCardEntry } from '@/model/country';
 
-const defaultInfoCards: InfoCardEntry[] = [
+export const defaultInfoCards: InfoCardEntry[] = [
   { index: 0, title: 'Region' },
   { index: 1, title: 'Subregion' },
   { index: 2, title: 'Coordinate' },
