@@ -9,10 +9,10 @@ import {
 import { DragDropProvider } from '@dnd-kit/react';
 import { isSortable } from '@dnd-kit/react/sortable';
 
-interface CountryInfoTableProps {
+interface CountryInfoGridProps {
   acCountry: ACCountry;
 }
-function CountryInfoTable(props: CountryInfoTableProps) {
+function CountryInfoGrid(props: CountryInfoGridProps) {
   const { acCountry } = props;
   const { infoCards, setInfoCards } = useSortableInfoCard();
   const infoCardTable: Record<string, string> = {
@@ -63,5 +63,5 @@ function CountryInfoTable(props: CountryInfoTableProps) {
   );
 }
 
-CountryInfoTable.displayName = 'CountryInfoTable';
-export { CountryInfoTable };
+CountryInfoGrid.displayName = 'CountryInfoGrid';
+export { CountryInfoGrid };

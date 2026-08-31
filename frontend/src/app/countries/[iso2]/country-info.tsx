@@ -7,13 +7,11 @@ import {
   previousCountryNav,
 } from '@/model/country-iso2-name-map';
 import { useCountryNav } from '@/store/country-nav-store';
-import { DragDropProvider } from '@dnd-kit/react';
-import { isSortable } from '@dnd-kit/react/sortable';
 import { useQuery } from '@tanstack/react-query';
 import 'flag-icons/css/flag-icons.min.css';
 import { AdjacentNavigation } from './adjacent-navigation';
 import CountryInfoHeader from './country-info-header';
-import { CountryInfoTable } from './country-info-table';
+import { CountryInfoGrid } from './country-info-grid';
 
 interface CountryInfoProps {
   iso2: string;
@@ -36,47 +34,34 @@ function CountryInfo(props: CountryInfoProps) {
   const nextNav = nextCountryNav(iso2.toUpperCase(), countryNavs);
 
   return (
-    <DragDropProvider
-      onDragEnd={(event) => {
-        const { source, target } = event.operation;
-        if (isSortable(source)) {
-          console.log('source.index', source.index);
-          console.log('source.initialIndex', source.initialIndex);
-        }
-        if (isSortable(target)) {
-          console.log('target.index', target.index);
-        }
-      }}
-    >
-      <Card className='p-4 gap-3'>
-        {isPending ? (
-          <span className='pl-2'>Loading...</span>
-        ) : isError ? (
-          <span className='pl-2' data-testid='country-info-error'>
-            Error loading country data. {error?.message}
-          </span>
-        ) : (
-          acCountry && (
-            <>
-              <CountryInfoHeader country={acCountry} />
-              <div className='flex justify-between items-center gap-4'>
-                <AdjacentNavigation order='previous' nav={previousNav} />
-                <CountryShape
-                  iso2={iso2}
-                  width={200}
-                  height={200}
-                  className='self-center'
-                />
-                <AdjacentNavigation order='next' nav={nextNav} />
-              </div>
-              <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 [&>*]:min-w-0'>
-                <CountryInfoTable acCountry={acCountry} />
-              </div>
-            </>
-          )
-        )}
-      </Card>
-    </DragDropProvider>
+    <Card className='p-4 gap-3'>
+      {isPending ? (
+        <span className='pl-2'>Loading...</span>
+      ) : isError ? (
+        <span className='pl-2' data-testid='country-info-error'>
+          Error loading country data. {error?.message}
+        </span>
+      ) : (
+        acCountry && (
+          <>
+            <CountryInfoHeader country={acCountry} />
+            <div className='flex justify-between items-center gap-4'>
+              <AdjacentNavigation order='previous' nav={previousNav} />
+              <CountryShape
+                iso2={iso2}
+                width={200}
+                height={200}
+                className='self-center'
+              />
+              <AdjacentNavigation order='next' nav={nextNav} />
+            </div>
+            <div className='grid grid-cols-2 sm:grid-cols-4 gap-2 [&>*]:min-w-0'>
+              <CountryInfoGrid acCountry={acCountry} />
+            </div>
+          </>
+        )
+      )}
+    </Card>
   );
 }
 
