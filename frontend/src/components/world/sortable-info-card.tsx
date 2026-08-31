@@ -24,17 +24,20 @@ function SortableInfoCard(props: SortableInfoCardProps) {
   return (
     <div
       ref={ref}
-      className={cn('flex p-2 items-center justify-between', className)}
+      className={cn(
+        'flex p-2 w-full min-w-0 items-center justify-between',
+        className
+      )}
     >
-      <div className='flex items-center space-x-2'>
+      <div className='flex min-w-0 items-center gap-2'>
         {styledIcon}
-        <div className='flex flex-col'>
-          <span className='text-lg font-extralight'>{title}</span>
-          <span className='text-base'>{value}</span>
+        <div className='flex flex-col min-w-0'>
+          <span className='text-lg font-extralight truncate'> {title}</span>
+          <span className='text-base truncate'>{value}</span>
         </div>
       </div>
       <GripVerticalIcon
-        className='size-3 min-w-3 cursor-grab text-gray-400 dark:text-gray-500'
+        className='size-3 min-w-3 cursor-grab shrink-0 text-gray-400 dark:text-gray-500'
         ref={handleRef}
       />
     </div>
