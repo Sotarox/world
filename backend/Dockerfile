@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21.0.10_7-jre-ubi10-minimal
+FROM eclipse-temurin:21-jre-ubi10-minimal
 
 WORKDIR /app
 COPY target/*.jar /app/backend-0.1.5-SNAPSHOT.jar
